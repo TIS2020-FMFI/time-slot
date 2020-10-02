@@ -1,0 +1,4 @@
+1. Vseobecne otazky ohladom projektu.
+2. Riesenie e-mail GEFCO.
+3. Ukazka narabania s gitom u P.P.
+4. Uvodne predstavi designu.
