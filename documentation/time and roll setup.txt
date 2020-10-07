@@ -39,5 +39,5 @@
 	3.1.#ALL  piatok 16.00-17.00 stretavka teams 
 
 4.#P.P dohodnúť si termín pre pre stretavku s P.P
-	4.1.#P.P  piatok 17.00-18.00 stretavka teams ?? Neodsuhlasene ucitelom
+	4.1.#P.P  piatok 17.00-18.00 stretavka teams 
 	
