@@ -11,7 +11,8 @@ if (isset($_POST["F_name"])) {
         $sql = "INSERT INTO employee SET meno='$first_name',priezvsko='$last_name',  email='$email', heslo=MD5('$password'), role='$role'"; // definuj dopyt
         if ($result = $mysqli->query($sql)) { //&& ($result->num_rows > 0)) {  // vykonaj dopyt
             // dopyt sa podarilo vykonať
-            echo '<p>Používateľ bol pridaný.</p>' . "\n";
+            $last_id = $mysqli->insert_id;
+            echo 'Používateľ bol pridaný . $ '. $last_id;
             return true;
         } else {
             // NEpodarilo sa vykonať dopyt!
@@ -29,5 +30,3 @@ if (isset($_POST["F_name"])) {
         return false;
     }
 }
-
-?>
