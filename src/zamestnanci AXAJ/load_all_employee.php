@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('../db.php');
 
 if (!$mysqli->connect_errno) {
     $sql = "SELECT * FROM employee";
