@@ -94,43 +94,6 @@ function close_new_customer(){
     document.getElementsByClassName('add_customer')[0].style.display="none";
 }
 
-function add_employee(){
-
-
-
-
-    let F_name = document.getElementById('inputNewName').value;
-    let L_name = document.getElementById('inputNewLastName').value;
-    let email = document.getElementById('inputEmail').value;
-    let password = document.getElementById('inputPassword').value;
-    let role = document.getElementById('role_of_new_employee').value;
-    $.post('register_user.php',{
-        F_name: F_name,
-        L_name:L_name,
-        email: email,
-        password : password,
-        role : role
-    },function(data){
-        if (data){
-            let paset_data = data.split("$");
-            if (paset_data.length > 1){
-                alert(paset_data[0]);
-                create_html_employee(paset_data[1],document.getElementById('inputNewName').value,
-                    document.getElementById('inputNewLastName').value,
-                    document.getElementById('inputEmail').value,
-                    document.getElementById('role_of_new_employee').value,
-                    "1");
-            }else{
-                alert(data);
-            }
-
-
-        }else{
-            alert(data);
-        }
-    });
-
-}
 
 
 function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
@@ -323,15 +286,8 @@ function submit_form_new_employee(){
     }
 }
 
-
-
-
-
-
-
-
 function change_First_name_Last_name_Email(id,data,typ_zmeni){
-    $.post('zamestnanci AXAJ/update_employee_data.php',{
+    $.post('zamestnanci AJAX/update_employee_data.php',{
         id: id,
         data: data,
         typ_zmeni:typ_zmeni,
@@ -348,7 +304,7 @@ function change_state_working(id , witch_elem , name , lname , email_get){
     let F_name = name.value;
     let L_name = lname.value;
     let email = email_get.value;
-    $.post('zamestnanci AXAJ/change_role.php',{
+    $.post('zamestnanci AJAX/change_role.php',{
         id: id,
         F_name: F_name,
         L_name:L_name,
@@ -364,7 +320,7 @@ function change_state_working(id , witch_elem , name , lname , email_get){
     // tuna je ide cod na zmenu type of roll
 }
 function load_db_data(){
-    $.post('zamestnanci AXAJ/load_all_employee.php',{
+    $.post('zamestnanci AJAX/load_all_employee.php',{
         data:'get_data'
     },function(data){
         if (data){
@@ -385,7 +341,7 @@ function change_rolle(id,witch_elem , name , lname , email_get){
     let L_name = lname.value;
     let email = email_get.value;
     //console.log(witch_elem);
-    $.post('zamestnanci AXAJ/change_state_working.php',{
+    $.post('zamestnanci AJAX/change_state_working.php',{
         id: id,
         F_name: F_name,
         L_name:L_name,
@@ -401,5 +357,43 @@ function change_rolle(id,witch_elem , name , lname , email_get){
 
     // tuna je ide cod na zmenu type of roll
 }
+function add_employee(){
+
+
+
+
+    let F_name = document.getElementById('inputNewName').value;
+    let L_name = document.getElementById('inputNewLastName').value;
+    let email = document.getElementById('inputEmail').value;
+    let password = document.getElementById('inputPassword').value;
+    let role = document.getElementById('role_of_new_employee').value;
+    $.post('zamestnanci AJAX/register_user.php',{
+        F_name: F_name,
+        L_name:L_name,
+        email: email,
+        password : password,
+        role : role
+    },function(data){
+        if (data){
+            let paset_data = data.split("$");
+            if (paset_data.length > 1){
+                alert(paset_data[0]);
+                create_html_employee(paset_data[1],document.getElementById('inputNewName').value,
+                    document.getElementById('inputNewLastName').value,
+                    document.getElementById('inputEmail').value,
+                    document.getElementById('role_of_new_employee').value,
+                    "1");
+            }else{
+                alert(data);
+            }
+
+
+        }else{
+            alert(data);
+        }
+    });
+
+}
+
 
 
