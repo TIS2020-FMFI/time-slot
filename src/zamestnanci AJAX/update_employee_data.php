@@ -13,7 +13,7 @@ if (isset($_POST["id"])) {
             $sql="UPDATE employee SET meno='$data' WHERE id='$id' ";
         }
         if ($co_menime == "last_name"){
-            $sql="UPDATE employee SET priezvsko='$data' WHERE id='$id' ";
+            $sql="UPDATE employee SET priezvisko='$data' WHERE id='$id' ";
         }
 
         if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
