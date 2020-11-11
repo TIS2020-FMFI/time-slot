@@ -1,6 +1,14 @@
 
 // toto zacne od 0 bude generovane funkieou create_html_employee()
 let index_of_employees = 1;
+
+let type_of_change = "";
+let parameter_for_update = "";
+let input_element = "";
+let id_of_clicked_element = "";
+const time_constant_for_sending_updates = 5000; // milisekund sekund ma to byt konstanta ako 10000 (10 sek) pre test je 300milisek
+
+
 function loop(){
     //console.log(window.innerWidth);
     // konstanta honrneho pola kde je find by datum nam dava tuto hodnotu
@@ -55,7 +63,7 @@ function loop(){
 
         for (let i = 0 ;i < all_elements_p.length;i++){
             if (i === 0 ){
-                all_elements_p[i].style.display = "flex ";
+                all_elements_p[i].style.display = "revert ";
             }else{
                 all_elements_p[i].style.display = "revert";
             }
@@ -85,41 +93,10 @@ function close_new_customer(){
     document.getElementsByClassName('table_of_customers')[0].style.display="block";
     document.getElementsByClassName('add_customer')[0].style.display="none";
 }
-function witch(witch_elem){
-    console.log("witch   ",witch_elem.value)
-    // tuna je ide cod na zmenu type of roll
-}
-function add_employee(){
-
-    create_html_employee(document.getElementById('inputNewName').value,
-        document.getElementById('inputNewLastName').value,
-        document.getElementById('inputEmail').value,
-        document.getElementById('role_of_new_employee').value,
-        "1");
 
 
-    let F_name = document.getElementById('inputNewName').value;
-    let L_name = document.getElementById('inputNewLastName').value;
-    let email = document.getElementById('inputEmail').value;
-    let password = document.getElementById('inputPassword').value;
-    let role = document.getElementById('role_of_new_employee').value;
-    $.post('register_user.php',{
-        F_name: F_name,
-        L_name:L_name,
-        email: email,
-        password : password,
-        role : role
-    },function(data){
-        if (data){
-            alert(data);
-        }else{
-            alert(data);
-        }
-    });
 
-}
-
-function create_html_employee(F_name,L_name,E_mail,type_of_role,is_working){
+function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
     //https://www.w3schools.com/jsref/met_table_insertrow.asp
     let table = document.querySelectorAll('table')[document.querySelectorAll('table').length-1];
     let row = table.insertRow(index_of_employees);
@@ -129,7 +106,10 @@ function create_html_employee(F_name,L_name,E_mail,type_of_role,is_working){
     let cell4 = row.insertCell(3);
     let cell5 = row.insertCell(4);
 
-
+    let hidden_id_element = document.createElement('p');
+    hidden_id_element.innerHTML = id;
+    hidden_id_element.style.display = 'none';
+    row.appendChild(hidden_id_element);
 
 
     let label_name = document.createElement('label');
@@ -140,6 +120,22 @@ function create_html_employee(F_name,L_name,E_mail,type_of_role,is_working){
     input_name.className = "first_name_inputs";
     input_name.placeholder = "Name";
     input_name.value = F_name;
+    input_name.onclick = function (){
+        // spustime casovasc ktori sa bude opakovat dokola kazdich 30 sekund spravit poust ak honota v danej kolonke bola zmenena
+        parameter_for_update = this.value;
+        type_of_change = 'first_name';
+        input_element = input_name;
+        id_of_clicked_element = hidden_id_element.innerHTML;
+        //loop_for_updates_First_name_Last_name_Email();
+    };
+    input_name.onchange = function (){
+        if (parameter_for_update !== input_name.value){
+            change_First_name_Last_name_Email(hidden_id_element.innerHTML,input_name.value,"first_name");
+        }
+        //id_of_clicked_element = "";
+
+        // db update
+    };
 
     cell1.appendChild(label_name);
     cell1.appendChild(input_name);
@@ -152,6 +148,20 @@ function create_html_employee(F_name,L_name,E_mail,type_of_role,is_working){
     input_sure_name.className = "last_name_inputs";
     input_sure_name.placeholder = "Surname";
     input_sure_name.value = L_name;
+    input_sure_name.onclick = function (){
+        // spustime casovasc ktori sa bude opakovat dokola kazdich 30 sekund spravit poust ak honota v danej kolonke bola zmenena
+        parameter_for_update = this.value;
+        type_of_change = 'last_name';
+        input_element = input_sure_name;
+        id_of_clicked_element = hidden_id_element.innerHTML;
+    };
+    input_sure_name.onchange = function (){
+        if (parameter_for_update !== input_sure_name.value) {
+            change_First_name_Last_name_Email(hidden_id_element.innerHTML, input_sure_name.value, "last_name");
+        }
+        //id_of_clicked_element = "";
+
+    };
 
     cell2.appendChild(label_sure_name);
     cell2.appendChild(input_sure_name);
@@ -166,6 +176,20 @@ function create_html_employee(F_name,L_name,E_mail,type_of_role,is_working){
     input_email.className = "email_inputs";
     input_email.placeholder = "Email";
     input_email.value = E_mail;
+    input_email.onclick = function (){
+        // spustime casovasc ktori sa bude opakovat dokola kazdich 30 sekund spravit poust ak honota v danej kolonke bola zmenena
+        parameter_for_update = this.value;
+        type_of_change = 'email';
+        input_element = input_email;
+        id_of_clicked_element = hidden_id_element.innerHTML;
+    };
+    input_email.onchange = function (){
+        if (parameter_for_update !== input_email.value) {
+            change_First_name_Last_name_Email(input_email.innerHTML,input_sure_name.value,"email");
+        }
+        //id_of_clicked_element = "";
+        // db update
+    };
 
     cell3.appendChild(label_email);
     cell3.appendChild(input_email);
@@ -178,7 +202,7 @@ function create_html_employee(F_name,L_name,E_mail,type_of_role,is_working){
     let select = document.createElement('Select');
     select.className = "form-control bg-secondary text-light dropdown-toggle employee_type_of_roll";
     select.onchange = function (){
-     witch(this);
+        change_state_working(hidden_id_element.innerHTML,this , input_name , input_sure_name ,input_email);
     };
     let option1 = document.createElement("option");
     option1.text = "EXD";
@@ -220,17 +244,30 @@ function create_html_employee(F_name,L_name,E_mail,type_of_role,is_working){
         input_working.checked = false;
     }
     input_working.onchange = function (e){
-        console.log("zmena");
+        change_rolle(hidden_id_element.innerHTML,input_working.checked, input_name , input_sure_name ,input_email);
     }
-
-
     cell5.appendChild(input_working);
-
     index_of_employees += 1;
     // tuna je ide cod na pridanie zamestnanca do DB
 }
 
-function submit_my_form(){
+function loop_for_updates_First_name_Last_name_Email(){
+    if (id_of_clicked_element){
+        if (parameter_for_update !== input_element.value){
+            console.log("PRED ZMENOU ",parameter_for_update ,"        ", input_element.value)
+            change_First_name_Last_name_Email(id_of_clicked_element,input_element.value,type_of_change);
+            parameter_for_update = input_element.value;
+            //console.log(parameter_for_update ,"        ", premena.value)
+        }
+
+    }
+    setTimeout(loop_for_updates_First_name_Last_name_Email,time_constant_for_sending_updates);
+
+}
+loop_for_updates_First_name_Last_name_Email();
+
+
+function submit_form_new_employee(){
     // check for validiti of inputs , toto je len taka kontrola treba pridat kontrolu na rovnake heslo atd...
     let F_name = document.getElementById('inputNewName').value;
     let L_name = document.getElementById('inputNewLastName').value;
@@ -238,11 +275,8 @@ function submit_my_form(){
     let password = document.getElementById('inputPassword').value;
     let Cnfirmpassword = document.getElementById('inputConfirmPassword').value;
     let role = document.getElementById('role_of_new_employee').value;
-
-
     // toto je prvi stupen kontoli neprazdnosti vstupov
     // #3 treba mrknut uz s vigenerovaneho pola zamestnancou ci maju rovnake meno a prezvisko ps bude nato niaki jason
-
     if (F_name && L_name && email && password === Cnfirmpassword && role ){
         // #3
         add_employee();
@@ -252,14 +286,46 @@ function submit_my_form(){
     }
 }
 
-
+function change_First_name_Last_name_Email(id,data,typ_zmeni){
+    $.post('zamestnanci AJAX/update_employee_data.php',{
+        id: id,
+        data: data,
+        typ_zmeni:typ_zmeni,
+    },function(data){
+        if (data){
+            console.log(data);
+        }else{
+            console.log("chyba v kode");
+        }
+    });
+}
+function change_state_working(id , witch_elem , name , lname , email_get){
+    let change_role = witch_elem.value;
+    let F_name = name.value;
+    let L_name = lname.value;
+    let email = email_get.value;
+    $.post('zamestnanci AJAX/change_role.php',{
+        id: id,
+        F_name: F_name,
+        L_name:L_name,
+        email: email,
+        change_role : change_role,
+    },function(data){
+        if (data){
+            alert(data);
+        }else{
+            alert(data);
+        }
+    });
+    // tuna je ide cod na zmenu type of roll
+}
 function load_db_data(){
-    $.post('load_all_employee.php',{
+    $.post('zamestnanci AJAX/load_all_employee.php',{
         data:'get_data'
     },function(data){
         if (data){
             for(let i =0 ; i < data.length;i ++){
-                create_html_employee(data[i][1],data[i][2],data[i][3],data[i][5],data[i][6]);
+                create_html_employee(data[i][0],data[i][1],data[i][2],data[i][3],data[i][5],data[i][6]);
             }
 
         }else{
@@ -269,77 +335,65 @@ function load_db_data(){
 }
 load_db_data();
 
-// CONVERT JASON DATA TO EXCEL
-// JSONToCSVConvertor(data,"TITLE",true);
-function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
-    //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
-    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
-
-    var CSV = '';
-    //Set Report title in first row or line
-
-    CSV += ReportTitle + '\r\n\n';
-
-    //This condition will generate the Label/Header
-    if (ShowLabel) {
-        var row = "";
-
-        //This loop will extract the label from 1st index of on array
-        for (var index in arrData[0]) {
-
-            //Now convert each value to string and comma-seprated
-            row += index + ',';
+function change_rolle(id,witch_elem , name , lname , email_get){
+    let is_working = witch_elem;
+    let F_name = name.value;
+    let L_name = lname.value;
+    let email = email_get.value;
+    //console.log(witch_elem);
+    $.post('zamestnanci AJAX/change_state_working.php',{
+        id: id,
+        F_name: F_name,
+        L_name:L_name,
+        email: email,
+        is_working: is_working
+    },function(data){
+        if (data){
+            alert(data);
+        }else{
+            alert(data);
         }
+    });
 
-        row = row.slice(0, -1);
-
-        //append Label row with line break
-        CSV += row + '\r\n';
-    }
-
-    //1st loop is to extract each row
-    for (var i = 0; i < arrData.length; i++) {
-        var row = "";
-
-        //2nd loop will extract each column and convert it in string comma-seprated
-        for (var index in arrData[i]) {
-            row += '"' + arrData[i][index] + '",';
-        }
-
-        row.slice(0, row.length - 1);
-
-        //add a line break after each row
-        CSV += row + '\r\n';
-    }
-
-    if (CSV == '') {
-        alert("Invalid data");
-        return;
-    }
-
-    //Generate a file name
-    var fileName = "MyReport_";
-    //this will remove the blank-spaces from the title and replace it with an underscore
-    fileName += ReportTitle.replace(/ /g,"_");
-
-    //Initialize file format you want csv or xls
-    var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
-
-    // Now the little tricky part.
-    // you can use either>> window.open(uri);
-    // but this will not work in some browsers
-    // or you will not get the correct file extension
-
-    //this trick will generate a temp <a /> tag
-    var link = document.createElement("a");
-    link.href = uri;
-
-    //set the visibility hidden so it will not effect on your web-layout
-    link.style = "visibility:hidden";
-    link.download = fileName + ".csv";
-
-    //this part will append the anchor tag and remove it after automatic click
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // tuna je ide cod na zmenu type of roll
 }
+function add_employee(){
+
+
+
+
+    let F_name = document.getElementById('inputNewName').value;
+    let L_name = document.getElementById('inputNewLastName').value;
+    let email = document.getElementById('inputEmail').value;
+    let password = document.getElementById('inputPassword').value;
+    let role = document.getElementById('role_of_new_employee').value;
+    $.post('zamestnanci AJAX/register_user.php',{
+        F_name: F_name,
+        L_name:L_name,
+        email: email,
+        password : password,
+        role : role
+    },function(data){
+        if (data){
+            let paset_data = data.split("$");
+            if (paset_data.length > 1){
+                alert(paset_data[0]);
+                create_html_employee(paset_data[1],document.getElementById('inputNewName').value,
+                    document.getElementById('inputNewLastName').value,
+                    document.getElementById('inputEmail').value,
+                    document.getElementById('role_of_new_employee').value,
+                    "1");
+            }else{
+                alert(data);
+            }
+
+
+        }else{
+            alert(data);
+        }
+    });
+
+}
+
+
+

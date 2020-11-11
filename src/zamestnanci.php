@@ -18,7 +18,9 @@
     <script type="text/javascript" src="javascript/zamestnanci.js"></script>
 
     <title>Page of Ondrej Richnak</title>
+
     <script src="javascript/zamestnanci.js"></script>
+
 </head>
 <body class=" bg-dark container-fluid">
 
@@ -133,7 +135,7 @@
             </div><br>
 
 
-            <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit" onclick="submit_my_form()" >Create</button>
+            <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit" onclick="submit_form_new_employee()" >Create</button>
           </form>
         </div>
       </div>
