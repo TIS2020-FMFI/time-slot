@@ -1,5 +1,5 @@
 <?php
-//session_start();
+session_start();
 include('../db.php');
 
 if (isset($_POST["email"])) {
@@ -12,17 +12,18 @@ if (isset($_POST["email"])) {
             if ($row == NULL){
                 echo 'Prihlasovacie udaje su nespravne skontrolujte zadani email alebo heslo '; // . $result["meno"] .' '. $result["priezvisko"]
             }else{
+                $_SESSION['id'] = $row['id'];
+                $_SESSION['meno'] = $row['meno'];
+                $_SESSION['priezvisko'] = $row['priezvisko'];
+                $_SESSION['email'] = $row['email'];
+                $_SESSION['role'] = $row['role'];
+
                 header("Content-Type:application/json");
                 echo json_encode($row);
-                //echo  $row["meno"] .'$'. $row["priezvisko"] .'$'. $row["email"] .'$'. $row["role"] . '$'. $row["login_count"]; //
-                /*
-                    $_SESSION['id'] = $result['id'];
-                    $_SESSION['meno'] = $result['meno'];
-                    $_SESSION['priezvisko'] = $result['priezvisko'];
-                    $_SESSION['email'] = $result['email'];
-                    $_SESSION['rola'] = $result['rola'];
 
-                */
+
+
+
             }
 
         } else {
