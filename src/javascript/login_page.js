@@ -15,7 +15,7 @@ function checked_if_user_exist(email , password){
             console.log(data);
             if (typeof data === 'object'){
                 if (data['login_count'] > 0 ){
-                    window.open("calendar.html","_self");
+                    window.open("calendar.php","_self");
                 }else{
                     window.open("change_password.php","_self");
                 }
