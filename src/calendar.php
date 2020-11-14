@@ -20,8 +20,7 @@ if (isset($_SESSION['id'])) {
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
 
-
-  <title>Page of Ondrej Richnak</title>
+      <title>Page of Ondrej Richnak</title>
 </head>
 <body class=" bg-dark container-fluid">
 
@@ -33,14 +32,15 @@ if (isset($_SESSION['id'])) {
   <button class="btn btn-default bg-light" onclick="log_out()">Log out</button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link " href="#">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
-      <a class="nav-item nav-link " href="contact.php">Kontact</a>
-      <a class="nav-item nav-link " href="external_dispatcher.html">xternal dispatcher assigment</a>
-      <a class="nav-item nav-link " href="zamestnanci.php">Zamestnanci</a>
-      <a class="nav-item nav-link " href="vratnik.html">Vratnik</a>
-      <a class="nav-item nav-link " href="objednavka.php">Objednavka</a>
-      <a class="nav-item nav-link " href="change_password.php">Chenge password</a>
-      <a class="nav-item nav-link " href="index.php">login page</a>
+
+      <a class="nav-item nav-link " href="#">Calendar<span class="sr-only">(current)</span></a> <!-- active -->
+      <a class="nav-item nav-link " href="contact.php">Contact</a>
+      <a class="nav-item nav-link " href="external_dispatcher.html">External dispatcher assigment</a>
+      <a class="nav-item nav-link " href="zamestnanci.php">Employees</a>
+      <a class="nav-item nav-link " href="vratnik.html">Gatekeeper</a>
+      <a class="nav-item nav-link " href="objednavka.html">Order</a>
+      <a class="nav-item nav-link " href="change_password.php">Change password</a>
+      <a class="nav-item nav-link " href="index.php">Login page</a>
     </div>
   </div>
 </nav>
