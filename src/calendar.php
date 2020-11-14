@@ -1,6 +1,5 @@
 <?php
 session_start();
-//echo $_SESSION['id'];
 if (isset($_SESSION['id'])) {
 ?>
 <!doctype html>
@@ -21,10 +20,7 @@ if (isset($_SESSION['id'])) {
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
 
-    <!-- Our JavaScript -->
-    <script type="text/javascript" src="javascript/log_out.js"></script>
-    <script type="text/javascript" src="javascript/calendar.js"></script>
-  <title>Page of Ondrej Richnak</title>
+      <title>Page of Ondrej Richnak</title>
 </head>
 <body class=" bg-dark container-fluid">
 
@@ -36,6 +32,7 @@ if (isset($_SESSION['id'])) {
   <button class="btn btn-default bg-light" onclick="log_out()">Log out</button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
+
       <a class="nav-item nav-link " href="#">Calendar<span class="sr-only">(current)</span></a> <!-- active -->
       <a class="nav-item nav-link " href="contact.php">Contact</a>
       <a class="nav-item nav-link " href="external_dispatcher.html">External dispatcher assigment</a>
@@ -605,8 +602,11 @@ if (isset($_SESSION['id'])) {
 </div>
 
 </body>
-
+<!-- Our JavaScript -->
+<script src="javascript/log_out.js"></script>
+<script src="javascript/calendar.js"></script>
 </html>
+
 <?php
 }
 else{

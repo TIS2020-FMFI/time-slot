@@ -49,12 +49,12 @@
     <thead>
     <tr>
       <th class="top_bar" scope="col" >
-        <input type="text" class="form-control" placeholder="Find by" aria-label="Username" aria-describedby="basic-addon1"  >
+        <input type="text" class="form-control" id="find_by" placeholder="Find by" aria-label="Username" aria-describedby="basic-addon1" oninput="select_only()" >
       </th>
 
       <th class="top_bar" scope="col">
         <div class="form-group" style="margin: 0px">
-          <select class="form-control" id="exampleFormControlSelect1">
+          <select class="form-control" id="change_select_role" onchange="select_only()">
             <option>Select Only</option>
             <option>Administrator</option>
             <option>Internal dispatcher</option>
@@ -63,11 +63,25 @@
           </select>
         </div>
       </th>
-
+        <th class="top_bar" scope="col">
+            <div class="form-group" style="margin: 0px">
+                <select class="form-control" id="change_select_type_working" onchange="select_only()">
+                    <option>Only working</option>
+                    <option>Only not working</option>
+                    <option>All employee</option>
+                </select>
+            </div>
+        </th>
       <th class="top_bar" scope="col" >
-        <button class="btn btn-default bg-success" style="margin-right: 10px; float: right;" onclick="add_new_customer()" >Add new</button>
+
+          <button class="btn btn-default bg-success" style="margin-right: 10px; float: right;" onclick="add_new_customer()" >Add new</button>
 
       </th>
+        <th class="top_bar" scope="col" >
+
+            <button class="btn btn-default bg-success" style="margin-right: 10px; float: right;" onclick="add_new_customer()" >Edit</button>
+
+        </th>
     </tr>
     </thead>
   </table>

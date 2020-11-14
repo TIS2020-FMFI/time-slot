@@ -1,6 +1,7 @@
 
 // toto zacne od 0 bude generovane funkieou create_html_employee()
 let index_of_employees = 1;
+let all_employees_jason = [];
 
 let type_of_change = "";
 let parameter_for_update = "";
@@ -14,7 +15,7 @@ function loop(){
     // konstanta honrneho pola kde je find by datum nam dava tuto hodnotu
     const margin = 2;
     if (window.innerWidth < 500){
-        console.log("TU SOM 1");
+        //console.log("TU SOM 1");
 
         let all_elements_p = document.querySelectorAll('th');
 
@@ -34,7 +35,7 @@ function loop(){
         }
     }
     if (window.innerWidth > 500 && window.innerWidth < 900){
-        console.log("TU SOM 2")
+        //log("TU SOM 2")
         let all_elements_p = document.querySelectorAll('th');
 
         for (let i = 8 ;i < all_elements_p.length;i+=8){
@@ -57,7 +58,7 @@ function loop(){
         }
     }
     if ( window.innerWidth > 900){
-        console.log("TU SOM 3")
+        //console.log("TU SOM 3")
 
         let all_elements_p = document.querySelectorAll('th');
 
@@ -100,6 +101,13 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
     //https://www.w3schools.com/jsref/met_table_insertrow.asp
     let table = document.querySelectorAll('table')[document.querySelectorAll('table').length-1];
     let row = table.insertRow(index_of_employees);
+    row.id = ''+id;
+    if (is_working === '1'){
+        row.style.display = 'revert';
+    }else{
+        row.style.display = 'none';
+    }
+
     let cell1 = row.insertCell(0);
     let cell2 = row.insertCell(1);
     let cell3 = row.insertCell(2);
@@ -202,7 +210,7 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
     let select = document.createElement('Select');
     select.className = "form-control bg-secondary text-light dropdown-toggle employee_type_of_roll";
     select.onchange = function (){
-        change_state_working(hidden_id_element.innerHTML,this , input_name , input_sure_name ,input_email);
+        change_rolle(hidden_id_element.innerHTML,this , input_name , input_sure_name ,input_email,row);
     };
     let option1 = document.createElement("option");
     option1.text = "EXD";
@@ -237,24 +245,40 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
     input_working.type = "checkbox";
     input_working.className = "is_working";
 
-    console.log("WORKING TYPE   " ,is_working);
+    //console.log("WORKING TYPE   " ,is_working);
     if (is_working === '1'){
         input_working.checked = true;
     }else{
         input_working.checked = false;
     }
-    input_working.onchange = function (e){
-        change_rolle(hidden_id_element.innerHTML,input_working.checked, input_name , input_sure_name ,input_email);
+    input_working.onchange = function (){
+        change_state_working(hidden_id_element.innerHTML,input_working.checked, input_name , input_sure_name ,input_email,row);
     }
     cell5.appendChild(input_working);
     index_of_employees += 1;
-    // tuna je ide cod na pridanie zamestnanca do DB
-}
 
+
+    // pri zmene bude treba menit aj tento jason
+    all_employees_jason.push( {
+        table_row:row,
+        table_column_first_name:input_name.value,
+        table_column_last_name:input_sure_name.value,
+        table_column_email:input_email.value,
+        table_column_role:select.value,
+        table_column_is_working:input_working.checked,
+    });
+    select_only();//runt_test();
+}
+function runt_test(){
+    console.log("TEST TEST TEST TEST TEST TEST");
+    for(let i =0 ; i < all_employees_jason.length;i ++){
+        console.log(all_employees_jason[i].table_column_role);
+    }
+}
 function loop_for_updates_First_name_Last_name_Email(){
     if (id_of_clicked_element){
         if (parameter_for_update !== input_element.value){
-            console.log("PRED ZMENOU ",parameter_for_update ,"        ", input_element.value)
+            //console.log("PRED ZMENOU ",parameter_for_update ,"        ", input_element.value)
             change_First_name_Last_name_Email(id_of_clicked_element,input_element.value,type_of_change);
             parameter_for_update = input_element.value;
             //console.log(parameter_for_update ,"        ", premena.value)
@@ -299,11 +323,12 @@ function change_First_name_Last_name_Email(id,data,typ_zmeni){
         }
     });
 }
-function change_state_working(id , witch_elem , name , lname , email_get){
+function change_rolle(id , witch_elem , first_name , last_name , email_get, update_row_table_jason_id){
     let change_role = witch_elem.value;
-    let F_name = name.value;
-    let L_name = lname.value;
+    let F_name = first_name.value;
+    let L_name = last_name.value;
     let email = email_get.value;
+    console.log(change_role);
     $.post('zamestnanci AJAX/change_role.php',{
         id: id,
         F_name: F_name,
@@ -313,8 +338,15 @@ function change_state_working(id , witch_elem , name , lname , email_get){
     },function(data){
         if (data){
             alert(data);
+            for(let i = 0 ; i < all_employees_jason.length;i ++) {
+                if (all_employees_jason[i].table_row === update_row_table_jason_id) {
+                    all_employees_jason[i].table_column_role = change_role;
+                }
+
+            }
+            select_only();
         }else{
-            alert(data);
+            alert('chyba prpojenia k db');
         }
     });
     // tuna je ide cod na zmenu type of roll
@@ -335,12 +367,12 @@ function load_db_data(){
 }
 load_db_data();
 
-function change_rolle(id,witch_elem , name , lname , email_get){
+function change_state_working(id,witch_elem , name , lname , email_get,update_row_table_jason_id){
     let is_working = witch_elem;
     let F_name = name.value;
     let L_name = lname.value;
     let email = email_get.value;
-    //console.log(witch_elem);
+    console.log("SENDED ID ",update_row_table_jason_id);
     $.post('zamestnanci AJAX/change_state_working.php',{
         id: id,
         F_name: F_name,
@@ -350,11 +382,18 @@ function change_rolle(id,witch_elem , name , lname , email_get){
     },function(data){
         if (data){
             alert(data);
+            for(let i = 0 ; i < all_employees_jason.length;i ++){
+                if (all_employees_jason[i].table_row === update_row_table_jason_id){
+                    all_employees_jason[i].table_column_is_working = is_working;
+                }
+
+            }
+            select_only();
         }else{
-            alert(data);
+            alert("chyba nacitana dat s db");
+
         }
     });
-
     // tuna je ide cod na zmenu type of roll
 }
 function add_employee(){
@@ -394,6 +433,213 @@ function add_employee(){
     });
 
 }
+/*function select_only_working(element){
+    console.log(element.value);
+    if (element.value === "Only working"){
+        for(let i =0 ; i < all_employees_jason.length;i ++){
+            console.log(all_employees_jason[i]);
+            if(all_employees_jason[i].table_column_is_working === false){
+                all_employees_jason[i].table_row.style.display = "none";
+            }else{
+                all_employees_jason[i].table_row.style.display = "revert";
+            }
+        }
+    }
+    if (element.value === "Only not working"){
+        //console.log(all_employees_jason.length);
+        for(let i =0 ; i < all_employees_jason.length;i ++){
+            console.log(all_employees_jason[i]);
+            if(all_employees_jason[i].table_column_is_working === true){
+                all_employees_jason[i].table_row.style.display = "none";
+            }else{
+                all_employees_jason[i].table_row.style.display = "revert";
+            }
+        }
+    }
+    if (element.value === "All employee"){
+        for(let i =0 ; i < all_employees_jason.length;i ++){
 
+                all_employees_jason[i].table_row.style.display = "revert";
+        }
+    }
+
+}*/
+function select_only(){
+    console.log("IM colled");
+    let only_value_find_by = document.getElementById('find_by').value;
+    console.log(only_value_find_by);
+    let element_value = document.getElementById('change_select_role').value;
+    let only_valid_by_second_selector = document.getElementById('change_select_type_working').value;
+    if (element_value === "Select Only"){
+        for(let i = 0 ; i < all_employees_jason.length;i ++){
+
+
+            if (only_valid_by_second_selector === "Only working"){
+                if(all_employees_jason[i].table_column_is_working === false){
+                    all_employees_jason[i].table_row.style.display = "none";
+                }else{
+                    all_employees_jason[i].table_row.style.display = "revert";
+                }
+            }
+
+            if (only_valid_by_second_selector === "Only not working"){
+                if(all_employees_jason[i].table_column_is_working === true){
+                    all_employees_jason[i].table_row.style.display = "none";
+                }else{
+                    all_employees_jason[i].table_row.style.display = "revert";
+                }
+            }
+            if (only_valid_by_second_selector === "All employee"){
+                all_employees_jason[i].table_row.style.display = "revert";
+            }
+            if (only_value_find_by !== ''){
+                if (all_employees_jason[i].table_column_first_name.includes(only_value_find_by) ||
+                    all_employees_jason[i].table_column_last_name.includes(only_value_find_by) ||
+                    all_employees_jason[i].table_column_email.includes(only_value_find_by) ){
+                }else{
+                    all_employees_jason[i].table_row.style.display = "none";
+                }
+            }
+
+        }
+    }
+    if (element_value === "Administrator"){
+        for(let i =0 ; i < all_employees_jason.length;i ++){
+            if (all_employees_jason[i].table_column_role === 'AD'){
+                if (only_valid_by_second_selector === "Only working"){
+                    if(all_employees_jason[i].table_column_is_working === false){
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "revert";
+                    }
+                }
+
+                if (only_valid_by_second_selector === "Only not working"){
+                    if(all_employees_jason[i].table_column_is_working === true){
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "revert";
+                    }
+                }
+                if (only_valid_by_second_selector === "All employee"){
+                    all_employees_jason[i].table_row.style.display = "revert";
+                }
+                if (only_value_find_by !== ''){
+                    if (all_employees_jason[i].table_column_first_name.includes(only_value_find_by) ||
+                        all_employees_jason[i].table_column_last_name.includes(only_value_find_by) ||
+                        all_employees_jason[i].table_column_email.includes(only_value_find_by) ){
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }
+                }
+            }else{
+                all_employees_jason[i].table_row.style.display = "none";
+            }
+
+        }
+    }
+    if (element_value === "Internal dispatcher"){
+        for(let i =0 ; i < all_employees_jason.length;i ++){
+            if (all_employees_jason[i].table_column_role === 'IND'){
+                if (only_valid_by_second_selector === "Only working"){
+                    if(all_employees_jason[i].table_column_is_working === false){
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "revert";
+                    }
+                }
+
+                if (only_valid_by_second_selector === "Only not working"){
+                    if(all_employees_jason[i].table_column_is_working === true){
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "revert";
+                    }
+                }
+                if (only_valid_by_second_selector === "All employee"){
+                    all_employees_jason[i].table_row.style.display = "revert";
+                }
+                if (only_value_find_by !== ''){
+                    if (all_employees_jason[i].table_column_first_name.includes(only_value_find_by) ||
+                        all_employees_jason[i].table_column_last_name.includes(only_value_find_by) ||
+                        all_employees_jason[i].table_column_email.includes(only_value_find_by) ){
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }
+                }
+            }else{
+                all_employees_jason[i].table_row.style.display = "none";
+            }
+        }
+    }
+    if (element_value === "External dispatcher"){
+        for(let i =0 ; i < all_employees_jason.length;i ++){
+            if (all_employees_jason[i].table_column_role === 'EXD'){
+                if (only_valid_by_second_selector === "Only working"){
+                    if(all_employees_jason[i].table_column_is_working === false){
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "revert";
+                    }
+                }
+
+                if (only_valid_by_second_selector === "Only not working"){
+                    if(all_employees_jason[i].table_column_is_working === true){
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "revert";
+                    }
+                }
+                if (only_valid_by_second_selector === "All employee"){
+                    all_employees_jason[i].table_row.style.display = "revert";
+                }
+                if (only_value_find_by !== ''){
+                    if (all_employees_jason[i].table_column_first_name.includes(only_value_find_by) ||
+                        all_employees_jason[i].table_column_last_name.includes(only_value_find_by) ||
+                        all_employees_jason[i].table_column_email.includes(only_value_find_by) ){
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }
+                }
+            }else{
+                all_employees_jason[i].table_row.style.display = "none";
+            }
+        }
+    }
+    if (element_value === "Gate man"){
+        for(let i =0 ; i < all_employees_jason.length;i ++){
+            if (all_employees_jason[i].table_column_role === 'GM'){
+                if (only_valid_by_second_selector === "Only working"){
+                    if(all_employees_jason[i].table_column_is_working === false){
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "revert";
+                    }
+                }
+
+                if (only_valid_by_second_selector === "Only not working"){
+                    if(all_employees_jason[i].table_column_is_working === true){
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "revert";
+                    }
+                }
+                if (only_valid_by_second_selector === "All employee"){
+                    all_employees_jason[i].table_row.style.display = "revert";
+                }
+                if (only_value_find_by !== ''){
+                    if (all_employees_jason[i].table_column_first_name.includes(only_value_find_by) ||
+                        all_employees_jason[i].table_column_last_name.includes(only_value_find_by) ||
+                        all_employees_jason[i].table_column_email.includes(only_value_find_by) ){
+                    }else{
+                        all_employees_jason[i].table_row.style.display = "none";
+                    }
+                }
+            }else{
+                all_employees_jason[i].table_row.style.display = "none";
+            }
+        }
+    }
+}
 
 
