@@ -52,4 +52,3 @@ else{
     echo "<h1>Your are not valid user, you must first try to log <a class='nav-item nav-link'  href='index.php'> in</a></h1>";
 }
 ?>
-
