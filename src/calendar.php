@@ -10,7 +10,7 @@ if (isset($_SESSION['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="   bootstrap-4.3.1/css/bootstrap.min.css" >
     <!-- Modified Bootstrap CSS -->
     <link rel="stylesheet" href="css/main_page.css">
 
@@ -18,9 +18,10 @@ if (isset($_SESSION['id'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script> -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script>
+    <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
 
-      <title>Page of Ondrej Richnak</title>
+
+  <title>Page of Ondrej Richnak</title>
 </head>
 <body class=" bg-dark container-fluid">
 
@@ -32,15 +33,14 @@ if (isset($_SESSION['id'])) {
   <button class="btn btn-default bg-light" onclick="log_out()">Log out</button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-
-      <a class="nav-item nav-link " href="#">Calendar<span class="sr-only">(current)</span></a> <!-- active -->
-      <a class="nav-item nav-link " href="contact.php">Contact</a>
-      <a class="nav-item nav-link " href="external_dispatcher.html">External dispatcher assigment</a>
-      <a class="nav-item nav-link " href="zamestnanci.php">Employees</a>
-      <a class="nav-item nav-link " href="vratnik.html">Gatekeeper</a>
-      <a class="nav-item nav-link " href="objednavka.html">Order</a>
-      <a class="nav-item nav-link " href="change_password.php">Change password</a>
-      <a class="nav-item nav-link " href="index.php">Login page</a>
+      <a class="nav-item nav-link " href="#">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
+      <a class="nav-item nav-link " href="contact.php">Kontact</a>
+      <a class="nav-item nav-link " href="external_dispatcher.php">xternal dispatcher assigment</a>
+      <a class="nav-item nav-link " href="zamestnanci.php">Zamestnanci</a>
+      <a class="nav-item nav-link " href="vratnik.html">Vratnik</a>
+      <a class="nav-item nav-link " href="objednavka.php">Objednavka</a>
+      <a class="nav-item nav-link " href="change_password.php">Chenge password</a>
+      <a class="nav-item nav-link " href="index.php">login page</a>
     </div>
   </div>
 </nav>
@@ -52,49 +52,18 @@ if (isset($_SESSION['id'])) {
     <thead>
     <tr>
       <th class="top_bar td_flex_buttons" scope="col" >
-        <input type="date" id="input_date" name="trip-start" value="2020-10-31" min="2020-10-31"  ><!--max="2020-10-31"-->
-        <button class="btn btn-default bg-primary"   ><</button>
-        <button class="btn btn-default bg-primary last_btn" >></button>
-
+        <input type="date" id="input_date" value="" onchange="display_time_slot_for_this_date(this)"><!--value="2020-10-31" min="2020-10-31"  max="2020-10-31"-->
+        <button class="btn btn-default bg-primary" id="back_date" onclick="date_add(-1)" ><</button>
+        <button class="btn btn-default bg-primary last_btn" id="next_date" onclick="date_add(1)">></button>
+          <h4 id="ramp_title">Ramps 1 - 7</h4>
       </th>
 
       <th class="top_bar" scope="col" style="padding-left: 0px;padding-right: 0px;">
-        <!-- tuna bi mailo bit nieco ako select option with chackeboch bez toho aby to poskodilo
-        ten riadko a donutilo to usera scolowat  ps. pochopite ked sa budete snazit implementovat nieco take
-        toto bude zobrazene len INTERNIM DISPATCHEROM !!! bue tam viacej nakladiek
-        -->
-        <div class="form-control"  id="select_nakladka_div" style="margin: 0px; padding: 0px;" onclick="roll()">
-          <p id="select_nakladka"> &#8628;</p>
-        </div>
-        <div class="form-group" style="margin: 0px" onclick="roll()"></div>
-        <section class="bg-dark text-light"  id="roll_down">
-            <div class="form-check ">
 
-              <input class="form-check-input" type="checkbox" value="nakladka1" id="defaultCheck12" checked onclick="dysplay_nakladka(1)">
-              <label class="form-check-label" for="defaultCheck1">
-                Nakladka 1
-              </label>
-            </div>
-            <div class="form-check">
-
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onclick="dysplay_nakladka(2)">
-              <label class="form-check-label" for="defaultCheck1">
-                Nakladka 1
-              </label>
-            </div>
-          <div class="form-check">
-
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck122" onclick="dysplay_nakladka(undefined)">
-            <label class="form-check-label" for="defaultCheck1">
-              All
-            </label>
-          </div>
-
-        </section>
       </th>
 
       <th class="top_bar" scope="col" style="min-width: 100px;max-width: 100px;">
-        <input type="text" class="form-control" placeholder="Find by" aria-label="Username" aria-describedby="basic-addon1"  >
+        <input id="input_text" type="text" class="form-control" placeholder="Find by" oninput="filter_text(this)"  >
       </th>
     </tr>
     </thead>
@@ -102,505 +71,905 @@ if (isset($_SESSION['id'])) {
 </div>
 <div class="table-responsive  bg-light" style="width: auto; margin-left: -15px;margin-bottom: 0px;
     margin-right: -15px;">
-  <table id="calendar" class="table "  >
+    <table id="calendar" class="table table-striped"  >
+        <thead>
+        <tr>
+            <th class=" th_top_float_bar right_border_state" scope="col" style="width-max: auto;display: flex">
+                <button class="btn btn-default bg-primary"   ><</button>
+
+                <div class="form-group" style="margin: 0px;width: 120px">
+                    <select class="form-control" id="select_gate" onchange="generate_gate_selector(this)"  style="display: block;"> <!-- onclick="generate_gate_selector(this)"-->
+                        <option>1 - 7</option>
+                        <option>8 - 14</option>
+
+                    </select>
+                </div>
+                <button class="btn btn-default bg-primary last_btn" >></button>
+            </th>
+            <th class="days_in_calendar" scope="col">1 gate</th>
+            <th class="days_in_calendar" scope="col">2 gate</th>
+            <th class="days_in_calendar" scope="col">3 gate</th>
+            <th class="days_in_calendar" scope="col">4 gate</th>
+            <th class="days_in_calendar" scope="col">5 gate</th>
+            <th class="days_in_calendar" scope="col">6 gate</th>
+            <th class="days_in_calendar last" scope="col">7 gate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+            <th class="right_border_state text-success" scope="row">Prepared</th>
+            <th class="right_border calendar_item 1 prepared_occupied "  >None</th>
+            <th class="right_border calendar_item 2 prepared_occupied"  >None</th>
+            <th class="right_border calendar_item 3 prepared_occupied"  >None</th>
+            <th class="right_border calendar_item 4 prepared_occupied"  >None</th>
+            <th class="right_border calendar_item 5 prepared_occupied"  >None</th>
+            <th class="right_border calendar_item 6 prepared_occupied"  >None</th>
+            <th class="right_border_last calendar_item 7 prepared_occupied"  >None</th>
+        </tr>
+        <tr >
+            <th class="right_border_state text-warning" scope="row">Requested</th>
+            <th class="right_border calendar_item 1 requested "  >None</th>
+            <th class="right_border calendar_item 2 requested"  >None</th>
+            <th class="right_border calendar_item 3 requested"  >None</th>
+            <th class="right_border calendar_item 4 requested"  >None</th>
+            <th class="right_border calendar_item 5 requested"  >None</th>
+            <th class="right_border calendar_item 6 requested"  >None</th>
+            <th class="right_border_last calendar_item 7 requested"  >None</th>
+        </tr>
+        <tr >
+            <th class="right_border_state text-danger" scope="row">Booked</th>
+            <th class="right_border calendar_item 1 booked "  >None</th>
+            <th class="right_border calendar_item 2 booked"  >None</th>
+            <th class="right_border calendar_item 3 booked"  >None</th>
+            <th class="right_border calendar_item 4 booked"  >None</th>
+            <th class="right_border calendar_item 5 booked"  >None</th>
+            <th class="right_border calendar_item 6 booked"  >None</th>
+            <th class="right_border_last calendar_item 7 booked"  >None</th>
+        </tr>
+        <tr >
+            <th class="right_border_state text-finished" scope="row">Finished</th>
+            <th class="right_border calendar_item 1 finished "  >None</th>
+            <th class="right_border calendar_item 2 finished"  >None</th>
+            <th class="right_border calendar_item 3 finished"  >None</th>
+            <th class="right_border calendar_item 4 finished"  >None</th>
+            <th class="right_border calendar_item 5 finished"  >None</th>
+            <th class="right_border calendar_item 6 finished"  >None</th>
+            <th class="right_border_last calendar_item 7 finished"  >None</th>
+        </tr>
+        <tr >
+            <th class="right_border_state text-finished" scope="row"></th>
+            <th class="right_border calendar_item " ><button class="btn btn-default bg-primary last_btn text-light 1" onclick="show_full_gate(this)" >show</button></th>
+            <th class="right_border calendar_item " ><button class="btn btn-default bg-primary last_btn text-light 2" onclick="show_full_gate(this)" >show</button></th>
+            <th class="right_border calendar_item " ><button class="btn btn-default bg-primary last_btn text-light 3" onclick="show_full_gate(this)" >show</button></th>
+            <th class="right_border calendar_item " ><button class="btn btn-default bg-primary last_btn text-light 4" onclick="show_full_gate(this)" >show</button></th>
+            <th class="right_border calendar_item " ><button class="btn btn-default bg-primary last_btn text-light 5" onclick="show_full_gate(this)" >show</button></th>
+            <th class="right_border calendar_item " ><button class="btn btn-default bg-primary last_btn text-light 6" onclick="show_full_gate(this)" >show</button></th>
+            <th class="right_border_last calendar_item " ><button class="btn btn-default bg-primary last_btn text-light 7" onclick="show_full_gate(this)" >show</button></th>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <table id="calendar_dates" class="table " style="display: none"  >
+        <thead>
+        <tr>
+            <th class=" th_top_float_bar right_border_state" scope="col" style="width-max: auto;text-align: center">
+                <button class="btn btn-default bg-danger"  onclick="show_full_gate('close')" >back </button>
+            </th>
+            <th class="days_in_calendar_closer" scope="col">1 date</th>
+            <th class="days_in_calendar_closer" scope="col">2 date</th>
+            <th class="days_in_calendar_closer" scope="col">3 date</th>
+            <th class="days_in_calendar_closer" scope="col">4 date</th>
+            <th class="days_in_calendar_closer" scope="col">5 date</th>
+            <th class="days_in_calendar_closer" scope="col">6 date</th>
+            <th class="days_in_calendar_closer last" scope="col">7 date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+            <th class="right_border_time" scope="row">00:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">00:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">01:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">01:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">02:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">02:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">03:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">03:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">04:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">04:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">05:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">05:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">06:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">06:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">07:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">07:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">08:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">08:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">09:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">09:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">10:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">10:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">11:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">11:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">12:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">12:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">13:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">13:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">14:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">14:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">15:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">15:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">16:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">16:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">17:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">17:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">18:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">18:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">19:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">19:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">20:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">20:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">21:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">21:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">22:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">22:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">23:00</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        <tr>
+            <th class="right_border_time" scope="row">23:30</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border calendar_item item_in_hours" >free</th>
+            <th class="right_border_last calendar_item item_in_hours" >free</th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none" >
+    <h3 id="prepared_h3" class="text-success " style="padding-top: 160px;display: none">PREPARED</h3 >
     <thead>
     <tr>
-      <th class="days_in_calendar" scope="col"> </th>
-      <th class="days_in_calendar" scope="col">1 day</th>
-      <th class="days_in_calendar" scope="col">2 day</th>
-      <th class="days_in_calendar" scope="col">3 day</th>
-      <th class="days_in_calendar" scope="col">4 day</th>
-      <th class="days_in_calendar" scope="col">5 day</th>
-      <th class="days_in_calendar" scope="col">6 day</th>
-      <th class="days_in_calendar last" scope="col">7 day</th>
+        <th class="first" scope="col">time</th>
+        <th class="first" scope="col"></th>
+        <th class="first" scope="col"></th>
+        <th class="first" scope="col"></th>
     </tr>
     </thead>
     <tbody>
-    <tr >
-      <th class="right_border_time" scope="row">00:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
+    <tr class="prepared_tr">
+        <td >
+            <p> 6:00 - 8:30 </p>
+        </td>
+        <td>
+            <p></p>
+            <p></p>
+        </td>
+        <td>
+            <p></p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        </td>
     </tr>
-    <tr>
-      <th class="right_border_time" scope="row">00:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
+    <tr class="prepared_tr">
+        <td >
+            <p>  8:30 - 10:00</p>
+        </td>
+        <td>
+            <p></p>
+            <p></p>
+        </td>
+        <td>
+            <p></p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        </td>
     </tr>
-    <tr>
-      <th class="right_border_time" scope="row">01:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
+    <tr class="prepared_tr">
+        <td >
+            <p> 10:00 - 12:30 </p>
+        </td>
+        <td>
+            <p></p>
+            <p></p>
+        </td>
+        <td>
+            <p></p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        </td>
     </tr>
-    <tr>
-      <th class="right_border_time" scope="row">01:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
+    <tr class="prepared_tr">
+        <td >
+            <p> 10:00 - 12:30 </p>
+        </td>
+        <td>
+            <p></p>
+            <p></p>
+        </td>
+        <td>
+            <p></p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        </td>
     </tr>
-    <tr>
-      <th class="right_border_time" scope="row">02:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
+    <tr class="prepared_tr">
+        <td >
+            <p> 10:00 - 12:30 </p>
+        </td>
+        <td>
+            <p></p>
+            <p></p>
+        </td>
+        <td>
+            <p></p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        </td>
     </tr>
-    <tr>
-      <th class="right_border_time" scope="row">02:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
+    <tr class="prepared_tr">
+        <td >
+            <p> 10:00 - 12:30 </p>
+        </td>
+        <td>
+            <p></p>
+            <p></p>
+        </td>
+        <td>
+            <p></p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        </td>
     </tr>
-    <tr>
-      <th class="right_border_time" scope="row">03:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
+    <tr class="prepared_tr">
+        <td >
+            <p> 10:00 - 12:30 </p>
+        </td>
+        <td>
+            <p></p>
+            <p></p>
+        </td>
+        <td>
+            <p></p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        </td>
     </tr>
-    <tr>
-      <th class="right_border_time" scope="row">03:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
+    <tr class="prepared_tr">
+        <td >
+            <p> 10:00 - 12:30 </p>
+        </td>
+        <td>
+            <p></p>
+            <p></p>
+        </td>
+        <td>
+            <p></p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        </td>
     </tr>
-    <tr>
-      <th class="right_border_time" scope="row">04:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">04:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">05:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">05:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">06:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">06:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">07:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">07:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">08:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">08:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">09:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">09:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">10:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">10:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">11:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">11:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">12:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">12:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">13:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">13:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">14:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">14:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">15:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">15:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">16:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">16:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">17:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">17:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">18:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">18:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">19:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">19:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">20:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">20:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">21:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">21:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">22:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">22:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">23:00</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-    <tr>
-      <th class="right_border_time" scope="row">23:30</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border calendar_item" >free</th>
-      <th class="right_border_last calendar_item" >free</th>
-    </tr>
-
     </tbody>
-  </table>
-</div>
+</table>
 
+<table id="requested" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none">
+    <h3 id="requested_h3" class="text-warning " style="display: none">Requested time-slot</h3>
+    <thead>
+    <tr>
+        <th scope="col">time</th>
+        <th scope="col">Employee</th>
+        <th scope="col">EVC</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="requested_tr">
+        <td >
+            <p> 10:00 (11.12.2020) </p>
+        </td>
+        <td>
+            <p>Ondrej Richnak</p>
+            <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-435-SC</p>
+        </td>
+        <td class="td_flex_buttons">
+
+            <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
+            <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
+        </td>
+    </tr>
+    <tr class="requested_tr">
+        <td >
+            <p> 10:00  (11.12.2020) </p>
+        </td>
+        <td>
+            <p>Ondrej Richnak</p>
+        </td>
+        <td>
+            <p>BA-435-SC</p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
+            <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
+        </td>
+    </tr>
+    <tr class="requested_tr">
+        <td >
+            <p> 10:00  (11.12.2020) </p>
+        </td>
+        <td>
+            <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-435-SC</p>
+        </td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
+            <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<table id="booked" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none">
+    <h3 id="booked_h3" class="text-danger " style="display: none">BOOKED
+    </h3>
+    <thead>
+    <tr>
+        <th scope="col">time</th>
+        <th  scope="col">Employee</th>
+        <th  scope="col">EVC</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="booked_tr">
+        <td>
+            <p> 10:00  (11.12.2020) </p>
+        </td>
+        <td>
+            <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
+            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
+
+        </td>
+
+    </tr>
+    <tr class="booked_tr">
+        <td >
+            <p> 10:00  (11.12.2020) </p>
+        </td>
+        <td>
+            <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
+            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
+
+        </td>
+
+    </tr>
+    <tr class="booked_tr">
+        <td >
+            <p> 10:00 (11.12.2020) </p>
+        </td>
+        <td>
+            <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
+            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+
+<table id="finished" class="table table-striped  table-responsive bg-light table_of_customers" style="display: none" >
+    <h3 id="finished_h3" class="text-finished" style="display: none">Finished time-slot
+    </h3>
+    <thead>
+    <tr>
+        <th scope="col">time</th>
+        <th  scope="col">Employee</th>
+        <th  scope="col">EVC</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="finished_tr">
+        <td>
+            <p> 10:00  (11.12.2020) </p>
+        </td>
+        <td>
+            <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
+            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
+
+        </td>
+
+    </tr>
+    <tr class="finished_tr">
+        <td >
+            <p> 10:00  (11.12.2020) </p>
+        </td>
+        <td>
+            <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
+            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
+
+        </td>
+
+    </tr>
+    <tr class="finished_tr">
+        <td >
+            <p> 10:00 (11.12.2020) </p>
+        </td>
+        <td>
+            <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
+            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
 </body>
 <!-- Our JavaScript -->
 <script src="javascript/log_out.js"></script>
