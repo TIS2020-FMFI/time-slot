@@ -12,13 +12,18 @@ if (isset($_SESSION['id'])) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="   bootstrap-4.3.1/css/bootstrap.min.css" >
     <!-- Modified Bootstrap CSS -->
-    <link rel="stylesheet" href="css/main_page.css">
+    <link rel="stylesheet" href="css/internal_dispatcher.css">
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script> -->
     <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
+
+    <!-- Our JavaScript -->
+    <script src="javascript/Time_slot.js"></script>
+    <script src="javascript/Gate.js"></script>
+    <script src="javascript/Calendar.js"></script>
+    <script src="javascript/log_out.js"></script>
+    <script src="javascript/internal_dispatcher.js"></script>
 
 
   <title>Page of Ondrej Richnak</title>
@@ -52,10 +57,10 @@ if (isset($_SESSION['id'])) {
     <thead>
     <tr>
       <th class="top_bar td_flex_buttons" scope="col" >
-        <input type="date" id="input_date" value="" onchange="display_time_slot_for_this_date(this)"><!--value="2020-10-31" min="2020-10-31"  max="2020-10-31"-->
-        <button class="btn btn-default bg-primary" id="back_date" onclick="date_add(-1)" ><</button>
-        <button class="btn btn-default bg-primary last_btn" id="next_date" onclick="date_add(1)">></button>
-          <h4 id="ramp_title">Ramps 1 - 7</h4>
+        <input type="date" id="input_date" value="" onchange="display_time_slot_for_this_date(this)">
+        <button class="btn btn-default bg-primary" id="back_date" onclick="make_date_arrows_mini_calendar(-1)" ><</button>
+        <button class="btn btn-default bg-primary last_btn" id="next_date" onclick="make_date_arrows_mini_calendar(1)">></button>
+          <h4 id="ramp_title" class="text-primary">Ramps 1 - 7</h4>
       </th>
 
       <th class="top_bar" scope="col" style="padding-left: 0px;padding-right: 0px;">
@@ -63,7 +68,7 @@ if (isset($_SESSION['id'])) {
       </th>
 
       <th class="top_bar" scope="col" style="min-width: 100px;max-width: 100px;">
-        <input id="input_text" type="text" class="form-control" placeholder="Find by" oninput="filter_text(this)"  >
+        <input id="input_text" type="text" class="form-control" placeholder="Find by" oninput="find_by(this)"  >
       </th>
     </tr>
     </thead>
@@ -650,330 +655,111 @@ if (isset($_SESSION['id'])) {
     </table>
 </div>
 
+
+<h3 id="prepared_h3" class="text-success " style="padding-top: 160px;display: none">PREPARED</h3 >
 <table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none" >
-    <h3 id="prepared_h3" class="text-success " style="padding-top: 160px;display: none">PREPARED</h3 >
     <thead>
-    <tr>
-        <th class="first" scope="col">time</th>
-        <th class="first" scope="col"></th>
-        <th class="first" scope="col"></th>
-        <th class="first" scope="col"></th>
-    </tr>
+        <tr>
+            <th scope="col">Time</th>
+            <th  scope="col"></th>
+            <th  scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
     </thead>
     <tbody>
     <tr class="prepared_tr">
-        <td >
-            <p> 6:00 - 8:30 </p>
-        </td>
-        <td>
-            <p></p>
-            <p></p>
-        </td>
-        <td>
-            <p></p>
-        </td>
+        <td >6:00 - 8:30</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td class="td_flex_buttons">
-            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-        </td>
-    </tr>
-    <tr class="prepared_tr">
-        <td >
-            <p>  8:30 - 10:00</p>
-        </td>
-        <td>
-            <p></p>
-            <p></p>
-        </td>
-        <td>
-            <p></p>
-        </td>
-        <td class="td_flex_buttons">
-            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-        </td>
-    </tr>
-    <tr class="prepared_tr">
-        <td >
-            <p> 10:00 - 12:30 </p>
-        </td>
-        <td>
-            <p></p>
-            <p></p>
-        </td>
-        <td>
-            <p></p>
-        </td>
-        <td class="td_flex_buttons">
-            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-        </td>
-    </tr>
-    <tr class="prepared_tr">
-        <td >
-            <p> 10:00 - 12:30 </p>
-        </td>
-        <td>
-            <p></p>
-            <p></p>
-        </td>
-        <td>
-            <p></p>
-        </td>
-        <td class="td_flex_buttons">
-            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-        </td>
-    </tr>
-    <tr class="prepared_tr">
-        <td >
-            <p> 10:00 - 12:30 </p>
-        </td>
-        <td>
-            <p></p>
-            <p></p>
-        </td>
-        <td>
-            <p></p>
-        </td>
-        <td class="td_flex_buttons">
-            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-        </td>
-    </tr>
-    <tr class="prepared_tr">
-        <td >
-            <p> 10:00 - 12:30 </p>
-        </td>
-        <td>
-            <p></p>
-            <p></p>
-        </td>
-        <td>
-            <p></p>
-        </td>
-        <td class="td_flex_buttons">
-            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-        </td>
-    </tr>
-    <tr class="prepared_tr">
-        <td >
-            <p> 10:00 - 12:30 </p>
-        </td>
-        <td>
-            <p></p>
-            <p></p>
-        </td>
-        <td>
-            <p></p>
-        </td>
-        <td class="td_flex_buttons">
-            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-        </td>
-    </tr>
-    <tr class="prepared_tr">
-        <td >
-            <p> 10:00 - 12:30 </p>
-        </td>
-        <td>
-            <p></p>
-            <p></p>
-        </td>
-        <td>
-            <p></p>
-        </td>
-        <td class="td_flex_buttons">
-            <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+            <button class="btn btn-default bg-success only_one" style="" onclick="" >edit</button>
         </td>
     </tr>
     </tbody>
 </table>
 
+<h3 id="requested_h3" class="text-warning " style="display: none">Requested time-slot</h3>
 <table id="requested" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none">
-    <h3 id="requested_h3" class="text-warning " style="display: none">Requested time-slot</h3>
     <thead>
     <tr>
-        <th scope="col">time</th>
-        <th scope="col">Employee</th>
-        <th scope="col">EVC</th>
+        <th scope="col">Time</th>
+        <th  scope="col">Employee</th>
+        <th  scope="col">EVC</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Commodity</th>
         <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr class="requested_tr">
-        <td >
-            <p> 10:00 (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak</p>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-435-SC</p>
-        </td>
+        <td >10:00 (11.12.2020)</td>
+        <td>Ondrej Richnak</td>
+        <td>BA-435-SC</td>
+        <td>Bratislava</td>
         <td class="td_flex_buttons">
-
-            <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
-            <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
-        </td>
-    </tr>
-    <tr class="requested_tr">
-        <td >
-            <p> 10:00  (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak</p>
-        </td>
-        <td>
-            <p>BA-435-SC</p>
-        </td>
-        <td class="td_flex_buttons">
-            <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
-            <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
-        </td>
-    </tr>
-    <tr class="requested_tr">
-        <td >
-            <p> 10:00  (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-435-SC</p>
-        </td>
-        <td class="td_flex_buttons">
-            <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
-            <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
-
+            <button class="btn btn-default bg-primary only_one" style="" onclick="" >edit</button>
         </td>
     </tr>
     </tbody>
 </table>
 
-
+<h3 id="booked_h3" class="text-danger " style="display: none">BOOKED</h3>
 <table id="booked" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none">
-    <h3 id="booked_h3" class="text-danger " style="display: none">BOOKED
-    </h3>
+
     <thead>
-    <tr>
-        <th scope="col">time</th>
-        <th  scope="col">Employee</th>
-        <th  scope="col">EVC</th>
-        <th scope="col"></th>
-    </tr>
+        <tr>
+            <th scope="col">Time</th>
+            <th  scope="col">Employee</th>
+            <th  scope="col">EVC</th>
+            <th scope="col">Destination</th>
+            <th scope="col">Commodity</th>
+            <th scope="col"></th>
+        </tr>
     </thead>
     <tbody>
     <tr class="booked_tr">
-        <td>
-            <p> 10:00  (11.12.2020) </p>
+        <td >10:00 (11.12.2020)</td>
+        <td>Ondrej Richnak</td>
+        <td>BA-435-SC</td>
+        <td>Bratislava</td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-primary only_one" style="" onclick="" >edit</button>
         </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-
-        </td>
-
-    </tr>
-    <tr class="booked_tr">
-        <td >
-            <p> 10:00  (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-
-        </td>
-
-    </tr>
-    <tr class="booked_tr">
-        <td >
-            <p> 10:00 (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-        </td>
-
     </tr>
     </tbody>
 </table>
 
+
+<h3 id="finished_h3" class="text-finished" style="display: none">Finished time-slot</h3>
 <table id="finished" class="table table-striped  table-responsive bg-light table_of_customers" style="display: none" >
-    <h3 id="finished_h3" class="text-finished" style="display: none">Finished time-slot
-    </h3>
     <thead>
     <tr>
-        <th scope="col">time</th>
+        <th scope="col">Time</th>
         <th  scope="col">Employee</th>
         <th  scope="col">EVC</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Commodity</th>
         <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr class="finished_tr">
-        <td>
-            <p> 10:00  (11.12.2020) </p>
+        <td >10:00 (11.12.2020)</td>
+        <td>Ondrej Richnak</td>
+        <td>BA-435-SC</td>
+        <td>Bratislava</td>
+        <td class="td_flex_buttons">
+            <button class="btn btn-default bg-primary only_one" style="" onclick="" >edit</button>
         </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-
-        </td>
-
-    </tr>
-    <tr class="finished_tr">
-        <td >
-            <p> 10:00  (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-
-        </td>
-
-    </tr>
-    <tr class="finished_tr">
-        <td >
-            <p> 10:00 (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-        </td>
-
     </tr>
     </tbody>
 </table>
 </body>
-<!-- Our JavaScript -->
-<script src="javascript/log_out.js"></script>
-<script src="javascript/calendar.js"></script>
+
 </html>
 
 <?php

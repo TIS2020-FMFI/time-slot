@@ -32,7 +32,7 @@
   <button class="btn btn-default bg-light" >Log out</button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link " href="calendar.php">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
+      <a class="nav-item nav-link " href="internal_dispatcher.php">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
       <a class="nav-item nav-link " href="#">Kontact</a>
       <a class="nav-item nav-link " href="#">Statistika</a>
       <a class="nav-item nav-link " href="#">Zamestnanci</a>
