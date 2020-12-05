@@ -20,7 +20,7 @@ function checked_if_user_exist(old_password , new_password){
                 alert(data);
             }else{
                 alert(data);
-                window.open("calendar.php","_self");
+                window.open("internal_dispatcher.php","_self");
             }
 
 

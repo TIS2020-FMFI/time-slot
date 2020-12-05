@@ -19,6 +19,12 @@ if (isset($_SESSION['id'])) {
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ></script> -->
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script> -->
         <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
+        <!-- Our JavaScript -->
+        <script src="javascript/log_out.js"></script>
+        <script src="javascript/Time_slot.js"></script>
+        <script src="javascript/Gate.js"></script>
+        <script src="javascript/Calendar.js"></script>
+        <script src="javascript/external_dispatcher.js"></script>
 
 
         <title>Page of Ondrej Richnak</title>
@@ -28,13 +34,13 @@ if (isset($_SESSION['id'])) {
 
 
 <nav class="navbar navbar-light bg-primary">
-  <button class="navbar-toggler navbar-toggler-right bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" onclick="role_dow()">
+  <button class="navbar-toggler navbar-toggler-right bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" onclick="role_down_navigation()">
     <span class="navbar-toggler-icon"> </span>
   </button>
-  <button class="btn btn-default bg-light" >Log out</button>
+  <button class="btn btn-default bg-light" onclick="log_out()">Log out</button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link " href="calendar.php">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
+      <a class="nav-item nav-link " href="internal_dispatcher.php">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
       <a class="nav-item nav-link " href="#">Kontact</a>
       <a class="nav-item nav-link " href="#">Statistika</a>
       <a class="nav-item nav-link " href="#">Zamestnanci</a>
@@ -55,9 +61,9 @@ if (isset($_SESSION['id'])) {
     <thead>
     <tr>
       <th class="top_bar" style="display:flex;">
-        <input type="date" id="input_date" name="trip-start"  onchange="date_add(this)"><!--max="2020-10-31"-->
-          <button class="btn btn-default bg-primary" id="back_date" onclick="date_add(-1)" ><</button>
-          <button class="btn btn-default bg-primary last_btn" id="next_date" onclick="date_add(1)">></button>
+        <input type="date" id="input_date" name="trip-start"  onchange="make_date(this)"><!--max="2020-10-31"-->
+          <button class="btn btn-default bg-primary" id="back_date" onclick="make_date(-1)" ><</button>
+          <button class="btn btn-default bg-primary last_btn" id="next_date" onclick="make_date(1)">></button>
       </th>
       <th class="top_bar">
         <h3 id="date_number"  class="text-primary" style="margin: 0px;padding: 0px">21.12.2020</h3>
@@ -74,7 +80,7 @@ if (isset($_SESSION['id'])) {
         </div>
       </th>
       <th class="top_bar" scope="col" >
-        <input type="text" id="input_text" class="form-control" placeholder="Find by" oninput="select_only_text_with(this)"  >
+        <input type="text" id="input_text" class="form-control" placeholder="Find by" oninput="find_by(this)"  >
       </th>
 
 
@@ -82,13 +88,17 @@ if (isset($_SESSION['id'])) {
     </thead>
   </table>
 </div>
+
+
 <table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers" >
   <h3 class="text-success" style="padding-top: 160px">PREPARED</h3 >
   <thead>
   <tr>
-    <th class="first" scope="col">time</th>
+    <th class="first" scope="col">Time</th>
     <th class="first" scope="col"></th>
     <th class="first" scope="col"></th>
+      <th class="first" scope="col"></th>
+      <th class="first" scope="col"></th>
     <th class="first" scope="col"></th>
   </tr>
   </thead>
@@ -104,6 +114,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p></p>
     </td>
+      <td>
+          <p></p>
+      </td>
+      <td>
+          <p></p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
     </td>
@@ -119,6 +135,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p></p>
     </td>
+      <td>
+          <p></p>
+      </td>
+      <td>
+          <p></p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
     </td>
@@ -134,6 +156,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p></p>
     </td>
+      <td>
+          <p></p>
+      </td>
+      <td>
+          <p></p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
     </td>
@@ -149,6 +177,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p></p>
     </td>
+      <td>
+          <p></p>
+      </td>
+      <td>
+          <p></p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
     </td>
@@ -164,6 +198,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p></p>
     </td>
+      <td>
+          <p></p>
+      </td>
+      <td>
+          <p></p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
     </td>
@@ -179,6 +219,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p></p>
     </td>
+      <td>
+          <p></p>
+      </td>
+      <td>
+          <p></p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
     </td>
@@ -194,6 +240,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p></p>
     </td>
+      <td>
+          <p></p>
+      </td>
+      <td>
+          <p></p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
     </td>
@@ -209,6 +261,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p></p>
     </td>
+      <td>
+          <p></p>
+      </td>
+      <td>
+          <p></p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
     </td>
@@ -217,15 +275,16 @@ if (isset($_SESSION['id'])) {
 </table>
 
 <table id="requested" class="table table-striped  table-responsive bg-light table_of_customers">
-  <h3 class="text-warning">Requested time-slot
-  </h3>
+  <h3 class="text-warning">Requested time-slot</h3>
   <thead>
-  <tr>
-    <th scope="col">time</th>
-    <th scope="col">Employee</th>
-    <th scope="col">EVC</th>
-    <th scope="col"></th>
-  </tr>
+    <tr>
+        <th scope="col">Time</th>
+        <th scope="col">Truck drivers</th>
+        <th scope="col">EVC</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Commodity</th>
+        <th scope="col"></th>
+     </tr>
   </thead>
   <tbody>
   <tr class="requested_tr">
@@ -239,6 +298,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p>BA-435-SC</p>
     </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
     <td class="td_flex_buttons">
 
       <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
@@ -255,6 +320,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p>BA-435-SC</p>
     </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
       <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
@@ -270,6 +341,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p>BA-435-SC</p>
     </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
     <td class="td_flex_buttons">
       <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
       <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
@@ -281,16 +358,17 @@ if (isset($_SESSION['id'])) {
 
 
 <table id="booked" class="table table-striped  table-responsive bg-light table_of_customers">
-  <h3 class="text-danger">BOOKED
-  </h3>
-  <thead>
-  <tr>
-    <th scope="col">time</th>
-    <th  scope="col">Employee</th>
-    <th  scope="col">EVC</th>
-    <th scope="col"></th>
-  </tr>
-  </thead>
+  <h3 class="text-danger">BOOKED</h3>
+    <thead>
+    <tr>
+        <th scope="col">Time</th>
+        <th scope="col">Truck drivers</th>
+        <th scope="col">EVC</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Commodity</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
   <tbody>
   <tr class="booked_tr">
     <td>
@@ -302,6 +380,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p>BA-345-DS</p>
     </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
     <td>
       <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
 
@@ -318,6 +402,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p>BA-345-DS</p>
     </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
     <td>
       <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
 
@@ -334,6 +424,12 @@ if (isset($_SESSION['id'])) {
     <td>
       <p>BA-345-DS</p>
     </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
+      <td>
+          <p>BA-345-DS</p>
+      </td>
     <td>
       <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
     </td>
@@ -347,9 +443,11 @@ if (isset($_SESSION['id'])) {
     </h3>
     <thead>
     <tr>
-        <th scope="col">time</th>
-        <th  scope="col">Employee</th>
-        <th  scope="col">EVC</th>
+        <th scope="col">Time</th>
+        <th scope="col">Truck drivers</th>
+        <th scope="col">EVC</th>
+        <th scope="col">Destination</th>
+        <th scope="col">Commodity</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -360,6 +458,12 @@ if (isset($_SESSION['id'])) {
         </td>
         <td>
             <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
         </td>
         <td>
             <p>BA-345-DS</p>
@@ -376,6 +480,12 @@ if (isset($_SESSION['id'])) {
         </td>
         <td>
             <p>Ondrej Richnak2</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
         </td>
         <td>
             <p>BA-345-DS</p>
@@ -397,6 +507,12 @@ if (isset($_SESSION['id'])) {
             <p>BA-345-DS</p>
         </td>
         <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
+            <p>BA-345-DS</p>
+        </td>
+        <td>
             <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
         </td>
 
@@ -404,8 +520,7 @@ if (isset($_SESSION['id'])) {
     </tbody>
 </table>
 </body>
-<!-- Our JavaScript -->
-<script src="javascript/external_dispatcher.js"></script>
+
 </html>
 <?php
 }

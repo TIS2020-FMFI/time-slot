@@ -1,14 +1,4 @@
-
-
-
-
-
-
-
-
-
-
-// CONVERT JASON DATA TO EXCEL
+ // CONVERT JASON DATA TO EXCEL
 // JSONToCSVConvertor(data,"TITLE",true);
 function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object

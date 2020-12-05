@@ -49,7 +49,7 @@ function request_time_slot(){
             if (data){
                 if (data === '1111' || data === '111' ){
                     console.log('PRESIEL SUPER V POHODE');
-                    window.open('calendar.php',"_self");
+                    window.open('internal_dispatcher.php',"_self");
                 }else{
                     console.log('chyba servera');
                 }
@@ -70,12 +70,12 @@ function close_time_slot(){
                 //alert("dsadasdsa");
                 if (data === '1' ){
                     console.log(1)
-                    window.open('calendar.php',"_self");
+                    window.open('internal_dispatcher.php',"_self");
                 }else if (data === '2'){
                     console.log(2)
                 }else if (data === '4'){
                     console.log(4)
-                    window.open('calendar.php',"_self");
+                    window.open('internal_dispatcher.php',"_self");
                     //console.log('sesion nexistuje');
                 }else {
                     console.log(3)
