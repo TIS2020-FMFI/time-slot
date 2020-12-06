@@ -91,17 +91,3 @@ table thead th{
 .mobile_setup{
     display: revert;
 }
-@media(max-width: 600px) {
-    .first_name_inputs {
-        width: 50px;
-    }
-
-    .last_name_inputs {
-        width: 60px;
-    }
-
-    .email_inputs {
-        width: 80px;
-    }
-
-}
