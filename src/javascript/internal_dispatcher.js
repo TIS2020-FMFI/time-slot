@@ -50,6 +50,7 @@ function load_all_time_slots() {
         }
     });
     console.log("im execiuted");
+    //generate_gate_selector(document.getElementById('select_gate'));
     setTimeout(generate_gate_selector,250,document.getElementById('select_gate')); // nutne cakanie koli spracovaniu dat ktor boli ziskane ajaxom
 
 }

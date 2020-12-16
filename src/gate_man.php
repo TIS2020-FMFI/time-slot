@@ -77,7 +77,7 @@ if (isset($_SESSION['id'])) {
       <td>9x BMW</td>
       <td>5</td>
       <td>
-          <button class="btn btn-default bg-success" style="" onclick="confirm_time_slot()" >Confirm of arrive</button>
+          <button class="btn btn-default bg-success" style="" onclick="confirm_time_slot()" >Confirm</button>
       </td>
   </tr>
   </tbody>
