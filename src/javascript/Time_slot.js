@@ -92,4 +92,23 @@ class Time_slot {
         this.destinations.push(destination)
         this.commoditys.push(commodity)
     }
+    /**
+     * format priadavanie do arrays pre EXD pri parseri dat vystup s ajax requestu
+     * @param id :integer
+     * @param s_time :string
+     * @param evc :string/null
+     * @param driver1 :string
+     * @param driver2 :string/null
+     * @param destination :string/null
+     * @param commodity :string/null
+     */
+    add_next_time_slot_for_gate_man(id, s_time,evc,driver1,driver2,destination,commodity){
+        this.ids.push(id)
+        this.start_times.push(s_time)
+        this.evcs.push(evc)
+        this.kamionists_1.push(driver1)
+        this.kamionists_2.push(driver2)
+        this.destinations.push(destination)
+        this.commoditys.push(commodity)
+    }
 }
