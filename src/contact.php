@@ -13,7 +13,7 @@ if (isset($_SESSION['id'])) {
         <link rel="stylesheet" href="   bootstrap-4.3.1/css/bootstrap.min.css" >
         <!-- Modified Bootstrap CSS -->
         <link rel="stylesheet" href="css/login.css">
-        
+
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="javascript/jquery-3.5.1.min.js"></script>
         <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
@@ -33,9 +33,9 @@ if (isset($_SESSION['id'])) {
                                 hesitate to contact us directly. Our team will help you.</p>
                         </div>
 
-                        <div class="form-label-group"style="margin-bottom: 20px">
-                            <p class="text-center w-responsive mx-auto mb-5">e-mail: simona.dubekova@gmail.com
-                                <br> telephone: +421900 000 000</p>
+                        <div class="form-label-group" style="margin-bottom: 20px">
+                            <p class="text-center w-responsive mx-auto mb-5"><em><b>e-mail:</b> simona.dubekova@gmail.com
+                                    <br><b>telephone:</b> +421900 000 000</em></p>
                         </div>
                     </div>
                 </div>
@@ -48,6 +48,6 @@ if (isset($_SESSION['id'])) {
     <?php
 }
 else{
-    echo "<h1>Your are not valid user, you must first try to log <a class='nav-item nav-link'  href='index.php'> in</a></h1>";
+    echo "<h1>You are not valid user, you have to log<a class='nav-item nav-link'  href='index.php'> in.</a></h1>";
 }
 ?>
