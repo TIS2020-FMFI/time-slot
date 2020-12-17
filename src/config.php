@@ -10,7 +10,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="   bootstrap-4.3.1/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="bootstrap-4.3.1/css/bootstrap.min.css" >
     <!-- Modified Bootstrap CSS -->
     <link rel="stylesheet" href="css/login.css">
 
@@ -20,28 +20,27 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 
     <!-- Our JavaScript -->
     <script type="text/javascript" src="javascript/config.js"></script>
-    <title>Page of Ondrej Richnak</title>
+    <title>Config</title>
 </head>
 <body>
 
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h6>DAY
-                <br>
-                napr. <span class="text-danger">2020-12-23</span> znamena ze vdani  den su prazdniny
-                <br>
-                napr. <span class="text-success">2020-12-03</span> znamena ze dani je normalni pracovni den
-            </h6>
+            <h6>DAY</h6>
+                <p>Note: <span class="text-danger">23-12-2020</span> means, that this day is day off,
+                    <br> <span class="text-success">23-12-2020</span> means, that this day is working day.</p>
         </div>
         <div class="col-sm">
-            <h6>Start working hours format 12.5 == 12:30</h6>
+            <h6>Start working hours</h6>
+            <p>Note: format 12.5 == 12:30</p>
         </div>
         <div class="col-sm">
-            <h6>End working hours format 22 == 22:00</h6>
+            <h6>End working hours</h6>
+            <p>Note: format 22 == 22:00</p>
         </div>
         <div class="col-sm">
-            <h6>Overwrite holiday timi-sloti sa vitvoria aj ked sa dani den nachadza v holidays</h6>
+            <p>Overwrite holiday time-slots are created even if the day is a holiday.</p>
         </div>
     </div>
 </div>
@@ -50,7 +49,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 
     <div class="row">
         <div class="col-sm">
-            <h6 id="input_day_monday">Pondelok:</h6>
+            <h6 id="input_day_monday">Monday:</h6>
         </div>
         <div class="col-sm">
             <label for="input_start_monday"></label><input type="number" id="input_start_monday" class="form-control" min="0" max="24" step="0.5" placeholder="start time " >
@@ -68,7 +67,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 
     <div class="row">
         <div class="col-sm">
-            <h6 id="input_day_tuesday">Utorok:</h6>
+            <h6 id="input_day_tuesday">Tueasday:</h6>
         </div>
         <div class="col-sm">
             <label for="input_start_tuesday"></label><input type="number" id="input_start_tuesday" class="form-control" min="0" max="24" step="0.5" placeholder="start time " >
@@ -86,7 +85,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 
     <div class="row">
         <div class="col-sm">
-            <h6 id="input_day_wednesday">Streda:</h6>
+            <h6 id="input_day_wednesday">Wednesday:</h6>
         </div>
         <div class="col-sm">
             <label for="input_start_wednesday"></label><input type="number" id="input_start_wednesday" class="form-control" min="0" max="24" step="0.5" placeholder="start time " >
@@ -104,7 +103,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 
     <div class="row">
         <div class="col-sm">
-            <h6 id="input_day_thursday">stvrtok:</h6>
+            <h6 id="input_day_thursday">Thursday:</h6>
         </div>
         <div class="col-sm">
             <label for="input_start_thursday"></label><input type="number" id="input_start_thursday" class="form-control" min="0" max="24" step="0.5" placeholder="start time " >
@@ -122,7 +121,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 
     <div class="row">
         <div class="col-sm">
-            <h6 id="input_day_friday">Piatok:</h6>
+            <h6 id="input_day_friday">Friday:</h6>
         </div>
         <div class="col-sm">
             <label for="input_start_friday"></label><input type="number" id="input_start_friday" class="form-control" min="0" max="24" step="0.5" placeholder="start time " >
@@ -140,7 +139,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 
     <div class="row">
         <div class="col-sm">
-            <h6 id="input_day_saturday">Sobota:</h6>
+            <h6 id="input_day_saturday">Saturday:</h6>
         </div>
         <div class="col-sm">
             <label for="input_start_saturday"></label><input type="number" id="input_start_saturday" class="form-control" min="0" max="24" step="0.5" placeholder="start time " >
@@ -158,7 +157,7 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 
     <div class="row">
         <div class="col-sm">
-            <h6 id="input_day_sunday">Nedela:</h6>
+            <h6 id="input_day_sunday">Sunday:</h6>
         </div>
         <div class="col-sm">
             <label for="input_start_sunday"></label><input type="number" id="input_start_sunday" class="form-control" min="0" max="24" step="0.5" placeholder="start time " >
@@ -175,12 +174,13 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h6>Zmeni budu aktivne od dalsieho automatickeho generovania (nasledujuca STREDA 24:00)</h6>
             <button class="btn btn-lg btn-success btn-block text-uppercase"  onclick="set_new_times()">SET</button>
+            <p>The changed time-slots will be active from the next automatic generation. (next Wednesday 24:00)</p>
         </div>
         <div class="col-sm">
-            <h6>Zmeni sa prejavia okazmite po kliknuti nagenerovane time-sloti budu odstranene bez ohladu nato ci uz niekto bol prihlaseni nane vytvorene nanovo s prislusini datami uvedenimi visie</h6>
-            <button class="btn btn-lg btn-danger btn-block text-uppercase"  onclick="regenerate_new_time_slots()">REGENERATE</button>
+            <button class="btn btn-lg btn-danger btn-block text-uppercase" onclick="regenerate_new_time_slots()">REGENERATE</button>
+            <p>The changed time-slots will be re-created immediately with the relevant data listed above and will take effect immediately after clicking on regenerate.
+                <br>Time-slots will be removed regardless of whether someone has already been logged in!</p>
         </div>
 
     </div>
@@ -190,7 +190,8 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 
     <div class="row">
         <div class="col-sm">
-            <h6>Holidays:</h6> <p>format mesiac-den, napr.(12-04,01-23)</p>
+            <h6>Holidays:</h6>
+            <p>Note: format day-month, (24-12)</p>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1"></label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -202,8 +203,8 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h6>Zaznamenane datumi prazdnin aktivne od dalsieho automatickeho generovania (nasledujuca STREDA 24:00)</h6>
             <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit" onclick="set_new_holidays()">SET</button>
+            <p>The changed time-slots will be active from the next automatic generation. (next Wednesday 24:00)</p>
         </div>
 
     </div>
@@ -215,6 +216,6 @@ if (isset($_SESSION['id']) && ($_SESSION['role'] == 'AD' ||  $_SESSION['role'] =
 <?php
 }
 else{
-    echo "<h1>Your are not valid user , you must first try to log <a class='nav-item nav-link'  href='index.php'> in</a></h1>";
+    echo "<h1>You are not valid user, you have to log<a class='nav-item nav-link'  href='index.php'> in.</a></h1>";
 }
 ?>
