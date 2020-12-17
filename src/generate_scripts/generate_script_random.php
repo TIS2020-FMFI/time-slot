@@ -1,11 +1,6 @@
 <?php
 include('../db.php');
-$sql = "delete from time_slot where id > 0";
-if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
-    echo "VYCISTENA DB(TIME SLOTS)<br>";
-} else{
-    echo "CHYBA SKRIPTU ";
-}
+date_default_timezone_set("Europe/Bratislava");
 $array_of_state = Array("prepared","requested","finished","booked");
 // kazdy vnutorni array in $array_of_times predstavuje den monday [7:00 , 22:00] vo formate intigerov [7 , 22]
 $array_of_times = [[7 , 19.5],
