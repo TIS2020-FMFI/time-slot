@@ -1,6 +1,4 @@
 let gates = new Gate();
-
-
 /**
  * spracovanie ajax vystupu
  */
@@ -37,7 +35,7 @@ function parse_data(data){
     }
 }
 /**
- * ajax request na ziskanie dat pre vratnika
+ * ajax request na ziskanie dat pre gate_man
  */
 function load_all_time_slots() {
     $.post('gate_man_AJAX/load_all_time_slots.php',{
@@ -46,20 +44,26 @@ function load_all_time_slots() {
         if (data){
             parse_data(data);
 
+
         }else{
             alert("chyba nacitana dat s db");
         }
+        //console.log(data);
     });
+    //console.log("im execiuted");
     setTimeout(generate_gate_selector,250); // nutne cakanie koli spracovaniu dat ktor boli ziskane ajaxom
+
 }
 load_all_time_slots()
+
 function generate_gate_selector(){
     //console.log(gates);
     make_table_for_external_dispatcher('finished','finished_tr','finished');
 }
 
+
 /**
- * funkcia na vytvorenie tables 'finished'
+ * funkcia na vitvorenie tables 'prepared'/'requested'/'booked'/'finished'
  * @param id_of_table HTML.id table ktori sa ide spracovat :string
  * @param row_class_name HTML.class_name rows ktore sa idu spracovat :string
  * @param state parameter kontoli pri vibere time slotov :string
@@ -75,26 +79,38 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
     // generator html pre dani table
     for (let calendar = 0 ; calendar < gates.array_of_calendars.length; calendar++){
         //console.log(gates.array_of_calendars[calendar].time_slots);
+        //console.log(gates.array_of_calendars[calendar].time_slots[].length);
         for (let real_time = 0 ;real_time < gates.array_of_calendars[calendar].time_slots.length;real_time++){
+        //let real_time = gates.array_of_calendars[calendar].get_index_by_real_time(document.getElementById('input_date').value); // da sa pouzit premena 'selected_date'
+            //console.log('gates',gates.array_of_calendars[calendar].time_slots[real_time]);
             for (let certain_time_slot = 0; certain_time_slot < gates.array_of_calendars[calendar].time_slots[real_time].start_times.length ; certain_time_slot++) {
+                // pokial je row prepared negenegrovat s rovnakim casom ak sa uz cas nachada v
                 let row = table_witch_contains_id.insertRow();
                 row.className = row_class_name;
                 let cell1 = row.insertCell(0);
                 if (gates.array_of_calendars[calendar].time_slots[real_time].kamionists_2[certain_time_slot] !== null) {
+                    //console.log(gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot], gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_2[certain_time_slot]);
                     cell1.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot]
                         + "<br>" + gates.array_of_calendars[calendar].time_slots[real_time].kamionists_2[certain_time_slot];
                 } else {
                     cell1.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot];
                 }
+
+                //cell1.innerHTML = gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot].split(" ")[1];
+                // tuna bude podmienka na nieje prepared tak wiplni innner html cell2 a cell3 s menami jazdcov a EVC
                 let cell2 = row.insertCell(1);
                 cell2.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].evcs[certain_time_slot];
                 let cell3 = row.insertCell(2);
                 cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].start_times[certain_time_slot].split(' ')[1];
                 let cell4 = row.insertCell(3);
+
                 cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot];
                 let cell5 = row.insertCell(4);
                 cell5.innerHTML = gates.ids[calendar];
+
                 let cell6 = row.insertCell(5);
+                // treba pridat funkcionalitu buttonom
+
                 let apply_button = document.createElement("BUTTON")
                 apply_button.className = "btn btn-default bg-success only_one";
                 apply_button.onclick = function (){
@@ -105,14 +121,11 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                 cell6.className = "td_flex_buttons";
                 cell6.appendChild(apply_button);
 
+
             }
         }
     }
 }
-
-/**
- * Potvrdenie time-slotov
- */
 function ajax_post_confirm(html_row,id){
     $.post('gate_man_AJAX/confirm_time_slot.php',{
         data:id
@@ -125,15 +138,9 @@ function ajax_post_confirm(html_row,id){
         }
     });
 }
-
 function delete_html_time_slot(html_row){
     html_row.remove();
 }
-
-
-/**
- * Funkcia na vyhladavanie pre vratnika
- */
 function find_by(elem){
     let text = elem.value;
     let table_rows_with_class_name = document.getElementsByClassName("finished_tr");
@@ -151,14 +158,10 @@ function find_by(elem){
         }
     }
 }
-
-/**
- * Funkcia na zobrazenie kamionov, ktore maju prist, pocita aj s meskanim kamionistu
- */
 function loop(){
-    let delay_of_truck = 20; // meskanie kamionistu, ktoru urcuje admin
+    let duration_of_admins_constant = 20; // magic konstant from admin
     let time = new Date();
-    time.setMinutes(time.getMinutes() - delay_of_truck);
+    time.setMinutes(time.getMinutes() - duration_of_admins_constant);
     let valid_time = (time.toLocaleTimeString()).split(' ')[0];
     let table_rows_with_class_name = document.getElementsByClassName("finished_tr");
     let list_of_deleted = [];

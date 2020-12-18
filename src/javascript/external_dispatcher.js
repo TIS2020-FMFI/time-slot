@@ -212,6 +212,7 @@ function  load_all_time_slots(){
     },function(data){
         if (data){
             parse_data(data);
+
         }else{
             alert("chyba nacitana dat s db");
         }

@@ -17,7 +17,7 @@ if (isset($_SESSION['id']) && isset($_GET['id_of_time_slot'])  ) {// && $_SESSIO
                     t.evc_truck as `truck_evc`,
                     CONCAT(date_format(t.start_date_time, '%Y %M %D  ( %H:%i -'),' ',date_format(t.end_date_time, '%H:%i )')) as `time_of_time_slot`,
                     t.state as `time_slot_state`
-                    FROM `time_slot` as t  WHERE id={$_GET['id_of_time_slot']}";
+                    FROM `time_slot` as t  WHERE id={$_SESSION['active_time_slot']}";
             if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
                 $vystup = $result->fetch_assoc(); //result->fetch_all(); --> returns arrry object
                 $result->free();
