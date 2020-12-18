@@ -13,11 +13,11 @@
     <script src="javascript/jquery-3.5.1.min.js"></script>
     <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
 
-    <script type="text/javascript" src="javascript/zamestnanci.js"></script>
+    <script src="javascript/zamestnanci.js"></script>
 
     <title>Page of Ondrej Richnak</title>
 
-    <script src="javascript/zamestnanci.js"></script>
+
 
 </head>
 <body class=" bg-dark container-fluid">
@@ -72,12 +72,13 @@
         </th>
       <th class="top_bar" scope="col" >
 
-          <button class="btn btn-default bg-success" style="margin-right: 10px; float: right;" onclick="add_new_customer()" >Add new</button>
+          <button id="new" class="btn btn-default bg-success" style="margin-right: 10px; float: right;" onclick="add_new_customer()" >Add new</button>
 
       </th>
         <th class="top_bar" scope="col" >
 
-            <button class="btn btn-default bg-success" style="margin-right: 10px; float: right;" onclick="add_new_customer()" >Edit</button>
+            <button id="edit" class="btn btn-default bg-primary" style="margin-right: 10px; float: right;" onclick="edit_employees()" >Edit</button>
+            <button id="update" class="btn btn-default bg-success" style="margin-right: 10px; float: right; display: none;" onclick="update_employees()" >Update</button>
 
         </th>
     </tr>

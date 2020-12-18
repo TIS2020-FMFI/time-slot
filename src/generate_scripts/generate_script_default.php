@@ -59,7 +59,8 @@ if (!$mysqli->connect_errno) {
 $next_start_point_of_generation = strtotime('next Monday', strtotime('now')); //  treba specifikovat format generovania napr. UTC 00:00
 $date = date("Y-m-d H:i:s", $next_start_point_of_generation);
 
-for ($gate_number = 1 ;$gate_number < 2;$gate_number++) { //11 pre testovaciu DB
+for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu DB
+
     //echo 'GATE NUMBER'.$gate_number.'<br>';
     for ($gate_times = 0; $gate_times < count($array_of_times); $gate_times++) {
         //echo 'DAY IN WEEK :'.($gate_times+1).'<br>';
