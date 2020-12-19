@@ -2,10 +2,10 @@
 session_start();
 include('db.php');
 // $_SESSION['active_time_slot2'] != []
-if ($_SESSION['active_time_slot'] != []){
-    include('objednavka AJAX/alert_if_occupied.php');
-}
-if (isset($_SESSION['id']) && isset($_GET['id_of_time_slot'])  ) {// && $_SESSION['active_time_slot'] == []
+//if ($_SESSION['active_time_slot'] != []){
+//    include('objednavka AJAX/alert_if_occupied.php');
+//}
+if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND' || $_SESSION['role'] == 'EXD'  ) {
 
         if (!$mysqli->connect_errno) {
             // komplexne sql ktorim sa da ziskat vsetky dedene data s
@@ -53,24 +53,10 @@ if (isset($_SESSION['id']) && isset($_GET['id_of_time_slot'])  ) {// && $_SESSIO
 ?>
 <!doctype html>
 <html lang="en">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="   bootstrap-4.3.1/css/bootstrap.min.css" >
-  <!-- Modified Bootstrap CSS -->
-  <link rel="stylesheet" href="css/objednavka.css">
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="javascript/jquery-3.5.1.min.js"></script>
-    <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
-    <!-- Our JavaScript -->
-    <script type="text/javascript" src="javascript/objednavka.js"></script>
-
-  <title>Page of Ondrej Richnak</title>
-</head>
+                <?php
+                $page = 'order_page';
+                include('html_head_component.php');
+                ?>
 <body>
 <div class="container">
   <div class="row">
@@ -281,7 +267,7 @@ if (isset($_SESSION['id']) && isset($_GET['id_of_time_slot'])  ) {// && $_SESSIO
 </div>
 </body>
 <!-- Our JavaScript -->
-<script type="text/javascript" src="javascript/objednavka.js"></script>
+<script type="text/javascript" src="javascript/order.js"></script>
 </html>
 <?php
     } else {

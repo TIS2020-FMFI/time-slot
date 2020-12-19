@@ -17,6 +17,7 @@ if (isset($_POST["email"])) {
                 $_SESSION['priezvisko'] = $row['priezvisko'];
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['role'] = $row['role'];
+                $_SESSION['login_count'] = $row['login_count'];
                 $_SESSION['active_time_slot'] = [];
 
                 header("Content-Type:application/json");

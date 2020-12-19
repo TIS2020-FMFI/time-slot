@@ -1,28 +1,18 @@
 <?php
 session_start();
-if (isset($_SESSION['id'])) {
+if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND' || $_SESSION['role'] == 'EXD' || $_SESSION['role'] == 'GM'  ) {
 ?>
 <!doctype html>
 <html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="   bootstrap-4.3.1/css/bootstrap.min.css" >
-    <!-- Modified Bootstrap CSS -->
-    <link rel="stylesheet" href="css/login.css">
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="javascript/jquery-3.5.1.min.js"></script>
-    <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
-
-    <!-- Our JavaScript -->
-    <script type="text/javascript" src="javascript/change_password.js"></script>
-  <title>Page of Ondrej Richnak</title>
-</head>
+    <?php
+    $page = 'change_password';
+    include('html_head_component.php');
+    ?>
 <body>
+<?php
+include('html_nav_component.php');
+?>
+
 <div class="container">
   <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">

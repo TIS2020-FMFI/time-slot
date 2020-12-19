@@ -1,21 +1,9 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="   bootstrap-4.3.1/css/bootstrap.min.css" >
-    <!-- Modified Bootstrap CSS -->
-    <link rel="stylesheet" href="css/login.css">
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="javascript/jquery-3.5.1.min.js"></script>
-    <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
-    <!-- Our JavaScript -->
-    <script type="text/javascript" src="javascript/login_page.js"></script>
-  <title>Page of Ondrej Richnak</title>
-</head>
+<?php
+$page = 'log_in';
+include('html_head_component.php');
+?>
 <body>
 <div class="container">
   <div class="row">
@@ -33,13 +21,6 @@
               <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
               <label for="inputPassword"></label>
             </div>
-
-            <!-- REMEBER SIGN
-            <div class="custom-control custom-checkbox mb-3">
-              <input type="checkbox" class="custom-control-input" id="customCheck1">
-              <label class="custom-control-label" for="customCheck1">Remember password</label>
-            </div>
-            -->
             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" onclick="log_in()">Sign in</button>
             </form>
         </div>

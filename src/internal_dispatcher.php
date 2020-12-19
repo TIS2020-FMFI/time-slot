@@ -1,55 +1,18 @@
 <?php
 session_start();
-if (isset($_SESSION['id'])) {
+if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 ?>
+
 <!doctype html>
 <html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="   bootstrap-4.3.1/css/bootstrap.min.css" >
-    <!-- Modified Bootstrap CSS -->
-    <link rel="stylesheet" href="css/internal_dispatcher.css">
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="javascript/jquery-3.5.1.min.js"></script>
-    <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
-
-    <!-- Our JavaScript -->
-    <script src="javascript/Time_slot.js"></script>
-    <script src="javascript/Gate.js"></script>
-    <script src="javascript/Calendar.js"></script>
-    <script src="javascript/log_out.js"></script>
-    <script src="javascript/internal_dispatcher.js"></script>
-
-
-  <title>Page of Ondrej Richnak</title>
-</head>
+    <?php
+    $page = 'internal_dispatcher_main_page';
+    include('html_head_component.php');
+    ?>
 <body class=" bg-dark container-fluid">
-
-
-<nav class="navbar navbar-light bg-primary">
-  <button class="navbar-toggler navbar-toggler-right bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"> </span>
-  </button>
-  <button class="btn btn-default bg-light" onclick="log_out()">Log out</button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link " href="#">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
-      <a class="nav-item nav-link " href="contact.php">Kontact</a>
-      <a class="nav-item nav-link " href="external_dispatcher.php">xternal dispatcher assigment</a>
-      <a class="nav-item nav-link " href="zamestnanci.php">Zamestnanci</a>
-      <a class="nav-item nav-link " href="gate_man.php">Vratnik</a>
-      <a class="nav-item nav-link " href="objednavka.php">Objednavka</a>
-      <a class="nav-item nav-link " href="change_password.php">Chenge password</a>
-      <a class="nav-item nav-link " href="index.php">login page</a>
-    </div>
-  </div>
-</nav>
-
+    <?php
+    include('html_nav_component.php');
+    ?>
 <div class="table-responsive bg-light" style="width: auto; margin-left: -15px;margin-bottom: 0px;
     margin-right: -15px;">
   <table class="table" style="margin-bottom: 0px;" >
@@ -57,7 +20,7 @@ if (isset($_SESSION['id'])) {
     <thead>
     <tr>
       <th class="top_bar td_flex_buttons" scope="col" >
-        <input type="date" id="input_date" value="" onchange="display_time_slot_for_this_date(this)">
+          <label for="input_date"></label><input type="date" id="input_date" value="" onchange="display_time_slot_for_this_date(this)">
         <button class="btn btn-default bg-primary" id="back_date" onclick="make_date_arrows_mini_calendar(-1)" ><</button>
         <button class="btn btn-default bg-primary last_btn" id="next_date" onclick="make_date_arrows_mini_calendar(1)">></button>
           <h4 id="ramp_title" class="text-primary">Ramps 1 - 7</h4>
@@ -68,7 +31,7 @@ if (isset($_SESSION['id'])) {
       </th>
 
       <th class="top_bar" scope="col" style="min-width: 100px;max-width: 100px;">
-        <input id="input_text" type="text" class="form-control" placeholder="Find by" oninput="find_by(this)"  >
+          <label for="input_text"></label><input id="input_text" type="text" class="form-control" placeholder="Find by" oninput="find_by(this)"  >
       </th>
     </tr>
     </thead>
@@ -79,7 +42,7 @@ if (isset($_SESSION['id'])) {
     <table id="calendar" class="table table-striped"  >
         <thead>
         <tr>
-            <th class=" th_top_float_bar right_border_state" scope="col" style="width-max: auto;display: flex">
+            <th class=" th_top_float_bar right_border_state" scope="col" style="display: flex">
                 <button class="btn btn-default bg-primary"   ><</button>
 
                 <div class="form-group" style="margin: 0px;width: 120px">
@@ -158,7 +121,7 @@ if (isset($_SESSION['id'])) {
     <table id="calendar_dates" class="table " style="display: none"  >
         <thead>
         <tr>
-            <th class=" th_top_float_bar right_border_state" scope="col" style="width-max: auto;text-align: center">
+            <th class=" th_top_float_bar right_border_state" scope="col" style="text-align: center">
                 <button class="btn btn-default bg-danger"  onclick="show_full_gate('close')" >back </button>
             </th>
             <th class="days_in_calendar_closer" scope="col">1 date</th>

@@ -14,10 +14,14 @@ function checked_if_user_exist(email , password){
         if (data){
             console.log(data);
             if (typeof data === 'object'){
-                if (data['login_count'] > 0 ){
-                    window.open("internal_dispatcher.php","_self");
-                }else{
+                if (data['login_count']  === 0 ){
                     window.open("change_password.php","_self");
+                }else if (  data['role']  === 'AD' || data['role']  === 'IND' ){
+                    window.open("internal_dispatcher.php","_self");
+                }else if ( data['role']  === 'EXD'){
+                    window.open("external_dispatcher.php","_self");
+                }else if ( data['role']  === 'GM'){
+                    window.open("gate_man.php","_self");
                 }
             }else{
                 alert(data);
