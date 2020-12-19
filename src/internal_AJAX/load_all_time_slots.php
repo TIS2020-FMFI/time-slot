@@ -6,7 +6,9 @@ if (!$mysqli->connect_errno) {
                 (select CONCAT(meno,' ',priezvisko) from employee where id=id_external_dispatcher),
                 (select destination from destination_order where id=id_destination_order),
                 (select commodity from destination_order where id=id_destination_order)
-                FROM time_slot   ORDER BY id_gate ASC , start_date_time ASC";
+                FROM time_slot 
+                 where start_date_time > CURDATE() - INTERVAL 7 DAY and start_date_time < CURDATE() +  INTERVAL 14 DAY 
+                 ORDER BY id_gate ASC , start_date_time ASC ";
     if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
         $vysl =  $result->fetch_all();
         header("Content-Type:application/json");
