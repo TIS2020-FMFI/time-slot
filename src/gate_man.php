@@ -1,49 +1,18 @@
 <?php
 session_start();
-if (isset($_SESSION['id'])) {
+if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND' || $_SESSION['role'] == 'GM') {
 ?><!doctype html>
 <html lang="en">
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="   bootstrap-4.3.1/css/bootstrap.min.css" >
-    <!-- Modified Bootstrap CSS -->
-    <link rel="stylesheet" href="css/gate_man.css">
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="javascript/jquery-3.5.1.min.js"></script>
-    <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
-
-    <!-- Our JavaScript -->
-    <script src="javascript/Time_slot.js"></script>
-    <script src="javascript/Gate.js"></script>
-    <script src="javascript/Calendar.js"></script>
-    <script type="text/javascript" src="javascript/gate_man.js"></script>
-
-  <title>Page of Ondrej Richnak</title>
-</head>
+<?php
+$page = 'gate_man_main_page';
+include('html_head_component.php');
+?>
 <body class=" bg-dark container-fluid">
 
+<?php
+include('html_nav_component.php');
+?>
 
-<nav class="navbar navbar-light bg-primary">
-  <button class="navbar-toggler navbar-toggler-right bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"> </span>
-  </button>
-  <button class="btn btn-default bg-light" >Log out</button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link " href="internal_dispatcher.php">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
-      <a class="nav-item nav-link " href="#">Kontact</a>
-      <a class="nav-item nav-link " href="#">Statistika</a>
-      <a class="nav-item nav-link " href="#">Zamestnanci</a>
-      <a class="nav-item nav-link " href="#">Objednavka</a>
-      <a class="nav-item nav-link " href="change_password.php">Chenge password</a>
-      <a class="nav-item nav-link " href="index.php">login page</a>
-    </div>
-  </div>
-</nav>
 
 <div class="table-responsive bg-light" style="width: auto; margin-left: -15px;margin-bottom: 0px;
     margin-right: -15px;">
