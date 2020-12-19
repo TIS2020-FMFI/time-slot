@@ -1,3 +1,6 @@
+Array.prototype.random = function () {
+    return this[Math.floor((Math.random()*this.length))];
+}
 function loop(){
     console.log(window.innerWidth);
     if (window.innerWidth < 500){
@@ -44,9 +47,10 @@ window.onload= function() {
     let new_date = new Date();
 
     document.getElementById('input_date').value=new_date.toISOString().substr(0,10);
+    new_date.setDate(new_date.getDate() -7 ); // maximum vyditelnich dni +7 EXD
     document.getElementById('input_date').min=new_date.toISOString().substr(0,10);
 
-    new_date.setDate(new_date.getDate() + 7); // maximum vyditelnich dni +7 EXD
+    new_date.setDate(new_date.getDate() + 21); // maximum vyditelnich dni +7 EXD
     document.getElementById('input_date').max=new_date.toISOString().substr(0,10);
     selected_date = (new Date()).toISOString().substr(0,10);
     //console.log(selected_date);
@@ -66,6 +70,8 @@ function make_date(how_many_or_elem){
 
         }else{
             document.getElementById('date_number').innerHTML = new_date;
+            //document.getElementById('input_date').value=new_date.toISOString().substr(0,10);
+            //document.getElementById('date_number').innerHTML = new_date.toISOString().substr(0,10);
             generate_HTML();
             find_by(document.getElementById('input_text'))
         }
@@ -77,6 +83,18 @@ function make_date(how_many_or_elem){
             || new_date.toISOString().substr(0,10)  >  document.getElementById('input_date').max){
             document.getElementById('input_date').value=(new Date()).toISOString().substr(0,10);
         }else{
+            if (new_date.toISOString().substr(0,10) === document.getElementById('input_date').min){
+                document.getElementById('back_date').disabled = true;
+            }else{
+                document.getElementById('back_date').disabled = false;
+
+            }
+            if(new_date.toISOString().substr(0,10) === document.getElementById('input_date').max){
+                document.getElementById('next_date').disabled = true;
+            }else{
+                document.getElementById('next_date').disabled = false;
+
+            }
             document.getElementById('input_date').value=new_date.toISOString().substr(0,10);
             document.getElementById('date_number').innerHTML = new_date.toISOString().substr(0,10);
             generate_HTML();
@@ -234,6 +252,9 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
     while (table_rows_with_class_name.length){ // delete all row of certain table
         table_rows_with_class_name[0].remove();
     }
+    let prepared_times = [] ;
+    let all_prepared_times_ids = {};
+
     // generator html pre dani table
     for (let calendar = 0 ; calendar < gates.array_of_calendars.length; calendar++){
         let index_for_this_date = gates.array_of_calendars[calendar].get_index_by_real_time(document.getElementById('input_date').value); // da sa pouzit premena 'selected_date'
@@ -241,6 +262,13 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
             for (let certain_time_slot = 0; certain_time_slot < gates.array_of_calendars[calendar].time_slots[index_for_this_date].states.length ; certain_time_slot++){
                 if (gates.array_of_calendars[calendar].time_slots[index_for_this_date].states[certain_time_slot] === state){
                     // pokial je row prepared negenegrovat s rovnakim casom ak sa uz cas nachada v
+                    if (state === 'prepared' && ! prepared_times.includes(gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot])){
+                        prepared_times.push(gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]);
+                        all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]]  = [gates.array_of_calendars[calendar].time_slots[index_for_this_date].ids[certain_time_slot]];
+                    }else if(state === 'prepared'){
+                        all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]].push(gates.array_of_calendars[calendar].time_slots[index_for_this_date].ids[certain_time_slot]);
+                        continue;
+                    }
                     let row = table_witch_contains_id.insertRow();
                     row.className = row_class_name;
                     let cell1 = row.insertCell(0);
@@ -272,14 +300,25 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         let apply_button = document.createElement("BUTTON")
                         apply_button.className="btn btn-default bg-success only_one";
                         apply_button.innerHTML="apply";
+                        apply_button.onclick = function (){
+                            // pokial niekto zmeni funkciju tak bude mat pristup info/time slotom ktore nmusia byt este volne to znamena ze spravi
+                            // zapisa tpu 20.12.2020 08:00:00 ale je to malo pravdepodobne neviem ci to treba odchitavat....
+                             console.log(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]])
+                            console.log(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]].random())
+                            Time_slot.open_time_slot(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]].random());
+                        }
                         cell6.className="td_flex_buttons";
                         cell6.appendChild(apply_button);
                     }else if(state === 'requested'){
-                        let apply_button = document.createElement("BUTTON")
-                        apply_button.className="btn btn-default bg-primary only_one";
-                        apply_button.innerHTML="edit";
+                        let show_button = document.createElement("BUTTON")
+                        show_button.className="btn btn-default bg-primary only_one";
+                        show_button.innerHTML="show";
+                        show_button.onclick = function (){
+                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_for_this_date].ids[certain_time_slot]);
+                            console.log('REQUESTED');
+                        }
                         cell6.className="td_flex_buttons";
-                        cell6.appendChild(apply_button);
+                        cell6.appendChild(show_button);
                     }
                 }
             }
