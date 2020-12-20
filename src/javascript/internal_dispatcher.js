@@ -38,7 +38,7 @@ function parse_data(data){
  * ajax request na ziskanie dat pre externeho dispecera
  */
 function load_all_time_slots() {
-    $.post('calendar AJAX/load_all_time_slots.php',{
+    $.post('internal_AJAX/load_all_time_slots.php',{
     },function(data){
         if (data){
             parse_data(data);
@@ -62,8 +62,13 @@ let selected_date ;
  */
 window.onload= function() {
     load_all_time_slots()
-    document.getElementById('input_date').value=(new Date()).toISOString().substr(0,10);
-    document.getElementById('input_date').min=(new Date()).toISOString().substr(0,10);
+    let currentTime = new Date()
+
+    document.getElementById('input_date').value= currentTime.toISOString().substr(0,10);
+    currentTime.setDate(currentTime.getDate()-7);
+    document.getElementById('input_date').min= currentTime.toISOString().substr(0,10);
+    currentTime.setDate(currentTime.getDate()+21);
+    document.getElementById('input_date').max= currentTime.toISOString().substr(0,10);
     selected_date = (new Date()).toISOString().substr(0,10);
     //console.log(selected_date);
 }
@@ -75,9 +80,23 @@ window.onload= function() {
 function make_date_arrows_mini_calendar(how_many){
     let new_date = new Date((document.getElementById('input_date').value));
     new_date.setDate(new_date.getDate() + how_many);
-    if (new_date.toISOString().substr(0,10) < document.getElementById('input_date').min ){
+    if (new_date.toISOString().substr(0,10) < document.getElementById('input_date').min  ||
+        new_date.toISOString().substr(0,10) > document.getElementById('input_date').max){
+
         console.log('neposun');
     }else{
+        if (new_date.toISOString().substr(0,10) === document.getElementById('input_date').min){
+            document.getElementById('back_date').disabled = true;
+        }else{
+            document.getElementById('back_date').disabled = false;
+
+        }
+        if(new_date.toISOString().substr(0,10) === document.getElementById('input_date').max){
+            document.getElementById('next_date').disabled = true;
+        }else{
+            document.getElementById('next_date').disabled = false;
+
+        }
         document.getElementById('input_date').value=new_date.toISOString().substr(0,10);
     }
     console.log(document.getElementById("ramp_title").innerHTML);
@@ -111,6 +130,7 @@ let row_columns_in_half_hours = document.getElementsByClassName('item_in_hours')
  * @param elem :HTML
  */
 function show_full_gate(elem){
+    //console.log('SJOWWWW');
     //if (document.getElementById("ramp_title").innerHTML === 'invalid date' &&  selected_date < document.getElementById('input_date').min) {
     //         console.log("zli datum  show_full_gate")
     //         return
@@ -134,7 +154,7 @@ function show_full_gate(elem){
             index = elem.className.split(" ");
             int_index = parseInt(index[index.length-1],10);
             gate_index = parseInt(values[0],10)+ ((int_index%8) -1);
-            console.log('CHYBA 2   ',index , "   alebo  int index ",int_index);
+            //console.log('CHYBA 2   ',index , "   alebo  int index ",int_index);
 
         }
         //console.log("gate index   ",gate_index);
@@ -183,8 +203,22 @@ function show_full_gate(elem){
                         gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'occupied' ){
                         for (let make_html = final_st_index ;make_html < final_ed_index;make_html++){
                             row_columns_in_half_hours[make_html*7+day].style.backgroundColor = "#2eff00";
-                            row_columns_in_half_hours[make_html*7+day].innerHTML = "Free";
                             html_row_count ++
+                            if (html_row_count === 5){
+                                let show_button = document.createElement("BUTTON")
+                                show_button.className = "btn btn-default bg-primary only_one";
+                                show_button.onclick = function (){
+                                    Time_slot.open_time_slot(gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].ids[count_time_slots]);
+                                    //let index = gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].ids[count_time_slots];
+                                    console.log('PREPARED  ',index);
+                                }
+                                show_button.innerHTML = "SHOW";
+
+
+                                row_columns_in_half_hours[make_html*7+day].appendChild(show_button);
+                            }else{
+                                row_columns_in_half_hours[make_html*7+day].innerHTML = "Free";
+                            }
                             // treba pridat event click
                         }
                     }
@@ -217,23 +251,47 @@ function show_full_gate(elem){
                 console.log("time slots for this gate ",gates.ids[day]," and this real time ",selected_date," is not existing");
             }
         }
+        remove_unused_rows(row_columns_in_half_hours);
     }
 }
 
+/**
+ * po vygenerovani celeho full_calendaru pre danu rampu pomaze prazdne riadky
+ * @param rows_columns OBJECT: html element with class item_in_hours
+ */
+function remove_unused_rows(rows_columns){
+    let time_columns = document.getElementsByClassName('time');
+    let founded_empty_row = true;
+    for (let r_c_index = 1 ;r_c_index < rows_columns.length+1; r_c_index++){
+        if (rows_columns[r_c_index - 1].innerHTML !== ''){
+            founded_empty_row = false;
+        }
+        if (r_c_index % 7 === 0 ){
+            if (founded_empty_row){
+                time_columns[(r_c_index / 7)-1].style.display = 'none';
+            }else{
+                time_columns[(r_c_index / 7)-1].style.display = 'revert';
+            }
+            founded_empty_row = true;
+        }
+    }
+
+}
 /**
  * Pomocna funkcia show_full_ramp pre odstranenie dupliciti
  * @param html_row_count :integer
  * @param index_of_column :integer
  * @param color #HEX :string
  * @param time_slot :index time slot
+ * @param time_slot_index :index time slot
  */
 function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,color,time_slot,time_slot_index){
-    console.log([time_slot.external_dispatchers[html_row_count],
-time_slot.evcs[html_row_count],
-time_slot.destinations[html_row_count],
-time_slot.commoditys[html_row_count] , ]);
+    //console.log([time_slot.external_dispatchers[html_row_count],
+    // time_slot.evcs[html_row_count],
+    // time_slot.destinations[html_row_count],
+    // time_slot.commoditys[html_row_count] , ]);
 
-    console.log('\n');
+    //console.log('\n');
 
     row_columns_in_half_hours[index_of_column].style.backgroundColor = color;
     if (html_row_count === 0){
@@ -248,8 +306,18 @@ time_slot.commoditys[html_row_count] , ]);
     else if (html_row_count === 3){
         row_columns_in_half_hours[index_of_column].innerHTML = time_slot.commoditys[time_slot_index];
     }
-    else{
-        row_columns_in_half_hours[index_of_column].innerHTML = "";
+    else if (html_row_count === 4){
+        let show_button = document.createElement("BUTTON")
+        show_button.className = "btn btn-default bg-primary only_one";
+        show_button.onclick = function (){
+            Time_slot.open_time_slot(time_slot.ids[time_slot_index]);
+            //let index = time_slot.ids[time_slot_index];
+                 console.log(index);
+             }
+        show_button.innerHTML = "SHOW";
+
+
+        row_columns_in_half_hours[index_of_column].appendChild(show_button);
     }
 }
 
@@ -396,7 +464,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                     let row = table_witch_contains_id.insertRow();
                     row.className = row_class_name;
                     let cell1 = row.insertCell(0);
-                    cell1.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].start_times[certain_time_slot].split(" ")[1];
+                    cell1.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].start_times[certain_time_slot];
                     // tuna bude podmienka na nieje prepared tak wiplni innner html cell2 a cell3 s menami jazdcov a EVC
                     let cell2 = row.insertCell(1);
                     let cell3 = row.insertCell(2);
@@ -417,21 +485,33 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                     if (state === 'prepared'){
                         let apply_button = document.createElement("BUTTON")
                         apply_button.className="btn btn-default bg-success only_one";
-                        apply_button.innerHTML="edit";
+                        apply_button.innerHTML="SHOW";
+                        apply_button.onclick = function (){
+                            let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
+                            console.log('PREPARED  ',index);
+                        }
                         cell6.className="td_flex_buttons";
                         cell6.appendChild(apply_button);
                     }else if(state === 'requested'){
-                        let apply_button = document.createElement("BUTTON")
-                        apply_button.className="btn btn-default bg-primary only_one";
-                        apply_button.innerHTML="edit";
+                        let show_button = document.createElement("BUTTON")
+                        show_button.className="btn btn-default bg-primary only_one";
+                        show_button.innerHTML="SHOW";
+                        show_button.onclick = function (){
+                            let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
+                            console.log('REQUEST  ',index);
+                        }
                         cell6.className="td_flex_buttons";
-                        cell6.appendChild(apply_button);
+                        cell6.appendChild(show_button);
                     }else if(state === 'booked'){
-                        let apply_button = document.createElement("BUTTON")
-                        apply_button.className="btn btn-default bg-primary only_one";
-                        apply_button.innerHTML="edit";
+                        let show_button = document.createElement("BUTTON")
+                        show_button.className="btn btn-default bg-primary only_one";
+                        show_button.innerHTML="SHOW";
+                        show_button.onclick = function (){
+                            let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
+                            console.log('BOOKED  ',index);
+                        }
                         cell6.className="td_flex_buttons";
-                        cell6.appendChild(apply_button);
+                        cell6.appendChild(show_button);
                     }
 
                 }

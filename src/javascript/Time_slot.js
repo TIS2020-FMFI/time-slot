@@ -111,4 +111,16 @@ class Time_slot {
         this.destinations.push(destination)
         this.commoditys.push(commodity)
     }
+
+    static open_time_slot(id) {
+        $.post('order_AJAX/open_time_slot.php',{
+            data:id,
+        },function(data){
+            if (data === '1'){
+                window.open("order.php","_self");
+            }else{
+                alert("chyba v procese ");
+            }
+        });
+    }
 }

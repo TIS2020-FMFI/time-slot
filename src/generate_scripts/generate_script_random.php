@@ -1,6 +1,15 @@
 <?php
 include('../db.php');
 date_default_timezone_set("Europe/Bratislava");
+
+// premazanie DB IDE LEN O TEST !!!
+$sql = "delete from time_slot where id > 0  ";
+if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
+    echo "VYCISTENA DB(TIME SLOTS)<br>";
+} else{
+    echo "CHYBA SKRIPTU <br> ";
+}
+
 $array_of_state = Array("prepared","requested","finished","booked");
 // kazdy vnutorni array in $array_of_times predstavuje den monday [7:00 , 22:00] vo formate intigerov [7 , 22]
 $array_of_times = [[7 , 19.5],
@@ -9,9 +18,16 @@ $array_of_times = [[7 , 19.5],
     [7 , 19.5],
     [7 , 19.5],
     [7 , 19.5],
+    [7 , 19.5],
+    [7 , 19.5],
+    [6 , 19.5],
+    [6 , 19.5],
+    [7 , 19.5],
+    [7 , 19.5],
+    [7 , 19.5],
     [7 , 19.5]];
 
-$next_start_point_of_generation =  strtotime('now'); //  treba specifikovat format generovania napr. UTC 00:00
+$next_start_point_of_generation =  strtotime('1 week ago'); //  treba specifikovat format generovania napr. UTC 00:00
 $date = date("Y-m-d", $next_start_point_of_generation);
 $date .= ' 00:00:00';
 echo $date . '\n';
@@ -36,7 +52,14 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
             $rand_keys_ed = array_rand($input, 2);
             $rand_number_of_drivers = rand ( 1 , 2 ) ;
             $evc_number_random = $input[$rand_keys_st[0]].$input[$rand_keys_st[1]]."-".rand ( 100 , 999 )."-".$input[$rand_keys_ed[0]].$input[$rand_keys_ed[1]];
-            $sql = "INSERT INTO time_slot (`id_gate`,id_external_dispatcher, id_truck_driver_1,id_truck_driver_2, evc_truck,id_destination_order,`start_date_time`, `end_date_time`, `state`)
+            if ($gate_times > 7 ){
+                $sql = "INSERT INTO time_slot (`id_gate`,`start_date_time`, `end_date_time`, `state`)
+                    values('{$gate_number}',
+                    (select TIMESTAMP(ADDTIME('{$date}', '{$time_start}'))),
+                    (select TIMESTAMP(ADDTIME('{$date}', '{$time_end}'))),
+                    'prepared')";
+            }else {
+                $sql = "INSERT INTO time_slot (`id_gate`,id_external_dispatcher, id_truck_driver_1,id_truck_driver_2, evc_truck,id_destination_order,`start_date_time`, `end_date_time`, `state`)
                     values('{$gate_number}',
                     (case
                         when '{$random_state}' = 'prepared' then 0
@@ -61,6 +84,7 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
                     (select TIMESTAMP(ADDTIME('{$date}', '{$time_start}'))),
                     (select TIMESTAMP(ADDTIME('{$date}', '{$time_end}'))),
                     '{$random_state}')";
+            }
             if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
                 echo "OK <br>";
             } else{

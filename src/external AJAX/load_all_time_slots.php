@@ -7,7 +7,8 @@ if (isset($_SESSION['id']) && $_SESSION['role'] == 'EXD'){
                 (select full_name from truck_driver where id=id_truck_driver_1),(select full_name from truck_driver where id=id_truck_driver_2),
                 (select destination from destination_order where id=id_destination_order),
                 (select commodity from destination_order where id=id_destination_order)
-                FROM time_slot where state = 'prepared' or id_external_dispatcher = '{$_SESSION['id']}'
+                FROM time_slot where state = 'prepared' or id_external_dispatcher = '{$_SESSION['id']}' and  start_date_time > CURDATE() - INTERVAL 7 DAY and start_date_time < CURDATE() +  INTERVAL 14 DAY 
+                
                 ORDER BY id_gate ASC , start_date_time ASC";
         if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
             $vysl =  $result->fetch_all();

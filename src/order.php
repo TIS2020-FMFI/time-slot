@@ -3,7 +3,7 @@ session_start();
 include('db.php');
 // $_SESSION['active_time_slot2'] != []
 //if ($_SESSION['active_time_slot'] != []){
-//    include('objednavka AJAX/alert_if_occupied.php');
+//    include('order_AJAX/alert_if_occupied.php');
 //}
 if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND' || $_SESSION['role'] == 'EXD'  ) {
 
