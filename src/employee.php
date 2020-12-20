@@ -61,6 +61,7 @@ include('html_nav_component.php');
   <tr>
     <th scope="col">First</th>
     <th scope="col">Last</th>
+    <th scope="col">Firm</th>
     <th scope="col">Email</th>
     <th scope="col">role</th>
     <th scope="col">working</th>
@@ -84,26 +85,30 @@ include('html_nav_component.php');
           <form id="form" class="form-sign" onsubmit="return false;"   >
             <div class="form-label-group">
               <label for="inputNewName"></label>
-              <input type="text" id="inputNewName" class="form-control" placeholder="First name" required autofocus>
+              <input type="text" id="inputNewName" class="form-control" placeholder="First name"  autofocus>
             </div>
             <div class="form-label-group">
               <label for="inputNewLastName"></label>
-              <input type="text" id="inputNewLastName" class="form-control" placeholder="Surname names" required autofocus>
+              <input type="text" id="inputNewLastName" class="form-control" placeholder="Surname names"  autofocus>
             </div>
 
             <div class="form-label-group" >
               <label for="inputEmail"></label>
-              <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+              <input type="email" id="inputEmail" class="form-control" placeholder="* Email address" required autofocus>
+            </div>
+            <div class="form-label-group" >
+                <label for="inputFirm"></label>
+                <input type="text" id="inputFirm" class="form-control" placeholder="* Firm name" required autofocus>
             </div>
 
             <div class="form-label-group">
               <label for="inputPassword"></label>
-              <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+              <input type="password" id="inputPassword" class="form-control" placeholder="* Password" required>
 
             </div>
             <div class="form-label-group">
               <label for="inputConfirmPassword"></label>
-              <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Repeat password" required>
+              <input type="password" id="inputConfirmPassword" class="form-control" placeholder="* Repeat password" required>
 
             </div>
             <div class="form-label-group">
