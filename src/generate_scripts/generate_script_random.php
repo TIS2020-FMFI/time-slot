@@ -31,6 +31,7 @@ $next_start_point_of_generation =  strtotime('1 week ago'); //  treba specifikov
 $date = date("Y-m-d", $next_start_point_of_generation);
 $date .= ' 00:00:00';
 echo $date . '\n';
+//$firm_names = ['S - DENT SLOVAKIA, s.r.o.','H - H s.r.o.','EGO - sny z dreva s.r.o.','P&E Services s.r.o','TRIV, s.r.o.'];
 for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu DB
     //echo 'GATE NUMBER'.$gate_number.'<br>';
     for ($gate_times = 0; $gate_times < count($array_of_times); $gate_times++) {
@@ -46,13 +47,12 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
                 $time_end =  ($gate_times*24)+floor($times+ 2.5).':30:00';
             }
             $random_state = $array_of_state[array_rand($array_of_state)];
-            $characters = 'ABCDE';
             $input = array("A", "B", "C", "D", "E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
             $rand_keys_st = array_rand($input, 2);
             $rand_keys_ed = array_rand($input, 2);
             $rand_number_of_drivers = rand ( 1 , 2 ) ;
             $evc_number_random = $input[$rand_keys_st[0]].$input[$rand_keys_st[1]]."-".rand ( 100 , 999 )."-".$input[$rand_keys_ed[0]].$input[$rand_keys_ed[1]];
-            if ($gate_times > 7 ){
+            if ($gate_times > 10 ){// parameter pre volne dni
                 $sql = "INSERT INTO time_slot (`id_gate`,`start_date_time`, `end_date_time`, `state`)
                     values('{$gate_number}',
                     (select TIMESTAMP(ADDTIME('{$date}', '{$time_start}'))),
@@ -79,7 +79,7 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
                     end ),
                     (case
                         when '{$random_state}' = 'prepared' then  null
-                        else (select id from `destination_order` ORDER BY RAND() LIMIT 1)
+                        else (select id from `destination_cargo` ORDER BY RAND() LIMIT 1)
                     end ),
                     (select TIMESTAMP(ADDTIME('{$date}', '{$time_start}'))),
                     (select TIMESTAMP(ADDTIME('{$date}', '{$time_end}'))),

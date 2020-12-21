@@ -117,7 +117,7 @@ class Time_slot {
             data:id,
         },function(data){
             if (data === '1'){
-                window.open("order.php","_self");
+                //window.open("order.php","_self");
             }else{
                 alert("chyba v procese ");
             }
