@@ -1,4 +1,5 @@
 <?php
+//session_start();
 if (! isset($page)){
     include('error_page.php');
 }else{
@@ -14,6 +15,9 @@ if (! isset($page)){
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="javascript/jquery-3.5.1.min.js"></script>
     <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
+
+
+
     <?php if ($page == 'log_in'){?>
         <!-- Our JavaScript -->
         <script src="javascript/login_page.js"></script>

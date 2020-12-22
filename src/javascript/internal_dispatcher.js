@@ -1,8 +1,10 @@
-let gates = new Gate();
+let gates = undefined;
 /**
  * spracovanie ajax vystupu
  */
 function parse_data(data){
+    gates = new Gate();
+    let counter = 0 ;
     for(let i =0 ; i < data.length;i ++){
         // data format vystup SQL
         // [0] == id |
@@ -12,9 +14,13 @@ function parse_data(data){
         // [4] == e_time |
         // [5] == state |
         // [6] == evc_truck |
-        // [7] == external_dispatcher_full_name |
+        // [7] == firm_name |
         // [8] == commodity |
         // [9] == order
+        if (data[i][5] === "requested"){
+            counter++;
+        }
+
         let index = gates.get_index_by_id(data[i][1])
         if (index >= 0){
             let index_real_time = gates.array_of_calendars[index].get_index_by_real_time(data[i][2]);
@@ -33,6 +39,7 @@ function parse_data(data){
             gates.push_calendar_and_id(data[i][1],calendar);
         }
     }
+    document.getElementById('only_requested_count').innerHTML = counter+"";
 }
 /**
  * ajax request na ziskanie dat pre externeho dispecera
@@ -49,7 +56,7 @@ function load_all_time_slots() {
             alert("chyba nacitana dat s db");
         }
     });
-    console.log("im execiuted");
+    //console.log("im execiuted");
     //generate_gate_selector(document.getElementById('select_gate'));
     setTimeout(generate_gate_selector,250,document.getElementById('select_gate')); // nutne cakanie koli spracovaniu dat ktor boli ziskane ajaxom
 
@@ -70,6 +77,8 @@ window.onload= function() {
     currentTime.setDate(currentTime.getDate()+21);
     document.getElementById('input_date').max= currentTime.toISOString().substr(0,10);
     selected_date = (new Date()).toISOString().substr(0,10);
+    loop();
+    update_handler()
     //console.log(selected_date);
 }
 
@@ -160,7 +169,7 @@ function show_full_gate(elem){
         //console.log("gate index   ",gate_index);
         document.getElementById('calendar_dates').style.display = 'revert';
         document.getElementById('calendar').style.display = 'none';
-        document.getElementById('ramp_title').innerHTML = "Ramps "+gate_index;
+        document.getElementById('ramp_title').innerHTML = "Ramp "+gate_index;
 
         let base_date = new Date((document.getElementById('input_date').value)); // date form minicalendar moznost prerobenia na selected_date
         let days_in_calendar = document.getElementsByClassName("days_in_calendar_closer");
@@ -312,7 +321,7 @@ function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,
         show_button.onclick = function (){
             Time_slot.open_time_slot(time_slot.ids[time_slot_index]);
             //let index = time_slot.ids[time_slot_index];
-                 console.log(index);
+                 //console.log(index);
              }
         show_button.innerHTML = "SHOW";
 
@@ -387,9 +396,18 @@ function generate_gate_selector(elem){
     //         console.log("zli datum generate_gate_selector", selected_date)
     //         return
     //     }
-    let values = elem.value.split(" - ");
-    global_calendar(parseInt(values[0],10),parseInt(values[1],10))
-    document.getElementById('ramp_title').innerHTML = "Ramps "+elem.value;
+    console.log(document.getElementById('ramp_title').innerHTML)
+    if (document.getElementById('ramp_title').innerHTML.includes("Ramps")){
+        let values = elem.value.split(" - ");
+        global_calendar(parseInt(values[0],10),parseInt(values[1],10))
+        document.getElementById('ramp_title').innerHTML = "Ramps "+elem.value;
+    }else if(document.getElementById('ramp_title').innerHTML.includes("Ramp")){
+        show_full_gate(document.getElementById('ramp_title').innerHTML.split(" ")[1])
+    }else{
+        find_by(document.getElementById('input_text'));
+        ///print("dsadasdsa22222222");
+    }
+
 
 }
 /**
@@ -438,7 +456,7 @@ function find_by(elem){
         document.getElementById('calendar').style.display = 'revert';
 
 
-        document.getElementById('ramp_title').innerHTML = "Find by : "+document.getElementById('select_gate').value;
+        document.getElementById('ramp_title').innerHTML = "Ramps "+document.getElementById('select_gate').value;
         generate_gate_selector(document.getElementById('select_gate'));
 
     }
@@ -487,7 +505,8 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         apply_button.className="btn btn-default bg-success only_one";
                         apply_button.innerHTML="SHOW";
                         apply_button.onclick = function (){
-                            let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
+                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot]);
+                            //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
                             console.log('PREPARED  ',index);
                         }
                         cell6.className="td_flex_buttons";
@@ -497,17 +516,19 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         show_button.className="btn btn-default bg-primary only_one";
                         show_button.innerHTML="SHOW";
                         show_button.onclick = function (){
-                            let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
+                            //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
+                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot]);
                             console.log('REQUEST  ',index);
                         }
                         cell6.className="td_flex_buttons";
                         cell6.appendChild(show_button);
-                    }else if(state === 'booked'){
+                    }else if(state === 'booked' || state === 'finished'){
                         let show_button = document.createElement("BUTTON")
                         show_button.className="btn btn-default bg-primary only_one";
                         show_button.innerHTML="SHOW";
                         show_button.onclick = function (){
-                            let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
+                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot]);
+                            //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
                             console.log('BOOKED  ',index);
                         }
                         cell6.className="td_flex_buttons";
@@ -528,22 +549,74 @@ let array_of_options = ['prepared','requested','booked','finished'];
  */
 function select_only_text_with(elem){
     let text = elem.value;
-    let founded = false;
-    for (let i = 0 ;i < array_of_options.length;i++){
-        let table_rows_with_class_name = document.getElementsByClassName(array_of_options[i]+"_tr");
-        for (let row = 0 ; row < table_rows_with_class_name.length; row++){
-            founded = false;
-            for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
-                if (table_rows_with_class_name[row].childNodes[column].innerHTML.includes(text)) {
-                    founded = true;
-                }
-            }
-            if (founded === false){
-                table_rows_with_class_name[row].style.display = 'none';
-            }else{
-                table_rows_with_class_name[row].style.display = 'revert';
-            }
+
+    if (text === 'prepared'|| text ==='requested'||text ==='booked'||text ==='finished'){
+        document.getElementById('prepared_h3').style.display = 'none';
+        document.getElementById('requested_h3').style.display = 'none';
+        document.getElementById('booked_h3').style.display = 'none';
+        document.getElementById('finished_h3').style.display = 'none';
+
+        document.getElementById('prepared').style.display = 'none';
+        document.getElementById('requested').style.display = 'none';
+        document.getElementById('booked').style.display = 'none';
+        document.getElementById('finished').style.display = 'none';
+        // jedine tieto zobraz ak je text urciteho typu
+        document.getElementById(text).style.display = 'revert';
+        document.getElementById(text+'_h3').style.display = 'revert';
+        select(text,':')
+    }else{
+        document.getElementById('prepared_h3').style.display = 'revert';
+        document.getElementById('requested_h3').style.display = 'revert';
+        document.getElementById('booked_h3').style.display = 'revert';
+        document.getElementById('finished_h3').style.display = 'revert';
+
+        document.getElementById('prepared').style.display = 'revert';
+        document.getElementById('requested').style.display = 'revert';
+        document.getElementById('booked').style.display = 'revert';
+        document.getElementById('finished').style.display = 'revert';
+        for (let i = 0 ;i < array_of_options.length;i++){
+            select(text,array_of_options[i])
         }
     }
 
+
+}
+function select(lock_for,option){
+    let founded = false;
+    let table_rows_with_class_name = document.getElementsByClassName(option+"_tr");
+    for (let row = 0 ; row < table_rows_with_class_name.length; row++){
+        founded = false;
+        for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
+            if (table_rows_with_class_name[row].childNodes[column].innerHTML.includes(lock_for)) {
+                founded = true;
+            }
+        }
+        if (founded === false){
+            table_rows_with_class_name[row].style.display = 'none';
+        }else{
+            table_rows_with_class_name[row].style.display = 'revert';
+        }
+    }
+}
+
+function update_handler(){
+    load_all_time_slots()
+    setTimeout(update_handler,1000); ///*60*5 1000 je jedna sekunda  teda update bude prebiehat kazdich 5 minut
+}
+function loop(){
+
+    //console.log(document.documentElement.clientWidth);
+    document.getElementById('only_requested').style.left = (document.documentElement.clientWidth/2)-50+'px';
+    //document.getElementById('only_requested_count').innerHTML = "";
+    setTimeout(loop,200);
+
+
+}
+function show_requested(){
+    document.getElementById('input_text').value = 'requested';
+    find_by(document.getElementById('input_text'));
+    console.log('dsadsadsad');
+}
+function show_info(){
+    console.log('INFOOOOO');
 }
