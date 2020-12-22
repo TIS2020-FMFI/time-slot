@@ -16,8 +16,9 @@ if (isset($_POST["data"]) && $_SESSION['role'] == 'AD') {
                 meno= '{$_POST["data"][$employee_index][1]}',
                 priezvisko='{$_POST["data"][$employee_index][2]}',
                 email='{$_POST["data"][$employee_index][3]}',
-                role='{$_POST["data"][$employee_index][4]}',
-                is_working={$_POST["data"][$employee_index][5]}
+                meno_splocnosti='{$_POST["data"][$employee_index][4]}',
+                role='{$_POST["data"][$employee_index][5]}',
+                is_working={$_POST["data"][$employee_index][6]}
                 WHERE id={$_POST["data"][$employee_index][0]} ";
         if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
         } else {

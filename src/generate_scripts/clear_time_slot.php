@@ -1,5 +1,8 @@
 <?php
+include('../db.php');
 include('dump.php');
+date_default_timezone_set("Europe/Bratislava");
+
 $next_start_point_of_generation = strtotime('2 week ago'); //  treba specifikovat format generovania napr. UTC 00:00
 $date = date("Y-m-d", $next_start_point_of_generation);
 echo 'DATA cistime k datumu  '. $date . ' <br> ';

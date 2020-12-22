@@ -85,6 +85,12 @@ loop();
 
 
 function add_new_customer(){
+    document.getElementById('inputNewName').value = "";
+    document.getElementById('inputNewLastName').value = "";
+    document.getElementById('inputEmail').value = "";
+    document.getElementById('inputFirm').value = "";
+    document.getElementById('inputPassword').value = "";
+    document.getElementById('inputConfirmPassword').value = "";
     document.getElementsByClassName('table-responsive')[0].style.display="none";
     document.getElementsByClassName('table_of_customers')[0].style.display="none";
     document.getElementsByClassName('add_customer')[0].style.display="block";
@@ -97,7 +103,7 @@ function close_new_customer(){
 
 
 
-function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
+function create_html_employee(id,F_name,L_name,Firm,E_mail,type_of_role,is_working){
     //https://www.w3schools.com/jsref/met_table_insertrow.asp
     let table = document.querySelectorAll('table')[document.querySelectorAll('table').length-1];
     let row = table.insertRow(index_of_employees);
@@ -113,6 +119,7 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
     let cell3 = row.insertCell(2);
     let cell4 = row.insertCell(3);
     let cell5 = row.insertCell(4);
+    let cell6 = row.insertCell(5);
 
     //let hidden_id_element = document.createElement('p');
     //hidden_id_element.innerHTML = id;
@@ -178,6 +185,23 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
 
 
 
+
+    let label_firm = document.createElement('label');
+    label_firm.htmlFor = "inputEmail"+index_of_employees;
+    let input_firm = document.createElement('input');
+    input_firm.type = "email";
+    input_firm.id = "inputFrim"+index_of_employees;
+    input_firm.className = "firm_inputs";
+    input_firm.placeholder = "Firm Name";
+    input_firm.disabled = true;
+    input_firm.value = Firm;
+
+    cell3.appendChild(label_firm);
+    cell3.appendChild(input_firm);
+
+
+
+
     let label_email = document.createElement('label');
     label_email.htmlFor = "inputEmail"+index_of_employees;
     let input_email = document.createElement('input');
@@ -187,23 +211,8 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
     input_email.placeholder = "Email";
     input_email.disabled = true;
     input_email.value = E_mail;
-    //input_email.onclick = function (){
-    //         // spustime casovasc ktori sa bude opakovat dokola kazdich 30 sekund spravit poust ak honota v danej kolonke bola zmenena
-    //         parameter_for_update = this.value;
-    //         type_of_change = 'email';
-    //         input_element = input_email;
-    //         id_of_clicked_element = hidden_id_element.innerHTML;
-    //     };
-    //     input_email.onchange = function (){
-    //         if (parameter_for_update !== input_email.value) {
-    //             change_First_name_Last_name_Email(input_email.innerHTML,input_sure_name.value,"email");
-    //         }
-    //         //id_of_clicked_element = "";
-    //         // db update
-    //     };
-
-    cell3.appendChild(label_email);
-    cell3.appendChild(input_email);
+    cell4.appendChild(label_email);
+    cell4.appendChild(input_email);
 
 
 
@@ -242,7 +251,7 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
     select.appendChild(option4);
     div_role.appendChild(select);
 
-    cell4.appendChild(div_role);
+    cell5.appendChild(div_role);
 
     let input_working = document.createElement('input');
 
@@ -250,7 +259,8 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
     input_working.className = "is_working";
     input_working.disabled = true;
 
-    //console.log("WORKING TYPE   " ,is_working);
+    console.log("WORKING TYPE   " ,is_working);
+    //console.log('dsadasdsadsa');
     if (is_working === '1'){
         input_working.checked = true;
     }else{
@@ -259,7 +269,7 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
     //input_working.onchange = function (){
     //         change_state_working(hidden_id_element.innerHTML,input_working.checked, input_name , input_sure_name ,input_email,row);
     //     }
-    cell5.appendChild(input_working);
+    cell6.appendChild(input_working);
     index_of_employees += 1;
 
 
@@ -271,6 +281,7 @@ function create_html_employee(id,F_name,L_name,E_mail,type_of_role,is_working){
         table_row_input_name:input_name,
         table_row_input_sure_name:input_sure_name,
         table_row_input_email:input_email,
+        table_row_input_firm:input_firm,
         table_row_select:select,
         table_row_input_working:input_working,
         /*table_column_first_name:input_name.value,
@@ -288,7 +299,7 @@ function load_db_data(){
     },function(data){
         if (data){
             for(let i =0 ; i < data.length;i ++){
-                create_html_employee(data[i][0],data[i][1],data[i][2],data[i][3],data[i][5],data[i][6]);
+                create_html_employee(data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6]);
             }
 
         }else{
@@ -415,6 +426,7 @@ function edit_employees(){
         all_employees_jason[row]['table_row_input_name'].disabled = false;
         all_employees_jason[row]['table_row_input_sure_name'].disabled = false;
         all_employees_jason[row]['table_row_input_email'].disabled = false;
+        all_employees_jason[row]['table_row_input_firm'].disabled = false;
         all_employees_jason[row]['table_row_select'].disabled = false;
         all_employees_jason[row]['table_row_input_working'].disabled = false;
     }
@@ -429,12 +441,14 @@ function update_employees(){
         all_employees_jason[row]['table_row_input_name'].disabled = true;
         all_employees_jason[row]['table_row_input_sure_name'].disabled = true;
         all_employees_jason[row]['table_row_input_email'].disabled = true;
+        all_employees_jason[row]['table_row_input_firm'].disabled = true;
         all_employees_jason[row]['table_row_select'].disabled = true;
         all_employees_jason[row]['table_row_input_working'].disabled = true;
         update_array.push([all_employees_jason[row]['id'],
                             all_employees_jason[row]['table_row_input_name'].value,
                             all_employees_jason[row]['table_row_input_sure_name'].value,
                             all_employees_jason[row]['table_row_input_email'].value,
+                            all_employees_jason[row]['table_row_input_firm'].value,
                             all_employees_jason[row]['table_row_select'].value,
                             all_employees_jason[row]['table_row_input_working'].checked
                             ]);
@@ -456,114 +470,35 @@ function submit_form_new_employee(){
     let F_name = document.getElementById('inputNewName').value;
     let L_name = document.getElementById('inputNewLastName').value;
     let email = document.getElementById('inputEmail').value;
-    let password = document.getElementById('inputPassword').value;
-    let Cnfirmpassword = document.getElementById('inputConfirmPassword').value;
-    let role = document.getElementById('role_of_new_employee').value;
+    let Firm = document.getElementById('inputFirm').value;
+    let Password = document.getElementById('inputPassword').value;
+    let Confirm_password = document.getElementById('inputConfirmPassword').value;
+    let Role = document.getElementById('role_of_new_employee').value;
     // toto je prvi stupen kontoli neprazdnosti vstupov
     // #3 treba mrknut uz s vigenerovaneho pola zamestnancou ci maju rovnake meno a prezvisko ps bude nato niaki jason
-    if (F_name && L_name && email && password === Cnfirmpassword && role ){
+    if ( Password === Confirm_password && Role && (Password !== "" && Confirm_password !== "" && email !== "" && Firm !== "") ){
         // #3
-        add_employee();
+        add_employee(F_name,L_name,email,Firm,Password,Role);
         close_new_customer();
     }else{
         console.log("Nod valid ");
     }
 }
 
-//function change_First_name_Last_name_Email(id,data,typ_zmeni){
-//     $.post('zamestnanci AJAX/update_employee_data.php',{
-//         id: id,
-//         data: data,
-//         typ_zmeni:typ_zmeni,
-//     },function(data){
-//         if (data){
-//             console.log(data);
-//         }else{
-//             console.log("chyba v kode");
-//         }
-//     });
-// }
-// function change_rolle(id , witch_elem , first_name , last_name , email_get, update_row_table_jason_id){
-//     let change_role = witch_elem.value;
-//     let F_name = first_name.value;
-//     let L_name = last_name.value;
-//     let email = email_get.value;
-//     console.log(change_role);
-//     $.post('zamestnanci AJAX/change_role.php',{
-//         id: id,
-//         F_name: F_name,
-//         L_name:L_name,
-//         email: email,
-//         change_role : change_role,
-//     },function(data){
-//         if (data){
-//             alert(data);
-//             for(let i = 0 ; i < all_employees_jason.length;i ++) {
-//                 if (all_employees_jason[i].table_row === update_row_table_jason_id) {
-//                     all_employees_jason[i].table_column_role = change_role;
-//                 }
-//
-//             }
-//             select_only();
-//         }else{
-//             alert('chyba prpojenia k db');
-//         }
-//     });
-//     // tuna je ide cod na zmenu type of roll
-// }
-//
-//
-// function change_state_working(id,witch_elem , name , lname , email_get,update_row_table_jason_id){
-//     let is_working = witch_elem;
-//     let F_name = name.value;
-//     let L_name = lname.value;
-//     let email = email_get.value;
-//     console.log("SENDED ID ",update_row_table_jason_id);
-//     $.post('zamestnanci AJAX/change_state_working.php',{
-//         id: id,
-//         F_name: F_name,
-//         L_name:L_name,
-//         email: email,
-//         is_working: is_working
-//     },function(data){
-//         if (data){
-//             alert(data);
-//             for(let i = 0 ; i < all_employees_jason.length;i ++){
-//                 if (all_employees_jason[i].table_row === update_row_table_jason_id){
-//                     all_employees_jason[i].table_column_is_working = is_working;
-//                 }
-//
-//             }
-//             select_only();
-//         }else{
-//             alert("chyba nacitana dat s db");
-//
-//         }
-//     });
-//     // tuna je ide cod na zmenu type of roll
-// }
-function add_employee(){
-    let F_name = document.getElementById('inputNewName').value;
-    let L_name = document.getElementById('inputNewLastName').value;
-    let email = document.getElementById('inputEmail').value;
-    let password = document.getElementById('inputPassword').value;
-    let role = document.getElementById('role_of_new_employee').value;
+function add_employee(F_name,L_name,email,Firm,Password,Role){
     $.post('employee_AJAX/register_user.php',{
         F_name: F_name,
         L_name:L_name,
+        firm: Firm,
         email: email,
-        password : password,
-        role : role
+        password : Password,
+        role : Role
     },function(data){
         if (data){
             let paset_data = data.split("$");
             if (paset_data.length > 1){
                 alert(paset_data[0]);
-                create_html_employee(paset_data[1],document.getElementById('inputNewName').value,
-                    document.getElementById('inputNewLastName').value,
-                    document.getElementById('inputEmail').value,
-                    document.getElementById('role_of_new_employee').value,
-                    "1");
+                create_html_employee(paset_data[1],F_name, L_name, Firm,email,Role, "1");
             }else{
                 alert(data);
             }

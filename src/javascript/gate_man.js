@@ -144,6 +144,7 @@ function delete_html_time_slot(html_row){
 function find_by(elem){
     let text = elem.value;
     let table_rows_with_class_name = document.getElementsByClassName("finished_tr");
+    let founded = false;
     for (let row = 0 ; row < table_rows_with_class_name.length; row++){
         founded = false;
         for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
@@ -158,21 +159,35 @@ function find_by(elem){
         }
     }
 }
+
+function checkTime(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
+
 function loop(){
     let duration_of_admins_constant = 20; // magic konstant from admin
     let time = new Date();
     time.setMinutes(time.getMinutes() - duration_of_admins_constant);
-    let valid_time = (time.toLocaleTimeString()).split(' ')[0];
+    //let valid_time = (time.toLocaleTimeString()).split(' ')[0];
     let table_rows_with_class_name = document.getElementsByClassName("finished_tr");
     let list_of_deleted = [];
+    let h = time.getHours();
+    let m = time.getMinutes();
+    let s = time.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    let valid_time_string = h+":"+m+":"+s;
+    //console.log(valid_time, "    ",valid_time_string);
     for (let row = 0 ; row < table_rows_with_class_name.length; row++){
-        for (let column = 0;column < table_rows_with_class_name[row].childElementCount; column++){
-            if (table_rows_with_class_name[row].childNodes[column].innerHTML <= valid_time) {
+            if (table_rows_with_class_name[row].childNodes[2].innerHTML <= valid_time_string) {
                 list_of_deleted.push(table_rows_with_class_name[row]);
             }
-        }
     }
     for (let i = 0 ;i < list_of_deleted.length;i++){
+        console.log(list_of_deleted[i]);
         list_of_deleted[i].remove();
     }
     setTimeout(loop,100);

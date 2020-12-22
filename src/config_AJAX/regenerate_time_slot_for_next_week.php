@@ -18,4 +18,4 @@ if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
 } else{
     echo "CHYBA SKRIPTU <br> ";
 }
-include('../generate_scripts/generate_script_default.php');
+

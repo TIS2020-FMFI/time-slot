@@ -81,6 +81,11 @@ table thead th{
 }
 .employee_type_of_roll{
     font-size: 10px;
+    width: 67px;
+    opacity: 1;
+}
+.form-control:disabled{
+    opacity: 0.5;
 }
 .is_working{
     margin-left: 20px;

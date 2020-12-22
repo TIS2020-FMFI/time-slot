@@ -1,14 +1,15 @@
 <?php
 include('../db.php');
 
-if (isset($_POST["F_name"])) {
-    $first_name = $_POST["F_name"];
-    $last_name = $_POST["L_name"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $role = $_POST["role"];
+if (isset($_POST["email"])) {
     if (!$mysqli->connect_errno) {
-        $sql = "INSERT INTO employee SET meno='$first_name',priezvisko='$last_name',  email='$email', heslo=MD5('$password'), role='$role'"; // definuj dopyt
+        $sql = "INSERT INTO employee SET 
+                        meno='{$_POST["F_name"]}',
+                        priezvisko='{$_POST["L_name"]}', 
+                        meno_splocnosti='{$_POST["firm"]}', 
+                        email='{$_POST["email"]}',
+                        heslo=MD5('{$_POST["password"]}'), 
+                        role='{$_POST["role"]}'"; // definuj dopyt
         if ($result = $mysqli->query($sql)) { //&& ($result->num_rows > 0)) {  // vykonaj dopyt
             // dopyt sa podarilo vykonať
             $last_id = $mysqli->insert_id;

@@ -2,7 +2,7 @@
 include('../db.php');
 
 if (!$mysqli->connect_errno) {
-    $sql = "SELECT * FROM employee";
+    $sql = "SELECT `id`, `meno`, `priezvisko`, `meno_splocnosti`, `email`, `role`, `is_working` FROM employee";
     if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
         $vysl =  $result->fetch_all();
         header("Content-Type:application/json");

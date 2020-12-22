@@ -197,7 +197,176 @@ include('html_nav_component.php');
 
     </div>
 </div>
+<br>
+<br>
+<div class="container">
 
+    <div class="row">
+        <div class="col-sm">
+            <h6>Odstranenie rampi na urite dni pomocou kikania na konkretne dni </h6>
+            <table id="calendar_dates" class="table " style="display: revert"  >
+                <thead>
+                <tr>
+                    <th class=" th_top_float_bar right_border_state days_in_calendar_closer_last" scope="col" style="text-align: center"></th>
+                    <th class="days_in_calendar_closer" scope="col">1 date</th>
+                    <th class="days_in_calendar_closer" scope="col">2 date</th>
+                    <th class="days_in_calendar_closer" scope="col">3 date</th>
+                    <th class="days_in_calendar_closer" scope="col">4 date</th>
+                    <th class="days_in_calendar_closer" scope="col">5 date</th>
+                    <th class="days_in_calendar_closer" scope="col">6 date</th>
+                    <th class="days_in_calendar_closer  " scope="col">7 date</th>
+                    <th class="days_in_calendar_closer_last" scope="col">all days check</th>
+                    <th class="days_in_calendar_closer_last" scope="col">all days clear</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 1</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(1)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(1)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 2</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(2)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(2)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 3</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(3)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(3)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 4</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(4)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(4)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 5</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(5)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(5)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 6</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(6)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(6)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 7</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(7)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(7)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 8</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(8)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(8)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 9</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(9)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(9)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 10</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(10)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(10)"></label></th>
+                </tr>
+                <tr class="time">
+                    <th class="right_border_time" scope="row">rampa 11</th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input class="ramp_in_day" type="checkbox"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="check" onclick="disabled_all_in_ramp(11)"></label></th>
+                    <th class="right_border calendar_item " ><label><input type="button" value="clear" onclick="clear_all_in_ramp(11)"></label></th>
+                </tr>
+                <!-- Treba pridat html podla poctu ramp-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <h6>Zaznamenane datumi prazdnin aktivne od dalsieho automatickeho generovania (nasledujuca STREDA 24:00)</h6>
+            <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit" onclick="set_ramps()">SET</button>
+        </div>
+
+    </div>
+</div>
 </body>
 
 </html>

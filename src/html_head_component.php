@@ -1,4 +1,5 @@
 <?php
+//session_start();
 if (! isset($page)){
     include('error_page.php');
 }else{
@@ -14,6 +15,9 @@ if (! isset($page)){
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="javascript/jquery-3.5.1.min.js"></script>
     <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
+
+
+
     <?php if ($page == 'log_in'){?>
         <!-- Our JavaScript -->
         <script src="javascript/login_page.js"></script>
@@ -42,7 +46,7 @@ if (! isset($page)){
         <script src="javascript/log_out.js"></script>
         <script  src="javascript/config.js"></script>
         <!-- Modified Bootstrap CSS -->
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/config.css">
         <title>Config Page </title>
     <?php }?>
     <?php if ($page == 'change_password'){ ?>
