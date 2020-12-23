@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (! isset($_SESSION['id']) ){
+if ( isset($_SESSION['id']) == false ){
 
 
 ?>
@@ -11,6 +11,9 @@ $page = 'log_in';
 include('html_head_component.php');
 ?>
 <body>
+<?php
+include('exception_handler.php');
+?>
 <div class="container">
   <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto ">
