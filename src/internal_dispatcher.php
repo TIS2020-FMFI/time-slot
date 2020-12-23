@@ -40,7 +40,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 
       </th>
         <th class="top_bar" scope="col" style="max-width: 10px">
-        <img src="request_sign_info.png" width="32" style="display: flex" onmouseover="show_info()">
+        <img src="request_sign_info.png" width="32" style="display: flex" onmouseover="show_info()" alt="info">
         </th>
     </tr>
     </thead>

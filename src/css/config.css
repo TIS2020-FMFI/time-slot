@@ -1,0 +1,14 @@
+table th .days_in_calendar{
+    font-size: xx-large;
+}
+tr th.calendar_item{
+    text-align: center;
+}
+tr th.days_in_calendar_closer_last{
+    font-size: 10px;
+    text-align: center;
+}
+tr th.days_in_calendar_closer {
+    text-align: center;
+     font-size: 10px;
+ }

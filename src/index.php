@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (! isset($_SESSION['id']) ){
+
+
+?>
 <!doctype html>
 <html lang="en">
 <?php
@@ -31,3 +37,21 @@ include('html_head_component.php');
 </body>
 
 </html>
+<?php
+}else{
+    if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND'){
+        ?>
+        <script>window.open('internal_dispatcher.php',"_self");</script>
+        <?php
+    }else if($_SESSION['role'] == 'EXD'){
+        ?>
+        <script>window.open('external.php',"_self");</script>
+        <?php
+    }else if ($_SESSION['role'] == 'GM'){
+        ?>
+        <script>window.open('gate_man.php',"_self");</script>
+        <?php
+    }else{
+        echo "<h1>Neznami pouzivatel</h1>";
+    }
+}?>
