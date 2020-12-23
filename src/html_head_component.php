@@ -16,6 +16,9 @@ if (! isset($page)){
     <script src="javascript/jquery-3.5.1.min.js"></script>
     <script src="bootstrap-4.3.1/js/bootstrap.min.js" ></script>
 
+    <!-- Our JavaScript Exception handler-->
+    <script src="javascript/exception_handler.js"></script>
+
 
 
     <?php if ($page == 'log_in'){?>
@@ -36,7 +39,7 @@ if (! isset($page)){
     <?php if ($page == 'contact'){ ?>
         <!-- Our JavaScript -->
         <script src="javascript/log_out.js"></script>
-        <script src="javascript/change_password.js"></script>
+        <!-- <script src="javascript/change_password.js"></script>     TOTOT SA MI NEZDA ZE TU MA BYT-->
         <!-- Modified Bootstrap CSS -->
         <link rel="stylesheet" href="css/login.css">
         <title>Contact Page </title>
@@ -92,11 +95,10 @@ if (! isset($page)){
     <?php }?>
     <?php if ($page == 'order_page'){ ?>
         <!-- Our JavaScript -->
-        <script src="javascript/log_out.js"></script>
         <script type="text/javascript" src="javascript/order.js"></script>
         <!-- Modified Bootstrap CSS -->
         <link rel="stylesheet" href="css/order.css">
-        <title>Main Gate Man Page </title>
+        <title>Order </title>
     <?php }?>
 </head>
 <?php }?>

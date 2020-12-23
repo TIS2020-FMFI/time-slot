@@ -81,7 +81,7 @@ function loop(){
     }
     setTimeout(loop,500);
 }
-loop();
+//loop();
 
 
 function add_new_customer(){

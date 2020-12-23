@@ -27,6 +27,12 @@ function loop(){
 loop();
 
 
+function update_handler(){
+    console.log('loooop');
+    // chyba zobraziea koli tomu ze nepremazavame data tabuliek
+    load_all_time_slots()
+    setTimeout(update_handler,1000); ///*60*5 1000 je jedna sekunda  teda update bude prebiehat kazdich 5 minut
+}
 let role_down = false;
 function role_down_navigation(){
     if (role_down === false){
@@ -55,6 +61,7 @@ window.onload= function() {
     selected_date = (new Date()).toISOString().substr(0,10);
     //console.log(selected_date);
     document.getElementById('date_number').innerHTML = selected_date;
+    update_handler();
 
 }
 /**
@@ -280,7 +287,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                     let cell5 = row.insertCell(4);
                     if (state !== 'prepared'){
                         if (gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_2[certain_time_slot] !== null){
-                            console.log(gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_1[certain_time_slot],gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_2[certain_time_slot]);
+                            //console.log(gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_1[certain_time_slot],gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_2[certain_time_slot]);
                             cell2.innerHTML = gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_1[certain_time_slot]
                                 +"<br>"+gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_2[certain_time_slot];
                         }else{
@@ -303,9 +310,9 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         apply_button.onclick = function (){
                             // pokial niekto zmeni funkciju tak bude mat pristup info/time slotom ktore nmusia byt este volne to znamena ze spravi
                             // zapisa tpu 20.12.2020 08:00:00 ale je to malo pravdepodobne neviem ci to treba odchitavat....
-                             console.log(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]])
-                            console.log(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]].random())
-                            Time_slot.open_time_slot(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]].random());
+                             //console.log(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]])
+                            //console.log(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]].random())
+                            Time_slot.open_time_slot(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]].random(),'prepared');
                         }
                         cell6.className="td_flex_buttons";
                         cell6.appendChild(apply_button);
@@ -314,7 +321,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         show_button.className="btn btn-default bg-primary only_one";
                         show_button.innerHTML="show";
                         show_button.onclick = function (){
-                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_for_this_date].ids[certain_time_slot]);
+                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_for_this_date].ids[certain_time_slot],'requested');
                             console.log('REQUESTED');
                         }
                         cell6.className="td_flex_buttons";

@@ -31,6 +31,18 @@ $next_start_point_of_generation =  strtotime('1 week ago'); //  treba specifikov
 $date = date("Y-m-d", $next_start_point_of_generation);
 $date .= ' 00:00:00';
 echo $date . '\n';
+
+$input_for_evc = array("A", "B", "C", "D", "E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+$input_for_drivers = array("Anna Biela", "Besni Baca", "Cecelia Celova", "Dobak Drobny", "Emil Email","Fratisek Drobny",
+    "Gustavo Fring","Hola HOP","Ildigooo","Jakub Toma","Kazimir Kazisvet","Lud ludsky","MMM M","Nomrmal Insane",
+    "Ondrej Richnak","Pikus Pikava","Quarter Quarts","Rasta Ruzovi","Studend Zeleni","Timo Ti","Uhni Dokelu",
+    "Viem Neviem","Woxel Pixel","Xiara Xanaxova","YYYY Y","Zlatka Zlata");
+$input_for_destination = array("Krajiny", "Kuba", "Honk Kongo", "Keňa", "Južný Sudán	","Južná Afrika",
+    "Kórejská republika","severokórejský KRW","Irán","Chorvátsko","Holandsko","Guinea","Komory","Izrael",
+    "kostarický colón","Prha","Quatro For mage","Rodos","Swiajciarsko","Thiland","Ukrajina",
+    "Vieden","Warsava","Xian-Tiong Honkong","Yursky Park","Zlate Piesky");
+$input_for_cargo = array("8x kamiion","7x zlti kamion , 4x ruzove ponozky","10x vreckovky ","50000X balikov Zuvaciek","5x kluc na skrinku");
+
 //$firm_names = ['S - DENT SLOVAKIA, s.r.o.','H - H s.r.o.','EGO - sny z dreva s.r.o.','P&E Services s.r.o','TRIV, s.r.o.'];
 for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu DB
     //echo 'GATE NUMBER'.$gate_number.'<br>';
@@ -47,11 +59,16 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
                 $time_end =  ($gate_times*24)+floor($times+ 2.5).':30:00';
             }
             $random_state = $array_of_state[array_rand($array_of_state)];
-            $input = array("A", "B", "C", "D", "E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
-            $rand_keys_st = array_rand($input, 2);
-            $rand_keys_ed = array_rand($input, 2);
+
+            $rand_keys_st = array_rand($input_for_evc, 2);
+            $rand_keys_ed = array_rand($input_for_evc, 2);
+            $rand_drivers_1 = $input_for_drivers[array_rand($input_for_drivers, 1)];
+            $rand_drivers_2 = $input_for_drivers[array_rand($input_for_drivers, 1)];
+            $rand_destination = $input_for_destination[array_rand($input_for_destination, 1)];
+            $rand_cargo = $input_for_cargo[array_rand($input_for_cargo, 1)];
             $rand_number_of_drivers = rand ( 1 , 2 ) ;
-            $evc_number_random = $input[$rand_keys_st[0]].$input[$rand_keys_st[1]]."-".rand ( 100 , 999 )."-".$input[$rand_keys_ed[0]].$input[$rand_keys_ed[1]];
+            $evc_number_random = $input_for_evc[$rand_keys_st[0]].$input_for_evc[$rand_keys_st[1]]."-".rand ( 100 , 999 )."-".$input_for_evc[$rand_keys_ed[0]].$input_for_evc[$rand_keys_ed[1]];
+
             if ($gate_times > 10 ){// parameter pre volne dni
                 $sql = "INSERT INTO time_slot (`id_gate`,`start_date_time`, `end_date_time`, `state`)
                     values('{$gate_number}',
@@ -59,19 +76,19 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
                     (select TIMESTAMP(ADDTIME('{$date}', '{$time_end}'))),
                     'prepared')";
             }else {
-                $sql = "INSERT INTO time_slot (`id_gate`,id_external_dispatcher, id_truck_driver_1,id_truck_driver_2, evc_truck,id_destination_order,`start_date_time`, `end_date_time`, `state`)
+                $sql = "INSERT INTO time_slot ( `id_gate`, `id_external_dispatcher`, `truck_driver_1`, `truck_driver_2`, `evc_truck`, `destination`, `cargo`, `start_date_time`, `end_date_time`, `state`)
                     values('{$gate_number}',
                     (case
                         when '{$random_state}' = 'prepared' then 0
-                        else    (select id from `employee` where role='EXD' ORDER BY RAND() LIMIT 1)
+                        else    (select id from `employee` where role='EXD' and is_working='1' ORDER BY RAND() LIMIT 1)
                     end) ,
                     (case
-                        when '{$random_state}' != 'prepared' then (select id from `truck_driver` ORDER BY RAND() LIMIT 1)
-                        else   0
+                        when '{$random_state}' != 'prepared' then '{$rand_drivers_1}'
+                        else   null
                     end) ,
                     (case
-                        when '{$random_state}' != 'prepared' and {$rand_number_of_drivers} = 2 then (select id from `truck_driver` ORDER BY RAND() LIMIT 1)
-                        else   0
+                        when '{$random_state}' != 'prepared' and {$rand_number_of_drivers} = 2 then '{$rand_drivers_2}'
+                        else   null
                     end) ,
                     (case
                         when '{$random_state}' = 'prepared' then  null
@@ -79,7 +96,12 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
                     end ),
                     (case
                         when '{$random_state}' = 'prepared' then  null
-                        else (select id from `destination_cargo` ORDER BY RAND() LIMIT 1)
+
+                        else '{$rand_destination}'
+                    end ),
+                    (case
+                        when '{$random_state}' = 'prepared' then  null
+                        else '{$rand_cargo}'
                     end ),
                     (select TIMESTAMP(ADDTIME('{$date}', '{$time_start}'))),
                     (select TIMESTAMP(ADDTIME('{$date}', '{$time_end}'))),

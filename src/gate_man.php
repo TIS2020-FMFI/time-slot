@@ -55,8 +55,9 @@ include('html_nav_component.php');
 </body>
 </html>
 <?php
+}else{
+    ?>
+    <script>window.open('index.php',"_self");</script>
+    <?php
 }
-else{
-    include('index.php');
-}
-?>
+?>?>

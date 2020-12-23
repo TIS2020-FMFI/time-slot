@@ -487,8 +487,9 @@ include('html_nav_component.php');
 
 </html>
 <?php
-}
-else{
-    include('index.php');
+}else{
+    ?>
+    <script>window.open('index.php',"_self");</script>
+    <?php
 }
 ?>
