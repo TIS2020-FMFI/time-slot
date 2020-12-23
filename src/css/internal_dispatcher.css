@@ -42,6 +42,7 @@ table thead .days_in_calendar_closer {
 }
 tbody tr .calendar_item{
     border-top: 0px  #dee2e6;
+    width: 20%;
 }
 .table thead .right_border_last{
     border-right: 0px ;

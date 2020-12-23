@@ -4,13 +4,14 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND' || $_SESSION['role']
 ?>
 <!doctype html>
 <html lang="en">
-    <?php
-    $page = 'change_password';
-    include('html_head_component.php');
-    ?>
+<?php
+$page = 'change_password';
+include('html_head_component.php');
+?>
 <body>
 <?php
 include('html_nav_component.php');
+include('exception_handler.php');
 ?>
 
 <div class="container">
@@ -47,8 +48,9 @@ include('html_nav_component.php');
 
 </html>
 <?php
-}
-else{
-    echo "<h1>Your are not valid user , you must first try to log <a class='nav-item nav-link'  href='index.php'> in</a></h1>";
+}else{
+    ?>
+    <script>window.open('index.php',"_self");</script>
+    <?php
 }
 ?>

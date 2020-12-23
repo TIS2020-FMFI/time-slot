@@ -12,6 +12,7 @@ include('html_head_component.php');
 <?php
 include('html_nav_component.php');
 ?>
+
 <div class="table-responsive bg-light" style="width: auto; margin-left: -15px;margin-bottom: 0px;
     margin-right: -15px;">
   <table class="table" style="margin-bottom: 0px;" >
@@ -23,7 +24,7 @@ include('html_nav_component.php');
 
       <th class="top_bar" scope="col">
         <div class="form-group" style="margin: 0px">
-          <select class="form-control" id="change_select_role" onchange="select_only()">
+            <label for="change_select_role"></label><select class="form-control" id="change_select_role" onchange="select_only()">
             <option>Select Only</option>
             <option>Administrator</option>
             <option>Internal dispatcher</option>
@@ -34,7 +35,7 @@ include('html_nav_component.php');
       </th>
         <th class="top_bar" scope="col">
             <div class="form-group" style="margin: 0px">
-                <select class="form-control" id="change_select_type_working" onchange="select_only()">
+                <label for="change_select_type_working"></label><select class="form-control" id="change_select_type_working" onchange="select_only()">
                     <option>Only working</option>
                     <option>Only not working</option>
                     <option>All employee</option>
@@ -77,11 +78,12 @@ include('html_nav_component.php');
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-3">
         <div class="card-body">
+            <div class="row">
+                <div class="col-9"><h5 class="card-title text-left text-primary">New employee</h5></div>
+                <div class="col-0"> <button class="btn  btn-danger text-right  text-uppercase " type="button" onclick="close_new_customer()" style="width: auto;margin: auto;">close</button>
+                </div>
+            </div>
 
-          <div class="form-label-group" >
-            <h5 class="card-title text-left">New employee</h5>
-            <button class="btn btn-default bg-danger" id="close" onclick="close_new_customer()" >X</button>
-          </div>
           <form id="form" class="form-sign" onsubmit="return false;"   >
             <div class="form-label-group">
               <label for="inputNewName"></label>
@@ -133,8 +135,9 @@ include('html_nav_component.php');
 </div>
 </body>
 <?php
-}
-else{
-    include('index.php');
+}else{
+    ?>
+    <script>window.open('index.php',"_self");</script>
+    <?php
 }
 ?>
