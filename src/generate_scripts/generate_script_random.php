@@ -31,6 +31,7 @@ $next_start_point_of_generation =  strtotime('1 week ago'); //  treba specifikov
 $date = date("Y-m-d", $next_start_point_of_generation);
 $date .= ' 00:00:00';
 echo $date . '\n';
+
 $input_for_evc = array("A", "B", "C", "D", "E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 $input_for_drivers = array("Anna Biela", "Besni Baca", "Cecelia Celova", "Dobak Drobny", "Emil Email","Fratisek Drobny",
     "Gustavo Fring","Hola HOP","Ildigooo","Jakub Toma","Kazimir Kazisvet","Lud ludsky","MMM M","Nomrmal Insane",
@@ -67,6 +68,7 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
             $rand_cargo = $input_for_cargo[array_rand($input_for_cargo, 1)];
             $rand_number_of_drivers = rand ( 1 , 2 ) ;
             $evc_number_random = $input_for_evc[$rand_keys_st[0]].$input_for_evc[$rand_keys_st[1]]."-".rand ( 100 , 999 )."-".$input_for_evc[$rand_keys_ed[0]].$input_for_evc[$rand_keys_ed[1]];
+
             if ($gate_times > 10 ){// parameter pre volne dni
                 $sql = "INSERT INTO time_slot (`id_gate`,`start_date_time`, `end_date_time`, `state`)
                     values('{$gate_number}',
@@ -94,6 +96,7 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
                     end ),
                     (case
                         when '{$random_state}' = 'prepared' then  null
+
                         else '{$rand_destination}'
                     end ),
                     (case

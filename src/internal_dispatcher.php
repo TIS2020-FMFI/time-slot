@@ -14,6 +14,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     include('html_nav_component.php');
     ?>
     <div id="only_requested" class="fixed-top bg-warning justify-content-center" style="min-width: 100px;max-width: 100px;left: 100px;display: flex" onclick="show_requested()">
+
         <img src="request_sign.png" width="32" style="position: relative;right: 10px" onclick="//show_requested()" alt="fotoo">
         <p id="only_requested_count" class="text-danger" style="margin: 0px;margin-top: 5px;" onclick="//show_requested()">dsadsa</p>
     </div>
@@ -40,6 +41,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 
       </th>
         <th class="top_bar" scope="col" style="max-width: 10px">
+
         <img src="request_sign_info.png" width="32" style="display: flex" onmouseover="show_info()" alt="info">
         </th>
     </tr>

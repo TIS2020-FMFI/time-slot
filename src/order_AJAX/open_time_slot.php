@@ -1,6 +1,7 @@
 <?php
 include("../db.php");
 session_start();
+
 //if ($_SESSION['role']=='EXD'){}
 if ($_SESSION['active_time_slot'] == ''){
     //echo $_POST['state'].'     ';
@@ -44,5 +45,4 @@ if ($result = $mysqli->query($sql)) {
     echo '1';
 }else{
     echo '2';
-}
-*/
+}*/

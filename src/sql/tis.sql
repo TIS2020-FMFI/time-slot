@@ -3,6 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
+
 -- Generation Time: Dec 23, 2020 at 02:37 AM
 -- Server version: 5.6.13
 -- PHP Version: 5.4.17
@@ -56,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `config_start_end_working` (
 --
 
 INSERT INTO `config_start_end_working` (`id`, `starting_hour`, `ending_hour`, `exception_status`) VALUES
+
 (1, '7.0', '22.0', 0),
 (2, '7.0', '22.0', 0),
 (3, '6.0', '22.0', 0),
@@ -66,7 +68,6 @@ INSERT INTO `config_start_end_working` (`id`, `starting_hour`, `ending_hour`, `e
 
 -- --------------------------------------------------------
 
---
 -- Table structure for table `dump_table`
 --
 
@@ -96,11 +97,11 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41019, 1, 'P&E Services s.r.o', 'Hmm Hmmmm', 'Jozko Zlaty', 'JN-791-AR', 'Bratislava', '9x auto typu: BMW', '2020-12-08 13:30:00', '2020-12-08 16:00:00', 'booked'),
 (41020, 1, 'H - H s.r.o.', 'Hmm Hmmmm', '', 'EP-397-JW', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 16:00:00', '2020-12-08 18:30:00', 'requested'),
 (41021, 1, '', 'Jozko Zlaty', 'Janko Hrasko', 'ET-633-PT', 'Bratislava', '9x auto typu: BMW', '2020-12-08 18:30:00', '2020-12-08 21:00:00', 'booked'),
-(41022, 1, '', '', '', '', '', '', '2020-12-09 05:00:00', '2020-12-09 07:30:00', 'requested'),
 (41023, 1, 'S - DENT SLOVAKIA, s.r.o.', 'Janko Hrasko', '', 'IU-730-NX', 'Bratislava', '9x auto typu: BMW', '2020-12-09 07:30:00', '2020-12-09 10:00:00', 'finished'),
 (41024, 1, '', 'A Haaaa', 'Sarsa Mafia1', 'KU-561-DH', 'Bratislava', '9x auto typu: BMW', '2020-12-09 10:00:00', '2020-12-09 12:30:00', 'booked'),
 (41025, 1, 'TRIV, s.r.o.', 'Jozko Zlaty', '', 'CF-875-RX', 'Vrakuna', '9x auto typu: AUDI', '2020-12-09 12:30:00', '2020-12-09 15:00:00', 'finished'),
 (41026, 1, 'P&E Services s.r.o', 'Nie niesomKamion', 'Sused Neverni', 'RW-265-JM', 'Vrakuna', '9x auto typu: AUDI', '2020-12-09 15:00:00', '2020-12-09 17:30:00', 'finished'),
+
 (41027, 1, '', '', '', '', '', '', '2020-12-09 17:30:00', '2020-12-09 20:00:00', 'requested'),
 (41028, 1, 'XXX.JA.NEVIM.UZ', 'Alica Zazrakov', 'Kamiom kamionisticky', 'OX-689-FU', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 05:00:00', '2020-12-10 07:30:00', 'booked'),
 (41029, 1, '', 'Zabka Zabkova', '', 'AF-930-QR', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 07:30:00', '2020-12-10 10:00:00', 'requested'),
@@ -132,12 +133,7 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41115, 2, '', '', '', '', '', '', '2020-12-10 12:30:00', '2020-12-10 15:00:00', 'prepared'),
 (41116, 2, '', '', '', '', '', '', '2020-12-10 15:00:00', '2020-12-10 17:30:00', 'prepared'),
 (41117, 2, '', 'Nie niesomKamion', '', 'IM-871-SW', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 17:30:00', '2020-12-10 20:00:00', 'requested'),
-(41118, 2, '', 'Sused Neverni', 'Hmm Hmmmm', 'EH-398-TW', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 06:00:00', '2020-12-11 08:30:00', 'requested'),
-(41119, 2, '', 'Kamarat Parohac', 'Hmm Hmmmm', 'BM-873-AP', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 08:30:00', '2020-12-11 11:00:00', 'requested'),
-(41120, 2, '', 'Ferko Mrkvicka', 'Alica Zazrakov', 'IP-165-AU', 'Bratislava', '9x auto typu: BMW', '2020-12-11 11:00:00', '2020-12-11 13:30:00', 'booked'),
-(41121, 2, '', 'Kamiom kamionisticky', '', 'DE-220-HP', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 13:30:00', '2020-12-11 16:00:00', 'finished'),
-(41122, 2, 'P&E Services s.r.o', 'Iba kamion', 'Juraj Oslovsky', 'GM-861-SW', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 16:00:00', '2020-12-11 18:30:00', 'booked'),
-(41123, 2, 'TRIV, s.r.o.', 'Janko Hrasko', 'Sused Neverni', 'SW-936-HL', 'Bratislava', '9x auto typu: BMW', '2020-12-11 18:30:00', '2020-12-11 21:00:00', 'finished'),
+
 (41184, 3, '', 'Zabka Zabkova', 'Nie niesomKamion', 'QY-383-CG', 'Bratislava', '9x auto typu: BMW', '2020-12-08 06:00:00', '2020-12-08 08:30:00', 'booked'),
 (41185, 3, '', 'Zlatka zlta', '', 'MV-161-DO', 'Bratislava', '9x auto typu: BMW', '2020-12-08 08:30:00', '2020-12-08 11:00:00', 'requested'),
 (41186, 3, 'TRIV, s.r.o.', 'A Haaaa', 'Juraj Oslovsky', 'FS-496-OW', 'Bratislava', '9x auto typu: BMW', '2020-12-08 11:00:00', '2020-12-08 13:30:00', 'requested'),
@@ -156,12 +152,7 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41199, 3, 'TRIV, s.r.o.', 'Sarsa Mafia1', '', 'HN-790-PW', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 12:30:00', '2020-12-10 15:00:00', 'booked'),
 (41200, 3, '', '', '', '', '', '', '2020-12-10 15:00:00', '2020-12-10 17:30:00', 'prepared'),
 (41201, 3, 'EGO - sny z dreva s.r.o.', 'Sarsa Mafia1', '', 'EY-872-JO', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 17:30:00', '2020-12-10 20:00:00', 'booked'),
-(41202, 3, 'H - H s.r.o.', 'Nie niesomKamion', '', 'IL-674-AP', 'Bratislava', '9x auto typu: BMW', '2020-12-11 06:00:00', '2020-12-11 08:30:00', 'requested'),
-(41203, 3, '', '', '', '', '', '', '2020-12-11 08:30:00', '2020-12-11 11:00:00', 'prepared'),
-(41204, 3, '', '', '', '', '', '', '2020-12-11 11:00:00', '2020-12-11 13:30:00', 'prepared'),
-(41205, 3, 'XXX.JA.NEVIM.UZ', 'Iba kamion', 'Hmm Hmmmm', 'IS-522-IO', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 13:30:00', '2020-12-11 16:00:00', 'requested'),
-(41206, 3, '', 'Zabka Zabkova', '', 'IP-532-NR', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 16:00:00', '2020-12-11 18:30:00', 'finished'),
-(41207, 3, '', 'Iba kamion', '', 'HJ-262-XZ', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 18:30:00', '2020-12-11 21:00:00', 'finished'),
+
 (41268, 4, 'S - DENT SLOVAKIA, s.r.o.', 'Hrasko Janko', 'A Haaaa', 'FW-519-JS', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 06:00:00', '2020-12-08 08:30:00', 'requested'),
 (41269, 4, 'XXX.JA.NEVIM.UZ', 'Alica Zazrakov', '', 'GY-110-GU', 'Bratislava', '9x auto typu: BMW', '2020-12-08 08:30:00', '2020-12-08 11:00:00', 'finished'),
 (41270, 4, 'EGO - sny z dreva s.r.o.', 'Ferko Mrkvicka', 'Kamarat Parohac', 'JR-598-CE', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 11:00:00', '2020-12-08 13:30:00', 'requested'),
@@ -180,12 +171,7 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41283, 4, 'H - H s.r.o.', 'Ferko Mrkvicka', 'Jozko Zlaty', 'DP-448-CH', 'Bratislava', '9x auto typu: BMW', '2020-12-10 12:30:00', '2020-12-10 15:00:00', 'booked'),
 (41284, 4, 'P&E Services s.r.o', 'Alica Zazrakov', 'Nie niesomKamion', 'FI-397-FT', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 15:00:00', '2020-12-10 17:30:00', 'requested'),
 (41285, 4, '', 'Kamarat Parohac', '', 'CR-343-KU', 'Bratislava', '9x auto typu: BMW', '2020-12-10 17:30:00', '2020-12-10 20:00:00', 'finished'),
-(41286, 4, 'TRIV, s.r.o.', 'Kamarat Parohac', 'Juraj Oslovsky', 'GX-277-JZ', 'Bratislava', '9x auto typu: BMW', '2020-12-11 06:00:00', '2020-12-11 08:30:00', 'finished'),
-(41287, 4, 'TRIV, s.r.o.', 'Sarsa Mafia1', '', 'HS-827-OR', 'Bratislava', '9x auto typu: BMW', '2020-12-11 08:30:00', '2020-12-11 11:00:00', 'finished'),
-(41288, 4, 'S - DENT SLOVAKIA, s.r.o.', 'Sarsa Mafia1', '', 'LQ-722-RS', 'Bratislava', '9x auto typu: BMW', '2020-12-11 11:00:00', '2020-12-11 13:30:00', 'booked'),
-(41289, 4, 'EGO - sny z dreva s.r.o.', 'Juraj Oslovsky', 'Kamarat Parohac', 'BU-610-IO', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 13:30:00', '2020-12-11 16:00:00', 'requested'),
-(41290, 4, '', 'Juraj Oslovsky', 'Hmm Hmmmm', 'HU-822-DY', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 16:00:00', '2020-12-11 18:30:00', 'requested'),
-(41291, 4, '', '', '', '', '', '', '2020-12-11 18:30:00', '2020-12-11 21:00:00', 'prepared'),
+
 (41352, 5, '', '', '', '', '', '', '2020-12-08 06:00:00', '2020-12-08 08:30:00', 'prepared'),
 (41353, 5, 'XXX.JA.NEVIM.UZ', 'Hrasko Janko', 'Nie niesomKamion', 'FH-769-PY', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 08:30:00', '2020-12-08 11:00:00', 'finished'),
 (41354, 5, 'EGO - sny z dreva s.r.o.', 'Iba kamion', '', 'MN-241-KO', 'Bratislava', '9x auto typu: BMW', '2020-12-08 11:00:00', '2020-12-08 13:30:00', 'requested'),
@@ -204,12 +190,7 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41367, 5, 'S - DENT SLOVAKIA, s.r.o.', 'Juraj Oslovsky', 'Kamarat Parohac', 'AX-953-HW', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 12:30:00', '2020-12-10 15:00:00', 'booked'),
 (41368, 5, '', '', '', '', '', '', '2020-12-10 15:00:00', '2020-12-10 17:30:00', 'prepared'),
 (41369, 5, 'XXX.JA.NEVIM.UZ', 'Sarsa Mafia1', '', 'CP-334-IP', 'Bratislava', '9x auto typu: BMW', '2020-12-10 17:30:00', '2020-12-10 20:00:00', 'booked'),
-(41370, 5, '', 'Jozko Zlaty', '', 'EY-648-CR', 'Bratislava', '9x auto typu: BMW', '2020-12-11 06:00:00', '2020-12-11 08:30:00', 'booked'),
-(41371, 5, 'TRIV, s.r.o.', 'Jozko Zlaty', 'Kamarat Parohac', 'ER-367-QW', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 08:30:00', '2020-12-11 11:00:00', 'booked'),
-(41372, 5, '', 'Sused Neverni', '', 'KW-537-BZ', 'Bratislava', '9x auto typu: BMW', '2020-12-11 11:00:00', '2020-12-11 13:30:00', 'requested'),
-(41373, 5, 'P&E Services s.r.o', 'Hrasko Janko', 'Juraj Oslovsky', 'GL-977-NS', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 13:30:00', '2020-12-11 16:00:00', 'booked'),
-(41374, 5, 'XXX.JA.NEVIM.UZ', 'Alica Zazrakov', 'Iba kamion', 'ET-774-DZ', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 16:00:00', '2020-12-11 18:30:00', 'requested'),
-(41375, 5, '', 'Nie niesomKamion', '', 'RU-438-CJ', 'Bratislava', '9x auto typu: BMW', '2020-12-11 18:30:00', '2020-12-11 21:00:00', 'requested'),
+
 (41436, 6, '', 'Ferko Mrkvicka', 'Sarsa Mafia1', 'BG-918-MX', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 06:00:00', '2020-12-08 08:30:00', 'booked'),
 (41437, 6, '', 'Juraj Oslovsky', 'Hrasko Janko', 'IU-367-IY', 'Bratislava', '9x auto typu: BMW', '2020-12-08 08:30:00', '2020-12-08 11:00:00', 'booked'),
 (41438, 6, '', 'Jozko Zlaty', '', 'KL-730-TW', 'Bratislava', '9x auto typu: BMW', '2020-12-08 11:00:00', '2020-12-08 13:30:00', 'booked'),
@@ -228,12 +209,7 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41451, 6, '', '', '', '', '', '', '2020-12-10 12:30:00', '2020-12-10 15:00:00', 'prepared'),
 (41452, 6, '', 'Kamiom kamionisticky', 'Juraj Oslovsky', 'NY-822-QT', 'Bratislava', '9x auto typu: BMW', '2020-12-10 15:00:00', '2020-12-10 17:30:00', 'finished'),
 (41453, 6, '', 'Jozko Zlaty', 'A Haaaa', 'HK-862-MR', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 17:30:00', '2020-12-10 20:00:00', 'booked'),
-(41454, 6, '', 'Juraj Oslovsky', '', 'TX-795-OV', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 06:00:00', '2020-12-11 08:30:00', 'finished'),
-(41455, 6, '', 'Jozko Zlaty', '', 'VY-977-FU', 'Bratislava', '9x auto typu: BMW', '2020-12-11 08:30:00', '2020-12-11 11:00:00', 'requested'),
-(41456, 6, 'EGO - sny z dreva s.r.o.', 'Juraj Oslovsky', '', 'JO-600-FT', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 11:00:00', '2020-12-11 13:30:00', 'booked'),
-(41457, 6, '', 'Alica Zazrakov', '', 'CO-863-CD', 'Bratislava', '9x auto typu: BMW', '2020-12-11 13:30:00', '2020-12-11 16:00:00', 'requested'),
-(41458, 6, '', 'Hrasko Janko', '', 'LN-356-IQ', 'Bratislava', '9x auto typu: BMW', '2020-12-11 16:00:00', '2020-12-11 18:30:00', 'booked'),
-(41459, 6, '', '', '', '', '', '', '2020-12-11 18:30:00', '2020-12-11 21:00:00', 'prepared'),
+
 (41520, 7, 'P&E Services s.r.o', 'Jozko Zlaty', '', 'CU-851-FX', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 06:00:00', '2020-12-08 08:30:00', 'finished'),
 (41521, 7, 'S - DENT SLOVAKIA, s.r.o.', 'Sused Neverni', 'Juraj Oslovsky', 'BJ-381-JY', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 08:30:00', '2020-12-08 11:00:00', 'booked'),
 (41522, 7, '', '', '', '', '', '', '2020-12-08 11:00:00', '2020-12-08 13:30:00', 'prepared'),
@@ -252,12 +228,7 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41535, 7, 'TRIV, s.r.o.', 'Hrasko Janko', 'Hrasko Janko', 'RT-522-EJ', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 12:30:00', '2020-12-10 15:00:00', 'requested'),
 (41536, 7, 'H - H s.r.o.', 'A Haaaa', '', 'PR-806-JP', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 15:00:00', '2020-12-10 17:30:00', 'finished'),
 (41537, 7, 'XXX.JA.NEVIM.UZ', 'Kamiom kamionisticky', 'Ferko Mrkvicka', 'NP-737-VX', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 17:30:00', '2020-12-10 20:00:00', 'finished'),
-(41538, 7, 'TRIV, s.r.o.', 'Kamiom kamionisticky', 'Iba kamion', 'KN-469-VY', 'Bratislava', '9x auto typu: BMW', '2020-12-11 06:00:00', '2020-12-11 08:30:00', 'booked'),
-(41539, 7, '', 'Juraj Oslovsky', 'Zabka Zabkova', 'AU-437-CM', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 08:30:00', '2020-12-11 11:00:00', 'requested'),
-(41540, 7, '', '', '', '', '', '', '2020-12-11 11:00:00', '2020-12-11 13:30:00', 'prepared'),
-(41541, 7, 'EGO - sny z dreva s.r.o.', 'Kamarat Parohac', 'Iba kamion', 'CZ-338-WX', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 13:30:00', '2020-12-11 16:00:00', 'finished'),
-(41542, 7, '', 'Ferko Mrkvicka', 'Nie niesomKamion', 'IJ-106-DE', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 16:00:00', '2020-12-11 18:30:00', 'requested'),
-(41543, 7, '', '', '', '', '', '', '2020-12-11 18:30:00', '2020-12-11 21:00:00', 'prepared'),
+
 (41604, 8, '', 'Kamarat Parohac', '', 'HO-434-BQ', 'Bratislava', '9x auto typu: BMW', '2020-12-08 06:00:00', '2020-12-08 08:30:00', 'finished'),
 (41605, 8, '', '', '', '', '', '', '2020-12-08 08:30:00', '2020-12-08 11:00:00', 'prepared'),
 (41606, 8, 'TRIV, s.r.o.', 'Juraj Oslovsky', 'Jozko Zlaty', 'AU-279-GV', 'Bratislava', '9x auto typu: BMW', '2020-12-08 11:00:00', '2020-12-08 13:30:00', 'booked'),
@@ -276,12 +247,7 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41619, 8, '', '', '', '', '', '', '2020-12-10 12:30:00', '2020-12-10 15:00:00', 'prepared'),
 (41620, 8, 'EGO - sny z dreva s.r.o.', 'Ferko Mrkvicka', '', 'HJ-719-BZ', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 15:00:00', '2020-12-10 17:30:00', 'booked'),
 (41621, 8, '', 'A Haaaa', 'Janko Hrasko', 'CD-839-LT', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 17:30:00', '2020-12-10 20:00:00', 'requested'),
-(41622, 8, 'EGO - sny z dreva s.r.o.', 'A Haaaa', '', 'GY-968-VW', 'Bratislava', '9x auto typu: BMW', '2020-12-11 06:00:00', '2020-12-11 08:30:00', 'requested'),
-(41623, 8, '', 'Jozko Zlaty', '', 'JO-302-OP', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 08:30:00', '2020-12-11 11:00:00', 'requested'),
-(41624, 8, '', 'Alica Zazrakov', '', 'DE-238-MY', 'Bratislava', '9x auto typu: BMW', '2020-12-11 11:00:00', '2020-12-11 13:30:00', 'requested'),
-(41625, 8, '', '', '', '', '', '', '2020-12-11 13:30:00', '2020-12-11 16:00:00', 'prepared'),
-(41626, 8, '', '', '', '', '', '', '2020-12-11 16:00:00', '2020-12-11 18:30:00', 'prepared'),
-(41627, 8, '', 'Kamiom kamionisticky', 'Ferko Mrkvicka', 'FZ-941-AV', 'Bratislava', '9x auto typu: BMW', '2020-12-11 18:30:00', '2020-12-11 21:00:00', 'finished'),
+
 (41688, 9, 'S - DENT SLOVAKIA, s.r.o.', 'Iba kamion', '', 'KP-470-DE', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 06:00:00', '2020-12-08 08:30:00', 'finished'),
 (41689, 9, '', 'Jozko Zlaty', '', 'NT-272-CN', 'Bratislava', '9x auto typu: BMW', '2020-12-08 08:30:00', '2020-12-08 11:00:00', 'requested'),
 (41690, 9, 'EGO - sny z dreva s.r.o.', 'Hmm Hmmmm', '', 'JS-619-CI', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 11:00:00', '2020-12-08 13:30:00', 'finished'),
@@ -300,12 +266,7 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41703, 9, 'H - H s.r.o.', 'Hrasko Janko', 'Zabka Zabkova', 'MO-426-FY', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 12:30:00', '2020-12-10 15:00:00', 'finished'),
 (41704, 9, '', 'Nie niesomKamion', 'Sarsa Mafia1', 'HL-157-IK', 'Bratislava', '9x auto typu: BMW', '2020-12-10 15:00:00', '2020-12-10 17:30:00', 'booked'),
 (41705, 9, '', '', '', '', '', '', '2020-12-10 17:30:00', '2020-12-10 20:00:00', 'prepared'),
-(41706, 9, 'P&E Services s.r.o', 'Ferko Mrkvicka', 'Ferko Mrkvicka', 'RS-180-LW', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 06:00:00', '2020-12-11 08:30:00', 'booked'),
-(41707, 9, '', 'Ferko Mrkvicka', '', 'DZ-713-NV', 'Bratislava', '9x auto typu: BMW', '2020-12-11 08:30:00', '2020-12-11 11:00:00', 'requested'),
-(41708, 9, 'H - H s.r.o.', 'Sarsa Mafia1', '', 'WX-622-MO', 'Bratislava', '9x auto typu: BMW', '2020-12-11 11:00:00', '2020-12-11 13:30:00', 'booked'),
-(41709, 9, 'TRIV, s.r.o.', 'Janko Hrasko', '', 'BC-355-PZ', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 13:30:00', '2020-12-11 16:00:00', 'booked'),
-(41710, 9, '', 'Sarsa Mafia1', 'Hmm Hmmmm', 'BH-782-HP', 'Bratislava', '9x auto typu: BMW', '2020-12-11 16:00:00', '2020-12-11 18:30:00', 'finished'),
-(41711, 9, 'S - DENT SLOVAKIA, s.r.o.', 'Zlatka zlta', 'Zlatka zlta', 'CO-273-HL', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 18:30:00', '2020-12-11 21:00:00', 'requested'),
+
 (41772, 10, 'P&E Services s.r.o', 'Sused Neverni', 'Kamarat Parohac', 'DJ-591-EJ', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 06:00:00', '2020-12-08 08:30:00', 'booked'),
 (41773, 10, 'S - DENT SLOVAKIA, s.r.o.', 'Kamarat Parohac', 'A Haaaa', 'LS-490-FY', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 08:30:00', '2020-12-08 11:00:00', 'finished'),
 (41774, 10, 'S - DENT SLOVAKIA, s.r.o.', 'Nie niesomKamion', '', 'GM-735-JL', 'Vrakuna', '9x auto typu: AUDI', '2020-12-08 11:00:00', '2020-12-08 13:30:00', 'finished'),
@@ -323,6 +284,7 @@ INSERT INTO `dump_table` (`id`, `gate_number`, `company_name`, `first_ruck_drive
 (41786, 10, 'P&E Services s.r.o', 'Zabka Zabkova', '', 'GJ-985-BQ', 'Bratislava', '9x auto typu: BMW', '2020-12-10 10:00:00', '2020-12-10 12:30:00', 'requested'),
 (41787, 10, 'TRIV, s.r.o.', 'Hrasko Janko', '', 'OY-558-FY', 'Bratislava', '9x auto typu: BMW', '2020-12-10 12:30:00', '2020-12-10 15:00:00', 'finished'),
 (41788, 10, 'TRIV, s.r.o.', 'Zlatka zlta', 'Zlatka zlta', 'GV-508-IU', 'Vrakuna', '9x auto typu: AUDI', '2020-12-10 15:00:00', '2020-12-10 17:30:00', 'finished'),
+
 (41789, 10, 'H - H s.r.o.', 'Zlatka zlta', 'Hmm Hmmmm', 'FK-969-LW', 'Bratislava', '9x auto typu: BMW', '2020-12-10 17:30:00', '2020-12-10 20:00:00', 'finished'),
 (41790, 10, 'H - H s.r.o.', 'Iba kamion', '', 'RS-232-MT', 'Vrakuna', '9x auto typu: AUDI', '2020-12-11 06:00:00', '2020-12-11 08:30:00', 'requested'),
 (41791, 10, '', '', '', '', '', '', '2020-12-11 08:30:00', '2020-12-11 11:00:00', 'prepared'),
@@ -523,12 +485,14 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `meno` varchar(20) COLLATE utf8_slovak_ci DEFAULT NULL,
   `priezvisko` varchar(20) COLLATE utf8_slovak_ci DEFAULT NULL,
   `meno_splocnosti` varchar(75) COLLATE utf8_slovak_ci NOT NULL,
+
   `email` varchar(50) COLLATE utf8_slovak_ci NOT NULL,
   `heslo` varchar(50) COLLATE utf8_slovak_ci NOT NULL,
   `role` varchar(50) COLLATE utf8_slovak_ci NOT NULL,
   `is_working` tinyint(5) NOT NULL DEFAULT '1',
   `login_count` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
+
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci AUTO_INCREMENT=28 ;
 
 --
@@ -816,6 +780,7 @@ CREATE TABLE IF NOT EXISTS `time_slot` (
   `truck_driver_1` varchar(30) COLLATE utf8_slovak_ci DEFAULT NULL,
   `truck_driver_2` varchar(30) COLLATE utf8_slovak_ci DEFAULT NULL,
   `evc_truck` varchar(20) COLLATE utf8_slovak_ci DEFAULT NULL,
+
   `destination` varchar(30) COLLATE utf8_slovak_ci DEFAULT NULL,
   `cargo` varchar(200) COLLATE utf8_slovak_ci DEFAULT NULL,
   `start_date_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
