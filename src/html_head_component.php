@@ -46,7 +46,7 @@ if (! isset($page)){
         <script src="javascript/log_out.js"></script>
         <script  src="javascript/config.js"></script>
         <!-- Modified Bootstrap CSS -->
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/config.css">
         <title>Config Page </title>
     <?php }?>
     <?php if ($page == 'change_password'){ ?>
@@ -92,11 +92,10 @@ if (! isset($page)){
     <?php }?>
     <?php if ($page == 'order_page'){ ?>
         <!-- Our JavaScript -->
-        <script src="javascript/log_out.js"></script>
         <script type="text/javascript" src="javascript/order.js"></script>
         <!-- Modified Bootstrap CSS -->
         <link rel="stylesheet" href="css/order.css">
-        <title>Main Gate Man Page </title>
+        <title>Order </title>
     <?php }?>
 </head>
 <?php }?>

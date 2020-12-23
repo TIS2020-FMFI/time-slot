@@ -147,6 +147,8 @@ function show_full_gate(elem){
     if (elem === 'close'){
         document.getElementById('calendar_dates').style.display = 'none';
         document.getElementById('calendar').style.display = 'revert';
+        let elem = document.getElementById('ramp_title').innerHTML
+        document.getElementById('ramp_title').innerHTML = "Ramps "+elem.value;
         generate_gate_selector(document.getElementById("select_gate"));
     }else{
         let index ;
@@ -208,8 +210,14 @@ function show_full_gate(elem){
 
 
                     let html_row_count = 0;
-                    if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'prepared' ||
-                        gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'occupied' ){
+                    if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'occupied'){
+                        for (let make_html = final_st_index ;make_html < final_ed_index;make_html++){
+                        row_columns_in_half_hours[make_html*7+day].style.backgroundColor = "#717983";
+                        html_row_count ++
+                            row_columns_in_half_hours[make_html*7+day].innerHTML = "occupied";
+                        }
+                    }
+                    if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'prepared' ){
                         for (let make_html = final_st_index ;make_html < final_ed_index;make_html++){
                             row_columns_in_half_hours[make_html*7+day].style.backgroundColor = "#2eff00";
                             html_row_count ++
@@ -217,7 +225,7 @@ function show_full_gate(elem){
                                 let show_button = document.createElement("BUTTON")
                                 show_button.className = "btn btn-default bg-primary only_one";
                                 show_button.onclick = function (){
-                                    Time_slot.open_time_slot(gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].ids[count_time_slots]);
+                                    Time_slot.open_time_slot(gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].ids[count_time_slots],'prepared' );
                                     //let index = gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].ids[count_time_slots];
                                     console.log('PREPARED  ',index);
                                 }
@@ -232,32 +240,32 @@ function show_full_gate(elem){
                         }
                     }
 
-                    if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'requested'){
+                    if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'requested' ){
                         for (let make_html = final_st_index ;make_html <= final_ed_index;make_html++){
-                            generate_html_column_for_show_full_ramp(html_row_count,make_html*7+day,'#ff9900',gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time],count_time_slots);
+                            generate_html_column_for_show_full_ramp(html_row_count,make_html*7+day,'#ff9900',gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time],count_time_slots,'requested');
                             html_row_count ++
                             // treba pridat event click
                         }
                     }
                     if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'booked'){
                         for (let make_html = final_st_index ;make_html <= final_ed_index;make_html++){
-                            generate_html_column_for_show_full_ramp(html_row_count,make_html*7+day,'#ff0000',gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time],count_time_slots);
+                            generate_html_column_for_show_full_ramp(html_row_count,make_html*7+day,'#ff0000',gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time],count_time_slots,'booked');
                             html_row_count ++
                             // treba pridat event click
                         }
                     }
                     if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'finished'){
                         for (let make_html = final_st_index ;make_html <= final_ed_index;make_html++){
-                            generate_html_column_for_show_full_ramp(html_row_count,make_html*7+day,'#9d00ff',gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time],count_time_slots);
+                            generate_html_column_for_show_full_ramp(html_row_count,make_html*7+day,'#9d00ff',gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time],count_time_slots,'finished');
                             html_row_count ++
                             // treba pridat event click
                         }
 
                     }
                 }
-                console.log('NEXT DAY');
+                //console.log('NEXT DAY');
             }else{
-                console.log("time slots for this gate ",gates.ids[day]," and this real time ",selected_date," is not existing");
+                //console.log("time slots for this gate ",gates.ids[day]," and this real time ",selected_date," is not existing");
             }
         }
         remove_unused_rows(row_columns_in_half_hours);
@@ -293,8 +301,9 @@ function remove_unused_rows(rows_columns){
  * @param color #HEX :string
  * @param time_slot :index time slot
  * @param time_slot_index :index time slot
+ * @param state :state of time slot
  */
-function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,color,time_slot,time_slot_index){
+function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,color,time_slot,time_slot_index,state){
     //console.log([time_slot.external_dispatchers[html_row_count],
     // time_slot.evcs[html_row_count],
     // time_slot.destinations[html_row_count],
@@ -319,7 +328,7 @@ function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,
         let show_button = document.createElement("BUTTON")
         show_button.className = "btn btn-default bg-primary only_one";
         show_button.onclick = function (){
-            Time_slot.open_time_slot(time_slot.ids[time_slot_index]);
+            Time_slot.open_time_slot(time_slot.ids[time_slot_index],state);
             //let index = time_slot.ids[time_slot_index];
                  //console.log(index);
              }

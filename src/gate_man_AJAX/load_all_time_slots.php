@@ -11,10 +11,10 @@ $date_end .= ' 00:00:00';
 
 if (!$mysqli->connect_errno) {
     $sql = "SELECT id, id_gate, DATE( start_date_time ) as reale_day , start_date_time,evc_truck,
-                (select full_name from truck_driver where id=id_truck_driver_1) as driver1,
-                (select full_name from truck_driver where id=id_truck_driver_2) as driver2,
-                (select destination from destination_cargo where id=id_destination_order) as destination,
-                (select cargo from destination_cargo where id=id_destination_order) as commodity
+                truck_driver_1 as driver1,
+                truck_driver_2 as driver2,
+                destination ,
+                cargo
                 FROM time_slot
 	            where state = 'booked' and (start_date_time  BETWEEN '{$date_start}' AND '{$date_end}')
                 ORDER BY id_gate ASC , start_date_time ASC ";

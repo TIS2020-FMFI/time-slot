@@ -1,7 +1,18 @@
 <?php
 include('../db.php');
 date_default_timezone_set("Europe/Bratislava");
-include('clear_time_slot.php');
+$next_start_point_of_generation = strtotime('next Monday', strtotime('now')); //  treba specifikovat format generovania napr. UTC 00:00
+if (isset($_POST['regenerate'])){
+    if ($_POST['regenerate'] == '1'){
+        echo "REGENERATE<br>";
+        include('../config_AJAX/regenerate_time_slot_for_next_week.php');
+    }else{
+        echo "wrong post methode";
+    }
+}else{
+    include('clear_time_slot.php');
+}
+
 
 
 // toto sluzi ako nahrada subselectu ktori asi bute trvat dlhsie aspon podla mna !!! a je to zataz pre db !!
@@ -29,7 +40,6 @@ if (!$mysqli->connect_errno) {
     }
 }
 
-$next_start_point_of_generation = strtotime('next Monday', strtotime('now')); //  treba specifikovat format generovania napr. UTC 00:00
 $year = date("Y", $next_start_point_of_generation);
 
 
@@ -53,21 +63,45 @@ if (!$mysqli->connect_errno) {
 // for ($index = 0;$index < count($holidays);$index ++){
 //    echo $holidays[$index] .' <br> ';
 //}
+$disabled_ramps = []; // toto je array ktora dostava na vstup fromat textu Ramp1-111111 Ramp2-1111111 pricom 111111 oznacuju ci v dane dni su rampi odstavene alebo niesu
+if (!$mysqli->connect_errno) {
+    $sql = "SELECT holidays  FROM holidays where id=2 ";
+    if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
+        $row = $result->fetch_assoc();
+        //echo $row['holidays'].'';
+        $parsed = explode(' ',$row['holidays']);
+        for ($index = 0;$index < count($parsed);$index ++){
+            $parsed2 = explode('-',$parsed[$index]);
+                array_push ( $disabled_ramps ,  $parsed2[1]) ;
+
+        }
+    }
+}
+// Kontrolen vypisi pre  deibled ramp
+for ($index = 0;$index < count($disabled_ramps);$index ++){
+    echo $disabled_ramps[$index] .' <br> ';
+}
 
 
 //Monday Tuesday Wednesday ...
-$next_start_point_of_generation = strtotime('next Monday', strtotime('now')); //  treba specifikovat format generovania napr. UTC 00:00
+//$next_start_point_of_generation = strtotime('next Monday', strtotime('now')); //  treba specifikovat format generovania napr. UTC 00:00
+
 $date = date("Y-m-d H:i:s", $next_start_point_of_generation);
 
 for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu DB
     //echo 'GATE NUMBER'.$gate_number.'<br>';
-    for ($gate_times = 0; $gate_times < count($array_of_times); $gate_times++) {
+    for ($gate_times = 0; $gate_times < count($array_of_times); $gate_times++) { // array of time == dni v tyzdni s danimi hodinami :D
         //echo 'DAY IN WEEK :'.($gate_times+1).'<br>';
         $tomorrow_of_today = date('Y-m-d', strtotime($date . " +".$gate_times." days"));
         //$res = in_array($tomorrow_of_today,$holidays);
         //echo "is in ??? : ".json_encode($res).'<br>';
-        echo $tomorrow_of_today.'<br>';
+        //echo $tomorrow_of_today.'<br>';
         if (in_array($tomorrow_of_today,$holidays) && $array_of_times[$gate_times][2] == 0){ // pokial je  owervrite povoleni tak sa da dogenerovat den ktori je normalne obsadeni prazdninami
+            continue;
+        }
+        //echo $disabled_ramps[$gate_number][$gate_times];
+        if ($disabled_ramps[$gate_number-1][$gate_times] == '1'){
+            //echo 'preskakujem ';
             continue;
         }
         for ($times = $array_of_times[$gate_times][0]; $times <= $array_of_times[$gate_times][1] ; $times += 2.5) {
@@ -88,11 +122,12 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
                         (select TIMESTAMP(ADDTIME('{$date}', '{$time_end}'))),
                         '{$state}')";
             if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
-                echo "OK <br>";
+                echo "";//OK <br>
             } else{
                 echo $sql."     CHYBA SKRIPTU <br>";
             }
         }
     }
 }
+
 

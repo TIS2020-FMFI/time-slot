@@ -112,14 +112,20 @@ class Time_slot {
         this.commoditys.push(commodity)
     }
 
-    static open_time_slot(id) {
+    static open_time_slot(id,state) {
+        console.log(id,state)
         $.post('order_AJAX/open_time_slot.php',{
-            data:id,
+            id:id,
+            state:state,
         },function(data){
+            console.log(data);
             if (data === '1'){
-                //window.open("order.php","_self");
-            }else{
-                alert("chyba v procese ");
+                window.open("order.php","_self");
+            }else if (data === '2'){
+                console.log("chybne sql");
+            }else if (data === '3'){
+                console.log('uz mas aktivni time slot prosim skuste zatvorit objednavku');
+                //  alert("chyba v procese ");
             }
         });
     }

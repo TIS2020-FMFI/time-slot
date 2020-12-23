@@ -14,19 +14,11 @@ if (!$mysqli->connect_errno) {
         (SELECT meno_splocnosti
          FROM employee
          WHERE id = id_external_dispatcher ), 
-        (SELECT full_name
-         FROM truck_driver
-         WHERE id = id_truck_driver_1 ), 
-        (SELECT full_name
-         FROM truck_driver
-         WHERE id =id_truck_driver_2 ), 
+        truck_driver_1,
+        truck_driver_2 , 
         evc_truck, 
-        (SELECT destination
-         FROM destination_cargo
-         WHERE id = id_destination_order ),
-        (SELECT cargo
-         FROM destination_cargo
-         WHERE id = id_destination_order ), 
+        destination,
+        cargo, 
         start_date_time, 
         end_date_time,
         state
