@@ -1,6 +1,6 @@
 <?php
 //session_start();
-if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role'] == "AD") && $_SESSION['active_time_slot'] != ''  ){// &&  $_SESSION['active_time_slot_state'] == 'prepared'
+if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role'] == "AD") && $_SESSION['active_time_slot'] != ''  ){
 ?>
 
 <form class="form-sign" onsubmit="return false" >
@@ -109,9 +109,6 @@ if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role
 </form>
 <?php
 }else{
-    ?>
-    <h5>Please go to main page , this time slot has been closed automaticli</h5>
-    <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" onclick="go_to_role_page()">back to main page</button>
-    <?php
+    echo '<h1 class=" text-danger text-center" > ERROR</h1>';
 }
 ?>

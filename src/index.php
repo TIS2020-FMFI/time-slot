@@ -54,7 +54,5 @@ include('exception_handler.php');
         ?>
         <script>window.open('gate_man.php',"_self");</script>
         <?php
-    }else{
-        echo "<h1>Neznami pouzivatel</h1>";
     }
 }?>

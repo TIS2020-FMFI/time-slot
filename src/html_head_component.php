@@ -1,7 +1,7 @@
 <?php
 //session_start();
 if (! isset($page)){
-    include('error_page.php');
+    echo "<h1>ERROR HAS OCCURED</h1>";
 }else{
 ?>
 <head>
@@ -18,6 +18,7 @@ if (! isset($page)){
 
     <!-- Our JavaScript Exception handler-->
     <script src="javascript/exception_handler.js"></script>
+    <script src="javascript/global_functions.js"></script>
 
 
 

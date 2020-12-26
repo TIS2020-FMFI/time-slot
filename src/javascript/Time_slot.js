@@ -113,19 +113,19 @@ class Time_slot {
     }
 
     static open_time_slot(id,state) {
-        console.log(id,state)
+        //console.log(id,state)
         $.post('order_AJAX/open_time_slot.php',{
             id:id,
             state:state,
         },function(data){
-            console.log(data);
-            if (data === '1'){
-                window.open("order.php","_self");
-            }else if (data === '2'){
-                console.log("chybne sql");
-            }else if (data === '3'){
-                console.log('uz mas aktivni time slot prosim skuste zatvorit objednavku');
-                //  alert("chyba v procese ");
+            if (data === "1"){
+                    window.open("order.php","_self");
+            }else if (data.includes( "Please") || data.includes( "sql")){
+                create_exception(data,23,'danger');
+            }else if(data !== ""){
+                create_exception(data,23,'warning');
+            }else{
+                create_exception("nepodarilo sa spojit so serverom",23,'danger');
             }
         });
     }

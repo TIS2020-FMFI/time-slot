@@ -121,10 +121,6 @@ function create_html_employee(id,F_name,L_name,Firm,E_mail,type_of_role,is_worki
     let cell5 = row.insertCell(4);
     let cell6 = row.insertCell(5);
 
-    //let hidden_id_element = document.createElement('p');
-    //hidden_id_element.innerHTML = id;
-    //hidden_id_element.style.display = 'none';
-    //row.appendChild(hidden_id_element);
 
 
     let label_name = document.createElement('label');
@@ -136,22 +132,7 @@ function create_html_employee(id,F_name,L_name,Firm,E_mail,type_of_role,is_worki
     input_name.placeholder = "Name";
     input_name.disabled = true;
     input_name.value = F_name;
-    //input_name.onclick = function (){
-    //         // spustime casovasc ktori sa bude opakovat dokola kazdich 30 sekund spravit poust ak honota v danej kolonke bola zmenena
-    //         parameter_for_update = this.value;
-    //         type_of_change = 'first_name';
-    //         input_element = input_name;
-    //         id_of_clicked_element = hidden_id_element.innerHTML;
-    //         //loop_for_updates_First_name_Last_name_Email();
-    //     };
-    //input_name.onchange = function (){
-    //         if (parameter_for_update !== input_name.value){
-    //             change_First_name_Last_name_Email(hidden_id_element.innerHTML,input_name.value,"first_name");
-    //         }
-    //         //id_of_clicked_element = "";
-    //
-    //         // db update
-    //     };
+
 
     cell1.appendChild(label_name);
     cell1.appendChild(input_name);
@@ -165,20 +146,6 @@ function create_html_employee(id,F_name,L_name,Firm,E_mail,type_of_role,is_worki
     input_sure_name.placeholder = "Surname";
     input_sure_name.disabled = true;
     input_sure_name.value = L_name;
-    //input_sure_name.onclick = function (){
-    //         // spustime casovasc ktori sa bude opakovat dokola kazdich 30 sekund spravit poust ak honota v danej kolonke bola zmenena
-    //         parameter_for_update = this.value;
-    //         type_of_change = 'last_name';
-    //         input_element = input_sure_name;
-    //         id_of_clicked_element = hidden_id_element.innerHTML;
-    //     };
-    //     input_sure_name.onchange = function (){
-    //         if (parameter_for_update !== input_sure_name.value) {
-    //             change_First_name_Last_name_Email(hidden_id_element.innerHTML, input_sure_name.value, "last_name");
-    //         }
-    //         //id_of_clicked_element = "";
-    //
-    //     };
 
     cell2.appendChild(label_sure_name);
     cell2.appendChild(input_sure_name);
@@ -259,16 +226,12 @@ function create_html_employee(id,F_name,L_name,Firm,E_mail,type_of_role,is_worki
     input_working.className = "is_working";
     input_working.disabled = true;
 
-    console.log("WORKING TYPE   " ,is_working);
-    //console.log('dsadasdsadsa');
     if (is_working === '1'){
         input_working.checked = true;
     }else{
         input_working.checked = false;
     }
-    //input_working.onchange = function (){
-    //         change_state_working(hidden_id_element.innerHTML,input_working.checked, input_name , input_sure_name ,input_email,row);
-    //     }
+
     cell6.appendChild(input_working);
     index_of_employees += 1;
 
@@ -284,12 +247,6 @@ function create_html_employee(id,F_name,L_name,Firm,E_mail,type_of_role,is_worki
         table_row_input_firm:input_firm,
         table_row_select:select,
         table_row_input_working:input_working,
-        /*table_column_first_name:input_name.value,
-        table_column_last_name:input_sure_name.value,
-        table_column_email:input_email.value,
-        table_column_role:select.value,
-        table_column_is_working:input_working.checked,
-         */
     });
     //runt_test();
 }
@@ -297,51 +254,37 @@ function load_db_data(){
     $.post('employee_AJAX/load_all_employee.php',{
         data:'get_data'
     },function(data){
-        if (data){
+        if (typeof data === 'object'){
             for(let i =0 ; i < data.length;i ++){
                 create_html_employee(data[i][0],data[i][1],data[i][2],data[i][3],data[i][4],data[i][5],data[i][6]);
             }
-
+        }else if(data){
+            create_exception(data ,23,'danger');
         }else{
-            alert("chyba nacitana dat s db");
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
     setTimeout(select_only,250);
 }
-load_db_data();
-//function runt_test(){
-//     console.log("TEST TEST TEST TEST TEST TEST");
-//     for(let i =0 ; i < all_employees_jason.length;i ++){
-//         console.log(all_employees_jason[i].table_column_role);
-//     }
-// }
-//function loop_for_updates_First_name_Last_name_Email(){
-//     if (id_of_clicked_element){
-//         if (parameter_for_update !== input_element.value){
-//             //console.log("PRED ZMENOU ",parameter_for_update ,"        ", input_element.value)
-//             change_First_name_Last_name_Email(id_of_clicked_element,input_element.value,type_of_change);
-//             parameter_for_update = input_element.value;
-//             //console.log(parameter_for_update ,"        ", premena.value)
-//         }
-//
-//     }
-//     setTimeout(loop_for_updates_First_name_Last_name_Email,time_constant_for_sending_updates);
-//
-// }
-// loop_for_updates_First_name_Last_name_Email();
+//load_db_data();
+setTimeout(load_db_data,100);
+//window.onload = function() {
+    //setTimeout(load_db_data,250);
+    //load_db_data();
+
+//}
+
 
 function select_only(){
-    //console.log("IM colled");
     let only_value_find_by = document.getElementById('find_by').value;
     let element_value = document.getElementById('change_select_role').value;
     let only_valid_by_second_selector = document.getElementById('change_select_type_working').value;
-    console.log(only_value_find_by);
-    console.log(element_value);
-    console.log(only_valid_by_second_selector);
+    // console.log(only_value_find_by);
+    // console.log(element_value);
+    // console.log(only_valid_by_second_selector);
     if (element_value === "Select Only"){
         for(let i = 0 ; i < all_employees_jason.length;i ++){
             if (only_valid_by_second_selector === "Only working"){
-                //console.log(i);
                 if(all_employees_jason[i]['table_row_input_working'].checked === false){
                     all_employees_jason[i].table_row.style.display = "none";
                 }else{
@@ -437,6 +380,8 @@ function update_employees(){
     document.getElementById('new').disabled = false;
     document.getElementById('update').style.display = 'none';
     let update_array  = [];
+    let founded = 'wrong data in one of columns <br>';
+    let founded_bool = false;
     for (let row  = 0 ; row < all_employees_jason.length; row ++) {
         all_employees_jason[row]['table_row_input_name'].disabled = true;
         all_employees_jason[row]['table_row_input_sure_name'].disabled = true;
@@ -444,6 +389,20 @@ function update_employees(){
         all_employees_jason[row]['table_row_input_firm'].disabled = true;
         all_employees_jason[row]['table_row_select'].disabled = true;
         all_employees_jason[row]['table_row_input_working'].disabled = true;
+        if (is_correct_name(all_employees_jason[row]['table_row_input_name'].value)||
+            is_correct_name(all_employees_jason[row]['table_row_input_sure_name'].value)||
+            is_correct_email(all_employees_jason[row]['table_row_input_email'].value)||
+            is_correct_company(all_employees_jason[row]['table_row_input_firm'].value)){
+            founded_bool = true;
+            founded += 'First <strong>'+all_employees_jason[row]['table_row_input_name'].value+'</strong><br>';
+            founded += 'Last <strong>'+all_employees_jason[row]['table_row_input_sure_name'].value+'</strong><br>';
+            founded += 'Email <strong>'+all_employees_jason[row]['table_row_input_email'].value+'</strong><br>';
+            founded += 'Company <strong>'+all_employees_jason[row]['table_row_input_firm'].value+'</strong><br>';
+            founded += '<br>';
+            document.getElementById(all_employees_jason[row]['id']).className = 'bg-warning';
+        }else{
+            document.getElementById(all_employees_jason[row]['id']).className = '';
+        }
         update_array.push([all_employees_jason[row]['id'],
                             all_employees_jason[row]['table_row_input_name'].value,
                             all_employees_jason[row]['table_row_input_sure_name'].value,
@@ -453,13 +412,27 @@ function update_employees(){
                             all_employees_jason[row]['table_row_input_working'].checked
                             ]);
     }
+    if (founded_bool){
+        founded += 'Please check the  the <strong>formats</strong>: <br>for company name '+format_for_company_name+'<br>for company email '+format_for_email+'<br>for company name '+format_for_password+'<br>';
+        create_exception(founded,23,'warning');
+        return
+    }
         $.post('employee_AJAX/update_all_employees.php',{
         data: update_array,
     },function(data){
-        if (data === '3'){
-            console.log('asi si zle prihlaseni / data neboli poslate');
+        if (data){
+            if (data.includes("$")){
+                let split = data.split("$")
+                if (split[0] === '1'){
+                    create_exception(split[1],23,'success');
+                }else{
+                    create_exception(split[1],23,'warning');
+                }
+            }else{
+                create_exception(data,23,'danger');
+            }
         }else{
-            console.log('uspesni update vsetkych zamestnancov');
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 }
@@ -479,13 +452,15 @@ function submit_form_new_employee(){
     if ( Password === Confirm_password && Role && (Password !== "" && Confirm_password !== "" && email !== "" && Firm !== "") ){
         // #3
         add_employee(F_name,L_name,email,Firm,Password,Role);
-        close_new_customer();
     }else{
-        console.log("Nod valid ");
+        create_exception(" Vyplnnte prazdne kolonky s <strong>*</strong> ",13,'warning');
     }
 }
 
 function add_employee(F_name,L_name,email,Firm,Password,Role){
+    if (is_correct_name(F_name)||is_correct_name(L_name)||is_correct_email(email)||is_correct_company(Firm)||is_correct_password(Password)){
+        return
+    }
     $.post('employee_AJAX/register_user.php',{
         F_name: F_name,
         L_name:L_name,
@@ -495,17 +470,17 @@ function add_employee(F_name,L_name,email,Firm,Password,Role){
         role : Role
     },function(data){
         if (data){
-            let paset_data = data.split("$");
-            if (paset_data.length > 1){
-                alert(paset_data[0]);
-                create_html_employee(paset_data[1],F_name, L_name, Firm,email,Role, "1");
+            if (data.includes("$")){
+                let split = data.split("$")
+                if (split[0] === '1'){
+                    create_exception(split[1],23,'success');
+                    close_new_customer();
+                }
             }else{
-                alert(data);
+                create_exception(data,23,'warning');
             }
-
-
         }else{
-            alert(data);
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 

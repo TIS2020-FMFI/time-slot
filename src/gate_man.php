@@ -11,11 +11,11 @@ include('html_head_component.php');
 
 <?php
 include('html_nav_component.php');
+include('exception_handler.php');
 ?>
 
 
-<div class="table-responsive bg-light" style="width: auto; margin-left: -15px;margin-bottom: 0px;
-    margin-right: -15px;">
+<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;width: auto; margin-bottom: 0px;">
   <table class="table" style="margin-bottom: 0px;" >
     <thead>
     <tr>
@@ -27,13 +27,13 @@ include('html_nav_component.php');
     </thead>
   </table>
 </div>
-<table id='finished' class="table table-striped  table-responsive bg-light table_of_customers ">
+<table id='finished' class="table table-striped  table-responsive bg-light table_of_customers " style="margin-top: 56px">
   <thead>
      <tr>
          <th scope="col">Truck Drivers</th>
          <th scope="col">EČV</th>
          <th scope="col">Time</th>
-         <th scope="col">Commodity</th>
+         <th scope="col">Cargo</th>
          <th scope="col">Ramp</th>
          <th scope="col"></th>
     </tr>
@@ -60,4 +60,4 @@ include('html_nav_component.php');
     <script>window.open('index.php',"_self");</script>
     <?php
 }
-?>?>
+?>

@@ -5,8 +5,8 @@
     margin-bottom: 0px;
 }
 .navbar{
-    margin-left: -15px;
-    margin-right: -15px;
+    //margin-left: -15px;
+    //margin-right: -15px;
 }
 #main_row{
     padding-top: 5px;
@@ -42,7 +42,7 @@ table thead .days_in_calendar_closer {
 }
 tbody tr .calendar_item{
     border-top: 0px  #dee2e6;
-    width: 20%;
+    //width: 20%;
 }
 .table thead .right_border_last{
     border-right: 0px ;
@@ -67,9 +67,6 @@ th{
 .form-check-label{
     margin-right: 10px;
 }
-#select_nakladka_div{
-
-}
 
 .table_of_customers{
     width: auto;
@@ -77,10 +74,50 @@ th{
     margin-right: -15px;
     margin-bottom: 0px;
 }
+#only_requested{
+    z-index: 300;
+}
 
 .table_of_customers thead th{
     width: 20%;
     text-align: revert;
+}
+
+
+@media (min-width: 0px) {
+    .table_of_customers{
+        font-size: 10px;
+    }
+    .table{
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 767px) {
+    .table_of_customers{
+        font-size: 15px;
+    }
+    .table{
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 991px){
+    .table_of_customers{
+        font-size: 17px;
+    }
+    .table{
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 1199px) {
+    .table_of_customers{
+        font-size: 20px;
+    }
+    .table{
+        font-size: 20px;
+    }
 }
 
 

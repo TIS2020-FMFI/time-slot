@@ -1,6 +1,6 @@
 .navbar{
-    margin-left: -15px;
-    margin-right: -15px;
+    //margin-left: -15px;
+    //margin-right: -15px;
 }
 td p{
     margin: 0px;
@@ -90,4 +90,27 @@ table thead th{
 }
 .mobile_setup{
     display: revert;
+}
+@media (min-width: 300px) {
+    .table_of_customers{
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 767px) {
+    .table_of_customers{
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 991px){
+    .table_of_customers{
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 1199px) {
+    .table_of_customers{
+        font-size: 20px;
+    }
 }
