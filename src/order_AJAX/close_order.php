@@ -30,7 +30,11 @@ if (!$mysqli->connect_errno) {
                 echo 'Chybne sql na stranke <strong>order_AJAX/close_order.php</strong> '.$sql;
             }
         }else{
-            echo 'time slot uz bol odstraneni automaticky';
+            if ($_SESSION['role'] == 'EXD'){
+                echo 'time slot uz bol odstraneni automaticky <a href="external_dispatcher.php">pick another one</a>';
+            }else if ($_SESSION['role'] == 'AD'||$_SESSION['role'] == 'IND'){
+                echo 'time slot uz bol odstraneni automaticky <a href="internal_dispatcher.php">pick another one</a>';
+            }
         }
     }else{
         echo 'Please log <a href="../index.php">in</a>';

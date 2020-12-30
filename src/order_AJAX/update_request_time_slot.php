@@ -16,6 +16,8 @@ if (!$mysqli->connect_errno) {
                         truck_driver_1='{$norm_kam1}',
                         truck_driver_2='{$norm_kam2}',
                         destination='{$norm_destination}',
+                        ocupide_start_time=DEFAULT ,
+                        ocupide_end_time=DEFAULT,
                         cargo='{$norm_cargo}'
                          WHERE id='{$_SESSION['active_time_slot']}' and id_gate='{$_POST['ramp']}'
                          and (TIMESTAMP(NOW()) BETWEEN TIMESTAMP(ocupide_start_time) AND TIMESTAMP(ocupide_end_time)) = '1' "; // definuj dopyt
@@ -52,6 +54,8 @@ if (!$mysqli->connect_errno) {
                         truck_driver_1='{$norm_kam1}',
                         truck_driver_2='{$norm_kam2}',
                         destination='{$norm_destination}',
+                        ocupide_start_time=DEFAULT ,
+                        ocupide_end_time=DEFAULT,
                         cargo='{$norm_cargo}'
                          WHERE id='{$_SESSION['active_time_slot']}' and id_gate='{$_POST['ramp']}'  
                          and (TIMESTAMP(NOW()) BETWEEN TIMESTAMP(ocupide_start_time) AND TIMESTAMP(ocupide_end_time)) = '1'"; // definuj dopyt

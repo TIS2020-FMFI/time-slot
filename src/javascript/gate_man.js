@@ -199,6 +199,7 @@ function loop(){
     let h = time.getHours();
     let m = time.getMinutes();
     let s = time.getSeconds();
+    h = checkTime(h);
     m = checkTime(m);
     s = checkTime(s);
     let valid_time_string = h+":"+m+":"+s;

@@ -36,7 +36,7 @@ if (!$mysqli->connect_errno) {
         end_date_time_slot = VALUES (`end_date_time_slot`),
         state = VALUES (`state`)";
     if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
-        echo "Databaza bola zalohovana na disku<br>";
+        echo "Databaza bola zalohovana na disku  ".mysqli_affected_rows($mysqli). "<br> ";
     } else {
         echo "CHYBA SKRIPTU <br> ";
     }

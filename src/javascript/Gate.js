@@ -42,4 +42,10 @@ class Gate {
     get_index_by_id(id){
         return this.ids.indexOf(id);
     }
+
+    // get_all_real_times_between(from,to){
+    //     for (let i = 0;i < this.array_of_calendars.length;i++){
+    //
+    //     }
+    // }
 }

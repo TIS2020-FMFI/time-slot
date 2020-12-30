@@ -27,7 +27,7 @@ include('exception_handler.php');
     </thead>
   </table>
 </div>
-<table id='finished' class="table table-striped  table-responsive bg-light table_of_customers " style="margin-top: 56px">
+<table id='finished' class="table table-striped  table-responsive bg-light table_of_customers " style="margin-top: 119px">
   <thead>
      <tr>
          <th scope="col">Truck Drivers</th>

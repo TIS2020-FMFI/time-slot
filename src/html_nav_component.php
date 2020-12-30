@@ -47,6 +47,7 @@
                 <?php }?>
                 <a class="nav-item nav-link " href="config.php">Config</a>
                 <a class="nav-item nav-link " href="gate_man.php">Gate man</a>
+                <a class="nav-item nav-link " href="statistic.php">Statistics</a>
                 <a class="nav-item nav-link " href="change_password.php">Change password</a>
 
             </div>

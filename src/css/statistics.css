@@ -1,0 +1,26 @@
+canvas {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+input[type=date]{
+
+    height: 38px;
+}
+.top_bar_date{
+    font-size: 17px;
+    width: 20%;
+}
+.form-group{
+    margin: 0;
+}
+label{
+    display: none;
+}
+.table thead .top_bar{
+    width: 10%;
+}
+
+.table thead .D_S{
+    width: 5%;
+}

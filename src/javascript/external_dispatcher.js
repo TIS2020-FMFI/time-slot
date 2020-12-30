@@ -36,21 +36,49 @@ function update_handler(){
 
 
 let selected_date ; // dolezita premena pre dalsie selecti a posuni pmocou sipiek pri minicalendari a samotnom calendari
+let actual_date_now ;
 /**
  * funkica ktora nacita akutalni datum dnesneho dna a prradi ho do mini calendaru
  */
-setTimeout(first_load,250);
+setTimeout(first_load,150);
+
+
+function pad2(n) {  // always returns a string
+    return (n < 10 ? '0' : '') + n;
+}
+
+
 function first_load(){
     let new_date = new Date();
+    let date = new Date();
+    let y = new_date.getFullYear();
+    let mm = new_date.getMonth();
+    let d = new_date.getDate();
 
-    document.getElementById('input_date').value=new_date.toISOString().substr(0,10);
+    let h = new_date.getHours();
+    let m = new_date.getMinutes();
+    let s = new_date.getSeconds();
+    h = pad2(h);
+    m = pad2(m);
+    s = pad2(s);
+    mm = pad2(mm+ 1);
+    d = pad2(d);
+    console.log(new_date);
+    console.log(new_date.toDateString())
+    console.log(d);
+    actual_date_now = y+'-'+mm+'-'+d+' '+h+":"+m+":"+s;
+    // console.log(actual_date_now);
+    // alert( date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + ("0" + this.getDate()).slice(-2) + ("0" + this.getHours() + 1 ).slice(-2) + ("0" + this.getMinutes()).slice(-2) + ("0" + this.getSeconds()).slice(-2) );
+    document.getElementById('input_date').value = new_date.toISOString().substr(0,10);//new_date.toDateString(); //new_date.toISOString().substr(0,10);
+    // console.log(document.getElementById('input_date').value);
     new_date.setDate(new_date.getDate() -7 ); // maximum vyditelnich dni +7 EXD
     document.getElementById('input_date').min=new_date.toISOString().substr(0,10);
 
     new_date.setDate(new_date.getDate() + 21); // maximum vyditelnich dni +7 EXD
     document.getElementById('input_date').max=new_date.toISOString().substr(0,10);
     selected_date = (new Date()).toISOString().substr(0,10);
-    //console.log(selected_date);
+
+    // console.log('actual_date_now',actual_date_now);
     document.getElementById('date_number').innerHTML = selected_date;
     update_handler();
 }
@@ -232,7 +260,7 @@ function parse_data(data){
  * ajax request na ziskanie dat pre externeho dispecera
  */
 function  load_all_time_slots(){
-    $.post('external AJAX/load_all_time_slots.php',{
+    $.post('external_AJAX/load_all_time_slots.php',{
     },function(data){
         if (typeof data === 'object'){
             parse_data(data);
@@ -313,6 +341,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
 
                     // treba pridat funkcionalitu buutonom
                     if (state === 'prepared'){
+
                         let apply_button = document.createElement("BUTTON")
                         apply_button.className="btn btn-default bg-success only_one";
                         apply_button.innerHTML="apply";
@@ -324,7 +353,11 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             Time_slot.open_time_slot(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]].random(),'prepared');
                         }
                         cell6.className="td_flex_buttons";
-                        cell6.appendChild(apply_button);
+                        if (actual_date_now >gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]){
+                        }else{
+                            cell6.appendChild(apply_button);
+                        }
+
                     }else if(state === 'requested'){
                         let show_button = document.createElement("BUTTON")
                         show_button.className="btn btn-default bg-primary only_one";
@@ -334,7 +367,11 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             console.log('REQUESTED');
                         }
                         cell6.className="td_flex_buttons";
-                        cell6.appendChild(show_button);
+                        if (actual_date_now >gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]){
+                        }else{
+                            cell6.appendChild(show_button);
+                        }
+
                     }
                 }
             }

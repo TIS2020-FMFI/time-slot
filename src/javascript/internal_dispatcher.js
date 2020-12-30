@@ -6,7 +6,7 @@ function parse_data(data){
     gates = new Gate();
     linked_id = 0;
     let counter = 0 ;
-    for(let i =0 ; i < data.length;i ++){
+    for(let i = 0 ; i < data.length;i ++){
         // data format vystup SQL
         // [0] == id |
         // [1] == id_calendar  // gate_number|

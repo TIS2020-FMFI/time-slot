@@ -19,7 +19,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         <p id="only_requested_count" class="text-danger" style="margin: 0px;margin-top: 5px;">pocet</p>
     </div>
 
-<div class="table-responsive bg-light fixed-top " id="role_down" style="margin-top: 56px;">
+<div class="table-responsive bg-light fixed-top " id="role_down" style="margin-top: 56px;z-index: 200;">
   <table class="table" style="margin-bottom: 0px;" >
     <!--tento Thead je pre pouzivatela interneho dispatchera  -->
     <thead>
@@ -40,7 +40,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 
       </th>
         <th class="top_bar" scope="col" style="max-width: 10px">
-        <img src="request_sign_info.png" width="32" style="display: flex" onmouseenter="show_info()" onmouseleave="hide_info()" alt="info">
+            <img src="request_sign_info.png" width="32" style="display: flex" onmouseenter="show_info()" onmouseleave="hide_info()" alt="info">
         </th>
     </tr>
     </thead>
