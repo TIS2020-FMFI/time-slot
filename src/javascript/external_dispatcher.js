@@ -24,46 +24,68 @@ function loop(){
     }
     setTimeout(loop,500);
 }
-loop();
+//loop();
 
 
 function update_handler(){
-    console.log('loooop');
+    //console.log('loooop');
     // chyba zobraziea koli tomu ze nepremazavame data tabuliek
     load_all_time_slots()
-    setTimeout(update_handler,1000); ///*60*5 1000 je jedna sekunda  teda update bude prebiehat kazdich 5 minut
-}
-let role_down = false;
-function role_down_navigation(){
-    if (role_down === false){
-        document.getElementById('role_down').style.display = 'none';
-        role_down = true;
-    }else{
-        document.getElementById('role_down').style.display = 'revert';
-        role_down = false;
-    }
+    setTimeout(update_handler,1000*60*5); ///*60*5 -->1000 je jedna sekunda  teda update bude prebiehat kazdich 5 minut
 }
 
 
 let selected_date ; // dolezita premena pre dalsie selecti a posuni pmocou sipiek pri minicalendari a samotnom calendari
+let actual_date_now ;
 /**
  * funkica ktora nacita akutalni datum dnesneho dna a prradi ho do mini calendaru
  */
-window.onload= function() {
-    let new_date = new Date();
+setTimeout(first_load,150);
 
-    document.getElementById('input_date').value=new_date.toISOString().substr(0,10);
+
+function pad2(n) {  // always returns a string
+    return (n < 10 ? '0' : '') + n;
+}
+
+
+function first_load(){
+    let new_date = new Date();
+    let date = new Date();
+    let y = new_date.getFullYear();
+    let mm = new_date.getMonth();
+    let d = new_date.getDate();
+
+    let h = new_date.getHours();
+    let m = new_date.getMinutes();
+    let s = new_date.getSeconds();
+    h = pad2(h);
+    m = pad2(m);
+    s = pad2(s);
+    mm = pad2(mm+ 1);
+    d = pad2(d);
+    console.log(new_date);
+    console.log(new_date.toDateString())
+    console.log(d);
+    actual_date_now = y+'-'+mm+'-'+d+' '+h+":"+m+":"+s;
+    // console.log(actual_date_now);
+    // alert( date.getFullYear() + ("0" + (date.getMonth() + 1)).slice(-2) + ("0" + this.getDate()).slice(-2) + ("0" + this.getHours() + 1 ).slice(-2) + ("0" + this.getMinutes()).slice(-2) + ("0" + this.getSeconds()).slice(-2) );
+    document.getElementById('input_date').value = new_date.toISOString().substr(0,10);//new_date.toDateString(); //new_date.toISOString().substr(0,10);
+    // console.log(document.getElementById('input_date').value);
     new_date.setDate(new_date.getDate() -7 ); // maximum vyditelnich dni +7 EXD
     document.getElementById('input_date').min=new_date.toISOString().substr(0,10);
 
     new_date.setDate(new_date.getDate() + 21); // maximum vyditelnich dni +7 EXD
     document.getElementById('input_date').max=new_date.toISOString().substr(0,10);
     selected_date = (new Date()).toISOString().substr(0,10);
-    //console.log(selected_date);
+
+    // console.log('actual_date_now',actual_date_now);
     document.getElementById('date_number').innerHTML = selected_date;
     update_handler();
-
 }
+// window.onload= function() {
+//
+//
+// }
 /**
  * mini calendar arrows onclick event a zaroven mini calendar onchange event
  * @how_many_or_elem  :HTML/:integer
@@ -114,6 +136,9 @@ function generate_HTML(){
     make_table_for_external_dispatcher('requested','requested_tr','requested');
     make_table_for_external_dispatcher('booked','booked_tr','booked');
     make_table_for_external_dispatcher('finished','finished_tr','finished');
+    if (document.getElementById('input_text').value !== ''){
+        find_by(document.getElementById('input_text'));
+    }
 }
 
 
@@ -134,7 +159,7 @@ function find_by(elem){
             for (let row = 0 ; row < table_rows_with_class_name.length; row++){
                 founded = false;
                 for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
-                    if (table_rows_with_class_name[row].childNodes[column].innerHTML.includes(text)) {
+                    if (table_rows_with_class_name[row].childNodes[column].innerText.includes(text)) {
                         founded = true;
                     }
                 }
@@ -150,7 +175,7 @@ function find_by(elem){
         for (let row = 0 ; row < table_rows_with_class_name.length; row++){
             founded = false;
             for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
-                if (table_rows_with_class_name[row].childNodes[column].innerHTML.includes(text)) {
+                if (table_rows_with_class_name[row].childNodes[column].innerText.includes(text)) {
                     founded = true;
                 }
             }
@@ -194,6 +219,8 @@ let gates = new Gate();
  * spracovanie ajax vystupu
  */
 function parse_data(data){
+    gates = new Gate();
+    linked_id = 0;
     for(let i =0 ; i < data.length;i ++){
         // data format [0] == id |
         // [1] == id_calendar  // gate_number|
@@ -233,13 +260,14 @@ function parse_data(data){
  * ajax request na ziskanie dat pre externeho dispecera
  */
 function  load_all_time_slots(){
-    $.post('external AJAX/load_all_time_slots.php',{
+    $.post('external_AJAX/load_all_time_slots.php',{
     },function(data){
-        if (data){
+        if (typeof data === 'object'){
             parse_data(data);
-
+        }else if(data){
+            create_exception(data ,23,'danger');
         }else{
-            alert("chyba nacitana dat s db");
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
     setTimeout(generate_HTML,250); // nutne cakanie koli spracovaniu dat ktor boli ziskane ajaxom
@@ -261,6 +289,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
     }
     let prepared_times = [] ;
     let all_prepared_times_ids = {};
+
 
     // generator html pre dani table
     for (let calendar = 0 ; calendar < gates.array_of_calendars.length; calendar++){
@@ -297,13 +326,22 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
 
                         cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[index_for_this_date].evcs[certain_time_slot];
                         cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[index_for_this_date].destinations[certain_time_slot];
-                        cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[index_for_this_date].commoditys[certain_time_slot];
+
+                        if (gates.array_of_calendars[calendar].time_slots[index_for_this_date].commoditys[certain_time_slot].length > 40){
+                            create_html_linked_text(gates.array_of_calendars[calendar].time_slots[index_for_this_date].commoditys[certain_time_slot],cell5)
+
+                        }else{
+                            cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[index_for_this_date].commoditys[certain_time_slot];
+                        }
+
+
                     }
 
                     let cell6 = row.insertCell(5);
 
                     // treba pridat funkcionalitu buutonom
                     if (state === 'prepared'){
+
                         let apply_button = document.createElement("BUTTON")
                         apply_button.className="btn btn-default bg-success only_one";
                         apply_button.innerHTML="apply";
@@ -315,7 +353,11 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             Time_slot.open_time_slot(all_prepared_times_ids[gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]].random(),'prepared');
                         }
                         cell6.className="td_flex_buttons";
-                        cell6.appendChild(apply_button);
+                        if (actual_date_now >gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]){
+                        }else{
+                            cell6.appendChild(apply_button);
+                        }
+
                     }else if(state === 'requested'){
                         let show_button = document.createElement("BUTTON")
                         show_button.className="btn btn-default bg-primary only_one";
@@ -325,10 +367,15 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             console.log('REQUESTED');
                         }
                         cell6.className="td_flex_buttons";
-                        cell6.appendChild(show_button);
+                        if (actual_date_now >gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot]){
+                        }else{
+                            cell6.appendChild(show_button);
+                        }
+
                     }
                 }
             }
         }
     }
 }
+

@@ -8,19 +8,18 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     <?php
     $page = 'internal_dispatcher_main_page';
     include('html_head_component.php');
+    include('exception_handler.php');
     ?>
 <body class=" bg-dark container-fluid">
     <?php
     include('html_nav_component.php');
     ?>
     <div id="only_requested" class="fixed-top bg-warning justify-content-center" style="min-width: 100px;max-width: 100px;left: 100px;display: flex" onclick="show_requested()">
-
-        <img src="request_sign.png" width="32" style="position: relative;right: 10px" onclick="//show_requested()" alt="fotoo">
-        <p id="only_requested_count" class="text-danger" style="margin: 0px;margin-top: 5px;" onclick="//show_requested()">dsadsa</p>
+        <img src="request_sign.png" width="32" style="position: relative;right: 10px" alt="fotoo">
+        <p id="only_requested_count" class="text-danger" style="margin: 0px;margin-top: 5px;">pocet</p>
     </div>
 
-<div class="table-responsive bg-light" style="width: auto; margin-left: -15px;margin-bottom: 0px;
-    margin-right: -15px;">
+<div class="table-responsive bg-light fixed-top " id="role_down" style="margin-top: 56px;z-index: 200;">
   <table class="table" style="margin-bottom: 0px;" >
     <!--tento Thead je pre pouzivatela interneho dispatchera  -->
     <thead>
@@ -41,14 +40,14 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 
       </th>
         <th class="top_bar" scope="col" style="max-width: 10px">
-
-        <img src="request_sign_info.png" width="32" style="display: flex" onmouseover="show_info()" alt="info">
+            <img src="request_sign_info.png" width="32" style="display: flex" onmouseenter="show_info()" onmouseleave="hide_info()" alt="info">
         </th>
     </tr>
     </thead>
   </table>
 </div>
-<div class="table-responsive  bg-light" style="width: auto; margin-left: -15px;margin-bottom: 0px;
+
+<div class="table-responsive  bg-light" style="padding-top:126px;width: auto; margin-left: -15px;margin-bottom: 0px;
     margin-right: -15px;">
     <table id="calendar" class="table table-striped"  >
         <thead>
@@ -60,7 +59,11 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
                     <select class="form-control" id="select_gate" onchange="generate_gate_selector(this)"  style="display: block;"> <!-- onclick="generate_gate_selector(this)"-->
                         <option>1 - 7</option>
                         <option>8 - 14</option>
-
+                        <option>15 - 21</option>
+                        <option>22 - 28</option>
+                        <option>29 - 35</option>
+                        <option>36 - 42</option>
+                        <!-- Treba pridat html podla poctu ramp  ovsem vzdy po rozdiele 6-->
                     </select>
                 </div>
                 <button class="btn btn-default bg-primary last_btn" >></button>
@@ -630,7 +633,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 </div>
 
 
-<h3 id="prepared_h3" class="text-success " style="display: none">PREPARED</h3 >
+<h3 id="prepared_h3" class="text-success " style="padding-top:5px;display: none">PREPARED</h3 >
 <table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none" >
     <thead>
         <tr>
@@ -656,15 +659,15 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     </tbody>
 </table>
 
-<h3 id="requested_h3" class="text-warning " style="display: none">Requested time-slot</h3>
+<h3 id="requested_h3" class="text-warning " style="padding-top:5px;display: none">Requested time-slot</h3>
 <table id="requested" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none">
     <thead>
     <tr>
         <th scope="col">Time</th>
-        <th  scope="col">Employee</th>
+        <th  scope="col">Company</th>
         <th  scope="col">EVC</th>
         <th scope="col">Destination</th>
-        <th scope="col">Commodity</th>
+        <th scope="col">Cargo</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -681,16 +684,16 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     </tbody>
 </table>
 
-<h3 id="booked_h3" class="text-danger " style="display: none">BOOKED</h3>
+<h3 id="booked_h3" class="text-danger " style="padding-top:5px;display: none">BOOKED</h3>
 <table id="booked" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none">
 
     <thead>
         <tr>
             <th scope="col">Time</th>
-            <th  scope="col">Employee</th>
+            <th  scope="col">Company</th>
             <th  scope="col">EVC</th>
             <th scope="col">Destination</th>
-            <th scope="col">Commodity</th>
+            <th scope="col">Cargo</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -708,15 +711,15 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 </table>
 
 
-<h3 id="finished_h3" class="text-finished" style="display: none">Finished time-slot</h3>
+<h3 id="finished_h3" class="text-finished" style="padding-top:5px;display: none">Finished time-slot</h3>
 <table id="finished" class="table table-striped  table-responsive bg-light table_of_customers" style="display: none" >
     <thead>
     <tr>
         <th scope="col">Time</th>
-        <th  scope="col">Employee</th>
+        <th  scope="col">Company</th>
         <th  scope="col">EVC</th>
         <th scope="col">Destination</th>
-        <th scope="col">Commodity</th>
+        <th scope="col">Cargo</th>
         <th scope="col"></th>
     </tr>
     </thead>

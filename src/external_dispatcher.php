@@ -7,6 +7,7 @@ if ($_SESSION['role'] == 'EXD' ) {
     <?php
     $page = 'external_dispatcher_main_page';
     include('html_head_component.php');
+    include('exception_handler.php');
     ?>
 <body class=" bg-dark container-fluid">
 
@@ -15,15 +16,15 @@ include('html_nav_component.php');
 ?>
 
 
-<div class="table-responsive bg-light " id="role_down" style="
-    position: fixed;
+<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;
+    /*position: fixed;
     width: 100%;
     margin-top: 62px;
     margin-right: -15px;
-  margin-left: -15px;">
+  margin-left: -15px;*/">
   <table class="table" style="margin-bottom: 0px;" >
     <thead>
-    <tr>
+    <tr class="">
       <th class="top_bar" style="display:flex;">
         <input type="date" id="input_date" name="trip-start"  onchange="make_date(this)"><!--max="2020-10-31"-->
           <button class="btn btn-default bg-primary" id="back_date" onclick="make_date(-1)" ><</button>
@@ -53,186 +54,27 @@ include('html_nav_component.php');
   </table>
 </div>
 
-
+<h3 class="text-success" style="padding-top: 126px">PREPARED</h3 >
 <table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers" >
-  <h3 class="text-success" style="padding-top: 160px">PREPARED</h3 >
   <thead>
   <tr>
-    <th class="first" scope="col">Time</th>
-    <th class="first" scope="col"></th>
-    <th class="first" scope="col"></th>
-      <th class="first" scope="col"></th>
-      <th class="first" scope="col"></th>
-    <th class="first" scope="col"></th>
+    <th  scope="col">Time</th>
+    <th  scope="col"></th>
+    <th scope="col"></th>
+      <th scope="col"></th>
+      <th  scope="col"></th>
+    <th  scope="col"></th>
   </tr>
   </thead>
   <tbody>
   <tr class="prepared_tr">
-    <td >
-      <p> 6:00 - 8:30 </p>
-    </td>
-    <td>
-      <p></p>
-      <p></p>
-    </td>
-    <td>
-      <p></p>
-    </td>
-      <td>
-          <p></p>
-      </td>
-      <td>
-          <p></p>
-      </td>
+    <td >10:00 - 12:30</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
     <td class="td_flex_buttons">
-      <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-    </td>
-  </tr>
-  <tr class="prepared_tr">
-    <td >
-      <p>  8:30 - 10:00</p>
-    </td>
-    <td>
-      <p></p>
-      <p></p>
-    </td>
-    <td>
-      <p></p>
-    </td>
-      <td>
-          <p></p>
-      </td>
-      <td>
-          <p></p>
-      </td>
-    <td class="td_flex_buttons">
-      <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-    </td>
-  </tr>
-  <tr class="prepared_tr">
-    <td >
-      <p> 10:00 - 12:30 </p>
-    </td>
-    <td>
-      <p></p>
-      <p></p>
-    </td>
-    <td>
-      <p></p>
-    </td>
-      <td>
-          <p></p>
-      </td>
-      <td>
-          <p></p>
-      </td>
-    <td class="td_flex_buttons">
-      <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-    </td>
-  </tr>
-  <tr class="prepared_tr">
-    <td >
-      <p> 10:00 - 12:30 </p>
-    </td>
-    <td>
-      <p></p>
-      <p></p>
-    </td>
-    <td>
-      <p></p>
-    </td>
-      <td>
-          <p></p>
-      </td>
-      <td>
-          <p></p>
-      </td>
-    <td class="td_flex_buttons">
-      <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-    </td>
-  </tr>
-  <tr class="prepared_tr">
-    <td >
-      <p> 10:00 - 12:30 </p>
-    </td>
-    <td>
-      <p></p>
-      <p></p>
-    </td>
-    <td>
-      <p></p>
-    </td>
-      <td>
-          <p></p>
-      </td>
-      <td>
-          <p></p>
-      </td>
-    <td class="td_flex_buttons">
-      <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-    </td>
-  </tr>
-  <tr class="prepared_tr">
-    <td >
-      <p> 10:00 - 12:30 </p>
-    </td>
-    <td>
-      <p></p>
-      <p></p>
-    </td>
-    <td>
-      <p></p>
-    </td>
-      <td>
-          <p></p>
-      </td>
-      <td>
-          <p></p>
-      </td>
-    <td class="td_flex_buttons">
-      <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-    </td>
-  </tr>
-  <tr class="prepared_tr">
-    <td >
-      <p> 10:00 - 12:30 </p>
-    </td>
-    <td>
-      <p></p>
-      <p></p>
-    </td>
-    <td>
-      <p></p>
-    </td>
-      <td>
-          <p></p>
-      </td>
-      <td>
-          <p></p>
-      </td>
-    <td class="td_flex_buttons">
-      <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
-    </td>
-  </tr>
-  <tr class="prepared_tr">
-    <td >
-      <p> 10:00 - 12:30 </p>
-    </td>
-    <td>
-      <p></p>
-      <p></p>
-    </td>
-    <td>
-      <p></p>
-    </td>
-      <td>
-          <p></p>
-      </td>
-      <td>
-          <p></p>
-      </td>
-    <td class="td_flex_buttons">
-      <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
     </td>
   </tr>
   </tbody>
@@ -252,70 +94,14 @@ include('html_nav_component.php');
   </thead>
   <tbody>
   <tr class="requested_tr">
-    <td >
-      <p> 10:00 (11.12.2020) </p>
-    </td>
-    <td>
-      <p>Ondrej Richnak</p>
-      <p>Ondrej Richnak2</p>
-    </td>
-    <td>
-      <p>BA-435-SC</p>
-    </td>
-      <td>
-          <p>BA-345-DS</p>
+      <td >10:00  (11.12.2020)</td>
+      <td>Ondrej Richnak2</td>
+      <td>BA-345-DS</td>
+      <td>BA-345-DS</td>
+      <td>BA-345-DS</td>
+      <td class="td_flex_buttons">
+        <button class="btn btn-default bg-primary only_one" style="" onclick="" >show</button>
       </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-    <td class="td_flex_buttons">
-
-      <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
-      <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
-    </td>
-  </tr>
-  <tr class="requested_tr">
-    <td >
-      <p> 10:00  (11.12.2020) </p>
-    </td>
-    <td>
-      <p>Ondrej Richnak</p>
-    </td>
-    <td>
-      <p>BA-435-SC</p>
-    </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-    <td class="td_flex_buttons">
-      <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
-      <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
-    </td>
-  </tr>
-  <tr class="requested_tr">
-    <td >
-      <p> 10:00  (11.12.2020) </p>
-    </td>
-    <td>
-      <p>Ondrej Richnak2</p>
-    </td>
-    <td>
-      <p>BA-435-SC</p>
-    </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-    <td class="td_flex_buttons">
-      <button class="btn btn-default bg-primary only_one" style="" onclick="confirm_time_slot()" >edit</button>
-      <button class="btn btn-default bg-danger " style="" onclick="confirm_time_slot()" >zrusit</button>
-
-    </td>
   </tr>
   </tbody>
 </table>
@@ -335,69 +121,14 @@ include('html_nav_component.php');
     </thead>
   <tbody>
   <tr class="booked_tr">
-    <td>
-      <p> 10:00  (11.12.2020) </p>
-    </td>
-    <td>
-      <p>Ondrej Richnak2</p>
-    </td>
-    <td>
-      <p>BA-345-DS</p>
-    </td>
+      <td >10:00  (11.12.2020)</td>
+      <td>Ondrej Richnak2</td>
+      <td>BA-345-DS</td>
+      <td>BA-345-DS</td>
+      <td>BA-345-DS</td>
       <td>
-          <p>BA-345-DS</p>
+          <button class="btn btn-default bg-danger" style="" onclick="" >zrusit</button>
       </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-    <td>
-      <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-
-    </td>
-
-  </tr>
-  <tr class="booked_tr">
-    <td >
-      <p> 10:00  (11.12.2020) </p>
-    </td>
-    <td>
-      <p>Ondrej Richnak2</p>
-    </td>
-    <td>
-      <p>BA-345-DS</p>
-    </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-    <td>
-      <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-
-    </td>
-
-  </tr>
-  <tr class="booked_tr">
-    <td >
-      <p> 10:00 (11.12.2020) </p>
-    </td>
-    <td>
-      <p>Ondrej Richnak2</p>
-    </td>
-    <td>
-      <p>BA-345-DS</p>
-    </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-      <td>
-          <p>BA-345-DS</p>
-      </td>
-    <td>
-      <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-    </td>
-
   </tr>
   </tbody>
 </table>
@@ -411,73 +142,20 @@ include('html_nav_component.php');
         <th scope="col">Truck drivers</th>
         <th scope="col">EVC</th>
         <th scope="col">Destination</th>
-        <th scope="col">Commodity</th>
+        <th scope="col">Cargo</th>
         <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr class="finished_tr">
+        <td >10:00  (11.12.2020)</td>
+        <td>Ondrej Richnak2</td>
+        <td>BA-345-DS</td>
+        <td>BA-345-DS</td>
+        <td>BA-345-DS</td>
         <td>
-            <p> 10:00  (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
+            <button class="btn btn-default bg-danger" style="" onclick="" >zrusit</button>
 
-        </td>
-
-    </tr>
-    <tr class="finished_tr">
-        <td >
-            <p> 10:00  (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
-
-        </td>
-
-    </tr>
-    <tr class="finished_tr">
-        <td >
-            <p> 10:00 (11.12.2020) </p>
-        </td>
-        <td>
-            <p>Ondrej Richnak2</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <p>BA-345-DS</p>
-        </td>
-        <td>
-            <button class="btn btn-default bg-danger" style="" onclick="delete_time_slot()" >zrusit</button>
         </td>
 
     </tr>

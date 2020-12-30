@@ -30,30 +30,38 @@ function  load_config_table(){
     $.post('config_AJAX/get_next_week.php',{
     },function(data){
         if (data){
-            affected_days_in_week = data.split('|');
-
+            if (data.includes('|')){
+                affected_days_in_week = data.split('|');
+            }else{
+                create_exception(data,20,'danger');
+            }
         }else{
-            alert("chyba servera");
+            create_exception("chyba servera",20,'danger');
         }
     });
     $.post('config_AJAX/load_config_table.php',{
     },function(data){
-        if (data){
-            set_html_times(data)
-            //parse_data(data);
 
+        if (data){
+            if (typeof data === 'object'){
+                set_html_times(data)
+            }else{
+                create_exception(data,20,'danger');
+            }
         }else{
-            alert("chyba nacitana dat s db");
+            create_exception("chyba servera",20,'danger');
         }
     });
     $.post('config_AJAX/load_disabled.php',{
     },function(data){
         if (data){
-            set_html_disabled_ramps(data)
-            //parse_data(data);
-
+            if (typeof data === 'object'){
+                set_html_disabled_ramps(data)
+            }else{
+                create_exception(data,20,'danger');
+            }
         }else{
-            alert("chyba nacitana dat s db");
+            create_exception("chyba servera",20,'danger');
         }
     });
 
@@ -87,13 +95,17 @@ function set_new_times(){
     let send_array_start = []
     let send_array_end = []
     let send_array_special = []
+    if (send_array_start.length !== send_array_start.length && send_array_start.length !== send_array_special.length){
+    }
     for (let day = 0 ;day < array_of_days.length;day++){
-        send_array_start.push(document.getElementById(prefix_start_time+array_of_days[day]).value);
-        send_array_end.push(document.getElementById(prefix_end_time+array_of_days[day]).value);
-        send_array_special.push(document.getElementById(prefix_special_time+array_of_days[day]).checked);
-        //console.log(document.getElementById(prefix_start_time+array_of_days[day]).value);
-        //console.log(document.getElementById(prefix_end_time+array_of_days[day]).value);
-        //console.log(document.getElementById(prefix_special_time+array_of_days[day]).checked);
+        try{
+            send_array_start.push(document.getElementById(prefix_start_time+array_of_days[day]).value);
+            send_array_end.push(document.getElementById(prefix_end_time+array_of_days[day]).value);
+            send_array_special.push(document.getElementById(prefix_special_time+array_of_days[day]).checked);
+        }catch (err){
+            create_exception('This Web page has been corupted <strong>Not valid amount of row columns in days / hours</strong>' , 50 ,'danger');
+            return true;
+        }
     }
     $.post('config_AJAX/set_new_times.php',{
         send_array_start:send_array_start,
@@ -101,41 +113,62 @@ function set_new_times(){
         send_array_special:send_array_special,
     },function(data){
         if (data){
-            console.log(data);
+            if (data.includes("$")){
+                let split = data.split("$")
+                if (split[0] === '1'){
+                    create_exception(split[1],13,'success');
+                }else{
+                    create_exception(split[1],13,'warning');
+                }
+
+            }else{
+                create_exception(data,33,'danger');
+            }
         }else{
-            alert("chyba nacitana dat s db");
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 }
 
 function regenerate_new_time_slots(){
-    set_new_times();
-    set_new_holidays();
-    setTimeout(uz_je_na_case_server_isto_skoncil_pracu,250);
-    function uz_je_na_case_server_isto_skoncil_pracu(){
-        console.log('UZ JE NA CASE')
-        //let holidays = document.getElementById('exampleFormControlTextarea1').value;
-        $.post('generate_scripts/generate_script_default.php',{
-            regenerate:"1"
-        },function(data){
-            if (data){
-                console.log(data); // tuna treba parsnut data napisat IND alebo AD ktroe time sloti boli zasiahnute a ktorim userom treba napisat email
-            }else{
-                alert("chyba nacitana dat s db");
-            }
-        });
-    }
+    create_exception("<strong>Please wait</strong> it may take few seconds !",23,'primary');
+
+    $.post('generate_scripts/generate_script_default.php',{
+        regenerate:"1"
+    },function(data){
+        if (data.includes('*') || data.includes('SQL') || data.includes('Notice') || data.includes('error') ){
+            create_exception(data,120,'danger');
+        }else if (data.includes('Rampa')){
+            create_exception(data,120,'success');
+        }else{
+            create_exception(data,120,'success');
+        }
+    });
+
 
 }
 function set_new_holidays(){
     let holidays = document.getElementById('exampleFormControlTextarea1').value;
+    if (is_correct_date(holidays)){
+        return true;
+    }
     $.post('config_AJAX/set_new_holidays.php',{
         holidays:holidays
     },function(data){
         if (data){
-            console.log(data);
+            if (data.includes("$")){
+                let split = data.split("$")
+                if (split[0] === '1'){
+                    create_exception(split[1],13,'success');
+                }else{
+                    create_exception(split[1],13,'warning');
+                }
+
+            }else{
+                create_exception(data,33,'danger');
+            }
         }else{
-            alert("chyba nacitana dat s db");
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 }
@@ -173,17 +206,25 @@ function set_ramps(){
         }
 
     }
-    console.log(ramps);
-
+    //console.log(ramps);
     $.post('config_AJAX/set_ramps.php',{
-             ramps:ramps
-         },function(data){
-             if (data){
-                 console.log(data);
-             }else{
-                 alert("chyba nacitana dat s db");
-             }
-         });
+        ramps:ramps
+    },function(data){
+        if (data){
+            if (data.includes("$")){
+                let split = data.split("$")
+                if (split[0] === '1'){
+                    create_exception(split[1],13,'success');
+                }else{
+                    create_exception(split[1],13,'warning');
+                }
+            }else{
+                create_exception(data,33,'danger');
+            }
+        }else{
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+        }
+    });
 }
 function set_html_disabled_ramps(data){
     let elem = document.getElementsByClassName('ramp_in_day');

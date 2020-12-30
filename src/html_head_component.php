@@ -1,7 +1,7 @@
 <?php
 //session_start();
 if (! isset($page)){
-    include('error_page.php');
+    echo "<h1>ERROR HAS OCCURED</h1>";
 }else{
 ?>
 <head>
@@ -18,6 +18,7 @@ if (! isset($page)){
 
     <!-- Our JavaScript Exception handler-->
     <script src="javascript/exception_handler.js"></script>
+    <script src="javascript/global_functions.js"></script>
 
 
 
@@ -99,6 +100,18 @@ if (! isset($page)){
         <!-- Modified Bootstrap CSS -->
         <link rel="stylesheet" href="css/order.css">
         <title>Order </title>
+    <?php }?>
+    <?php if ($page == 'statistic_page'){ ?>
+        <!--  <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+        <script src="javascript/http_cdnjs.cloudflare.com_ajax_libs_Chart.js_2.6.0_Chart.js"></script>
+        <script src="javascript/Time_slot.js"></script>
+        <script src="javascript/Gate.js"></script>
+        <script src="javascript/Calendar.js"></script>
+        <script src="javascript/log_out.js"></script>
+        <script src="javascript/statistics.js"></script>
+        <script src="javascript/export_excel.js"></script>
+        <link rel="stylesheet" href="css/statistics.css">
+        <title>Statistic </title>
     <?php }?>
 </head>
 <?php }?>

@@ -3,7 +3,8 @@ let gates = new Gate();
  * spracovanie ajax vystupu
  */
 function parse_data(data){
-    //console.log('dasdsadsda');
+    gates = new Gate();
+    linked_id = 0;
     for(let i =0 ; i < data.length;i ++){
         // data format vystup SQL
         // [0] == id |
@@ -40,21 +41,27 @@ function parse_data(data){
 function load_all_time_slots() {
     $.post('gate_man_AJAX/load_all_time_slots.php',{
     },function(data){
-        //console.log(data);
-        if (data){
+        if (typeof data === 'object'){
             parse_data(data);
-
-
+        }else if(data){
+            create_exception(data ,23,'danger');
         }else{
-            alert("chyba nacitana dat s db");
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
-        //console.log(data);
     });
-    //console.log("im execiuted");
     setTimeout(generate_gate_selector,250); // nutne cakanie koli spracovaniu dat ktor boli ziskane ajaxom
 
 }
-load_all_time_slots()
+function update_handler(){
+    //console.log('loooop');
+    // chyba zobraziea koli tomu ze nepremazavame data tabuliek
+    load_all_time_slots();
+    setTimeout(update_handler,1000*60*5); ///*60*5 -->1000 je jedna sekunda  teda update bude prebiehat kazdich 5 minut
+}
+setTimeout(first_load,250);
+function first_load() {
+    update_handler();
+}
 
 function generate_gate_selector(){
     //console.log(gates);
@@ -104,7 +111,13 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                 cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].start_times[certain_time_slot].split(' ')[1];
                 let cell4 = row.insertCell(3);
 
-                cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot];
+                //cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot];
+                if (gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot].length > 40){
+                    create_html_linked_text(gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot],cell4)
+
+                }else{
+                    cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot];
+                }
                 let cell5 = row.insertCell(4);
                 cell5.innerHTML = gates.ids[calendar];
 
@@ -128,13 +141,22 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
 }
 function ajax_post_confirm(html_row,id){
     $.post('gate_man_AJAX/confirm_time_slot.php',{
-        data:id
+        id:id
     },function(data){
         if (data){
-            console.log(data);
-            alert("chyba nacitana dat s db");
+            if (data.includes("$")){
+                let split = data.split("$")
+                if (split[0] === '1'){
+                    create_exception(split[1],23,'success');
+                    delete_html_time_slot(html_row);
+                }else{
+                    create_exception(split[1],23,'warning');
+                }
+            }else{
+                create_exception(data,23,'danger');
+            }
         }else{
-            delete_html_time_slot(html_row);
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 }
@@ -177,6 +199,7 @@ function loop(){
     let h = time.getHours();
     let m = time.getMinutes();
     let s = time.getSeconds();
+    h = checkTime(h);
     m = checkTime(m);
     s = checkTime(s);
     let valid_time_string = h+":"+m+":"+s;
@@ -187,7 +210,7 @@ function loop(){
             }
     }
     for (let i = 0 ;i < list_of_deleted.length;i++){
-        console.log(list_of_deleted[i]);
+        //console.log(list_of_deleted[i]);
         list_of_deleted[i].remove();
     }
     setTimeout(loop,100);

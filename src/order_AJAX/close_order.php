@@ -1,36 +1,44 @@
 <?php
 session_start();
 include('../db.php');
-if ($_SESSION['active_time_slot'] != "" ) {
-    if ( $_SESSION['active_time_slot_state'] == 'prepared' ){
-        $sql="UPDATE `time_slot`  SET ocupide_start_time=DEFAULT ,ocupide_end_time=DEFAULT,state=DEFAULT WHERE id='{$_SESSION['active_time_slot']}' and (TIMESTAMP(NOW()) BETWEEN TIMESTAMP(ocupide_start_time) AND TIMESTAMP(ocupide_end_time)) = '1'"; // definuj dopyt
-
-    }else{
-        $sql="UPDATE `time_slot`  SET ocupide_start_time=DEFAULT ,ocupide_end_time=DEFAULT WHERE id='{$_SESSION['active_time_slot']}' and (TIMESTAMP(NOW()) BETWEEN TIMESTAMP(ocupide_start_time) AND TIMESTAMP(ocupide_end_time)) = '1' "; // definuj dopyt
-
-    }
-    if ($result = $mysqli->query($sql)) {
-        $_SESSION['active_time_slot'] = "";
-        $_SESSION['active_time_slot_state'] = '';
-        if ($_SESSION['role'] == 'EXD'){
-            echo '2';
-        }else if ($_SESSION['role'] == 'AD'||$_SESSION['role'] == 'IND'){
-            echo '1';
+if (!$mysqli->connect_errno) {
+    if (isset($_SESSION['active_time_slot'])){
+        if ($_SESSION['active_time_slot'] != "" && ($_SESSION['role'] == 'EXD' || $_SESSION['role'] == 'AD'||$_SESSION['role'] == 'IND') ) {
+            if ( $_SESSION['active_time_slot_state'] == 'prepared' ){
+                $sql="UPDATE `time_slot`  SET 
+                            ocupide_start_time=DEFAULT ,
+                            ocupide_end_time=DEFAULT,
+                            state=DEFAULT
+                        WHERE id='{$_SESSION['active_time_slot']}' and
+                              (TIMESTAMP(NOW()) BETWEEN TIMESTAMP(ocupide_start_time) AND TIMESTAMP(ocupide_end_time)) = '1'";
+            }else{
+                $sql="UPDATE `time_slot`  SET 
+                            ocupide_start_time=DEFAULT ,
+                            ocupide_end_time=DEFAULT 
+                        WHERE id='{$_SESSION['active_time_slot']}' and 
+                            (TIMESTAMP(NOW()) BETWEEN TIMESTAMP(ocupide_start_time) AND TIMESTAMP(ocupide_end_time)) = '1' ";
+            }
+            if ($result = $mysqli->query($sql)) {
+                $_SESSION['active_time_slot'] = "";
+                $_SESSION['active_time_slot_state'] = '';
+                if ($_SESSION['role'] == 'EXD'){
+                    echo '2';
+                }else if ($_SESSION['role'] == 'AD'||$_SESSION['role'] == 'IND'){
+                    echo '1';
+                }
+            }else{
+                echo 'Chybne sql na stranke <strong>order_AJAX/close_order.php</strong> '.$sql;
+            }
         }else{
-            echo '3';
+            if ($_SESSION['role'] == 'EXD'){
+                echo 'time slot uz bol odstraneni automaticky <a href="external_dispatcher.php">pick another one</a>';
+            }else if ($_SESSION['role'] == 'AD'||$_SESSION['role'] == 'IND'){
+                echo 'time slot uz bol odstraneni automaticky <a href="internal_dispatcher.php">pick another one</a>';
+            }
         }
     }else{
-        echo '4';
+        echo 'Please log <a href="../index.php">in</a>';
     }
 }else{
-    // pokial prebehol automaticke odstranenie time slotu po vyprsani casoacu
-    // ale order stranka je stale otvorena aby po refresi bolo automaticky targetnuti na svoju prislusnu stranku ktora mu prislucha
-    // bud EXD alebo IND/AD
-    if ($_SESSION['role'] == 'EXD'){
-        echo '2';
-    }else if ($_SESSION['role'] == 'AD'||$_SESSION['role'] == 'IND'){
-        echo '1';
-    }else{
-        echo '3';
-    }
+    echo 'Serverova chyba databaza nieje pripojena';
 }

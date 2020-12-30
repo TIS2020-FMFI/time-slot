@@ -4,8 +4,9 @@ let gates = undefined;
  */
 function parse_data(data){
     gates = new Gate();
+    linked_id = 0;
     let counter = 0 ;
-    for(let i =0 ; i < data.length;i ++){
+    for(let i = 0 ; i < data.length;i ++){
         // data format vystup SQL
         // [0] == id |
         // [1] == id_calendar  // gate_number|
@@ -47,13 +48,12 @@ function parse_data(data){
 function load_all_time_slots() {
     $.post('internal_AJAX/load_all_time_slots.php',{
     },function(data){
-        if (data){
+        if (typeof data === 'object'){
             parse_data(data);
-
-
-
+        }else if(data){
+            create_exception(data ,23,'danger');
         }else{
-            alert("chyba nacitana dat s db");
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
     //console.log("im execiuted");
@@ -67,7 +67,8 @@ let selected_date ;
 /**
  * funkica ktora nacita akutalni datum dnesneho dna a prradi ho do mini calendaru
  */
-window.onload= function() {
+setTimeout(first_load,250);
+function first_load(){
     load_all_time_slots()
     let currentTime = new Date()
 
@@ -81,6 +82,10 @@ window.onload= function() {
     update_handler()
     //console.log(selected_date);
 }
+// window.onload= function() {
+//
+//
+// }
 
 /**
  * mini calendar arrows onclick event
@@ -322,7 +327,12 @@ function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,
         row_columns_in_half_hours[index_of_column].innerHTML = time_slot.destinations[time_slot_index];
     }
     else if (html_row_count === 3){
-        row_columns_in_half_hours[index_of_column].innerHTML = time_slot.commoditys[time_slot_index];
+        if (time_slot.commoditys[time_slot_index].length > 40){
+            create_html_linked_text(time_slot.commoditys[time_slot_index],row_columns_in_half_hours[index_of_column])
+
+        }else{
+            row_columns_in_half_hours[index_of_column].innerHTML = time_slot.commoditys[time_slot_index];
+        }
     }
     else if (html_row_count === 4){
         let show_button = document.createElement("BUTTON")
@@ -503,7 +513,12 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         cell2.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].external_dispatchers[certain_time_slot]
                         cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].evcs[certain_time_slot];
                         cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].destinations[certain_time_slot];
-                        cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot];
+                        if (gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot].length > 40){
+                            create_html_linked_text(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot],cell5)
+
+                        }else{
+                            cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot];
+                        }
                     }
 
                     let cell6 = row.insertCell(5);
@@ -514,7 +529,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         apply_button.className="btn btn-default bg-success only_one";
                         apply_button.innerHTML="SHOW";
                         apply_button.onclick = function (){
-                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot]);
+                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot],'prepared');
                             //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
                             console.log('PREPARED  ',index);
                         }
@@ -526,17 +541,28 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         show_button.innerHTML="SHOW";
                         show_button.onclick = function (){
                             //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
-                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot]);
+                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot],'requested');
                             console.log('REQUEST  ',index);
                         }
                         cell6.className="td_flex_buttons";
                         cell6.appendChild(show_button);
-                    }else if(state === 'booked' || state === 'finished'){
+                    }else if(state === 'booked' ){
                         let show_button = document.createElement("BUTTON")
                         show_button.className="btn btn-default bg-primary only_one";
                         show_button.innerHTML="SHOW";
                         show_button.onclick = function (){
-                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot]);
+                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot],'booked');
+                            //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
+                            console.log('BOOKED  ',index);
+                        }
+                        cell6.className="td_flex_buttons";
+                        cell6.appendChild(show_button);
+                    }else if(state === 'finished'){
+                        let show_button = document.createElement("BUTTON")
+                        show_button.className="btn btn-default bg-primary only_one";
+                        show_button.innerHTML="SHOW";
+                        show_button.onclick = function (){
+                            Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot],'finished');
                             //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
                             console.log('BOOKED  ',index);
                         }
@@ -610,14 +636,14 @@ function select(lock_for,option){
 
 function update_handler(){
     load_all_time_slots()
-    setTimeout(update_handler,1000); ///*60*5 1000 je jedna sekunda  teda update bude prebiehat kazdich 5 minut
+    setTimeout(update_handler,1000*60*5); ///*60*5 -->1000 je jedna sekunda  teda update bude prebiehat kazdich 5 minut
 }
 function loop(){
 
     //console.log(document.documentElement.clientWidth);
     document.getElementById('only_requested').style.left = (document.documentElement.clientWidth/2)-50+'px';
     //document.getElementById('only_requested_count').innerHTML = "";
-    setTimeout(loop,200);
+    setTimeout(loop,100);
 
 
 }
@@ -627,5 +653,8 @@ function show_requested(){
     console.log('dsadsadsad');
 }
 function show_info(){
-    console.log('INFOOOOO');
+    console.log('INFOOOOO START');
+}
+function hide_info(){
+    console.log('INFOOOOO END');
 }

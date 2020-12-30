@@ -1,22 +1,24 @@
 <?php
-session_start();
 include('../db.php');
+session_start();
+ini_set('memory_limit', '256M');
+
 if (isset($_SESSION['role'])){
-    if ( $_SESSION['role'] == 'AD' ||  $_SESSION['role'] == 'IND'){
+    if ( $_SESSION['role'] == 'IND' || $_SESSION['role'] == 'AD'){
         if (!$mysqli->connect_errno) {
-                $sql = "SELECT holidays  FROM holidays where id=1 ";
+            $sql = "SELECT * FROM dump_table ORDER BY gate_number ASC ,start_date_time_slot ASC";
             if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
                 $vysl =  $result->fetch_all();
                 header("Content-Type:application/json");
                 echo json_encode($vysl);
             }else{
-                echo 'Wrong SQL <strong>config_AJAX/load_holidays.php</strong> '.$sql;
+                echo 'Wrong SQL <strong>internal_AJAX/load_all_time_slots.php</strong> '.$sql;
             }
         }else{
-            echo 'Nepodarilo sa spojit so serverom ';
+            echo 'Serverova chyba databaza nieje pripojena';
         }
-    }else{
-        echo 'Not valid user';
+    } else {
+        echo 'Nespravni user ';
     }
 }else{
     echo 'Please log <a href="../index.php">in</a>';

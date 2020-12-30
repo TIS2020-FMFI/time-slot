@@ -1,100 +1,3 @@
-/*
-function add_next_employee(){
-    document.getElementById('add_employee').style.display = 'none';
-    document.getElementById('kamionist2').style.display = 'block';
-}
-function update_time_slot(){
-    //console.log("dasdasdsaasdas");
-    document.getElementsByClassName('edit_button')[0].disabled = false;
-    document.getElementsByClassName('update_button')[0].disabled = true;
-    document.getElementById('EVC').disabled = true;
-    document.getElementById('inputNameKamionist1').disabled = true;
-    document.getElementById('inputNameKamionist2').disabled = true;
-//    if ()
-
-    // ajax poust
-}
-function edit_time_slot(){
-    document.getElementsByClassName('update_button')[0].disabled = false;
-    document.getElementsByClassName('edit_button')[0].disabled = true;
-    document.getElementById('EVC').disabled = false;
-    document.getElementById('inputNameKamionist1').disabled = false;
-    document.getElementById('inputNameKamionist2').disabled = false;
-}
-
-function update_evc(elem){
-    console.log(elem.value);
-}
-
-function update_kamionist(elem){
-    console.log(elem.value);
-}
-
-function request_time_slot(){
-    let evc =document.getElementById('EVC');
-    let kam1 =document.getElementById('inputNameKamionist1');
-    let kam2 =document.getElementById('inputNameKamionist2');
-    if (evc.value === '' ){
-
-        evc.style.borderColor = 'red';
-    }
-    if(kam1.value === ''){
-        kam1.style.borderColor = 'red';
-    }
-    if (evc.value !== '' && kam1.value !== ''){
-        $.post('objednavka AJAX/request_time_slot.php',{
-            evc:evc.value,
-            truck_driver1:kam1.value,
-            truck_driver2:kam2.value,
-        },function(data){
-            if (data){
-                if (data === '1111' || data === '111' ){
-                    console.log('PRESIEL SUPER V POHODE');
-                    window.open('internal_dispatcher.php',"_self");
-                }else{
-                    console.log('chyba servera');
-                }
-
-            }else{
-                console.log("chyba v kode");
-            }
-        });
-    }
-
-}
-let only_one_request = true;
-function close_time_slot(){
-    if (only_one_request === true){
-        $.post('objednavka AJAX/close_order.php',{
-        },function(data){
-            if (data){
-                //alert("dsadasdsa");
-                if (data === '1' ){
-                    console.log(1)
-                    window.open('internal_dispatcher.php',"_self");
-                }else if (data === '2'){
-                    console.log(2)
-                }else if (data === '4'){
-                    console.log(4)
-                    window.open('internal_dispatcher.php',"_self");
-                    //console.log('sesion nexistuje');
-                }else {
-                    console.log(3)
-                }
-
-            }else{
-                console.log(5)
-            }
-        });
-        only_one_request = false;
-    }
-}
-
-window.addEventListener('beforeunload', (event) => {
-    // tento event vie detekovat opustenie stranky nuz funguje len na sipku dopredu a spet nie inak ...
-    close_time_slot();
-});
-*/
 let evc ;
 let kam1 ;
 let kam2 ;
@@ -127,13 +30,7 @@ function make_html_order(data){
         timer()
         setInterval(timer,1000);
     }
-    // console.log(time);
-    // let sekundy = time/1000%60+""
-    // let minuti = Math.floor(time/1000/60)+"";
-    // minuti = minuti.padStart(2, "0");
-    // sekundy = sekundy.padStart(2, "0");
-    //
-    console.log(data['state']);
+    //console.log(data['state']);
     if (data['state'] !== 'prepared' && data['state'] !== 'occupied'){
         evc.disabled = true;
         kam1.disabled = true;
@@ -151,7 +48,7 @@ function make_html_order(data){
     }
     if (data['employee'] !== null){
         company.value = data['employee']
-        console.log();
+        //console.log();
 
     }
 
@@ -174,26 +71,20 @@ function make_html_order(data){
 
 
 }
-function close_time_slot(){
+function close_time_slot_in_order(){
     $.post('order_AJAX/close_order.php',{
     },function(data){
-        console.log(data);
         if (data ){
-            //alert("dsadasdsa");
             if (data === '1' ){
                 window.open('internal_dispatcher.php',"_self");
             }else if (data === '2'){
                 window.open('external_dispatcher.php',"_self");
-            }else if (data === '3'){
-                console.log('nieco je tuna podivne sem by si nemal nigdy dojst!!! ,  Najskor viprsala session')
-            }else if (data === '4'){
-                console.log('zle sql')
             }else{
-                console.log('niekto sa snazi robit reqest na time slot z vonka')
+                create_exception(data,5,'danger');
             }
 
         }else{
-            console.log('VAZNA CHYBA')
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 
@@ -203,58 +94,50 @@ function load_order(){
     $.post('order_AJAX/load_order.php',{
     },function(data){
         if (data){
-            if (data === '2'){
-                console.log('wrong sql')
-            }else if (data === '3'){
-                go_to_page_by_ro = 'external_dispatcher.php';
-                //window.open('external_dispatcher.php',"_self");
-            }else if (data === '4'){
-                go_to_page_by_ro = 'internal_dispatcher.php';
-                //window.open('internal_dispatcher.php',"_self");
-            }else if (data === '5'){
-                go_to_page_by_ro = 'index.php';
-            }else{
-                // console.log(data);
+            if (typeof data === 'object'){
                 setTimeout(make_html_order,250,data);
+            }else if (data === '1' ){
+                create_exception('You currently does not have opened any orders please pick <a href="#" onclick="window.open(\'internal_dispatcher.php\',\'_self\')"> one</a>',9999,'warning');
+            }else if (data === '2'){
+                create_exception('You currently does not have opened any orders please pick <a href="#" onclick="window.open(\'external_dispatcher.php\',\'_self\')"> one</a>',9999,'warning');
+            }else{
+                create_exception(data,5,'danger');
             }
-            console.log("LOAD PAGE ",go_to_page_by_ro)
-        }else{
-            console.log(5)
-        }
+
+            }else{
+                create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            }
     });
 
 }
-load_order()
+setTimeout(load_order,250);
 let company_names = [];
 function load_all_company(){
     // console.log('dsadsdas');
     $.post('order_AJAX/load_all_company_names.php',{
     },function(data){
-        if (data){
-            //company_names = data
-            if (data === '2'){
-                console.log("ZLE SQL")
-            }else if (data === '3'){
-                console.log("Nemas aktivni time slot")
-            }else if (data === '4'){
-                console.log("nieco zle sem doslo netusime co / asi niesi prihlaseni")
-            }else{
-                let elem_selector = document.getElementById('change_select_company');
-                for (let i = 0 ;i  < data.length; i++){
-                    company_names.push(data[i][0])
-                    let option = document.createElement("option");
-                    option.className = 'option';
-                    option.text = data[i][0];
-                    elem_selector.appendChild(option);
-                }
-                //company_names = data
-                //console.log(company_names);
+        console.log(data);
+        if (typeof data === 'object'){
+            let elem_selector = document.getElementById('change_select_company');
+            for (let i = 0 ;i  < data.length; i++){
+                company_names.push(data[i][0])
+                let option = document.createElement("option");
+                option.className = 'option';
+                option.text = data[i][0];
+                elem_selector.appendChild(option);
             }
+        }else if(data.includes('*')){
+            create_exception(data ,23,'warning');
+        }else if(data !== ''){
+
+        }else{
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 
 }
-load_all_company()
+setTimeout(load_all_company,250);
+
 function go_to_role_page(){
     window.open(go_to_page_by_ro,"_self");
 }
@@ -296,25 +179,31 @@ function delete_time_slot(){
     console.log(go_to_page_by_ro);
     $.post('order_AJAX/delete_time_slot.php',{
     },function(data){
-        if (data){
-            //company_names = data
-            if (data === '1') {
-                console.log("uspesne odstranenie time slotu");
-                go_to_page_by_ro = 'internal_dispatcher.php';
-                go_to_role_page();
-            }else if (data === '2'){
-                console.log(" chybne sql");
-            }else if (data === '3'){
-                console.log("Nemas aktivni time slot alebo niesi Clovek zvnutra (interni dispatcher / administrator)");
-            }else{
-                console.log("neocakavana chyba nemala by nastat");
+        if (data ){
+            if (data === '1' ){
+                window.open('internal_dispatcher.php',"_self");
+            }else if (data !== ''){
+                create_exception(data,55,'danger');
             }
-
+        }else{
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 }
 function request_time_slot(){
-    if (evc.value !== '' && kam1.value !== '' && destination.value !== '' && cargo.value !== '' && time !== 0){
+
+    if (evc.value !== '' && kam1.value !== '' && destination.value !== '' && cargo.value !== '' && time !== 0 ){
+        if (is_correct_name_for_driver(kam1.value) || is_correct_name_for_driver(kam2.value)){ // sem treba pridat kontroli na evc destinaciu a cargo
+            return ;
+        }
+
+        if (company_names.length > 0){
+            if (company_names.includes(company.value) === false){
+                console.log(company_names);
+                create_exception("Nexistuje firma s danim <strong>menom</strong>",13,'warning');
+                return ;
+            }
+        }
         let ramp_value = ramp.value.split(' ');
         $.post('order_AJAX/request_time_slot.php',{
             evc:evc.value,
@@ -326,25 +215,20 @@ function request_time_slot(){
             company_name:company.value,
         },function(data){
             if (data){
-                console.log("DATAAAAA  ",data);
-                if (data === '1'  ){
-                    console.log('PRESIEL SUPER V POHODE');
-                    go_to_page_by_ro = 'external_dispatcher.php';
-                    go_to_role_page();
-                }else if (data === '11'  ){
-                    console.log('PRESIEL SUPER V POHODE');
-                    go_to_page_by_ro = 'internal_dispatcher.php';
-                    go_to_role_page();
+                if (data === '1' ){
+                    window.open('internal_dispatcher.php',"_self");
+                }else if (data === '2'){
+                    window.open('external_dispatcher.php',"_self");
                 }else{
-                    console.log('chyba servera');
+                    create_exception(data,65,'danger');
                 }
 
             }else{
-                console.log("chyba v kode");
+                create_exception("nepodarilo sa spojit so serverom",23,'danger');
             }
         });
     }else{
-        console.log('vypln chybajuce kolonky')
+        create_exception("prosim vypln chybajuce kolonky z <strong>*</strong>",13,'warning');
     }
 }
 function timer(){
@@ -354,7 +238,7 @@ function timer(){
         // prame otvorenie prislusnej strnky ak je cas uplinie neviem ci je to spravne
         // condition  v close_time_slot == false teda nezmeni stranku ale odstrani time slot s active time slotu
         // cize po refresfi uz buede prazdna stranka
-        close_time_slot(false);
+        close_time_slot_in_order(false);
         time -= 1000;
     }else if (time > 1){
         console.log('timer ')
@@ -403,6 +287,15 @@ function edit_requested_time_slot(){
 
 function update_requested_time_slot(){
     if (evc.value !== '' && kam1.value !== '' && destination.value !== '' && cargo.value !== '' && time !== 0){
+        if (is_correct_name_for_driver(kam1.value) || is_correct_name_for_driver(kam2.value)){ // sem treba pridat kontroli na evc destinaciu a cargo
+            return ;
+        }
+        if (company_names.length > 0){
+            if (company_names.includes(company.value) === false){
+                create_exception("Nexistuje firma s danim <strong>menom</strong>",13,'warning');
+                return ;
+            }
+        }
         let ramp_value = ramp.value.split(' ');
         $.post('order_AJAX/update_request_time_slot.php',{
             evc:evc.value,
@@ -414,53 +307,36 @@ function update_requested_time_slot(){
             company_name:company.value,
         },function(data){
             if (data){
-                console.log("DATAAAAA  ",data);
-                if (data === '1'  ){
-                    //console.log('PRESIEL SUPER V POHODE');
-                    go_to_page_by_ro = 'external_dispatcher.php';
-                    go_to_role_page();
-                }else if (data === '11'  ){
-                    //console.log('PRESIEL SUPER V POHODE');
-                    go_to_page_by_ro = 'internal_dispatcher.php';
-                    go_to_role_page();
+                if (data === '1' ){
+                    window.open('internal_dispatcher.php',"_self");
+                }else if (data === '2'){
+                    window.open('external_dispatcher.php',"_self");
                 }else{
-                    console.log('chyba servera');
+                    create_exception(data,65,'danger');
                 }
 
             }else{
-                console.log("chyba v kode");
+                create_exception("nepodarilo sa spojit so serverom",23,'danger');
             }
         });
     }else{
-        console.log('vypln chybajuce kolonky')
+        create_exception("prosim vypln chybajuce kolonky z <strong>*</strong>",13,'warning');
     }
 }
 function delete_requested_time_slot(){
-
     $.post('order_AJAX/delete_requested_time_slot.php',{
     },function(data){
-        if (data){
-            //console.log("DATAAAAA  ",data);
-            if (data === '1'  ){
-                go_to_page_by_ro = 'external_dispatcher.php';
-                go_to_role_page();
-            }else if (data === '2'  ){
-                go_to_page_by_ro = 'internal_dispatcher.php';
-                go_to_role_page();
-            }else if (data === '3'  ){
-                console.log('neznami pouzivatel');
-            }else if (data === '4'  ){
-                console.log('neznami pouzivatel');
-            }else if (data === '5'  ){
-                console.log('neznami pouzivatel');
-            }else if (data === '6'  ){
-                console.log('neznami pouzivatel');
+        if (data ){
+            if (data === '1' ){
+                window.open('internal_dispatcher.php',"_self");
+            }else if (data === '2'){
+                window.open('external_dispatcher.php',"_self");
             }else{
-                console.log("chyba v kode    ",data);
+                create_exception(data,5,'danger');
             }
 
         }else{
-            console.log("nepresiel request");
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 
@@ -468,18 +344,14 @@ function delete_requested_time_slot(){
 function confirm_requested_time_slot(){
     $.post('order_AJAX/confirm_requested_time_slot.php',{
     },function(data){
-        if (data){
-            if (data === '1'  ){
-                go_to_page_by_ro = 'internal_dispatcher.php';
-                go_to_role_page();
-            }else if (data === '2'  ){
-                console.log('chyba sql');
-            }else if (data === '3'  ){
-                console.log('chyba user');
+        if (data ){
+            if (data === '1' ){
+                window.open('internal_dispatcher.php',"_self");
+            }else if (data !== ''){
+                create_exception(data,55,'danger');
             }
-
         }else{
-            console.log("chyba servera");
+            create_exception("nepodarilo sa spojit so serverom",23,'danger');
         }
     });
 }

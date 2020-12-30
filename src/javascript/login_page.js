@@ -3,8 +3,7 @@ function log_in(){
     let password = document.getElementById('inputPassword');
     if (email.value !== "" && password.value !== ""){
         if (is_correct_email(email.value) || is_correct_password(password.value)){
-             console.log('dasdsadsadasd');
-             return
+            return;
         }
         //console.log(email.value,password.value)
         $.post('login_AJAX/login.php',{

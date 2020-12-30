@@ -20,13 +20,12 @@ function checked_if_user_exist(old_password , new_password){
         new_password: new_password
     },function(data){
         if (data){
-            console.log(data);
             if (data.includes("$")){
                 let split = data.split("$")
                 if (split[0] === '1'){
-                    create_exception(data[1],13,'success');
+                    create_exception(split[1],13,'success');
                 }else{
-                    create_exception(data[1],13,'warning');
+                    create_exception(split[1],13,'warning');
                 }
 
             }else{

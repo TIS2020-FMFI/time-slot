@@ -11,11 +11,11 @@ include('html_head_component.php');
 <body class=" bg-dark container-fluid">
 <?php
 include('html_nav_component.php');
+include('exception_handler.php');
 ?>
 
-<div class="table-responsive bg-light" style="width: auto; margin-left: -15px;margin-bottom: 0px;
-    margin-right: -15px;">
-  <table class="table" style="margin-bottom: 0px;" >
+<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top:50px; z-index: 10;">
+  <table class="table"  style="margin-bottom: 0px;" >
     <thead>
     <tr>
       <th class="top_bar" scope="col" >
@@ -57,7 +57,7 @@ include('html_nav_component.php');
     </thead>
   </table>
 </div>
-<table class="table table-striped  table-responsive bg-light table_of_customers">
+<table class="table table-striped  table-responsive bg-light table_of_customers" style="margin-top: 136px;z-index: 10;">
   <thead>
   <tr>
     <th scope="col">First</th>
@@ -73,7 +73,7 @@ include('html_nav_component.php');
 </table>
 
 
-<div class="container add_customer" >
+<div class="container add_customer" style="margin-top: 136px;">
   <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-3">

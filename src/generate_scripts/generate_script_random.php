@@ -1,14 +1,8 @@
 <?php
+include('just_clear_it.php');
 include('../db.php');
 date_default_timezone_set("Europe/Bratislava");
 
-// premazanie DB IDE LEN O TEST !!!
-$sql = "delete from time_slot where id > 0  ";
-if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
-    echo "VYCISTENA DB(TIME SLOTS)<br>";
-} else{
-    echo "CHYBA SKRIPTU <br> ";
-}
 
 $array_of_state = Array("prepared","requested","finished","booked");
 // kazdy vnutorni array in $array_of_times predstavuje den monday [7:00 , 22:00] vo formate intigerov [7 , 22]
@@ -44,7 +38,7 @@ $input_for_destination = array("Krajiny", "Kuba", "Honk Kongo", "Keňa", "Južn�
 $input_for_cargo = array("8x kamiion","7x zlti kamion , 4x ruzove ponozky","10x vreckovky ","50000X balikov Zuvaciek","5x kluc na skrinku");
 
 //$firm_names = ['S - DENT SLOVAKIA, s.r.o.','H - H s.r.o.','EGO - sny z dreva s.r.o.','P&E Services s.r.o','TRIV, s.r.o.'];
-for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu DB
+for ($gate_number = 1 ;$gate_number < 38;$gate_number++) { //11 pre testovaciu DB
     //echo 'GATE NUMBER'.$gate_number.'<br>';
     for ($gate_times = 0; $gate_times < count($array_of_times); $gate_times++) {
         //echo 'DAY IN WEEK :'.($gate_times+1).'<br>';
@@ -96,7 +90,6 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
                     end ),
                     (case
                         when '{$random_state}' = 'prepared' then  null
-
                         else '{$rand_destination}'
                     end ),
                     (case
@@ -119,7 +112,6 @@ for ($gate_number = 1 ;$gate_number < 11;$gate_number++) { //11 pre testovaciu D
     for ($i = 0 ;$i < 250;$i++){
         if (!$mysqli->connect_errno) {
             /// je tu chynba lebo generuje id_external_dispatcher pre vsetky time_slots
-
             $time_start = ($d*24)+($i).':30:00';
             $time_end =  ($d*24)+($i+3).':00:00';
             $random_state = $array_of_state[array_rand($array_of_state)];
