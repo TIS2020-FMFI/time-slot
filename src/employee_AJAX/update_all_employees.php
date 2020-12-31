@@ -43,7 +43,7 @@ if (!$mysqli->connect_errno) {
                 if ($founded_employee_with_no_success){
                     echo '2$'.$employee_with_not_success ;
                 }else{
-                    echo '1$all users has been successfuly updated';
+                    echo '1$Users have been successfully updated';
                 }
             }else {
                 echo 'Not valid user';
@@ -52,8 +52,8 @@ if (!$mysqli->connect_errno) {
             echo 'You can now <a href="../index.php">log in</a>.';
         }
     }else{
-        echo 'Neboli poslane data  ';
+        echo 'The data was not sent.';
     }
 }else{
-    echo 'Nepodarilo sa spojit so serverom ';
+    echo 'Could not access the server.';
 }

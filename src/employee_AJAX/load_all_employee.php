@@ -14,7 +14,7 @@ if (isset($_SESSION['role'])){
                 echo 'Wrong SQL <strong>employee_AJAX/load_all_employee.php</strong> '.$sql;
             }
         }else{
-            echo 'Nepodarilo sa spojit so serverom ';
+            echo 'Could not access the server.';
         }
     }else{
         echo 'Not valid user';

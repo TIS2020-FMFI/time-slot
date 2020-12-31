@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include('../db.php');
 session_start();
 
@@ -22,13 +22,13 @@ if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) 
                             role='{$role}'";
                 if ($result = $mysqli->query($sql)) {
 
-                    echo '1$ Používateľ bol pridaný ' .
-                        '<br> meno : ' . '<strong>' . $_POST["F_name"] . '</strong>' .
-                        '<br> priezvisko : ' . '<strong>' . $_POST["L_name"] . '</strong>' .
-                        '<br> meno splocnosti : ' . '<strong>' . $_POST["firm"] . '</strong>' .
-                        '<br> email : ' . '<strong>' . $_POST["email"] . '</strong>' .
-                        '<br> heslo : ' . '<strong>' . $_POST["password"] . '</strong>' .
-                        '<br> rola : ' . '<strong>' . $_POST["role"] . '</strong>';
+                    echo '1$ User has been added.' .
+                        '<br>- name: ' . '<strong>' . $_POST["F_name"] . '</strong>' .
+                        '<br>- surname: ' . '<strong>' . $_POST["L_name"] . '</strong>' .
+                        '<br>- company name: ' . '<strong>' . $_POST["firm"] . '</strong>' .
+                        '<br>- email: ' . '<strong>' . $_POST["email"] . '</strong>' .
+                        '<br>- password: ' . '<strong>' . $_POST["password"] . '</strong>' .
+                        '<br>- role: ' . '<strong>' . $_POST["role"] . '</strong>';
                 }else {
                     echo 'Chyba sql <strong>employee_AJAX/register_user.php</strong> '.$sql;
                 }
@@ -42,7 +42,7 @@ if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) 
         echo 'Please log <a href="../index.php">in</a>';
     }
 }else{
-    echo 'Neboli poslane data  ';
+    echo 'The data was not sent.';
 }
 
 

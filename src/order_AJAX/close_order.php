@@ -31,14 +31,14 @@ if (!$mysqli->connect_errno) {
             }
         }else{
             if ($_SESSION['role'] == 'EXD'){
-                echo 'time slot uz bol odstraneni automaticky <a href="external_dispatcher.php">pick another one</a>';
+                echo 'Time-slot has been removed automatically, <a href="external_dispatcher.php">choose another one</a>.';
             }else if ($_SESSION['role'] == 'AD'||$_SESSION['role'] == 'IND'){
-                echo 'time slot uz bol odstraneni automaticky <a href="internal_dispatcher.php">pick another one</a>';
+                echo 'Time-slot has been removed automatically, <a href="internal_dispatcher.php">choose another one</a>.';
             }
         }
     }else{
         echo 'Please log <a href="../index.php">in</a>';
     }
 }else{
-    echo 'Serverova chyba databaza nieje pripojena';
+    echo 'Could not access the server.';
 }

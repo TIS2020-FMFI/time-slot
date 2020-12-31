@@ -97,9 +97,9 @@ function load_order(){
             if (typeof data === 'object'){
                 setTimeout(make_html_order,250,data);
             }else if (data === '1' ){
-                create_exception('You currently does not have opened any orders please pick <a href="#" onclick="window.open(\'internal_dispatcher.php\',\'_self\')"> one</a>',9999,'warning');
+                create_exception('You do not have any time-slot opened at the moment. You can <a href="#" onclick="window.open(\'internal_dispatcher.php\',\'_self\')">choose one</a>.',9999,'warning');
             }else if (data === '2'){
-                create_exception('You currently does not have opened any orders please pick <a href="#" onclick="window.open(\'external_dispatcher.php\',\'_self\')"> one</a>',9999,'warning');
+                create_exception('You do not have any time-slot opened at the moment. You can <a href="#" onclick="window.open(\'external_dispatcher.php\',\'_self\')">choose one</a>.',9999,'warning');
             }else{
                 create_exception(data,5,'danger');
             }

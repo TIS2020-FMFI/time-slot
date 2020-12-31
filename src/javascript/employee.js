@@ -424,7 +424,7 @@ function update_employees(){
             if (data.includes("$")){
                 let split = data.split("$")
                 if (split[0] === '1'){
-                    create_exception(split[1],23,'success');
+                    create_exception(split[1]+".",23,'success');
                 }else{
                     create_exception(split[1],23,'warning');
                 }

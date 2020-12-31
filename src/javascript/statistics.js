@@ -38,7 +38,7 @@ function parse_data(data){
         document.getElementById('exampleFormControlSelect1').disabled = true;
         document.getElementById('intensityFormControlSelect').disabled = true;
         document.getElementById('direct_select').disabled = true;
-        create_exception('No data avalable',10,'danger');
+        create_exception('There are currently no data available.',10,'danger');
         return ;
     }
     gates = new Gate();
@@ -97,7 +97,7 @@ function parse_data(data){
     document.getElementById('input_date2').min = min_date;
     document.getElementById('input_date2').max = max_date;
     document.getElementById('input_date2').value = max_date;
-    document.getElementById('input_text').value = "all";
+    document.getElementById('input_text').value = "";
     set_of_of_company_names.delete('');
     list_of_company_names = Array.from(set_of_of_company_names);
     list_of_all_ramps = Array.from(set_of_of_all_ramps);

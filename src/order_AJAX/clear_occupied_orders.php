@@ -13,5 +13,5 @@ if (!$mysqli->connect_errno) {
         echo 'CHYBA  '.$sql;
     }
 }else{
-    echo 'Serverova chyba databaza nieje pripojena';
+    echo 'Could not access the server.';
 }

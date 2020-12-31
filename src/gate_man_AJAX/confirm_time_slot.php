@@ -9,9 +9,9 @@ if (isset($_SESSION['role'])){
             $sql = "UPDATE time_slot SET state='finished' WHERE id='{$id}' ";
             if ($result = $mysqli->query($sql)) {
                 if (mysqli_affected_rows($mysqli) > 0){
-                    echo '1$Time slot bol uspesne ukonceni';
+                    echo '1$Time-slot has been successfully confirmed.';
                 }else{
-                    echo '2$Chyba pri ukoncovani time slotu ' ;
+                    echo '2$An error occured.';
                 }
             }else{
                 echo 'Wrong SQL <strong>gate_man_AJAX/confirm_time_slots.php</strong> '.$sql;
