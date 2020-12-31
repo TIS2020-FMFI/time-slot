@@ -449,9 +449,12 @@ function submit_form_new_employee(){
     let Role = document.getElementById('role_of_new_employee').value;
     // toto je prvi stupen kontoli neprazdnosti vstupov
     // #3 treba mrknut uz s vigenerovaneho pola zamestnancou ci maju rovnake meno a prezvisko ps bude nato niaki jason
-    if ( Password === Confirm_password && Role && (Password !== "" && Confirm_password !== "" && email !== "" && Firm !== "") ){
-        // #3
-        add_employee(F_name,L_name,email,Firm,Password,Role);
+    if ( Role && Password !== "" && Confirm_password !== "" && email !== "" && Firm !== "" ){
+        if ( Password === Confirm_password ){
+            add_employee(F_name,L_name,email,Firm,Password,Role);
+        }else{
+            create_exception("Passwords <strong>do not</strong> match.",13,'warning');
+        }
     }else{
         create_exception("All fields marked with <strong>*</strong> are required.",13,'warning');
     }
@@ -475,6 +478,7 @@ function add_employee(F_name,L_name,email,Firm,Password,Role){
                 if (split[0] === '1'){
                     create_exception(split[1],23,'success');
                     close_new_customer();
+                    create_html_employee(all_employees_jason[all_employees_jason.length-1]['id']+1,F_name,L_name,Firm,email,Role,'1');
                 }
             }else{
                 create_exception(data,23,'warning');

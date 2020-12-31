@@ -7,7 +7,6 @@ $next_start_point_of_generation = strtotime('next Monday', strtotime('now')); //
 $next_start_point_of_generation_end = strtotime('+7 days',strtotime("next Monday", strtotime('now')));
 $date_format_start = date("Y-m-d", $next_start_point_of_generation);
 $date_format_end = date("Y-m-d", $next_start_point_of_generation_end);
-
 if (isset($_POST['regenerate']) && isset($_SESSION['role']) ) {
     if ($_SESSION['role'] == 'IND' || $_SESSION['role'] == 'AD') {
         if ($_POST['regenerate'] == '1') {
@@ -27,12 +26,11 @@ if (isset($_POST['regenerate']) && isset($_SESSION['role']) ) {
         return;
     }
 }else{
-    echo 'data neboli poslane alebo niesi prihlaseni';
+    echo 'data neboli poslane alebo niesi prihlaseni<br>';
     include('clear_time_slot.php');
     // sem sa dostaneme ak sa spusta automaticky a nebola
     // pouzita ziadna post metoda a neni prihlaseni ani ziaden user
 }
-
 
 
 // toto sluzi ako nahrada subselectu ktori asi bute trvat dlhsie aspon podla mna !!! a je to zataz pre db !!
@@ -66,7 +64,6 @@ if (!$mysqli->connect_errno) {
 
 $year = date("Y", $next_start_point_of_generation);
 
-
 // !!!! neviem ake bude spravanie na prelome roka
 $holidays = []; // array of holidays format YYYY:MM:DD picom zapis musi splnat poziadavki ak je napr.mesiac 1 tak zapis vyzera '01' to iste pre dni format array = ['2020-12-14','2020-12-15']
 if (!$mysqli->connect_errno) {
@@ -86,6 +83,7 @@ if (!$mysqli->connect_errno) {
 }else {
     echo '*Serverova chyba databaza nieje pripojena';
 }
+
 // KONTROLNI VYPIS PRE SPRAVNOST !!!
 
 // for ($index = 0;$index < count($holidays);$index ++){
@@ -97,8 +95,8 @@ if (!$mysqli->connect_errno) {
     $sql = "SELECT holidays  FROM holidays where id=2 ";
     if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
         $row = $result->fetch_assoc();
-        //echo $row['holidays'].'';
         $parsed = explode(' ', $row['holidays']);
+
         for ($index = 0; $index < count($parsed); $index++) {
             $parsed2 = explode('-', $parsed[$index]);
             array_push($disabled_ramps, $parsed2[1]);
@@ -111,11 +109,11 @@ if (!$mysqli->connect_errno) {
 }
 // Kontrolen vypisi pre  deibled ramp
 //for ($index = 0;$index < count($disabled_ramps);$index ++){
-//    echo $disabled_ramps[$index] .' <br> ';
+//    echo 'INDEX : '.$index.'     '.$disabled_ramps[$index] .' <br> ';
 //}
 
-
 $date = date("Y-m-d H:i:s", $next_start_point_of_generation);
+
 for ($gate_number = 1 ;$gate_number < 38;$gate_number++) { //11 pre testovaciu DB v realite to znamena 10 ramp
     for ($gate_times = 0; $gate_times < count($array_of_times); $gate_times++) { // array of time == dni v tyzdni s danimi hodinami :D
         $tomorrow_of_today = date('Y-m-d', strtotime($date . " +".$gate_times." days"));
@@ -123,6 +121,7 @@ for ($gate_number = 1 ;$gate_number < 38;$gate_number++) { //11 pre testovaciu D
         if (in_array($tomorrow_of_today,$holidays) && $array_of_times[$gate_times][2] == 0){ // pokial je  owervrite povoleni tak sa da dogenerovat den ktori je normalne obsadeni prazdninami
             continue;
         }
+//        echo 'INDEX NUMBER : '. ($gate_number-1). "    ".$disabled_ramps[$gate_number-1].'   '.$gate_times.'<br>';
         if ($disabled_ramps[$gate_number-1][$gate_times] == '1'){
             continue;
         }

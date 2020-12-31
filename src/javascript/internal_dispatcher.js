@@ -679,7 +679,9 @@ function show_requested(){
 }
 function show_info(){
     console.log('INFOOOOO START');
+    document.getElementById('info').style.display = 'revert';
 }
 function hide_info(){
     console.log('INFOOOOO END');
+    document.getElementById('info').style.display = 'none';
 }

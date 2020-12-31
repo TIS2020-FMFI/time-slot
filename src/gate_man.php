@@ -15,7 +15,7 @@ include('exception_handler.php');
 ?>
 
 
-<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;width: auto; margin-bottom: 0px;">
+<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;width: auto; margin-bottom: 0px;z-index: 10;">
   <table class="table" style="margin-bottom: 0px;" >
     <thead>
     <tr>

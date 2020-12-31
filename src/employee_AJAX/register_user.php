@@ -1,5 +1,6 @@
 <?php
 include('../db.php');
+session_start();
 
 if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["role"]) ) {
     if (isset($_SESSION['role'])) {

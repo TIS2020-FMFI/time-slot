@@ -16,7 +16,7 @@ include('html_nav_component.php');
 ?>
 
 
-<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;
+<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;z-index: 10;
     /*position: fixed;
     width: 100%;
     margin-top: 62px;

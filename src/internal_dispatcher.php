@@ -47,6 +47,11 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
   </table>
 </div>
 
+<div id="info" class="container fixed-top bg-dark" style="margin-top: 56px;z-index: 200;border-radius: 50px; display: none">
+    <p class="text-center text-light" style="margin-top: 6px;">You can search by time-slot states (prepared, requested, booked, finished),<br>starting time of time-slot, company name, truck registration number (EVC), cargo and destination.</p>
+    <p class="text-center text-light" style="margin-top: 6px;">Any time-slot data can be used for searching.</p>
+</div>
+
 <div class="table-responsive  bg-light" style="padding-top:126px;width: auto; margin-left: -15px;margin-bottom: 0px;
     margin-right: -15px;">
     <table id="calendar" class="table table-striped"  >
