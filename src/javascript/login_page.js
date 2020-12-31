@@ -27,11 +27,45 @@ function log_in(){
                     create_exception(data,23,'danger');
                 }
             }else{
-                create_exception("nepodarilo sa spojit so serverom",23,'danger');
+                create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
             }
         });
     }else{
-        create_exception("prosim vypln chybajuce kolonky",13,'warning');
+        create_exception("Both <strong>email</strong> and <strong>password</strong> are required.",13,'warning');
     }
 
 }
+
+setTimeout(first_load, 200);
+
+function first_load() {
+    if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 )
+    {
+        create_exception("Using <strong>Chrome</strong> or <strong>Edge</strong> is recommended for better performance.", 10, "warning");
+    }
+    else if(navigator.userAgent.indexOf("Chrome") != -1 )
+    {
+        //alert('Chrome');
+    }
+    else if(navigator.userAgent.indexOf("Safari") != -1)
+    {
+        create_exception("This browser has not been tested for this application. Using <strong>Chrome</strong> or <strong>Edge</strong> is recommended for best performance.", 10, "warning");
+    }
+    else if(navigator.userAgent.indexOf("Firefox") != -1 )
+    {
+        create_exception("Using <strong>Chrome</strong> or <strong>Edge</strong> is recommended for better performance.", 10, "warning");
+    }
+    else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
+    {
+        create_exception("Using <strong>Chrome</strong> or <strong>Edge</strong> is recommended for better performance.", 10, "warning");
+    }
+    else if((navigator.userAgent.indexOf("Edge") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
+    {
+        //alert('Edge');
+    }
+    else
+    {
+        create_exception("Using <strong>Chrome</strong> or <strong>Edge</strong> is recommended for better performance.", 10, "warning");
+    }
+}
+

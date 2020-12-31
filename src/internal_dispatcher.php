@@ -15,8 +15,8 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     include('html_nav_component.php');
     ?>
     <div id="only_requested" class="fixed-top bg-warning justify-content-center" style="min-width: 100px;max-width: 100px;left: 100px;display: flex" onclick="show_requested()">
-        <img src="request_sign.png" width="32" style="position: relative;right: 10px" alt="fotoo">
-        <p id="only_requested_count" class="text-danger" style="margin: 0px;margin-top: 5px;">pocet</p>
+        <img src="request_sign.png" width="32" style="position: relative;right: 10px" alt="info_sign">
+        <p id="only_requested_count" class="text-danger" style="margin: 0px;margin-top: 5px;">count</p>
     </div>
 
 <div class="table-responsive bg-light fixed-top " id="role_down" style="margin-top: 56px;z-index: 200;">
@@ -53,20 +53,20 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         <thead>
         <tr>
             <th class=" th_top_float_bar right_border_state" scope="col" style="display: flex">
-                <button class="btn btn-default bg-primary"   ><</button>
+                <button class="btn btn-default bg-primary" onclick="generate_gate_selector(-1)"><</button>
 
                 <div class="form-group" style="margin: 0px;width: 120px">
                     <select class="form-control" id="select_gate" onchange="generate_gate_selector(this)"  style="display: block;"> <!-- onclick="generate_gate_selector(this)"-->
-                        <option>1 - 7</option>
-                        <option>8 - 14</option>
-                        <option>15 - 21</option>
-                        <option>22 - 28</option>
-                        <option>29 - 35</option>
-                        <option>36 - 42</option>
+                        <option class="option_ramp">1 - 7</option>
+                        <option class="option_ramp">8 - 14</option>
+                        <option class="option_ramp">15 - 21</option>
+                        <option class="option_ramp">22 - 28</option>
+                        <option class="option_ramp">29 - 35</option>
+                        <option class="option_ramp">36 - 42</option>
                         <!-- Treba pridat html podla poctu ramp  ovsem vzdy po rozdiele 6-->
                     </select>
                 </div>
-                <button class="btn btn-default bg-primary last_btn" >></button>
+                <button class="btn btn-default bg-primary last_btn" onclick="generate_gate_selector(1)">></button>
             </th>
             <th class="days_in_calendar" scope="col">1 gate</th>
             <th class="days_in_calendar" scope="col">2 gate</th>

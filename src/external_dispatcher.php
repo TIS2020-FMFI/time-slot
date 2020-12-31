@@ -54,7 +54,7 @@ include('html_nav_component.php');
   </table>
 </div>
 
-<h3 class="text-success" style="padding-top: 126px">PREPARED</h3 >
+<h3 class="text-success" style="padding-top: 126px">Prepared</h3 >
 <table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers" >
   <thead>
   <tr>
@@ -74,21 +74,21 @@ include('html_nav_component.php');
     <td></td>
     <td></td>
     <td class="td_flex_buttons">
-        <button class="btn btn-default bg-success only_one" style="" onclick="" >apply</button>
+        <button class="btn btn-default bg-success only_one" style="" onclick="" >Apply</button>
     </td>
   </tr>
   </tbody>
 </table>
 
 <table id="requested" class="table table-striped  table-responsive bg-light table_of_customers">
-  <h3 class="text-warning">Requested time-slot</h3>
+  <h3 class="text-warning">Requested</h3>
   <thead>
     <tr>
         <th scope="col">Time</th>
         <th scope="col">Truck drivers</th>
-        <th scope="col">EVC</th>
+        <th scope="col">Registration number</th>
         <th scope="col">Destination</th>
-        <th scope="col">Commodity</th>
+        <th scope="col">Cargo</th>
         <th scope="col"></th>
      </tr>
   </thead>
@@ -100,7 +100,7 @@ include('html_nav_component.php');
       <td>BA-345-DS</td>
       <td>BA-345-DS</td>
       <td class="td_flex_buttons">
-        <button class="btn btn-default bg-primary only_one" style="" onclick="" >show</button>
+        <button class="btn btn-default bg-primary only_one" style="" onclick="" >Show</button>
       </td>
   </tr>
   </tbody>
@@ -108,14 +108,14 @@ include('html_nav_component.php');
 
 
 <table id="booked" class="table table-striped  table-responsive bg-light table_of_customers">
-  <h3 class="text-danger">BOOKED</h3>
+  <h3 class="text-danger">Booked</h3>
     <thead>
     <tr>
         <th scope="col">Time</th>
         <th scope="col">Truck drivers</th>
-        <th scope="col">EVC</th>
+        <th scope="col">Registration number</th>
         <th scope="col">Destination</th>
-        <th scope="col">Commodity</th>
+        <th scope="col">Cargo</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -127,20 +127,19 @@ include('html_nav_component.php');
       <td>BA-345-DS</td>
       <td>BA-345-DS</td>
       <td>
-          <button class="btn btn-default bg-danger" style="" onclick="" >zrusit</button>
+          <button class="btn btn-default bg-danger" style="" onclick="" >Cancel</button>
       </td>
   </tr>
   </tbody>
 </table>
 
 <table id="finished" class="table table-striped  table-responsive bg-light table_of_customers">
-    <h3 class="text-finished">Finished time-slot
-    </h3>
+    <h3 class="text-finished">Finished</h3>
     <thead>
     <tr>
         <th scope="col">Time</th>
         <th scope="col">Truck drivers</th>
-        <th scope="col">EVC</th>
+        <th scope="col">Registration number</th>
         <th scope="col">Destination</th>
         <th scope="col">Cargo</th>
         <th scope="col"></th>
@@ -154,7 +153,7 @@ include('html_nav_component.php');
         <td>BA-345-DS</td>
         <td>BA-345-DS</td>
         <td>
-            <button class="btn btn-default bg-danger" style="" onclick="" >zrusit</button>
+            <button class="btn btn-default bg-danger" style="" onclick="" >Cancel</button>
 
         </td>
 

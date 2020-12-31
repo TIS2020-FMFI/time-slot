@@ -20,10 +20,10 @@ if (isset($_SESSION['role'])){
                 echo 'Wrong SQL <strong>internal_AJAX/load_all_time_slots.php</strong> '.$sql;
             }
         }else{
-            echo 'Serverova chyba databaza nieje pripojena';
+            echo 'Could not connect to the server. Please check your internet connection.';
         }
     } else {
-        echo 'Nespravni user ';
+        echo 'User is not valid.';
     }
 }else{
     echo 'Please log <a href="../index.php">in</a>';

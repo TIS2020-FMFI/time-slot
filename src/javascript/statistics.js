@@ -136,7 +136,7 @@ function take_picture(){
 }
 
 function first_load(){
-    create_exception("Please wait for data to be obtaind ",10,'primary')
+    create_exception("Please wait for the data to be collected..",10,'primary')
     $.post('statistics_AJAX/load_all_time_slots_dump.php',{
     },function(data){
         if (typeof data === 'object'){
@@ -145,7 +145,7 @@ function first_load(){
         }else if(data){
             create_exception(data ,23,'danger');
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
     myCanvas = document.getElementById('myChart')
@@ -244,7 +244,7 @@ function get_all_real_times_between(from,to){
         //
         return list_of_dates;
     }catch (e) {
-        create_exception('wrong date format',5,'warning');
+        create_exception('Date has the wrong format.',5,'warning');
         return [];
     }
 
@@ -287,21 +287,21 @@ function pre_make_chard(elem) {
 
     console.log(start_date, end_date, lock_for, type_of_chard, display_only_values);
     if (start_date > end_date  ){//|| end_date  < start_date
-        create_exception('wrong date format ',5,'warning');
+        create_exception('Date has the wrong format.',5,'warning');
         return ;
     }
 
     if (list_of_all_ramps.includes(lock_for)) {
-        create_exception('creating chard', 3, 'success');
+        create_exception('Creating charts..', 3, 'success');
     } else if (list_of_company_names.includes(lock_for)) {
-        create_exception('creating chard', 3, 'success');
+        create_exception('Creating charts..', 3, 'success');
     } else if (lock_for === '') {
-        create_exception('creating chard', 3, 'success');
+        create_exception('Creating charts..', 3, 'success');
     } else if (lock_for === 'all'){
-        create_exception('creating chard', 3, 'success');
+        create_exception('Creating charts..', 3, 'success');
 
     }else{
-        create_exception('Not valid <strong>text</strong> in <strong>find by</strong>', 5, 'warning');
+        create_exception('Selected <strong>text</strong> in <strong>Find by</strong> has wrong format.', 5, 'warning');
         return;
     }
     my_chard_data = {};
@@ -598,7 +598,7 @@ function pre_make_chard(elem) {
         //data budu mat prislusne hodnoti pre kazdy den pocti time slotov prisluchajucimi danej farbe
     }else if (list_of_company_names.includes(lock_for)  && display_only_values !== 'all'){
         if (display_only_values === 'prepared'){
-            create_exception('you canot make this selection for chard',5,'danger');
+            create_exception('Invalid charts selection.',5,'danger');
         }
 
         title_of_chard = lock_for+' time-slots between '+start_date+' '+end_date;
@@ -653,7 +653,7 @@ function pre_make_chard(elem) {
         //stack 0
         //data budu mat prislusne hodnoti pre kazdy den pocti time slotov prisluchajucimi danej farbe
     }else{
-        create_exception('you canot make this selection for chard',5,'danger');
+        create_exception('Invalid charts selection.',5,'danger');
         return ;
     }
 

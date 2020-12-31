@@ -31,7 +31,7 @@ include('exception_handler.php');
   <thead>
      <tr>
          <th scope="col">Truck Drivers</th>
-         <th scope="col">EČV</th>
+         <th scope="col">Registration number</th>
          <th scope="col">Time</th>
          <th scope="col">Cargo</th>
          <th scope="col">Ramp</th>

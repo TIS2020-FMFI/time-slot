@@ -6,21 +6,21 @@ if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role
 <form class="form-sign" onsubmit="return false" >
     <div class="form-label-group">
         <label for="inputTimeSlot"></label>
-        <input type="text" id="inputTimeSlot" class="form-control" placeholder="DATE (HH:MM - HH:MM)" value="time" disabled required >
+        <input type="text" id="inputTimeSlot" class="form-control" placeholder="* Date (HH:MM - HH:MM)" value="time" disabled required >
     </div>
     <?php
     if ($_SESSION['role'] == "EXD" ){
         ?>
         <div class="form-label-group">
             <label for="inputNameDopravca"></label>
-            <input type="text" id="inputNameDopravca" class="form-control" placeholder="* Meno spolocnosti" value="" disabled required >
+            <input type="text" id="inputNameDopravca" class="form-control" placeholder="* Company name" value="" disabled required >
         </div>
     <?php
     }elseif (($_SESSION['role'] == "AD" || $_SESSION['role'] == "IND") && $_SESSION['active_time_slot_state'] != 'prepared' && $_SESSION['active_time_slot_state'] != 'occupied'){
         ?>
         <div class="form-label-group" style="display: flex;margin-top: 22px">
             <label for="inputNameDopravca"></label>
-            <input type="text" id="inputNameDopravca" class="form-control" placeholder="* Meno spolocnosti" value=""  oninput="is_valid_company_name(this)" disabled required autofocus >
+            <input type="text" id="inputNameDopravca" class="form-control" placeholder="* Company name" value=""  oninput="is_valid_company_name(this)" disabled required autofocus >
             <label for="change_select_company"></label><select class="form-control" id="change_select_company" onchange="select_company(this)" style="max-width: 5%" disabled>
                 <option class="option">''</option>
             </select>
@@ -32,7 +32,7 @@ if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role
         ?>
         <div class="form-label-group" style="display: flex;margin-top: 22px">
             <label for="inputNameDopravca"></label>
-            <input type="text" id="inputNameDopravca" class="form-control" placeholder="* Meno spolocnosti" value=""  oninput="is_valid_company_name(this)" required autofocus >
+            <input type="text" id="inputNameDopravca" class="form-control" placeholder="* Company name" value=""  oninput="is_valid_company_name(this)" required autofocus >
             <label for="change_select_company"></label><select class="form-control" id="change_select_company" onchange="select_company(this)" style="max-width: 5%">
                 <option class="option">''</option>
             </select>
@@ -47,19 +47,19 @@ if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role
 
     <div class="form-label-group">
         <label for="inputNakladka"></label>
-        <input type="text" id="inputNakladka" class="form-control" placeholder="Nákladka" value="ramp_number" disabled required >
+        <input type="text" id="inputNakladka" class="form-control" placeholder="*Ramp" value="ramp_number" disabled required >
     </div>
     <div class="form-label-group">
         <label for="EVC"></label>
-        <input type="text" id="EVC" class="form-control" placeholder="* Evidenčné číslo kamiónu"  value="" required autofocus>
+        <input type="text" id="EVC" class="form-control" placeholder="* Truck registration number"  value="" required autofocus>
     </div>
     <div class="form-label-group" >
         <label for="inputNameKamionist1"></label>
-        <input type="text" id="inputNameKamionist1" class="form-control" placeholder="* Meno Kamionistu" value=""  required autofocus>
+        <input type="text" id="inputNameKamionist1" class="form-control" placeholder="* Name of truck driver 1" value=""  required autofocus>
     </div>
     <div id="kamionist2" class="form-label-group" >
         <label for="inputNameKamionist2"></label>
-        <input type="text" id="inputNameKamionist2" class="form-control" placeholder="* Meno Kamionistu 2" value="" required autofocus>
+        <input type="text" id="inputNameKamionist2" class="form-control" placeholder="* Name of truck driver 2" value="" required autofocus>
     </div>
 
 
@@ -69,7 +69,7 @@ if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role
 
     <div id="destination" class="form-label-group" >
         <label for="inputDestination"></label>
-        <input type="text" id="inputDestination" class="form-control" placeholder="* Destinacia" value="" required autofocus>
+        <input type="text" id="inputDestination" class="form-control" placeholder="* Destination" value="" required autofocus>
     </div>
 
     <div id="cargo" class="form-label-group" >

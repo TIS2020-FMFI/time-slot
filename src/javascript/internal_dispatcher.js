@@ -53,7 +53,7 @@ function load_all_time_slots() {
         }else if(data){
             create_exception(data ,23,'danger');
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
     //console.log("im execiuted");
@@ -127,8 +127,9 @@ function display_time_slot_for_this_date(elem){
     else if (document.getElementById('calendar_dates').style.display !== 'none' ){
         show_full_gate(document.getElementById("ramp_title").innerHTML.split(" ")[1]);
     }else{
-        if ( elem.min > elem.value ) {
+        if ( elem.min > elem.value || elem.value > elem.max) {
             console.log('invalid date')
+            create_exception("Selected date is not in a valid range. The valid range is from <strong>"+elem.min+"</strong> to <strong>"+elem.max+"</strong>.", 10, "warning")
         }
         else{
             selected_date = elem.value;
@@ -406,6 +407,8 @@ function global_calendar(start_index, end_index){
     }
 }
 
+let base_selected_index = 0;
+
 /**
  * onchange event funkcia pre gate_selector
  * @param elem
@@ -415,7 +418,31 @@ function generate_gate_selector(elem){
     //         console.log("zli datum generate_gate_selector", selected_date)
     //         return
     //     }
-    console.log(document.getElementById('ramp_title').innerHTML)
+    console.log(document.getElementById("select_gate").selectedIndex);
+    if (elem===1) {
+        if (base_selected_index+1 > 5) {
+            base_selected_index = 0;
+        } else {
+            base_selected_index += 1;
+
+        }
+    }
+    if (elem===-1) {
+        //console.log(document.getElementById("select_gate").option)
+        if (base_selected_index-1 < 0) {
+            base_selected_index = 5;
+        } else {
+            base_selected_index -= 1;
+        }
+    }
+    if (elem===-1 || elem===1) {
+        document.getElementsByClassName("option_ramp")[base_selected_index].checked = true;
+        document.getElementById("select_gate").selectedIndex = base_selected_index;
+        elem=document.getElementsByClassName("option_ramp")[base_selected_index];
+    }else{
+        base_selected_index = document.getElementById("select_gate").selectedIndex;
+    }
+
     if (document.getElementById('ramp_title').innerHTML.includes("Ramps")){
         let values = elem.value.split(" - ");
         global_calendar(parseInt(values[0],10),parseInt(values[1],10))
@@ -426,8 +453,6 @@ function generate_gate_selector(elem){
         find_by(document.getElementById('input_text'));
         ///print("dsadasdsa22222222");
     }
-
-
 }
 /**
  * obstaranie pola find by

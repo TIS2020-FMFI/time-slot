@@ -72,5 +72,5 @@ if (!$mysqli->connect_errno) {
         echo 'Please log <a href="../index.php">in</a>';
     }
 }else {
-    echo 'Serverova chyba databaza nieje pripojena';
+    echo 'Server error occured.';
 }

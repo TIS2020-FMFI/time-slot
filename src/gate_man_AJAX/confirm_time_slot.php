@@ -17,10 +17,10 @@ if (isset($_SESSION['role'])){
                 echo 'Wrong SQL <strong>gate_man_AJAX/confirm_time_slots.php</strong> '.$sql;
             }
         }else{
-            echo 'Nepodarilo sa spojit so serverom ';
+            echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';
         }
     } else {
-        echo 'Nespravni user ';
+        echo 'The data is invalid.';
     }
 }else{
     echo 'Please log <a href="../index.php">in</a>';

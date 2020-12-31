@@ -49,7 +49,7 @@ function close_time_slot(){
             }
 
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 

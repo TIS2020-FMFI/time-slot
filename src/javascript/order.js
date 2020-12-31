@@ -84,7 +84,7 @@ function close_time_slot_in_order(){
             }
 
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 
@@ -105,7 +105,7 @@ function load_order(){
             }
 
             }else{
-                create_exception("nepodarilo sa spojit so serverom",23,'danger');
+                create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
             }
     });
 
@@ -131,7 +131,7 @@ function load_all_company(){
         }else if(data !== ''){
 
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 
@@ -186,7 +186,7 @@ function delete_time_slot(){
                 create_exception(data,55,'danger');
             }
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 }
@@ -200,7 +200,7 @@ function request_time_slot(){
         if (company_names.length > 0){
             if (company_names.includes(company.value) === false){
                 console.log(company_names);
-                create_exception("Nexistuje firma s danim <strong>menom</strong>",13,'warning');
+                create_exception("The <strong>company name</strong> you entered was not found.",13,'warning');
                 return ;
             }
         }
@@ -224,11 +224,11 @@ function request_time_slot(){
                 }
 
             }else{
-                create_exception("nepodarilo sa spojit so serverom",23,'danger');
+                create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
             }
         });
     }else{
-        create_exception("prosim vypln chybajuce kolonky z <strong>*</strong>",13,'warning');
+        create_exception("All fields marked with <strong>*</strong> are required.",13,'warning');
     }
 }
 function timer(){
@@ -292,7 +292,7 @@ function update_requested_time_slot(){
         }
         if (company_names.length > 0){
             if (company_names.includes(company.value) === false){
-                create_exception("Nexistuje firma s danim <strong>menom</strong>",13,'warning');
+                create_exception("The <strong>company name</strong> you entered was not found.",13,'warning');
                 return ;
             }
         }
@@ -316,7 +316,7 @@ function update_requested_time_slot(){
                 }
 
             }else{
-                create_exception("nepodarilo sa spojit so serverom",23,'danger');
+                create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
             }
         });
     }else{
@@ -336,7 +336,7 @@ function delete_requested_time_slot(){
             }
 
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 
@@ -351,7 +351,7 @@ function confirm_requested_time_slot(){
                 create_exception(data,55,'danger');
             }
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 }

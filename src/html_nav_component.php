@@ -6,7 +6,7 @@
         <button class="navbar-toggler navbar-toggler-right bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" onclick="role_down_navigation()">
             <span class="navbar-toggler-icon"> </span>
         </button>
-        <button class="btn btn-default bg-light" onclick="log_out()">Log out</button>
+        <button class="btn btn-default bg-light" onclick="log_out()">Log Out</button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link " href="gate_man.php">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
@@ -21,7 +21,7 @@
         <button class="navbar-toggler navbar-toggler-right bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" onclick="role_down_navigation()">
             <span class="navbar-toggler-icon"> </span>
         </button>
-        <button class="btn btn-default bg-light" onclick="log_out()">Log out</button>
+        <button class="btn btn-default bg-light" onclick="log_out()">Log Out</button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link " href="external_dispatcher.php">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
@@ -38,7 +38,7 @@
         <button class="navbar-toggler navbar-toggler-right bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" onclick="role_down_navigation()">
             <span class="navbar-toggler-icon"> </span>
         </button>
-        <button class="btn btn-default bg-light" onclick="log_out()">Log out</button>
+        <button class="btn btn-default bg-light" onclick="log_out()">Log Out</button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <a class="nav-item nav-link " href="internal_dispatcher.php">Calendar <span class="sr-only">(current)</span></a> <!-- active -->

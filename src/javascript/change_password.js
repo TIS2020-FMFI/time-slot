@@ -5,10 +5,10 @@ function change_password(){
         if (old_password.value !== '' && new_password.value !== ''){
             checked_if_user_exist(old_password.value , new_password.value);
         }else{
-            create_exception("prosim vyplnnte prazdne kolonky ",13,'warning');
+            create_exception("All fields are required.",13,'warning');
         }
     }else{
-        create_exception("rovnake heslo nemoze byt pouzite",13,'warning');
+        create_exception("You cannot use the same password.",13,'warning');
     }
 }
 function checked_if_user_exist(old_password , new_password){
@@ -32,7 +32,7 @@ function checked_if_user_exist(old_password , new_password){
                 create_exception(data,33,'danger');
             }
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 }
