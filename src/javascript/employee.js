@@ -261,7 +261,7 @@ function load_db_data(){
         }else if(data){
             create_exception(data ,23,'danger');
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
     setTimeout(select_only,250);
@@ -380,7 +380,7 @@ function update_employees(){
     document.getElementById('new').disabled = false;
     document.getElementById('update').style.display = 'none';
     let update_array  = [];
-    let founded = 'wrong data in one of columns <br>';
+    let founded = 'Some of the columns contain a wrong data: <br>';
     let founded_bool = false;
     for (let row  = 0 ; row < all_employees_jason.length; row ++) {
         all_employees_jason[row]['table_row_input_name'].disabled = true;
@@ -413,7 +413,7 @@ function update_employees(){
                             ]);
     }
     if (founded_bool){
-        founded += 'Please check the  the <strong>formats</strong>: <br>for company name '+format_for_company_name+'<br>for company email '+format_for_email+'<br>for company name '+format_for_password+'<br>';
+        founded += 'Please check the <strong>following formats</strong>: <br>- for company name '+format_for_company_name+'<br>- for company email '+format_for_email+'<br>- for company name '+format_for_password+'<br>';
         create_exception(founded,23,'warning');
         return
     }
@@ -432,7 +432,7 @@ function update_employees(){
                 create_exception(data,23,'danger');
             }
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 }
@@ -449,11 +449,14 @@ function submit_form_new_employee(){
     let Role = document.getElementById('role_of_new_employee').value;
     // toto je prvi stupen kontoli neprazdnosti vstupov
     // #3 treba mrknut uz s vigenerovaneho pola zamestnancou ci maju rovnake meno a prezvisko ps bude nato niaki jason
-    if ( Password === Confirm_password && Role && (Password !== "" && Confirm_password !== "" && email !== "" && Firm !== "") ){
-        // #3
-        add_employee(F_name,L_name,email,Firm,Password,Role);
+    if ( Role && Password !== "" && Confirm_password !== "" && email !== "" && Firm !== "" ){
+        if ( Password === Confirm_password ){
+            add_employee(F_name,L_name,email,Firm,Password,Role);
+        }else{
+            create_exception("Passwords <strong>do not</strong> match.",13,'warning');
+        }
     }else{
-        create_exception(" Vyplnnte prazdne kolonky s <strong>*</strong> ",13,'warning');
+        create_exception("All fields marked with <strong>*</strong> are required.",13,'warning');
     }
 }
 
@@ -475,12 +478,13 @@ function add_employee(F_name,L_name,email,Firm,Password,Role){
                 if (split[0] === '1'){
                     create_exception(split[1],23,'success');
                     close_new_customer();
+                    create_html_employee(all_employees_jason[all_employees_jason.length-1]['id']+1,F_name,L_name,Firm,email,Role,'1');
                 }
             }else{
                 create_exception(data,23,'warning');
             }
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 

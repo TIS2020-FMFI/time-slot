@@ -34,19 +34,19 @@ if (isset($_POST['send_array_start']) && isset($_POST['send_array_end']) && isse
                     }
                 }
                 if ($founded){
-                    echo '2$Chyba pri ukladani dat novich casov';
+                    echo '2$Error occured with saving new times.';
                 }else{
-                    echo '1$Nove casi boli ulozene';
+                    echo '1$New times set.';
                 }
             }else{
-                echo 'Nepodarilo sa spojit so serverom ';
+                echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';
             }
         }else{
-            echo 'Not valid User';
+            echo 'The data is invalid.';
         }
     }else{
-        echo 'Please log <a href="../index.php">in</a>';
+        echo 'Please <a href="../index.php">log in</a>';
     }
 }else{
-    echo 'Neboly poslane data';
+    echo 'Data not sent.';
 }

@@ -10,22 +10,22 @@ if (isset($_POST['holidays'])){
                 $sql = "UPDATE holidays SET holidays='{$norm_holidays}' WHERE id=1";
                 if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
                     if (mysqli_affected_rows($mysqli) >= 0){
-                        echo '1$Nove prazdniny boli ulozene';
+                        echo '1$New holidays set.';
                     }else{
-                        echo '2$Chyba pri ukladani novich prazdninovich dni';
+                        echo '2$Error occured with saving new holidays.';
                     }
                 }else{
                     echo 'Chyba sql <strong>config_AJAX/set_new_holidays.php</strong> '.$sql;
                 }
             }else{
-                echo 'Nepodarilo sa spojit so serverom ';
+                echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';
             }
         } else {
-            echo 'Not valid user';
+            echo 'The data is not valid.';
         }
     }else{
-        echo 'Please log <a href="../index.php">in</a>';
+        echo 'Please <a href="../index.php">log in</a>';
     }
 }else{
-    echo 'Neboli poslane data  ';
+    echo 'Data not sent.';
 }

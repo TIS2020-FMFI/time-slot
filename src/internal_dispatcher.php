@@ -15,8 +15,8 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     include('html_nav_component.php');
     ?>
     <div id="only_requested" class="fixed-top bg-warning justify-content-center" style="min-width: 100px;max-width: 100px;left: 100px;display: flex" onclick="show_requested()">
-        <img src="request_sign.png" width="32" style="position: relative;right: 10px" alt="fotoo">
-        <p id="only_requested_count" class="text-danger" style="margin: 0px;margin-top: 5px;">pocet</p>
+        <img src="request_sign.png" width="32" style="position: relative;right: 10px" alt="info_sign">
+        <p id="only_requested_count" class="text-danger" style="margin: 0px;margin-top: 5px;">count</p>
     </div>
 
 <div class="table-responsive bg-light fixed-top " id="role_down" style="margin-top: 56px;z-index: 200;">
@@ -47,26 +47,31 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
   </table>
 </div>
 
+<div id="info" class="container fixed-top bg-dark" style="margin-top: 56px;z-index: 200;border-radius: 50px; display: none">
+    <p class="text-center text-light" style="margin-top: 6px;">You can search by time-slot states (prepared, requested, booked, finished),<br>starting time of time-slot, company name, truck registration number (EVC), cargo and destination.</p>
+    <p class="text-center text-light" style="margin-top: 6px;">Any time-slot data can be used for searching.</p>
+</div>
+
 <div class="table-responsive  bg-light" style="padding-top:126px;width: auto; margin-left: -15px;margin-bottom: 0px;
     margin-right: -15px;">
     <table id="calendar" class="table table-striped"  >
         <thead>
         <tr>
             <th class=" th_top_float_bar right_border_state" scope="col" style="display: flex">
-                <button class="btn btn-default bg-primary"   ><</button>
+                <button class="btn btn-default bg-primary" onclick="generate_gate_selector(-1)"><</button>
 
                 <div class="form-group" style="margin: 0px;width: 120px">
                     <select class="form-control" id="select_gate" onchange="generate_gate_selector(this)"  style="display: block;"> <!-- onclick="generate_gate_selector(this)"-->
-                        <option>1 - 7</option>
-                        <option>8 - 14</option>
-                        <option>15 - 21</option>
-                        <option>22 - 28</option>
-                        <option>29 - 35</option>
-                        <option>36 - 42</option>
+                        <option class="option_ramp">1 - 7</option>
+                        <option class="option_ramp">8 - 14</option>
+                        <option class="option_ramp">15 - 21</option>
+                        <option class="option_ramp">22 - 28</option>
+                        <option class="option_ramp">29 - 35</option>
+                        <option class="option_ramp">36 - 42</option>
                         <!-- Treba pridat html podla poctu ramp  ovsem vzdy po rozdiele 6-->
                     </select>
                 </div>
-                <button class="btn btn-default bg-primary last_btn" >></button>
+                <button class="btn btn-default bg-primary last_btn" onclick="generate_gate_selector(1)">></button>
             </th>
             <th class="days_in_calendar" scope="col">1 gate</th>
             <th class="days_in_calendar" scope="col">2 gate</th>

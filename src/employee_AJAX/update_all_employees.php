@@ -37,7 +37,7 @@ if (!$mysqli->connect_errno) {
                                 'working : '.'<strong>'.$_POST["data"][$employee_index][6] .'</strong><br>' ;
                         }
                     } else {
-                        echo 'Nepodarilo sa wikonat dopit <strong>'.$sql.'</strong>';
+                        echo 'Nepodarilo sa wikonat dopyt <strong>'.$sql.'</strong>';
                     }
                 }
                 if ($founded_employee_with_no_success){
@@ -49,7 +49,7 @@ if (!$mysqli->connect_errno) {
                 echo 'Not valid user';
             }
         }else{
-            echo 'Please log <a href="../index.php">in</a>';
+            echo 'You can now <a href="../index.php">log in</a>.';
         }
     }else{
         echo 'Neboli poslane data  ';

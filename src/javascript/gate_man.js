@@ -46,7 +46,7 @@ function load_all_time_slots() {
         }else if(data){
             create_exception(data ,23,'danger');
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
     setTimeout(generate_gate_selector,250); // nutne cakanie koli spracovaniu dat ktor boli ziskane ajaxom
@@ -156,7 +156,7 @@ function ajax_post_confirm(html_row,id){
                 create_exception(data,23,'danger');
             }
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 }

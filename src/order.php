@@ -27,7 +27,7 @@ include('exception_handler.php');
 <!--        --><?php
 //        }else{
 //            ?>
-<!--            Please make changes before time hitts <span class="text-danger" >00:00 </span> if time is 00:00 the changes will NOT saved and u will be retargeted to main page <span id="timer" class="text-danger" >00:00</span>-->
+<!--            Please make changes before time hitttts <span class="text-danger" >00:00 </span> if time is 00:00 the changes will NOT saved and u will be retargeted to main page <span id="timer" class="text-danger" >00:00</span>-->
 <!---->
 <!--        --><?php
 //        }
@@ -41,7 +41,7 @@ include('exception_handler.php');
                 <div class="card-body">
                     <!--        MOZNOST 22222222-->
                     <div class="justify-content-center" style="margin-bottom: 20px">
-                        Please make changes before time hitts <span class="text-danger" >00:00 </span> if time is 00:00 the changes will NOT saved and u will be retargeted to main page <span id="timer" class="text-danger" >00:00</span>
+                        The document will be closed once the timer reaches <span class="text-danger" >00:00</span> and your changes will not be saved. You will be redirected to the main page in: <span id="timer" class="text-danger" >00:00</span>
                     </div>
                     <div class="row">
                         <div class="col-9"><h5 class="card-title text-center text-primary">PRODUCT EXPORT DOCUMENT</h5></div>

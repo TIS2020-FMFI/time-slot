@@ -1,5 +1,6 @@
 <?php
 include('../db.php');
+session_start();
 
 if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["role"]) ) {
     if (isset($_SESSION['role'])) {
@@ -32,10 +33,10 @@ if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) 
                     echo 'Chyba sql <strong>employee_AJAX/register_user.php</strong> '.$sql;
                 }
             } else {
-                echo 'Nepodarilo sa spojit so serverom ';
+                echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';
             }
         } else {
-            echo 'Not valid user';
+            echo 'The data is not valid.';
         }
     }else{
         echo 'Please log <a href="../index.php">in</a>';

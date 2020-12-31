@@ -26,9 +26,9 @@ window.onload = function() {
 }
 function is_good_length(text_length,min_count_of_characters,max_count_of_characters,what){
     if( text_length < min_count_of_characters || text_length > max_count_of_characters){
-        create_exception( '<strong>wrong length of '+what+'</strong>' +
-            '<br> minimal length is :  <strong>'+min_count_of_characters+'</strong>' +
-            '<br> maximal length is :  <strong>'+max_count_of_characters+'</strong>',13,'warning');
+        create_exception( 'Your <strong>'+what+'</strong> has incorrect length.' +
+            '<br> - the minimal length is <strong>'+min_count_of_characters+'</strong>,' +
+            '<br> - the maximal length is <strong>'+max_count_of_characters+'</strong>.',13,'warning');
         return true;
     }else{
         return false;
@@ -36,7 +36,7 @@ function is_good_length(text_length,min_count_of_characters,max_count_of_charact
 }
 function is_correct_name_for_driver(text_string){
     if( format_for_driver_part_one.test(text_string)  || format_for_driver_part_two.test(text_string) ){
-        create_exception( '<strong>Wrong formated Truck driver name</strong> do not use <strong>'+format_for_driver_part_one+'</strong> or <strong>'+format_for_driver_part_two+'</strong>',13,'warning');
+        create_exception( 'Your <strong>truck driver name</strong> has the wrong format. Do not use any of the following symbols: '+format_for_driver_part_one+'</strong> or <strong>'+format_for_driver_part_two+'</strong>',13,'warning');
         return true;
     }else{
         return is_good_length(text_string.length,0,30,'Truck driver');
@@ -51,11 +51,11 @@ function is_correct_date(text_string){
                 //console.log(split_day_string[index_date_string]);
                 let split_string_month_days = split_day_string[index_date_string].split('-');
                 if (split_string_month_days[0] === '00' || split_string_month_days[0] > '12' || split_string_month_days[1] === '00' || split_string_month_days[1] > '31'){
-                    create_exception('Please use correct format MM-DD, <strong>MM >= 01 and MM <= 12</strong>  and <strong>DD >= 01 and DD <= 31</strong><br> This date is wrong : <strong>'+split_day_string[index_date_string] +'</strong>', 13, 'warning');
+                    create_exception('Use the correct format <strong>MM-DD</strong><br> This date is wrong : <strong>'+split_day_string[index_date_string] +'</strong>', 13, 'warning');
                     return true;
                 }
             }else{
-                create_exception('<strong>Wrong formated date section</strong>use only <strong>' + ("" + format_for_date_config).slice(1, -1) + ',' + '</strong><br> This date is wrong : <strong>'+split_day_string[index_date_string] +'</strong>', 13, 'warning');
+                create_exception('Wrong formatted <strong>date section</strong>, use only <strong>' + ("" + format_for_date_config).slice(1, -1) + ',' + '</strong><br> This date is wrong : <strong>'+split_day_string[index_date_string] +'</strong>', 13, 'warning');
                 return true;
             }
         }
@@ -64,7 +64,7 @@ function is_correct_date(text_string){
 }
 function is_correct_company(text_string){
     if( format_for_company_name.test(text_string) ){
-        create_exception( '<strong>Wrong formated company name</strong> do not use <strong>'+format_for_password+'</strong>',13,'warning');
+        create_exception( 'Your <strong>company name</strong> has the wrong format. Do not use any of the following symbols: '+format_for_password,13,'warning');
         return true;
     }else{
         return is_good_length(text_string.length,0,75,'Company name');
@@ -72,7 +72,7 @@ function is_correct_company(text_string){
 }
 function is_correct_name(text_string){
     if( format_for_password.test(text_string) || format_for_driver_part_two.test(text_string)){
-        create_exception( '<strong>Wrong formated First name / Last name</strong> do not use <strong>'+format_for_password+'</strong>',13,'warning');
+        create_exception( 'Your <strong>first name</strong> or <strong>last name</strong> has the wrong format. Do not use any of the following symbols: '+format_for_password,13,'warning');
         return true;
     }else{
         return is_good_length(text_string.length,0,20,'First name / Last name');
@@ -80,7 +80,7 @@ function is_correct_name(text_string){
 }
 function is_correct_password(text_string){
     if( format_for_password.test(text_string)  ){
-        create_exception( '<strong>wrong formated password</strong> do not use <strong>'+format_for_password+'</strong>',13,'warning');
+        create_exception( 'Your <strong>password</strong> has the wrong format. Do not use any of the following symbols: '+format_for_password,13,'warning');
         return true;
     }else{
         return is_good_length(text_string.length,7,30,'password');
@@ -88,7 +88,7 @@ function is_correct_password(text_string){
 }
 function is_correct_email(email_string){
     if( format_for_email.test(email_string) ){
-        create_exception( '<strong>wrong formated email</strong> do not use <strong>'+format_for_email+'</strong>',13,'warning');
+        create_exception( 'Your <strong>email</strong> has the wrong format. Do not use any of the following symbols: '+format_for_email,13,'warning');
         return true;
     }else{
         return is_good_length(email_string.length,7,50,'email');

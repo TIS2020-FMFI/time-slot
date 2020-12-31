@@ -10,7 +10,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         if ($result = $mysqli->query($sql)) {
             $row = $result->fetch_assoc();
             if ($row == NULL){
-                echo "1$"."Prihlasovacie udaje su nespravne skontrolujte zadani <strong>email</strong> alebo <strong>password</strong>" ;
+                echo "1$"."The combination of <strong>email</strong> and <strong>password</strong> you entered was not found." ;
             }else{
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['meno'] = $row['meno'];
@@ -29,9 +29,9 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             echo 'Chybne sql <strong>login_AJAX/change_password.php</strong> '.$sql;
         }
     } else {
-        echo 'Serverva chyba databaza nieje pripojena';
+        echo 'Could not connect to the server. Please check your internet connection.';
     }
 }else{
-    echo 'Neboly poslane data';
+    echo 'The data is not valid.';
 }
 

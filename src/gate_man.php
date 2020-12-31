@@ -15,7 +15,7 @@ include('exception_handler.php');
 ?>
 
 
-<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;width: auto; margin-bottom: 0px;">
+<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;width: auto; margin-bottom: 0px;z-index: 10;">
   <table class="table" style="margin-bottom: 0px;" >
     <thead>
     <tr>
@@ -31,7 +31,7 @@ include('exception_handler.php');
   <thead>
      <tr>
          <th scope="col">Truck Drivers</th>
-         <th scope="col">EČV</th>
+         <th scope="col">Registration number</th>
          <th scope="col">Time</th>
          <th scope="col">Cargo</th>
          <th scope="col">Ramp</th>

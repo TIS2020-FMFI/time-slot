@@ -21,12 +21,12 @@ if (isset($_SESSION['role'])){
                 echo 'Wrong SQL <strong>external_AJAX/load_all_time_slots.php</strong> '.$sql;
             }
         }else{
-            echo 'Nepodarilo sa spojit so serverom ';
+            echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';
         }
     } else {
-        echo 'Nespravni user ';
+        echo 'Wrong user.';
     }
 }else{
-    echo 'Please log <a href="../index.php">in</a>';
+    echo 'Please <a href="../index.php">log in</a>';
 }
 

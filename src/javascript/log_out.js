@@ -4,7 +4,7 @@ function log_out(){
         if (data){
             window.open("index.php","_self");
         }else{
-            alert("nepodarilo sa spojit so serverom");
+            alert("Could not connect to the server. Please check your <strong>internet connection</strong>.");
         }
     });
 }
