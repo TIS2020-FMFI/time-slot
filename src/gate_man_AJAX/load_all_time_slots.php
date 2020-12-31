@@ -30,10 +30,10 @@ if (isset($_SESSION['role'])){
                 echo 'Wrong SQL <strong>gate_man_AJAX/load_all_time_slots.php</strong> '.$sql;
             }
         }else{
-            echo 'Nepodarilo sa spojit so serverom ';
+            echo 'Could not access the server.';
         }
     } else {
-        echo 'Nespravni user ';
+        echo 'Wrong user.';
     }
 }else{
     echo 'Please log <a href="../index.php">in</a>';

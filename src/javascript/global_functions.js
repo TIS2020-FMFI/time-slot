@@ -42,7 +42,7 @@ function close_time_slot(){
         if (data ){
             //alert("dsadasdsa");
             if (data === '1' || data === '2'){
-                create_exception('time slot bol uspesne uzavreti',5,'success');
+                create_exception('Time-slot has been successfully closed.',5,'success');
                 load_all_time_slots();
             }else{
                 create_exception(data,5,'danger');
