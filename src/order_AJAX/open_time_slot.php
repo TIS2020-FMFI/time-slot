@@ -49,13 +49,13 @@ if (!$mysqli->connect_errno) {
             }
 
         }else{
-            echo 'You forgot to close your order ! Do you wont to <a href="#" onclick="close_time_slot()"><strong>close it</strong></a> / <a href="order.php"><strong>open it</strong></a>';
+            echo 'Some order is already opened. You can <a href="order.php"><strong>review</strong></a> or <a href="#" onclick="close_time_slot()"><strong>close</strong></a> your current order.';
         }
     }else{
         echo 'Please log <a href="../index.php">in</a>';
     }
 }else {
-    echo 'Serverova chyba databaza nieje pripojena';
+    echo 'Could not access the server.';
 }
 
 function try_different_select($id , $state){
@@ -67,16 +67,16 @@ function try_different_select($id , $state){
         if (mysqli_affected_rows($mysqli) > 0) {
             $vysl = $resultt->fetch_assoc();
             if ($vysl['difference'] > 0){
-                echo 'Time-slot is currently <strong>occupied</strong> please wait <strong>'.floor($vysl['difference']/60).':'.($vysl['difference']%60).'</strong>';
+                echo 'Time-slot is currently <strong>occupied</strong>, please wait <strong>'.floor($vysl['difference']/60).':'.($vysl['difference']%60).'</strong>';
             }else if($state != $vysl['state']){
-                echo 'This time-slot had changed state <strong>'.$vysl['state'].'</strong>';
+                echo 'This time-slot had changed the state <strong>'.$vysl['state'].'</strong>';
             }else if ($vysl['is_occupied']){
-                echo 'This time-slot is now not <strong>available</strong>';
+                echo 'This time-slot is not <strong>available</strong> at the moment.';
             }else{
-                echo 'Time-slot is currently <strong>occupied</strong>';
+                echo 'This time-slot is currently <strong>occupied</strong>.';
             }
         }else{
-            echo 'Time-slot is currently <strong>occupied</strong>';
+            echo 'This time-slot has been <strong>deleted</strong>.';
         }
     }
 }

@@ -178,7 +178,7 @@ class Time_slot {
             }else if(data !== ""){
                 create_exception(data,23,'warning');
             }else{
-                create_exception("nepodarilo sa spojit so serverom",23,'danger');
+                create_exception("Could not connect to the server.",23,'danger');
             }
         });
     }
