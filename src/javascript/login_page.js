@@ -55,6 +55,10 @@ function first_load() {
     {
         create_exception("Using <strong>Chrome</strong> or <strong>Edge</strong> is recommended for better performance.", 10, "warning");
     }
+	else if(navigator.userAgent.indexOf("SamsungBrowser") != -1 )
+    {
+        create_exception("Using <strong>Chrome</strong> or <strong>Edge</strong> is recommended for better performance.", 10, "warning");
+    }
     else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) //IF IE > 10
     {
         create_exception("Using <strong>Chrome</strong> or <strong>Edge</strong> is recommended for better performance.", 10, "warning");
