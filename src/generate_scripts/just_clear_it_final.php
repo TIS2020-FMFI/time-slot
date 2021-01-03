@@ -38,15 +38,23 @@ if ($result = $mysqli->query($sql)) {
 } else{
     echo "CHYBA SKRIPTU <br> ";
 }
-$sql = "INSERT INTO holidays(id,holidays) VALUES (1,'' ) ";
+$sql = "INSERT INTO holidays SET holidays='' ";
 if ($result = $mysqli->query($sql)) {
     echo "Pridany Prazdni zoznam prazdnin do (holidays)<br>";
 } else{
     echo "CHYBA SKRIPTU <br> ";
 }
-$base_value = "Ramp1-0000000 Ramp2-0000000 Ramp3-0000000 Ramp4-0000000 Ramp5-0000000 Ramp6-0000000 Ramp7-0000000 Ramp8-0000000 Ramp9-0000000 Ramp10-0000000 Ramp11-0000000 Ramp12-0000000 Ramp13-0000000 Ramp14-0000000 Ramp15-0000000 Ramp16-0000000 Ramp17-0000000 Ramp18-0000000 Ramp19-0000000 Ramp20-0000000 Ramp21-0000000 Ramp22-0000000 Ramp23-0000000 Ramp24-0000000 Ramp25-0000000 Ramp26-0000000 Ramp27-0000000 Ramp28-0000000 Ramp29-0000000 Ramp30-0000000 Ramp31-0000000 Ramp32-0000000 Ramp33-0000000 Ramp34-0000000 Ramp35-0000000 Ramp36-0000000 Ramp37-0000000 Ramp38-0000000";
-
-$sql = "INSERT INTO holidays(id,holidays) VALUES (2,'{$base_value}') ";
+$sql = "INSERT INTO holidays SET 
+            holidays='Ramp1-0000000 Ramp2-0000000 Ramp3-0000000' || 
+             ' Ramp4-0000000 Ramp5-0000000 Ramp6-0000000 Ramp7-0000000' ||
+              ' Ramp8-0000000 Ramp9-0000000 Ramp10-0000000 Ramp11-0000000' ||
+               ' Ramp12-0000000 Ramp13-0000000 Ramp14-0000000 Ramp15-0000000' ||
+                ' Ramp16-0000000 Ramp17-0000000 Ramp18-0000000 Ramp19-0000000 ' ||
+                 'Ramp20-0000000 Ramp21-0000000 Ramp22-0000000 Ramp23-0000000 ' ||
+                  'Ramp24-0000000 Ramp25-0000000 Ramp26-0000000 Ramp27-0000000 ' ||
+                   'Ramp28-0000000 Ramp29-0000000 Ramp30-0000000 Ramp31-0000000 ' ||
+                    'Ramp32-0000000 Ramp33-0000000 Ramp34-0000000 Ramp35-0000000 ' ||
+                     'Ramp36-0000000 Ramp37-0000000 Ramp38-0000000' ";
 if ($result = $mysqli->query($sql)) {
     echo "Nastavenie vsetkych ramp na free (holidays)<br>";
 } else{

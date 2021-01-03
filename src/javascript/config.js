@@ -133,7 +133,7 @@ function set_new_times(){
 function regenerate_new_time_slots(){
     create_exception("<strong>Please wait</strong> it may take few seconds !",23,'primary');
 
-    $.post('generate_scripts/generate_script_default.php',{
+    $.post('generate_scripts/generate_script_regenerate.php',{
         regenerate:"1"
     },function(data){
         if (data.includes('*') || data.includes('SQL') || data.includes('Notice') || data.includes('error') ){

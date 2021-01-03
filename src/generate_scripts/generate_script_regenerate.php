@@ -3,40 +3,56 @@ include('../db.php');
 session_start();
 
 date_default_timezone_set("Europe/Bratislava");
-$next_start_point_of_generation = strtotime('next Monday', strtotime('now')); //  treba specifikovat format generovania napr. UTC 00:00
-$next_start_point_of_generation_end = strtotime('+7 days',strtotime("next Monday", strtotime('now')));
-$date_format_start = date("Y-m-d", $next_start_point_of_generation);
-$date_format_end = date("Y-m-d", $next_start_point_of_generation_end);
+$date_str_for_next_week = strtotime('next Monday', strtotime('now'));
+$date_str_for_next_next_week = strtotime('+7 days',strtotime("next Monday", strtotime('now')));
+$date_for_next_week_start = date("Y-m-d", $date_str_for_next_week);
+$date_for_next_next_week_end = date("Y-m-d", $date_str_for_next_next_week);
 
 if (isset($_POST['regenerate']) && isset($_SESSION['role']) ) {
     if ($_SESSION['role'] == 'IND' || $_SESSION['role'] == 'AD') {
         if ($_POST['regenerate'] == '1') {
-            echo "REGENERATING DATA <br> from :<strong> " .
-                $date_format_start . '</strong><br>' .
-                "to :<strong> " . $date_format_end . '</strong><br>';
-            include('../config_AJAX/regenerate_time_slot_for_next_week.php');
-            if (regenerate_data($next_start_point_of_generation) == false) {
-                return;
+            echo "REGENERATING DATA <br> from :<strong> " . $date_for_next_week_start . '</strong><br>' . "to :<strong> " . $date_for_next_next_week_end . '</strong><br>';
+            if (!$mysqli->connect_errno) {
+                // SPRACOVANIE TIME SLOT KTORE SA UZ OBSADILI
+                $sql = "select  id_gate,
+                                start_date_time,
+                                (select CONCAT(email,' ',meno_splocnosti)  from employee where id = id_external_dispatcher)as contact_info,
+                                state 
+                        from time_slot 
+                        where (start_date_time BETWEEN TIMESTAMP('{$date_for_next_week_start}') AND TIMESTAMP('{$date_for_next_next_week_end}')) = '1' 
+                         and state != 'prepared'"; // delete from `time_slot` where start_date_time  >=  TIMESTAMP($date)
+                if ($result = $mysqli->query($sql)) {
+                    echo "Time sloty ktore su zaplnene alebo sa o ne ziada:<br>";
+                    while ($row = $result->fetch_assoc()) {
+                        echo "Rampa : <strong>".$row['id_gate'].
+                            "</strong><br>start_date_time : <strong>".date("Y-m-d H:i:s",strtotime($row['start_date_time'])).
+                            "</strong><br>Contact info : <strong>".$row['contact_info'].
+                            "</strong><br> State of time slot : <strong>".$row['state']."</strong><br><br>";
+                    }
+                } else{
+                    echo '*Wrong SQL <strong>generate_scripts/generate_script_regenerate.php</strong> '.$sql;
+                }
+                // PREMAZANIE TIME SLOTOV
+                $sql = "delete from time_slot where (start_date_time BETWEEN TIMESTAMP('{$date_for_next_week_start}') AND TIMESTAMP('{$date_for_next_next_week_end}')) = '1'  "; // delete from `time_slot` where start_date_time  >=  TIMESTAMP($date)
+                if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
+                    echo "<strong>Databaza bola uspesne premazana</strong><br> ";
+                } else{
+                    echo '*Wrong SQL <strong>config_AJAX/generate_script_regenerate.php</strong> '.$sql;
+                }
+
+            }else{
+                echo '*Nepodarilo sa spojit so serverom ';
             }
         } else {
             echo "*Not valid post methoud";
-            return;
         }
     }else{
         echo '*Not valid user';
-        return;
     }
-}else{
-    echo 'data neboli poslane alebo niesi prihlaseni';
-    include('clear_time_slot.php');
-    // sem sa dostaneme ak sa spusta automaticky a nebola
-    // pouzita ziadna post metoda a neni prihlaseni ani ziaden user
 }
 
 
 
-// toto sluzi ako nahrada subselectu ktori asi bute trvat dlhsie aspon podla mna !!! a je to zataz pre db !!
-$state = 'prepared';
 
 $const_for_validity = 2.5; // teba pridat popis podobni nizsiemu
 // ABSOLUT DEFAULT
@@ -58,13 +74,13 @@ if (!$mysqli->connect_errno) {
             $index ++;
         }
     }else {
-        echo '*Chybne sql na stranke <strong>generate_scripts/generate_script_default.php</strong> '.$sql;
+        echo '*Chybne sql na stranke <strong>generate_scripts/generate_script_regenerate.php</strong> '.$sql;
     }
 }else {
     echo '*Serverova chyba databaza nieje pripojena';
 }
 
-$year = date("Y", $next_start_point_of_generation);
+$year = date("Y", $date_str_for_next_week);
 
 
 // !!!! neviem ake bude spravanie na prelome roka
@@ -81,7 +97,7 @@ if (!$mysqli->connect_errno) {
             }
         }
     }else {
-        echo '*Chybne sql na stranke <strong>generate_scripts/generate_script_default.php</strong> '.$sql;
+        echo '*Chybne sql na stranke <strong>generate_scripts/generate_script_regenerate.php</strong> '.$sql;
     }
 }else {
     echo '*Serverova chyba databaza nieje pripojena';
@@ -91,6 +107,9 @@ if (!$mysqli->connect_errno) {
 // for ($index = 0;$index < count($holidays);$index ++){
 //    echo $holidays[$index] .' <br> ';
 //}
+
+
+
 
 $disabled_ramps = []; // toto je array ktora dostava na vstup fromat textu Ramp1-111111 Ramp2-1111111 pricom 111111 oznacuju ci v dane dni su rampi odstavene alebo niesu
 if (!$mysqli->connect_errno) {
@@ -104,7 +123,7 @@ if (!$mysqli->connect_errno) {
             array_push($disabled_ramps, $parsed2[1]);
         }
     }else {
-        echo '*Chybne sql na stranke <strong>generate_scripts/generate_script_default.php</strong> '.$sql;
+        echo '*Chybne sql na stranke <strong>generate_scripts/generate_script_regenerate.php</strong> '.$sql;
     }
 }else {
     echo '*Serverova chyba databaza nieje pripojena';
@@ -115,10 +134,14 @@ if (!$mysqli->connect_errno) {
 //}
 
 
-$date = date("Y-m-d H:i:s", $next_start_point_of_generation);
+
+
+
+$date_str_for_next_week = strtotime('next Monday', strtotime('now'));
+$date_for_regeneration = date("Y-m-d H:i:s", $date_str_for_next_week);
 for ($gate_number = 1 ;$gate_number < 38;$gate_number++) { //11 pre testovaciu DB v realite to znamena 10 ramp
     for ($gate_times = 0; $gate_times < count($array_of_times); $gate_times++) { // array of time == dni v tyzdni s danimi hodinami :D
-        $tomorrow_of_today = date('Y-m-d', strtotime($date . " +".$gate_times." days"));
+        $tomorrow_of_today = date('Y-m-d', strtotime($date_for_regeneration . " +".$gate_times." days"));
 
         if (in_array($tomorrow_of_today,$holidays) && $array_of_times[$gate_times][2] == 0){ // pokial je  owervrite povoleni tak sa da dogenerovat den ktori je normalne obsadeni prazdninami
             continue;
@@ -139,11 +162,10 @@ for ($gate_number = 1 ;$gate_number < 38;$gate_number++) { //11 pre testovaciu D
             //echo 'END TIME : '.$time_end.'<br>';
             //echo '<br>';
             if (!$mysqli->connect_errno) {
-                $sql = "INSERT INTO time_slot (`id_gate`,`start_date_time`, `end_date_time`, `state`)
+                $sql = "INSERT INTO time_slot (`id_gate`,`start_date_time`, `end_date_time`)
                         values('{$gate_number}',
-                        (select TIMESTAMP(ADDTIME('{$date}', '{$time_start}'))),
-                        (select TIMESTAMP(ADDTIME('{$date}', '{$time_end}'))),
-                        '{$state}')";
+                        (select TIMESTAMP(ADDTIME('{$date_for_regeneration}', '{$time_start}'))),
+                        (select TIMESTAMP(ADDTIME('{$date_for_regeneration}', '{$time_end}'))))";
                 if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
                     echo "";//OK <br>
                 } else {
@@ -155,5 +177,5 @@ for ($gate_number = 1 ;$gate_number < 38;$gate_number++) { //11 pre testovaciu D
         }
     }
 }
-
+echo "FINISH REGENERATION";
 

@@ -2,12 +2,12 @@
 include('../db.php');
 date_default_timezone_set("Europe/Bratislava");
 
-$next_start_point_of_generation_day_ago = strtotime('1 days ago'); //2 week ago -
+$next_start_point_of_generation = strtotime('1 days ago'); //2 week ago -
 //  treba specifikovat ku ktoremu dnu to zalohujeme a NE-musi to byt jednotne s clear_time_slot.php
 // a do sql sciptu podmienku Where end_time_slot <=  TIMESTAMP('{$next_start_point_of_generation}')
 // oporucanie --> $next_start_point_of_generation = strtotime('1 days ago'); // to znamena ze data uz su ozaj v hotovich stavoch a nemala by nenast chyba
-$date_day_ago = date("Y-m-d", $next_start_point_of_generation_day_ago);
-echo 'DATA zalohujeme k datumu  '. $date_day_ago . ' <br> ';
+$date = date("Y-m-d", $next_start_point_of_generation);
+echo 'DATA zalohujeme k datumu  '. $date . ' <br> ';
 if (!$mysqli->connect_errno) {
     $sql = "INSERT INTO `dump_table` ( `id`, `gate_number`, `company_name`, `first_ruck_driver`, `second_ruck_driver`, `truck_number`, `destination`, `cargo`, `start_date_time_slot`, `end_date_time_slot`, `state` )
     (SELECT * FROM (SELECT id,
@@ -23,7 +23,7 @@ if (!$mysqli->connect_errno) {
         start_date_time, 
         end_date_time,
         state
-    FROM time_slot) as `T` WHERE TIMESTAMP ('{$date_day_ago}') >= end_date_time)
+    FROM time_slot) as `T` WHERE TIMESTAMP ('{$date}') >= end_date_time)
     ON DUPLICATE KEY UPDATE 
         gate_number = VALUES (`gate_number`),
         company_name = VALUES (`company_name`),
