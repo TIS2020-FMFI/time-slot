@@ -1,8 +1,12 @@
 <?php
+//$host = 'localhost';
+//$username = 'timeslot';
+//$password = 'ieotmsltieo';
+//$dbname = 'timeslot';
 $host = 'localhost';
-$username = 'timeslot';
-$password = 'ieotmsltieo';
-$dbname = 'timeslot';
+$username = 'root';
+$password = 'usbw';
+$dbname = 'tis';
 
 $mysqli = new mysqli($host,$username,$password,$dbname);
 if ($mysqli->connect_errno) {

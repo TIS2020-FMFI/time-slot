@@ -1,22 +1,67 @@
-.text-finished{
-    color: #6f42c1;
+/* TOP FIXED orange requasted sign */
+#only_requested{
+    z-index: 300;
+    min-width: 100px;
+    max-width: 100px;
+    left: 100px;
+    display: flex;
+    cursor: pointer;
+}
+#only_requested img{
+    position: relative;right: 10px;
+}
+#only_requested #only_requested_count{
+    margin: 5px 0px 0px;
+}
+
+/* SEKCIA POD NAVIGACIOU HLAVNI Ovladaci panel s moznostami*/
+
+#role_down{
+    margin-top: 56px;z-index: 200;
+}
+input[type=date] ,#back_date, #next_date{
+    height: 38px;
+}
+.table thead .top_bar{
+    border-bottom: 0px;
+    vertical-align: top;
+}
+#ramp_title{
+    margin-bottom: 0px;
+}
+#input_text{
+    display: inherit;
+    min-width: 80px;
+}
+#find_by_img_info{
+    width: 10px
 }
 .table{
     margin-bottom: 0px;
 }
-.navbar{
-    //margin-left: -15px;
-    //margin-right: -15px;
+/*INFO SIGN*/
+#info{
+    margin-top: 56px;z-index: 200;border-radius: 50px; display: none;
+}
+#info p{
+    margin-top: 6px;
+}
+
+/*KALENDAR A ZOBRAZENIA */
+#global_view{
+    padding-top: 135px;
+    width: auto; margin-left: -15px;margin-bottom: 0px;
+    margin-right: -15px;
+}
+.form-group{
+    min-width: 100px;
+}
+.text-finished{
+    color: #6f42c1;
 }
 #main_row{
     padding-top: 5px;
     padding-bottom: 5px;
-}
-.table thead .top_bar{
-    border-bottom: 0px;
-}
-h4{
-    margin-left: 25% ;
 }
 .table thead .days_in_calendar{
     border: 2px solid #dee2e6;
@@ -30,11 +75,9 @@ tbody tr .right_border_time{
 tbody tr .right_border_state{
     border-right: 2px solid #dee2e6;
     width: 200px;
-    //border-top: 0px;
 }
 tbody tr .right_border{
     border-right: 2px solid #dee2e6;
-    //border-top: 2px dashed #dee2e6;
 }
 
 table thead .days_in_calendar_closer {
@@ -42,7 +85,6 @@ table thead .days_in_calendar_closer {
 }
 tbody tr .calendar_item{
     border-top: 0px  #dee2e6;
-    //width: 20%;
 }
 .table thead .right_border_last{
     border-right: 0px ;
@@ -67,30 +109,37 @@ th{
 .form-check-label{
     margin-right: 10px;
 }
-
 .table_of_customers{
+    //padding-top: 126px;
     width: auto;
     margin-left: -15px;
     margin-right: -15px;
     margin-bottom: 0px;
 }
-#only_requested{
-    z-index: 300;
-}
-
 .table_of_customers thead th{
     width: 20%;
     text-align: revert;
 }
-
+#calendar_dates{
+    display: none;
+}
+.find_by_divs_and_titles{
+    display: none;
+    padding-top: 5px;
+}
 
 @media (min-width: 0px) {
     .table_of_customers{
-        font-size: 10px;
+        font-size: 12px;
     }
     .table{
-        font-size: 10px;
+        font-size: 12px;
     }
+    #ramp_title{
+        margin-left: 8% ;
+        font-size: 20px;
+    }
+
 }
 
 @media (min-width: 767px) {
@@ -100,6 +149,11 @@ th{
     .table{
         font-size: 15px;
     }
+    #ramp_title{
+        margin-left: 15% ;
+        font-size: 25px;
+    }
+
 }
 
 @media (min-width: 991px){
@@ -109,6 +163,11 @@ th{
     .table{
         font-size: 17px;
     }
+    #ramp_title{
+        margin-left: 25% ;
+        font-size: 30px;
+    }
+
 }
 
 @media (min-width: 1199px) {
@@ -118,6 +177,14 @@ th{
     .table{
         font-size: 20px;
     }
+    #ramp_title{
+        margin-left: 25% ;
+        font-size: 35px;
+    }
+    #global_view{
+        padding-top: 126px;
+    }
+
 }
 
 
