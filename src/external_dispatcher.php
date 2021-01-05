@@ -16,26 +16,21 @@ include('html_nav_component.php');
 ?>
 
 
-<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;z-index: 10;
-    /*position: fixed;
-    width: 100%;
-    margin-top: 62px;
-    margin-right: -15px;
-  margin-left: -15px;*/">
-  <table class="table" style="margin-bottom: 0px;" >
+<div class="table-responsive bg-light fixed-top" id="role_down">
+  <table class="table"  >
     <thead>
-    <tr class="">
-      <th class="top_bar" style="display:flex;">
+    <tr>
+      <th class="top_bar d-flex" >
         <input type="date" id="input_date" name="trip-start"  onchange="make_date(this)"><!--max="2020-10-31"-->
           <button class="btn btn-default bg-primary" id="back_date" onclick="make_date(-1)" ><</button>
           <button class="btn btn-default bg-primary last_btn" id="next_date" onclick="make_date(1)">></button>
       </th>
       <th class="top_bar">
-        <h3 id="date_number"  class="text-primary" style="margin: 0px;padding: 0px">21.12.2020</h3>
+        <h3 id="date_number"  class="text-primary" >21.12.2020</h3>
       </th>
       <th class="top_bar th_top_float_bar" scope="col">
-        <div class="form-group" style="margin: 0px">
-          <select class="form-control" id="select_only" onchange="select_only(this)" style="display: block;">
+        <div class="form-group m-0" >
+          <select class="form-control" id="select_only" onchange="select_only(this)">
             <option>all</option>
               <option>Only prepared</option>
             <option>Only requested</option>
@@ -54,7 +49,8 @@ include('html_nav_component.php');
   </table>
 </div>
 
-<h3 class="text-success" style="padding-top: 126px">Prepared</h3 >
+<p id="offset_element"></p>
+<h3  id="prepared_title"  class="text-success"  >Prepared</h3 >
 <table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers" >
   <thead>
   <tr>
@@ -74,14 +70,14 @@ include('html_nav_component.php');
     <td></td>
     <td></td>
     <td class="td_flex_buttons">
-        <button class="btn btn-default bg-success only_one" style="" onclick="" >Apply</button>
+        <button class="btn btn-default bg-success only_one"  onclick="" >Apply</button>
     </td>
   </tr>
   </tbody>
 </table>
 
+<h3 id="requested_title" class="text-warning">Requested</h3>
 <table id="requested" class="table table-striped  table-responsive bg-light table_of_customers">
-  <h3 class="text-warning">Requested</h3>
   <thead>
     <tr>
         <th scope="col">Time</th>
@@ -100,15 +96,14 @@ include('html_nav_component.php');
       <td>BA-345-DS</td>
       <td>BA-345-DS</td>
       <td class="td_flex_buttons">
-        <button class="btn btn-default bg-primary only_one" style="" onclick="" >Show</button>
+        <button class="btn btn-default bg-primary only_one"  onclick="" >Show</button>
       </td>
   </tr>
   </tbody>
 </table>
 
-
+<h3 id="booked_title"  class="text-danger">Booked</h3>
 <table id="booked" class="table table-striped  table-responsive bg-light table_of_customers">
-  <h3 class="text-danger">Booked</h3>
     <thead>
     <tr>
         <th scope="col">Time</th>
@@ -127,14 +122,14 @@ include('html_nav_component.php');
       <td>BA-345-DS</td>
       <td>BA-345-DS</td>
       <td>
-          <button class="btn btn-default bg-danger" style="" onclick="" >Cancel</button>
+          <button class="btn btn-default bg-danger" onclick="" >Cancel</button>
       </td>
   </tr>
   </tbody>
 </table>
 
+<h3 id="finished_title" class="text-finished">Finished</h3>
 <table id="finished" class="table table-striped  table-responsive bg-light table_of_customers">
-    <h3 class="text-finished">Finished</h3>
     <thead>
     <tr>
         <th scope="col">Time</th>
@@ -153,7 +148,7 @@ include('html_nav_component.php');
         <td>BA-345-DS</td>
         <td>BA-345-DS</td>
         <td>
-            <button class="btn btn-default bg-danger" style="" onclick="" >Cancel</button>
+            <button class="btn btn-default bg-danger" onclick="" >Cancel</button>
 
         </td>
 

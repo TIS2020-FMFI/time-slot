@@ -13,8 +13,8 @@ include('html_head_component.php');
 include('html_nav_component.php');
 include('exception_handler.php');
 ?>
-<div id="role_down"></div>>
-<div class="container" style="margin-top: 82px;">
+<div id="role_down">
+<div class="container" >
     <div class="row">
         <div class="col-sm">
             <h6><b>Day</b>
@@ -37,6 +37,7 @@ include('exception_handler.php');
                 <br>If checked, time-slots will be generated despite the set <span class="text-danger">holidays</span>.</h6>
         </div>
     </div>
+</div>
 </div>
 <br>
 <div class="container">
@@ -168,11 +169,11 @@ include('exception_handler.php');
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h6><center>The changes will take effect with the next automatic generation (following Wednesday, 24:00)</center></h6>
+            <h6 class="text-center">The changes will take effect with the next automatic generation (following Wednesday, 24:00)</h6>
             <button class="btn btn-lg btn-success btn-block text-uppercase"  onclick="set_new_times()">SET</button>
         </div>
         <div class="col-sm">
-            <h6><center>The changes will take effect immediately and all time-slots will be regenerated! <b>This information will be updated once it's clear how that actually works.</b></center></h6>
+            <h6 class="text-center">The changes will take effect immediately and all time-slots will be regenerated! <b>This information will be updated once it's clear how that actually works.</b></h6>
             <button class="btn btn-lg btn-danger btn-block text-uppercase"  onclick="regenerate_new_time_slots()">REGENERATE</button>
         </div>
 
@@ -195,7 +196,7 @@ include('exception_handler.php');
 <div class="container">
     <div class="row">
         <div class="col-sm">
-            <h6><center>The holidays changes will take effect with the next automatic generation (following Wednesday, 24:00)</center></h6>
+            <h6 class="text-center">The holidays changes will take effect with the next automatic generation (following Wednesday, 24:00)</h6>
             <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit" onclick="set_new_holidays()">SET</button>
         </div>
 
@@ -209,10 +210,10 @@ include('exception_handler.php');
         <div class="col-sm">
             <h6><b>Disable ramps</b>
                 <br>Any ramp can be disabled by marking the check boxes for specific days.</h6>
-            <table id="calendar_dates" class="table " style="display: revert"  >
+            <table id="calendar_dates" class="table "   >
                 <thead>
                 <tr>
-                    <th class=" th_top_float_bar right_border_state days_in_calendar_closer_last" scope="col" style="text-align: center"></th>
+                    <th class=" th_top_float_bar right_border_state days_in_calendar_closer_last" scope="col" ></th>
                     <th class="days_in_calendar_closer" scope="col">1 date</th>
                     <th class="days_in_calendar_closer" scope="col">2 date</th>
                     <th class="days_in_calendar_closer" scope="col">3 date</th>

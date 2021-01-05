@@ -14,8 +14,8 @@ include('html_nav_component.php');
 include('exception_handler.php');
 ?>
 
-<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top:50px; z-index: 10;">
-  <table class="table"  style="margin-bottom: 0px;" >
+<div class="table-responsive bg-light fixed-top" id="role_down" >
+  <table class="table"   >
     <thead>
     <tr>
       <th class="top_bar" scope="col" >
@@ -23,8 +23,8 @@ include('exception_handler.php');
       </th>
 
       <th class="top_bar" scope="col">
-        <div class="form-group" style="margin: 0px">
-            <label for="change_select_role"></label><select class="form-control" id="change_select_role" onchange="select_only()">
+        <div class="form-group m-0" >
+            <select class="form-control" id="change_select_role" onchange="select_only()">
             <option>Select Only</option>
             <option>Administrator</option>
             <option>Internal dispatcher</option>
@@ -34,8 +34,8 @@ include('exception_handler.php');
         </div>
       </th>
         <th class="top_bar" scope="col">
-            <div class="form-group" style="margin: 0px">
-                <label for="change_select_type_working"></label><select class="form-control" id="change_select_type_working" onchange="select_only()">
+            <div class="form-group m-0" >
+                <select class="form-control" id="change_select_type_working" onchange="select_only()">
                     <option>Only working</option>
                     <option>Only not working</option>
                     <option>All employee</option>
@@ -44,20 +44,20 @@ include('exception_handler.php');
         </th>
       <th class="top_bar" scope="col" >
 
-          <button id="new" class="btn btn-default bg-success" style="margin-right: 10px; float: right;" onclick="add_new_customer()" >Add new</button>
+          <button id="new" class="btn btn-default bg-success"  onclick="add_new_customer()" >Add new</button>
 
       </th>
         <th class="top_bar" scope="col" >
 
-            <button id="edit" class="btn btn-default bg-primary" style="margin-right: 10px; float: right;" onclick="edit_employees()" >Edit</button>
-            <button id="update" class="btn btn-default bg-success" style="margin-right: 10px; float: right; display: none;" onclick="update_employees()" >Update</button>
+            <button id="edit" class="btn btn-default bg-primary"  onclick="edit_employees()" >Edit</button>
+            <button id="update" class="btn btn-default bg-success"  onclick="update_employees()" >Update</button>
 
         </th>
     </tr>
     </thead>
   </table>
 </div>
-<table class="table table-striped  table-responsive bg-light table_of_customers" style="margin-top: 136px;z-index: 10;">
+<table class="table table-striped  table-responsive bg-light table_of_customers" >
   <thead>
   <tr>
     <th scope="col">First</th>
@@ -73,14 +73,14 @@ include('exception_handler.php');
 </table>
 
 
-<div class="container add_customer" style="margin-top: 136px;">
+<div class="container add_customer">
   <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-3">
         <div class="card-body">
             <div class="row">
                 <div class="col-9"><h5 class="card-title text-left text-primary">New employee</h5></div>
-                <div class="col-0"> <button class="btn  btn-danger text-right  text-uppercase " type="button" onclick="close_new_customer()" style="width: auto;margin: auto;">close</button>
+                <div class="col-0"> <button class="btn  btn-danger text-right  text-uppercase " type="button" onclick="close_new_customer()">close</button>
                 </div>
             </div>
 

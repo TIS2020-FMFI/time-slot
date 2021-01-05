@@ -1,3 +1,9 @@
+#role_down{
+    margin-top: 56px;z-index: 200;
+}
+.table{
+    margin-bottom: 0px;
+}
 canvas {
     -moz-user-select: none;
     -webkit-user-select: none;
@@ -23,4 +29,13 @@ label{
 
 .table thead .D_S{
     width: 5%;
+}
+#direct_select{
+    max-width: 5%;
+}
+#camera{
+    max-width: 10px;
+}
+#chard{
+    margin-top: 150px;
 }

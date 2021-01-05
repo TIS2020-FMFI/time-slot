@@ -7,3 +7,6 @@
 .internal_dispatcher{
     width: 100%;
 }
+#top_timer_text{
+    margin-bottom: 20px;
+}

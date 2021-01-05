@@ -15,8 +15,8 @@ include('exception_handler.php');
 ?>
 
 
-<div class="table-responsive bg-light fixed-top" id="role_down" style="margin-top: 56px;width: auto; margin-bottom: 0px;z-index: 10;">
-  <table class="table" style="margin-bottom: 0px;" >
+<div class="table-responsive bg-light fixed-top" id="role_down" >
+  <table class="table"  >
     <thead>
     <tr>
       <th class="top_bar" scope="col" >
@@ -27,7 +27,8 @@ include('exception_handler.php');
     </thead>
   </table>
 </div>
-<table id='finished' class="table table-striped  table-responsive bg-light table_of_customers " style="margin-top: 119px">
+
+<table id='finished' class="table table-striped  table-responsive bg-light table_of_customers " >
   <thead>
      <tr>
          <th scope="col">Truck Drivers</th>
@@ -46,7 +47,7 @@ include('exception_handler.php');
       <td>9x BMW</td>
       <td>5</td>
       <td>
-          <button class="btn btn-default bg-success" style="" onclick="confirm_time_slot()" >Confirm</button>
+          <button class="btn btn-default bg-success" onclick="confirm_time_slot()" >Confirm</button>
       </td>
   </tr>
   </tbody>
