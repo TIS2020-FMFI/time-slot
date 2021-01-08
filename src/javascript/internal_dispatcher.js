@@ -57,6 +57,7 @@ function load_all_time_slots() {
         }
     });
     generate_gate_selector(document.getElementById('select_gate'));
+
 }
 
 //let display_resolution = 7; // toto je premenna na faktor nasobenia pre ziskanie spravnich time slotov po kliknuti na show
@@ -404,9 +405,14 @@ function global_calendar(start_index, end_index){
                 row_gates_titles[i].innerHTML = "None";
             }
         }
+        make_table_for_external_dispatcher('prepared','prepared_tr','prepared');
+        make_table_for_external_dispatcher('requested','requested_tr','requested');
+        make_table_for_external_dispatcher('booked','booked_tr','booked');
+        make_table_for_external_dispatcher('finished','finished_tr','finished');
     }catch (err){
         console.log('time to load');
         setTimeout(global_calendar,100,start_index, end_index);
+
     }
 }
 
@@ -472,10 +478,7 @@ function find_by(elem){
         document.getElementById('finished').style.display = 'revert';
 
 
-        make_table_for_external_dispatcher('prepared','prepared_tr','prepared');
-        make_table_for_external_dispatcher('requested','requested_tr','requested');
-        make_table_for_external_dispatcher('booked','booked_tr','booked');
-        make_table_for_external_dispatcher('finished','finished_tr','finished');
+
         select_only_text_with(elem);
         document.getElementById('ramp_title').innerHTML = "Find by : "+elem.value;
     }else{
@@ -617,7 +620,7 @@ function select_only_text_with(elem){
         // jedine tieto zobraz ak je text urciteho typu
         document.getElementById(text).style.display = 'revert';
         document.getElementById(text+'_h3').style.display = 'revert';
-        select(text,':')
+        select(text,':');
     }else{
         document.getElementById('prepared_h3').style.display = 'revert';
         document.getElementById('requested_h3').style.display = 'revert';
@@ -629,26 +632,38 @@ function select_only_text_with(elem){
         document.getElementById('booked').style.display = 'revert';
         document.getElementById('finished').style.display = 'revert';
         for (let i = 0 ;i < array_of_options.length;i++){
-            select(text,array_of_options[i])
+            select(text,array_of_options[i]);
         }
     }
 
 
 }
 function select(lock_for,option){
-    let founded = false;
-    let table_rows_with_class_name = document.getElementsByClassName(option+"_tr");
-    for (let row = 0 ; row < table_rows_with_class_name.length; row++){
-        founded = false;
-        for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
-            if (table_rows_with_class_name[row].childNodes[column].innerHTML.includes(lock_for)) {
-                founded = true;
+    // console.log('som tu s : ',lock_for)
+    if (array_of_options.includes(lock_for)){
+        let table_rows_with_class_name = document.getElementsByClassName(lock_for+"_tr");
+        for (let row = 0 ; row < table_rows_with_class_name.length; row++) {
+            for (let column = 0; column < table_rows_with_class_name[row].childNodes.length - 1; column++) {
+                table_rows_with_class_name[row].style.display = 'revert';
             }
         }
-        if (founded === false){
-            table_rows_with_class_name[row].style.display = 'none';
-        }else{
-            table_rows_with_class_name[row].style.display = 'revert';
+    }else{
+        let founded = false;
+        let table_rows_with_class_name = document.getElementsByClassName(option+"_tr");
+        for (let row = 0 ; row < table_rows_with_class_name.length; row++){
+            founded = false;
+            for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
+                if (table_rows_with_class_name[row].childNodes[column].innerHTML.includes(lock_for)) {
+                    founded = true;
+                }
+            }
+            if (founded === false){
+                // console.log('nieee');
+                table_rows_with_class_name[row].style.display = 'none';
+            }else{
+                // console.log('JEEEJ');
+                table_rows_with_class_name[row].style.display = 'revert';
+            }
         }
     }
 }
