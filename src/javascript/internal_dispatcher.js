@@ -56,10 +56,7 @@ function load_all_time_slots() {
             create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
-    //console.log("im execiuted");
-    //generate_gate_selector(document.getElementById('select_gate'));
-    setTimeout(generate_gate_selector,250,document.getElementById('select_gate')); // nutne cakanie koli spracovaniu dat ktor boli ziskane ajaxom
-
+    generate_gate_selector(document.getElementById('select_gate'));
 }
 
 //let display_resolution = 7; // toto je premenna na faktor nasobenia pre ziskanie spravnich time slotov po kliknuti na show
@@ -68,18 +65,20 @@ let selected_date ;
  * funkica ktora nacita akutalni datum dnesneho dna a prradi ho do mini calendaru
  */
 setTimeout(first_load,250);
+//first_load();
 function first_load(){
-    load_all_time_slots()
-    let currentTime = new Date()
+    load_all_time_slots();
 
-    document.getElementById('input_date').value= currentTime.toISOString().substr(0,10);
+    let currentTime = new Date();
+
+    document.getElementById('input_date').value = currentTime.toISOString().substr(0,10);
     currentTime.setDate(currentTime.getDate()-7);
     document.getElementById('input_date').min= currentTime.toISOString().substr(0,10);
     currentTime.setDate(currentTime.getDate()+21);
     document.getElementById('input_date').max= currentTime.toISOString().substr(0,10);
     selected_date = (new Date()).toISOString().substr(0,10);
     loop();
-    update_handler()
+    setTimeout(update_handler , 60*5*1000);
     //console.log(selected_date);
 }
 // window.onload= function() {
@@ -357,53 +356,57 @@ function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,
  * @param end_index :integer
  */
 function global_calendar(start_index, end_index){
+    try{
+        let row_prepared_occupied =  document.getElementsByClassName('prepared_occupied');
+        let row_requested = document.getElementsByClassName('requested');
+        let row_booked = document.getElementsByClassName('booked');
+        let row_finished = document.getElementsByClassName('finished');
+        let row_gates_titles = document.getElementsByClassName('days_in_calendar');
 
-    let row_prepared_occupied =  document.getElementsByClassName('prepared_occupied');
-    let row_requested = document.getElementsByClassName('requested');
-    let row_booked = document.getElementsByClassName('booked');
-    let row_finished = document.getElementsByClassName('finished');
-    let row_gates_titles = document.getElementsByClassName('days_in_calendar');
+        let enumerate = 0;
+        for(let i = 0 ; i < gates.array_of_calendars.length; i++){
+            if (gates.ids[i]  >= start_index &&  gates.ids[i] <= end_index  ){
+                let index = gates.array_of_calendars[i].get_index_by_real_time(selected_date);
+                if (index  !== -1){
+                    let all =  gates.array_of_calendars[i].time_slots[index].states.length ;
+                    let prepared = gates.array_of_calendars[i].time_slots[index].count_of_states("prepared");
 
-    let enumerate = 0;
-    for(let i = 0 ; i < gates.array_of_calendars.length; i++){
-        if (gates.ids[i]  >= start_index &&  gates.ids[i] <= end_index  ){
-            let index = gates.array_of_calendars[i].get_index_by_real_time(selected_date);
-            if (index  !== -1){
-                let all =  gates.array_of_calendars[i].time_slots[index].states.length ;
-                let prepared = gates.array_of_calendars[i].time_slots[index].count_of_states("prepared");
+                    let occupied = gates.array_of_calendars[i].time_slots[index].count_of_states("occupied");
 
-                let occupied = gates.array_of_calendars[i].time_slots[index].count_of_states("occupied");
+                    let requested =gates.array_of_calendars[i].time_slots[index].count_of_states("requested");
+                    let booked = gates.array_of_calendars[i].time_slots[index].count_of_states("booked");
 
-                let requested =gates.array_of_calendars[i].time_slots[index].count_of_states("requested");
-                let booked = gates.array_of_calendars[i].time_slots[index].count_of_states("booked");
-
-                let finished = gates.array_of_calendars[i].time_slots[index].count_of_states("finished");
-                row_prepared_occupied[enumerate].innerHTML = ""+(prepared+occupied)+"/"+all;
-                row_requested[enumerate].innerHTML = ""+requested+"/"+all;
-                row_booked[enumerate].innerHTML = ""+booked+"/"+all;
-                row_finished[enumerate].innerHTML = ""+finished+"/"+all;
+                    let finished = gates.array_of_calendars[i].time_slots[index].count_of_states("finished");
+                    row_prepared_occupied[enumerate].innerHTML = ""+(prepared+occupied)+"/"+all;
+                    row_requested[enumerate].innerHTML = ""+requested+"/"+all;
+                    row_booked[enumerate].innerHTML = ""+booked+"/"+all;
+                    row_finished[enumerate].innerHTML = ""+finished+"/"+all;
 
 
-            }else{
-                row_prepared_occupied[enumerate].innerHTML = "None";
-                row_requested[enumerate].innerHTML = "None";
-                row_booked[enumerate].innerHTML = "None";
-                row_finished[enumerate].innerHTML = "None";
+                }else{
+                    row_prepared_occupied[enumerate].innerHTML = "None";
+                    row_requested[enumerate].innerHTML = "None";
+                    row_booked[enumerate].innerHTML = "None";
+                    row_finished[enumerate].innerHTML = "None";
+                }
+                row_gates_titles[enumerate].innerHTML = gates.ids[i]+" ramp";
+                enumerate ++;
             }
-            row_gates_titles[enumerate].innerHTML = gates.ids[i]+" ramp";
-            enumerate ++;
-        }
 
-    }
-    if (enumerate+start_index < end_index ){
-        console.log(enumerate+start_index , end_index )
-        for (let i = enumerate;i < end_index-start_index+1;i++){
-            row_prepared_occupied[i].innerHTML = "None";
-            row_requested[i].innerHTML = "None";
-            row_booked[i].innerHTML = "None";
-            row_finished[i].innerHTML = "None";
-            row_gates_titles[i].innerHTML = "None";
         }
+        if (enumerate+start_index < end_index ){
+            console.log(enumerate+start_index , end_index )
+            for (let i = enumerate;i < end_index-start_index+1;i++){
+                row_prepared_occupied[i].innerHTML = "None";
+                row_requested[i].innerHTML = "None";
+                row_booked[i].innerHTML = "None";
+                row_finished[i].innerHTML = "None";
+                row_gates_titles[i].innerHTML = "None";
+            }
+        }
+    }catch (err){
+        console.log('time to load');
+        setTimeout(global_calendar,100,start_index, end_index);
     }
 }
 
@@ -414,10 +417,6 @@ let base_selected_index = 0;
  * @param elem
  */
 function generate_gate_selector(elem){
-    //if (document.getElementById("ramp_title").innerHTML === 'invalid date' &&  selected_date < document.getElementById('input_date').min ) {
-    //         console.log("zli datum generate_gate_selector", selected_date)
-    //         return
-    //     }
     console.log(document.getElementById("select_gate").selectedIndex);
     if (elem===1) {
         if (base_selected_index+1 > 5) {
@@ -428,7 +427,6 @@ function generate_gate_selector(elem){
         }
     }
     if (elem===-1) {
-        //console.log(document.getElementById("select_gate").option)
         if (base_selected_index-1 < 0) {
             base_selected_index = 5;
         } else {
@@ -459,10 +457,6 @@ function generate_gate_selector(elem){
  * @param elem :HTML
  */
 function find_by(elem){
-    //if (document.getElementById("ramp_title").innerHTML === 'invalid date') {
-    //         console.log("zli datum  filter_text")
-    //         return
-    //     }
     if (elem.value !== ""){
         document.getElementById('calendar_dates').style.display = 'none';
         document.getElementById('calendar').style.display = 'none';
