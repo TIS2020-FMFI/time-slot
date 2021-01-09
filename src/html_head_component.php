@@ -40,9 +40,8 @@ if (! isset($page)){
     <?php if ($page == 'contact'){ ?>
         <!-- Our JavaScript -->
         <script src="javascript/log_out.js"></script>
-        <!-- <script src="javascript/change_password.js"></script>     TOTOT SA MI NEZDA ZE TU MA BYT-->
         <!-- Modified Bootstrap CSS -->
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/change_password.css">
         <title>Contact Page </title>
     <?php }?>
     <?php if ($page == 'config'){ ?>
@@ -58,7 +57,7 @@ if (! isset($page)){
         <script src="javascript/log_out.js"></script>
         <script src="javascript/change_password.js"></script>
         <!-- Modified Bootstrap CSS -->
-        <link rel="stylesheet" href="css/login.css">
+        <link rel="stylesheet" href="css/change_password.css">
         <title>Change Password Page</title>
     <?php }?>
     <?php if ($page == 'external_dispatcher_main_page'){ ?>

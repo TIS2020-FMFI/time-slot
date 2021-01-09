@@ -1,10 +1,12 @@
-.navbar{
-    //margin-left: -15px;
-    //margin-right: -15px;
+#role_down{
+    margin-top: 56px;z-index: 200;
 }
 #main_row{
     padding-top: 5px;
     padding-bottom: 5px;
+}
+.table{
+    margin-bottom: 0px;
 }
 .table thead .top_bar{
     border-bottom: 0px;
@@ -54,18 +56,16 @@
     margin-left: -15px;
     margin-right: -15px;
     margin-bottom: 0px;
+    z-index: 10;
 }
 .add_customer{
     display: none;
-    /*
-    width: auto;
-    margin-left: -15px;
-    margin-right: -15px;
-    margin-bottom: 0px;
-    */
 }
 .form-label-group label{
     margin-right: 10%;
+}
+#update{
+    display: none;
 }
 
 table thead th{
@@ -93,7 +93,34 @@ table thead th{
 .mobile_setup{
     display: revert;
 }
-@media(max-width: 600px) {
+
+.form-control{
+    min-width: 80px;
+}
+.table thead .top_bar{
+    border-bottom: 0px;
+    vertical-align: top;
+}
+.first_name_inputs {
+    width: auto;
+}
+
+.last_name_inputs {
+    width: auto;
+}
+
+.email_inputs {
+    width: auto;
+}
+.firm_inputs{
+    width: auto;
+}
+.email_inputs{
+    width: auto;
+}
+
+
+@media(min-width: 0px) {
     .first_name_inputs {
         width: 50px;
     }
@@ -105,5 +132,82 @@ table thead th{
     .email_inputs {
         width: 80px;
     }
+    .firm_inputs{
+        width: 100px;
+    }
+    .email_inputs{
+        width: 120px;
+    }
+    .table_of_customers , .add_customer{
+        margin-top: 136px;
+    }
 
+}
+@media (min-width: 767px) {
+    .first_name_inputs {
+        width: auto;
+    }
+
+    .last_name_inputs {
+        width: auto;
+    }
+
+    .email_inputs {
+        width: auto;
+    }
+    .firm_inputs{
+        width: auto;
+    }
+    .email_inputs{
+        width: auto;
+    }
+    .table_of_customers ,.add_customer{
+        margin-top: 115px;
+    }
+}
+
+@media (min-width: 991px){
+    .first_name_inputs {
+        width: auto;
+    }
+
+    .last_name_inputs {
+        width: auto;
+    }
+
+    .email_inputs {
+        width: auto;
+    }
+    .firm_inputs{
+        width: auto;
+    }
+    .email_inputs{
+        width: auto;
+    }
+    .table_of_customers ,.add_customer{
+        margin-top: 115px;
+    }
+}
+
+@media (min-width: 1199px) {
+    .first_name_inputs {
+        width: auto;
+    }
+
+    .last_name_inputs {
+        width: auto;
+    }
+
+    .email_inputs {
+        width: auto;
+    }
+    .firm_inputs{
+        width: auto;
+    }
+    .email_inputs{
+        width: auto;
+    }
+    .table_of_customers ,.add_customer{
+        margin-top: 115px;
+    }
 }

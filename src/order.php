@@ -8,7 +8,6 @@ if ($_SESSION['role'] == "EXD" || $_SESSION['role'] == "AD" ||$_SESSION['role'] 
 <?php
 $page = 'order_page';
 include('html_head_component.php');
-//include('exception_handler.php');
 ?>
 <body>
 <?php
@@ -16,36 +15,15 @@ include('exception_handler.php');
 ?>
 <div class="container">
     <div class="row">
-<!--        MOZNOST 1111111-->
-<!--        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">-->
-<!--            <div class="card card-signin my-5 ">-->
-<!--                <div class="card-body">-->
-<!--        --><?php
-//        if ($_SESSION['active_time_slot_state'] == 'prepared'){
-//            ?>
-<!--            When time hits <span class="text-danger" >00:00 </span> u are no longer able to operate on this this time slot  and u will be retargeted to main page <span id="timer" class="text-danger" >00:00</span>-->
-<!--        --><?php
-//        }else{
-//            ?>
-<!--            Please make changes before time hitttts <span class="text-danger" >00:00 </span> if time is 00:00 the changes will NOT saved and u will be retargeted to main page <span id="timer" class="text-danger" >00:00</span>-->
-<!---->
-<!--        --><?php
-//        }
-//        ?>
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5 ">
                 <div class="card-body">
-                    <!--        MOZNOST 22222222-->
-                    <div class="justify-content-center" style="margin-bottom: 20px">
+                    <div id="top_timer_text" class="justify-content-center" >
                         The document will be closed once the timer reaches <span class="text-danger" >00:00</span> and your changes will not be saved. You will be redirected to the main page in: <span id="timer" class="text-danger" >00:00</span>
                     </div>
                     <div class="row">
                         <div class="col-9"><h5 class="card-title text-center text-primary">PRODUCT EXPORT DOCUMENT</h5></div>
-                        <div class="col-1"> <button class="btn  btn-danger  text-uppercase " type="button" onclick="close_time_slot_in_order()" style="width: auto;margin: auto;">close</button>
+                        <div class="col-1"> <button class="btn  btn-danger  text-uppercase " type="button" onclick="close_time_slot_in_order()" >close</button>
                         </div>
                     </div>
 

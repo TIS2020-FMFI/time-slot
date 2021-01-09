@@ -48,7 +48,7 @@ include('exception_handler.php');
         <?php
     }else if($_SESSION['role'] == 'EXD'){
         ?>
-        <script>window.open('external.php',"_self");</script>
+        <script>window.open('external_dispatcher.php',"_self");</script>
         <?php
     }else if ($_SESSION['role'] == 'GM'){
         ?>

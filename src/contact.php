@@ -13,19 +13,19 @@ include('html_head_component.php');
 <?php
 include('html_nav_component.php');
 ?>
-<div id="role_down"></div>>
-<div class="container" style="margin-top: 56px;">
+<div id="role_down">
+<div class="container" >
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <h3 class="card-title text-center">Contact us</h3>
-                    <div class="form-label-group" style="margin-bottom: 20px">
+                    <div class="form-group" >
                         <p class="text-center w-responsive mx-auto mb-5">Do you have any problem? Please do not
                             hesitate to contact us directly. Our team will help you.</p>
                     </div>
 
-                    <div class="form-label-group"style="margin-bottom: 20px">
+                    <div class="form-group">
                         <p class="text-center w-responsive mx-auto mb-5">e-mail: simona.dubekova@gmail.com
                             <br> telephone: +421900 000 000</p>
                     </div>
@@ -33,6 +33,7 @@ include('html_nav_component.php');
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 

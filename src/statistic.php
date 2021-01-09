@@ -13,18 +13,17 @@ include('exception_handler.php');
 <?php
 include('html_nav_component.php');
 ?>
-<div class="table-responsive bg-light fixed-top " id="role_down" style="margin-top: 56px; z-index: 200;">
-    <table class="table" style="margin-bottom: 0px;" >
-        <!--tento Thead je pre pouzivatela interneho dispatchera  -->
+<div class="table-responsive bg-light fixed-top " id="role_down" >
+    <table class="table" >
         <thead>
         <tr>
             <th class="top_bar" scope="col" >
-                <label for="input_text"></label><input id="input_text" type="text" class="form-control" placeholder="Find by"  style="display: inherit" oninput="pre_make_chard()"  >
+                <label for="input_text"></label><input id="input_text" type="text" class="form-control" placeholder="Find by"   oninput="pre_make_chard()"  >
             </th>
             <th class="top_bar D_S" scope="col" >
             <div class="form-group">
                 <label for="direct_select"></label>
-                <select class="form-control" id="direct_select" onchange="pre_make_chard(this)" style="max-width: 5%" >
+                <select class="form-control" id="direct_select" onchange="pre_make_chard(this)" >
                     <option class="option">''</option>
                 </select>
             </div>
@@ -76,27 +75,18 @@ include('html_nav_component.php');
                 </div>
             </th>
             <th class="top_bar " scope="col">
-                <button class="btn btn-default bg-success only_one" style="" onclick="export_all_statistics()" >export all</button>
+                <button class="btn btn-default bg-success only_one"  onclick="export_all_statistics()" >export all</button>
             </th>
-            <th class="top_bar" scope="col" style="max-width: 10px">
-               <img class=""  src="camera.png" width="32" style="display: flex" onclick="take_picture()"  alt="take picture">
+            <th id="camera" class="top_bar" scope="col" >
+               <img class="d-flex"  src="camera.png" width="32"  onclick="take_picture()"  alt="take picture">
             </th>
         </tr>
         </thead>
     </table>
 </div>
-<!--<div class="container">-->
-<!--    <div class="row">-->
-<!--        <div class="col">-->
-<!--                    <canvas id="myChart"></canvas>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!--<img class="fixed-bottom-right float-left"  src="camera.png" width="32" style="display: flex" onclick="take_picture()"  alt="take picture">-->
-<div class="container" style="margin-top: 150px;">
+<div id="chard" class="container" >
     <canvas id="myChart"></canvas>
 </div>
-<!--<button onclick="make_chard()">  exceitu</button>-->
 
 
 </body>

@@ -168,10 +168,7 @@ function first_load(){
             }
         }
     });
-    // Chart.defaults.backgroundColor = '#d21010';
-    ///myChart = '#fefefe';backgroundColor
-    // myChart.fillStyle = "#ec0000";
-    // myChart.fillRect(0, 0, myCanvas.width, myCanvas.height);
+
     massPopChart = new Chart(myChart, {
         type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
         data:{
@@ -227,7 +224,7 @@ function first_load(){
 
 
 }
-setTimeout(first_load,500)
+setTimeout(first_load,250)
 function get_all_real_times_between(from,to){
     try {
         let list_of_dates = [];

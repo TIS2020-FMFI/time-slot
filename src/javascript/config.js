@@ -14,11 +14,11 @@ function  load_holidays(){
         if (data){
             set_html_holidays(data)
         }else{
-            alert("chyba nacitana dat s db");
+            create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
 }
-load_holidays()
+load_holidays();
 function set_html_holidays(data){
     document.getElementById('exampleFormControlTextarea1').innerText = data[0];
     array_of_holiday = data[0][0].split(',');
@@ -41,7 +41,6 @@ function  load_config_table(){
     });
     $.post('config_AJAX/load_config_table.php',{
     },function(data){
-
         if (data){
             if (typeof data === 'object'){
                 set_html_times(data)
@@ -66,23 +65,26 @@ function  load_config_table(){
     });
 
 }
-load_config_table()
-
+load_config_table();
 function set_html_times(data){
-    console.log(affected_days_in_week);
-    for (let day = 0 ;day < array_of_days.length;day++){
-        if (array_of_holiday.includes(affected_days_in_week[day].substring(5, 10))){
-            document.getElementById(prefix_day+array_of_days[day]).innerHTML += "<br><span class='text-danger'>"+affected_days_in_week[day]+"<span>";
-        }else{
-            document.getElementById(prefix_day+array_of_days[day]).innerHTML += "<br><span class='text-success'>"+affected_days_in_week[day]+"<span>";
+    if (affected_days_in_week !== undefined){
+        for (let day = 0 ;day < array_of_days.length;day++){
+            if (array_of_holiday.includes(affected_days_in_week[day].substring(5, 10))){
+                document.getElementById(prefix_day+array_of_days[day]).innerHTML += "<br><span class='text-danger'>"+affected_days_in_week[day]+"<span>";
+            }else{
+                document.getElementById(prefix_day+array_of_days[day]).innerHTML += "<br><span class='text-success'>"+affected_days_in_week[day]+"<span>";
+            }
+            document.getElementById(prefix_start_time+array_of_days[day]).value = data[day][1];
+            document.getElementById(prefix_end_time+array_of_days[day]).value =  data[day][2];
+            if (data[day][3] === '1'){
+                document.getElementById(prefix_special_time+array_of_days[day]).checked = true;
+            }
         }
-        document.getElementById(prefix_start_time+array_of_days[day]).value = data[day][1];
-        document.getElementById(prefix_end_time+array_of_days[day]).value =  data[day][2];
-        if (data[day][3] === '1'){
-            document.getElementById(prefix_special_time+array_of_days[day]).checked = true;
-        }
+        set_html_for_ramps()
+    }else{
+        setTimeout(set_html_times,100,data);
     }
-    set_html_for_ramps()
+
 }
 function set_html_for_ramps(){
     let elem = document.getElementsByClassName("days_in_calendar_closer");

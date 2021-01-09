@@ -198,13 +198,16 @@ function select_only(elem){
         for (let i = 0 ;i < array_of_options.length;i++){
             if (array_of_options[i] !== display_only[1]){
                 document.getElementById(array_of_options[i]).style.display ='none';
+                document.getElementById(array_of_options[i]+'_title').style.display ='none';
             }else{
                 document.getElementById(array_of_options[i]).style.display ='revert';
+                document.getElementById(array_of_options[i]+'_title').style.display ='revert';
             }
         }
     }else{
         for (let i = 0 ;i < array_of_options.length;i++){
             document.getElementById(array_of_options[i]).style.display ='revert';
+            document.getElementById(array_of_options[i]+'_title').style.display ='revert';
         }
 
     }

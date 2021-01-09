@@ -14,14 +14,13 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     <?php
     include('html_nav_component.php');
     ?>
-    <div id="only_requested" class="fixed-top bg-warning justify-content-center" style="min-width: 100px;max-width: 100px;left: 100px;display: flex" onclick="show_requested()">
-        <img src="request_sign.png" width="32" style="position: relative;right: 10px" alt="info_sign">
-        <p id="only_requested_count" class="text-danger" style="margin: 0px;margin-top: 5px;">count</p>
+    <div id="only_requested" class="fixed-top bg-warning justify-content-center curs" onclick="show_requested()">
+        <img src="request_sign.png" width="32" alt="info_sign">
+        <p id="only_requested_count" class="text-danger" >count</p>
     </div>
 
-<div class="table-responsive bg-light fixed-top " id="role_down" style="margin-top: 56px;z-index: 200;">
-  <table class="table" style="margin-bottom: 0px;" >
-    <!--tento Thead je pre pouzivatela interneho dispatchera  -->
+<div class="table-responsive bg-light fixed-top " id="role_down" >
+  <table class="table" >
     <thead>
     <tr>
       <th class="top_bar td_flex_buttons" scope="col" >
@@ -31,32 +30,36 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
           <h4 id="ramp_title" class="text-primary">Ramps 1 - 7</h4>
       </th>
 
-      <th class="top_bar" scope="col" style="padding-left: 0px;padding-right: 0px;">
+      <th class="top_bar" scope="col" >
 
       </th>
 
-      <th class="top_bar" scope="col" style="min-width: 100px;max-width: 100px">
-          <label for="input_text"></label><input id="input_text" type="text" class="form-control" placeholder="Find by"  style="display: inherit" oninput="find_by(this)"  >
+      <th id="find_by_th" class="top_bar" scope="col" >
+          <label for="input_text"></label><input id="input_text" type="text" class="form-control" placeholder="Find by"   oninput="find_by(this)"  >
 
       </th>
-        <th class="top_bar" scope="col" style="max-width: 10px">
-            <img src="request_sign_info.png" width="32" style="display: flex" onmouseenter="show_info()" onmouseleave="hide_info()" alt="info">
+        <th id="find_by_img_info" class="top_bar" scope="col" >
+            <img class="d-flex" src="request_sign_info.png" width="32" onmouseenter="show_info()" onmouseleave="hide_info()" alt="info">
         </th>
     </tr>
     </thead>
   </table>
 </div>
 
-<div class="table-responsive  bg-light" style="padding-top:126px;width: auto; margin-left: -15px;margin-bottom: 0px;
-    margin-right: -15px;">
+<div id="info" class="container w-50 fixed-top bg-dark" >
+    <p class="text-center text-light" >You can search by time-slot states (prepared, requested, booked, finished),<br>starting time of time-slot, company name, truck registration number (EVC), cargo and destination.</p>
+    <p class="text-center text-light" >Any time-slot data can be used for searching.</p>
+</div>
+
+<div id="global_view" class="table-responsive  bg-light" >
     <table id="calendar" class="table table-striped"  >
         <thead>
         <tr>
-            <th class=" th_top_float_bar right_border_state" scope="col" style="display: flex">
+            <th class=" th_top_float_bar right_border_state d-flex" scope="col" >
                 <button class="btn btn-default bg-primary" onclick="generate_gate_selector(-1)"><</button>
 
-                <div class="form-group" style="margin: 0px;width: 120px">
-                    <select class="form-control" id="select_gate" onchange="generate_gate_selector(this)"  style="display: block;"> <!-- onclick="generate_gate_selector(this)"-->
+                <div class="form-group m-0" >
+                    <select class="form-control" id="select_gate" onchange="generate_gate_selector(this)"  > <!-- onclick="generate_gate_selector(this)"-->
                         <option class="option_ramp">1 - 7</option>
                         <option class="option_ramp">8 - 14</option>
                         <option class="option_ramp">15 - 21</option>
@@ -132,10 +135,10 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     </table>
 
 
-    <table id="calendar_dates" class="table " style="display: none"  >
+    <table id="calendar_dates" class="table "  >
         <thead>
         <tr>
-            <th class=" th_top_float_bar right_border_state" scope="col" style="text-align: center">
+            <th class=" th_top_float_bar right_border_state text-center" scope="col" >
                 <button class="btn btn-default bg-danger"  onclick="show_full_gate('close')" >back </button>
             </th>
             <th class="days_in_calendar_closer" scope="col">1 date</th>
@@ -633,8 +636,8 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 </div>
 
 
-<h3 id="prepared_h3" class="text-success " style="padding-top:5px;display: none">PREPARED</h3 >
-<table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none" >
+<h3 id="prepared_h3" class="text-success find_by_divs_and_titles" >PREPARED</h3 >
+<table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers find_by_divs_and_titles" >
     <thead>
         <tr>
             <th scope="col">Time</th>
@@ -653,14 +656,14 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         <td></td>
         <td></td>
         <td class="td_flex_buttons">
-            <button class="btn btn-default bg-success only_one" style="" onclick="" >edit</button>
+            <button class="btn btn-default bg-success only_one" onclick="" >edit</button>
         </td>
     </tr>
     </tbody>
 </table>
 
-<h3 id="requested_h3" class="text-warning " style="padding-top:5px;display: none">Requested time-slot</h3>
-<table id="requested" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none">
+<h3 id="requested_h3" class="text-warning find_by_divs_and_titles" >Requested time-slot</h3>
+<table id="requested" class="table table-striped  table-responsive bg-light table_of_customers find_by_divs_and_titles" >
     <thead>
     <tr>
         <th scope="col">Time</th>
@@ -678,14 +681,14 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         <td>BA-435-SC</td>
         <td>Bratislava</td>
         <td class="td_flex_buttons">
-            <button class="btn btn-default bg-primary only_one" style="" onclick="" >edit</button>
+            <button class="btn btn-default bg-primary only_one"  onclick="" >edit</button>
         </td>
     </tr>
     </tbody>
 </table>
 
-<h3 id="booked_h3" class="text-danger " style="padding-top:5px;display: none">BOOKED</h3>
-<table id="booked" class="table table-striped  table-responsive bg-light table_of_customers " style="display: none">
+<h3 id="booked_h3" class="text-danger find_by_divs_and_titles">BOOKED</h3>
+<table id="booked" class="table table-striped  table-responsive bg-light table_of_customers find_by_divs_and_titles">
 
     <thead>
         <tr>
@@ -711,8 +714,8 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 </table>
 
 
-<h3 id="finished_h3" class="text-finished" style="padding-top:5px;display: none">Finished time-slot</h3>
-<table id="finished" class="table table-striped  table-responsive bg-light table_of_customers" style="display: none" >
+<h3 id="finished_h3" class="text-finished find_by_divs_and_titles">Finished time-slot</h3>
+<table id="finished" class="table table-striped  table-responsive bg-light table_of_customers find_by_divs_and_titles" >
     <thead>
     <tr>
         <th scope="col">Time</th>
@@ -730,7 +733,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         <td>BA-435-SC</td>
         <td>Bratislava</td>
         <td class="td_flex_buttons">
-            <button class="btn btn-default bg-primary only_one" style="" onclick="" >edit</button>
+            <button class="btn btn-default bg-primary only_one"  onclick="" >edit</button>
         </td>
     </tr>
     </tbody>
