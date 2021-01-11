@@ -10,7 +10,7 @@ if (isset($_SESSION['role'])){
                         destination ,
                         cargo
                         FROM time_slot 
-                         where start_date_time > CURDATE() - INTERVAL 7 DAY and start_date_time < CURDATE() +  INTERVAL 14 DAY 
+                         where start_date_time > CURDATE() - INTERVAL 7 DAY and start_date_time < CURDATE() +  INTERVAL 15 DAY 
                          ORDER BY id_gate ASC , start_date_time ASC ";
             if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
                 $vysl =  $result->fetch_all();

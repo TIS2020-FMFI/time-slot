@@ -5,7 +5,7 @@ if (!$mysqli->connect_errno) {
     if (isset($_SESSION['role']) ){
         if ( ($_SESSION['role'] == "AD" || $_SESSION['role'] == "IND") && $_SESSION['active_time_slot'] != ''){
 
-            $sql="SELECT meno_splocnosti FROM `employee` WHERE is_working='1' and role='EXD' ";
+            $sql="SELECT DISTINCT meno_splocnosti FROM `employee` WHERE is_working='1' and role='EXD' ";
             if ($result = $mysqli->query($sql)) {
                 $vysl =  $result->fetch_all();
                 header("Content-Type:application/json");

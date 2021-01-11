@@ -126,6 +126,7 @@ function load_all_company(){
                 option.text = data[i][0];
                 elem_selector.appendChild(option);
             }
+
         }else if(data.includes('*')){
             create_exception(data ,23,'warning');
         }else if(data !== ''){
