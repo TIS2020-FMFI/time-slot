@@ -10,7 +10,7 @@ if (isset($_SESSION['role'])){
                     truck_driver_2 as driver2,
                     destination ,
                     cargo
-                    FROM time_slot where state = 'prepared' or id_external_dispatcher = '{$_SESSION['id']}' and  start_date_time > CURDATE() - INTERVAL 7 DAY and start_date_time < CURDATE() +  INTERVAL 14 DAY 
+                    FROM time_slot where state = 'prepared' or id_external_dispatcher = '{$_SESSION['id']}' and  start_date_time > CURDATE() - INTERVAL 7 DAY and start_date_time < CURDATE() +  INTERVAL 15 DAY 
                     
                     ORDER BY id_gate ASC , start_date_time ASC";
             if ($result = $mysqli->query($sql)) {

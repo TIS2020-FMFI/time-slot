@@ -18,26 +18,40 @@ if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role
     <?php
     }elseif (($_SESSION['role'] == "AD" || $_SESSION['role'] == "IND") && $_SESSION['active_time_slot_state'] != 'prepared' && $_SESSION['active_time_slot_state'] != 'occupied'){
         ?>
-        <div class="form-label-group" style="display: flex;margin-top: 22px">
-            <label for="inputNameDopravca"></label>
+        <div class="form-label-group d-flex selectors" >
             <input type="text" id="inputNameDopravca" class="form-control" placeholder="* Company name" value=""  oninput="is_valid_company_name(this)" disabled required autofocus >
-            <label for="change_select_company"></label><select class="form-control" id="change_select_company" onchange="select_company(this)" style="max-width: 5%" disabled>
-                <option class="option">''</option>
+            <label for="change_select_company"></label><select class="form-control" id="change_select_company" onchange="select_company(this)"  disabled>
+                <option class="option" ></option>
             </select>
-            <img src="incorrect_sign_info.png" width="32" style="display: none" id="incorrect" alt="info">
-            <img src="correct_sign_info.png" width="32" style="display: flex;" id="correct" alt="info">
+            <img  src="incorrect_sign_info.png" width="32" id="incorrect" alt="info">
+            <img  src="correct_sign_info.png" width="32"  id="correct" alt="info">
+        </div>
+        <div class="form-label-group d-flex selectors" >
+            <input type="text" id="inputNameDopravca_email" class="form-control" placeholder="* Company employee email address" value=""  oninput="is_valid_company_email(this)"  disabled required autofocus>
+            <label for="change_select_company_email"></label><select class="form-control" id="change_select_company_email" onchange="select_email(this)" disabled>
+                <option class="option_email" ></option>
+            </select>
+            <img  src="incorrect_sign_info.png" width="32"  id="incorrect_email" alt="info">
+            <img src="correct_sign_info.png" width="32" id="correct_email" alt="info">
         </div>
         <?php
     }elseif ($_SESSION['role'] == "AD" || $_SESSION['role'] == "IND" && ($_SESSION['active_time_slot_state'] == 'prepared' || $_SESSION['active_time_slot_state'] == 'occupied')    ){
         ?>
-        <div class="form-label-group" style="display: flex;margin-top: 22px">
-            <label for="inputNameDopravca"></label>
+        <div class="form-label-group d-flex selectors" >
             <input type="text" id="inputNameDopravca" class="form-control" placeholder="* Company name" value=""  oninput="is_valid_company_name(this)" required autofocus >
-            <label for="change_select_company"></label><select class="form-control" id="change_select_company" onchange="select_company(this)" style="max-width: 5%">
-                <option class="option">''</option>
+            <label for="change_select_company"></label><select class="form-control" id="change_select_company" onchange="select_company(this)" >
+                <option class="option d-none" selected></option>
             </select>
-            <img src="incorrect_sign_info.png" width="32" style="display: flex " id="incorrect" alt="info">
-            <img src="correct_sign_info.png" width="32" style="display: none;" id="correct" alt="info">
+            <img src="incorrect_sign_info.png" width="32" id="incorrect" alt="info">
+            <img src="correct_sign_info.png" width="32"  id="correct" alt="info">
+        </div>
+        <div class="form-label-group d-flex selectors" >
+            <input type="text" id="inputNameDopravca_email" class="form-control" placeholder="* Company employee email address" value=""  oninput="is_valid_company_email(this)"  >
+            <label for="change_select_company_email"></label><select class="form-control" id="change_select_company_email" onchange="select_email(this)"  >
+                <option class="option_email d-none" selected></option>
+            </select>
+            <img  src="incorrect_sign_info.png" width="32"  id="incorrect_email" alt="info">
+            <img  src="correct_sign_info.png" width="32" id="correct_email" alt="info">
         </div>
     <?php
     }else{
@@ -89,7 +103,7 @@ if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role
         }else if (($_SESSION['role'] == "AD" || $_SESSION['role'] == "IND") &&  $_SESSION['active_time_slot_state'] == 'requested'){
             ?>
 
-            <button class="btn btn-lg btn-success  text-uppercase internal_dispatcher edit_button buttons" type="button" onclick="confirm_requested_time_slot()">confirm</button>
+            <button class="btn btn-lg btn-success  text-uppercase internal_dispatcher edit_button buttons" type="button" id="confirm_button"onclick="confirm_requested_time_slot()">confirm</button>
             <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="edit_button" onclick="edit_requested_time_slot()">edit</button>
             <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="update_button" onclick="update_requested_time_slot()" disabled>update</button>
             <button class="btn btn-lg btn-danger  text-uppercase internal_dispatcher edit_button buttons" type="button" onclick="delete_requested_time_slot()">Delete</button>

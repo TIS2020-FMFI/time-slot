@@ -99,6 +99,7 @@ function parse_data(data){
     document.getElementById('input_date2').value = max_date;
     document.getElementById('input_text').value = "";
     set_of_of_company_names.delete('');
+    set_of_of_all_ramps.delete('');
     list_of_company_names = Array.from(set_of_of_company_names);
     list_of_all_ramps = Array.from(set_of_of_all_ramps);
 
