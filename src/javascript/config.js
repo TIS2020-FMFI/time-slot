@@ -67,7 +67,7 @@ function  load_config_table(){
 }
 load_config_table();
 function set_html_times(data){
-    if (affected_days_in_week !== undefined){
+    if (affected_days_in_week.length > 0){
         for (let day = 0 ;day < array_of_days.length;day++){
             if (array_of_holiday.includes(affected_days_in_week[day].substring(5, 10))){
                 document.getElementById(prefix_day+array_of_days[day]).innerHTML += "<br><span class='text-danger'>"+affected_days_in_week[day]+"<span>";
@@ -229,15 +229,21 @@ function set_ramps(){
     });
 }
 function set_html_disabled_ramps(data){
-    let elem = document.getElementsByClassName('ramp_in_day');
-    //let index = (ramp-1)*7
-    let pared = data[0][0].split(" ");
-    for (let index_ramp = 0;index_ramp < pared.length;index_ramp++){
-        let parsed2 = pared[index_ramp].split("-")[1];
-        for (let string_index = 0 ;string_index < parsed2.length;string_index++){
-            if (parsed2[string_index]==="1"){
-                elem[index_ramp*7+string_index].checked = true;
+    if (data.length > 0){
+        let elem = document.getElementsByClassName('ramp_in_day');
+        //let index = (ramp-1)*7
+        let pared = data[0][0].split(" ");
+        for (let index_ramp = 0;index_ramp < pared.length;index_ramp++){
+            let parsed2 = pared[index_ramp].split("-")[1];
+            for (let string_index = 0 ;string_index < parsed2.length;string_index++){
+                if (parsed2[string_index]==="1"){
+                    elem[index_ramp*7+string_index].checked = true;
+                }
             }
         }
+        set_html_for_ramps()
+    }else{
+        setTimeout(set_html_disabled_ramps,100,data);
     }
+
 }

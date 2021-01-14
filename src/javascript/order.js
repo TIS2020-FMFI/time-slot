@@ -266,7 +266,7 @@ function set_company_name(email){
                 select_company(selector_of_company_name);// magic constant 1  because one empty option
 
             }else{
-                elem_selector_for_email[index].style.display = 'none';
+                //elem_selector_for_email[index].style.display = 'none';
             }
         }
     }
