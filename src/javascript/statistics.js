@@ -120,14 +120,12 @@ function prepare_direct_select(){
         let option = document.createElement("option");
         option.className = 'option';
         option.text = list_of_company_names[i];
-        console.log(list_of_company_names[i]);
         elem_selector.appendChild(option);
     }
     for (let i = 0 ;i  < list_of_all_ramps.length; i++){
         let option = document.createElement("option");
         option.className = 'option';
         option.text = list_of_all_ramps[i];
-        console.log(list_of_all_ramps[i]);
         elem_selector.appendChild(option);
     }
 }
