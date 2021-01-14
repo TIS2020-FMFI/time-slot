@@ -299,7 +299,18 @@ function select_company_email_only(company_name){
     }
 
 }
-
+function restart_inputs_company_name_email(){
+    company.value = '';
+    company_email.value = '';
+    let elem_selector_for_email = document.getElementsByClassName('option_email');
+    for (let index = 0 ; index < elem_selector_for_email.length; index++) {
+        elem_selector_for_email[index].style.display = 'revert';
+    }
+    let elem_selector_company_name = document.getElementsByClassName('option');
+    for (let index = 0 ; index < elem_selector_for_email.length; index++) {
+        elem_selector_company_name[index].style.display = 'revert';
+    }
+}
 function delete_time_slot(){
     $.post('order_AJAX/delete_time_slot.php',{
     },function(data){
@@ -348,8 +359,8 @@ function request_time_slot(){
                     window.open('external_dispatcher.php',"_self");
                 }else if (data.includes( '*')){
                     create_exception(data.slice(1,data.length),8,'warning');
-                    company.value = '';
-                    company_email.value = '';
+                    restart_inputs_company_name_email();
+
                 }else{
                     create_exception(data,65,'danger');
                 }
@@ -390,11 +401,7 @@ function timer(){
     }else{
         console.log('somthing went wrong');
     }
-
-
-
-
-     // odrataj po kazdej sekunde s
+    // odrataj po kazdej sekunde s
 }
 function edit_requested_time_slot(){
     document.getElementById('update_button').disabled = false;
@@ -459,8 +466,7 @@ function update_requested_time_slot(){
                     window.open('external_dispatcher.php',"_self");
                 }else if (data.includes( '*')){
                     create_exception(data.slice(1,data.length),8,'warning');
-                    company.value = '';
-                    company_email.value = '';
+                    restart_inputs_company_name_email();
                 }else{
                     create_exception(data,65,'danger');
                 }
