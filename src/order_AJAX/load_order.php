@@ -6,6 +6,7 @@ if (!$mysqli->connect_errno) {
         if ($_SESSION['active_time_slot'] != "" && $_SESSION['active_time_slot_state'] == 'prepared'){
             $sql="SELECT `id`, `id_gate`, 
             ( SELECT meno_splocnosti FROM employee where id='{$_SESSION['id']}' and role='EXD') as employee,
+            ( SELECT email FROM employee where id='{$_SESSION['id']}' and role='EXD') as employee_email,
             truck_driver_1 ,
             truck_driver_2 ,
             `evc_truck`, 
@@ -16,6 +17,7 @@ if (!$mysqli->connect_errno) {
         }else if ($_SESSION['active_time_slot'] != ""){
             $sql="SELECT `id`, `id_gate`, 
             ( SELECT meno_splocnosti FROM employee where id=id_external_dispatcher) as employee,
+            ( SELECT email FROM employee where id=id_external_dispatcher) as employee_email,
             truck_driver_1 ,
             truck_driver_2 ,
             `evc_truck`, 

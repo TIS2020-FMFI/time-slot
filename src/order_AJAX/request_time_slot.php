@@ -32,12 +32,17 @@ if (!$mysqli->connect_errno) {
 
         }else if ($_SESSION['active_time_slot'] != "" && ($_SESSION['role'] == "AD" || $_SESSION['role'] == "IND")){ // CAST PRE AD A IND
             $norm_company_name = mysqli_real_escape_string($mysqli,$_POST['company_name']);
-            $sql_select_employee = "SELECT id FROM `employee` WHERE meno_splocnosti='{$norm_company_name}'";
+            $norm_company_employee_email = mysqli_real_escape_string($mysqli,$_POST['company_email']);
+            $sql_select_employee = "SELECT id FROM `employee` WHERE meno_splocnosti='{$norm_company_name}' and email='{$norm_company_employee_email}'";
             if ($result = $mysqli->query($sql_select_employee)) {
                 $vysl = $result->fetch_assoc();
                 $id_of_external_dispatcher = $vysl['id'];
             }else{
                 echo 'something went wrong with sql internal_dispatcher part 1 <strong>order_AJAX/request_time_slot.php<strong '.$sql_select_employee;
+                return;
+            }
+            if ($id_of_external_dispatcher == null){
+                echo '*employee with this email address : <strong>'.$norm_company_employee_email.' </strong><br>does not working in this company : <strong>'.$norm_company_name.'</strong> ';
                 return;
             }
 
