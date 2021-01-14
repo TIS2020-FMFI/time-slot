@@ -24,7 +24,7 @@ include('html_nav_component.php');
             <div class="form-group">
                 <label for="direct_select"></label>
                 <select class="form-control" id="direct_select" onchange="pre_make_chard(this)" >
-                    <option class="option">''</option>
+                    <option class="option"></option>
                 </select>
             </div>
             </th>

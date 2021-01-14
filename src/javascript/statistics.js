@@ -99,6 +99,7 @@ function parse_data(data){
     document.getElementById('input_date2').value = max_date;
     document.getElementById('input_text').value = "";
     set_of_of_company_names.delete('');
+    set_of_of_all_ramps.delete('');
     list_of_company_names = Array.from(set_of_of_company_names);
     list_of_all_ramps = Array.from(set_of_of_all_ramps);
 
@@ -119,12 +120,14 @@ function prepare_direct_select(){
         let option = document.createElement("option");
         option.className = 'option';
         option.text = list_of_company_names[i];
+        console.log(list_of_company_names[i]);
         elem_selector.appendChild(option);
     }
     for (let i = 0 ;i  < list_of_all_ramps.length; i++){
         let option = document.createElement("option");
         option.className = 'option';
         option.text = list_of_all_ramps[i];
+        console.log(list_of_all_ramps[i]);
         elem_selector.appendChild(option);
     }
 }
