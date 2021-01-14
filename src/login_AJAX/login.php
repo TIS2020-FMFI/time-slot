@@ -6,7 +6,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
     $email = mysqli_real_escape_string($mysqli,$_POST["email"]);
     $password = mysqli_real_escape_string($mysqli,$_POST["password"]);
     if (!$mysqli->connect_errno) {
-        $sql="SELECT * FROM employee where email='$email' and  heslo=MD5('$password') "; // definuj dopyt   //
+        $sql="SELECT * FROM employee where email='$email' and  heslo=MD5('$password') and is_working='1' "; // definuj dopyt   //
         if ($result = $mysqli->query($sql)) {
             $row = $result->fetch_assoc();
             if ($row == NULL){
