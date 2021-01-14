@@ -47,8 +47,12 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 </div>
 
 <div id="info" class="container w-50 fixed-top bg-dark" >
-    <p class="text-center text-light" >You can search by time-slot states (prepared, requested, booked, finished),<br>starting time of time-slot, company name, truck registration number (EVC), cargo and destination.</p>
-    <p class="text-center text-light" >Any time-slot data can be used for searching.</p>
+    <p class="text-center text-light" >You can search by time-slot states (prepared, requested, booked, finished),<br>starting time of time-slot, company name, truck registration number (EVC), cargo and destination.<br>Any time-slot data can be used for searching.</p>
+    <p class="text-center text-light" ><b>Time-slot states description:</b></p>
+    <p class="text-center text-success"><b>Prepared</b> - free time-slot, that is not occupied by any dispatcher yet</p>
+    <p class="text-center text-warning"><b>Requested</b> - waiting for the confirmation by an internal dispatcher</p>
+    <p class="text-center text-danger"><b>Booked</b> - request confirmed by an internal dispatcher</p>
+    <p class="text-center text-finished"><b>Finished</b> - time-slot whose truck drivers arrival has been confirmed</p>
 </div>
 
 <div id="global_view" class="table-responsive  bg-light" >
@@ -636,7 +640,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 </div>
 
 
-<h3 id="prepared_h3" class="text-success find_by_divs_and_titles" >PREPARED</h3 >
+<h3 id="prepared_h3" class="text-success find_by_divs_and_titles" >Prepared</h3 >
 <table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers find_by_divs_and_titles" >
     <thead>
         <tr>
@@ -662,7 +666,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     </tbody>
 </table>
 
-<h3 id="requested_h3" class="text-warning find_by_divs_and_titles" >Requested time-slot</h3>
+<h3 id="requested_h3" class="text-warning find_by_divs_and_titles" >Requested</h3>
 <table id="requested" class="table table-striped  table-responsive bg-light table_of_customers find_by_divs_and_titles" >
     <thead>
     <tr>
@@ -687,7 +691,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     </tbody>
 </table>
 
-<h3 id="booked_h3" class="text-danger find_by_divs_and_titles">BOOKED</h3>
+<h3 id="booked_h3" class="text-danger find_by_divs_and_titles">Booked</h3>
 <table id="booked" class="table table-striped  table-responsive bg-light table_of_customers find_by_divs_and_titles">
 
     <thead>
@@ -714,7 +718,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 </table>
 
 
-<h3 id="finished_h3" class="text-finished find_by_divs_and_titles">Finished time-slot</h3>
+<h3 id="finished_h3" class="text-finished find_by_divs_and_titles">Finished</h3>
 <table id="finished" class="table table-striped  table-responsive bg-light table_of_customers find_by_divs_and_titles" >
     <thead>
     <tr>

@@ -68,6 +68,7 @@ function  load_config_table(){
 load_config_table();
 function set_html_times(data){
     if (affected_days_in_week.length > 0){
+	console.log(affected_days_in_week);
         for (let day = 0 ;day < array_of_days.length;day++){
             if (array_of_holiday.includes(affected_days_in_week[day].substring(5, 10))){
                 document.getElementById(prefix_day+array_of_days[day]).innerHTML += "<br><span class='text-danger'>"+affected_days_in_week[day]+"<span>";
@@ -224,12 +225,13 @@ function set_ramps(){
                 create_exception(data,33,'danger');
             }
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server.",23,'danger');
         }
     });
 }
 function set_html_disabled_ramps(data){
     if (data.length > 0){
+	console.log(data);
         let elem = document.getElementsByClassName('ramp_in_day');
         //let index = (ramp-1)*7
         let pared = data[0][0].split(" ");
