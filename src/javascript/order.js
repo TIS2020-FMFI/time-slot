@@ -77,8 +77,10 @@ function make_html_order(data){
     if (data['destination'] !== null){
         destination.value = data['destination'];
     }
-    select_company(company);
-    select_email(company_email);
+    if (company_email !== null) {
+        select_company(company);
+        select_email(company_email);
+    }
 
 
 }
