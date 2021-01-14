@@ -29,7 +29,7 @@ function make_html_order(data){
     }else{
         time = time -5000; // 5 sekud preto aby bolo validne sql to znamena ze sa naozaj aj upravia time sloti do DEFFOULT PODOBY
         html_timer = document.getElementById('timer');
-        timer()
+        timer();
         setInterval(timer,1000);
     }
     //console.log(data['state']);
@@ -41,19 +41,24 @@ function make_html_order(data){
         destination.disabled = true;
         cargo.disabled = true;
         company.disabled = true;
-        company_email.disabled = true;
+        if (company_email !== null){
+            company_email.disabled = true;
+        }
     }
 
     time_of_time_slot.value =  data['start_date_time'];
     ramp.value = 'ramp '+data['id_gate'];
     if (data['evc_truck'] !== null){
-        evc.value = data['evc_truck']
+        evc.value = data['evc_truck'];
     }
     if (data['employee'] !== null){
-        company.value = data['employee']
+        company.value = data['employee'];
     }
     if (data['employee_email'] !== null){
-        company_email.value = data['employee_email']
+        if (company_email !== null){
+            company_email.value = data['employee_email'];
+        }
+
     }
 
     if (data['truck_driver_1'] !== null){
@@ -62,15 +67,15 @@ function make_html_order(data){
         document.getElementById('kamionist2').style.display = 'revert';
     }
     if (data['truck_driver_2'] !== null){
-        kam2.value = data['truck_driver_2']
+        kam2.value = data['truck_driver_2'];
 
 
     }
     if (data['cargo'] !== null){
-        cargo.value = data['cargo']
+        cargo.value = data['cargo'];
     }
     if (data['destination'] !== null){
-        destination.value = data['destination']
+        destination.value = data['destination'];
     }
     select_company(company);
     select_email(company_email);
@@ -342,6 +347,7 @@ function request_time_slot(){
             }
         }
         let ramp_value = ramp.value.split(' ');
+        console.log(((company_email === null) ? 'null' : company_email.value ) );
         $.post('order_AJAX/request_time_slot.php',{
             evc:evc.value,
             kam1:kam1.value,
@@ -350,7 +356,7 @@ function request_time_slot(){
             cargo:cargo.value,
             ramp:ramp_value[1],
             company_name:company.value,
-            company_email:company_email.value,
+            company_email:((company_email === null) ? 'null' : company_email.value )
         },function(data){
             if (data){
                 if (data === '1' ){
@@ -406,14 +412,18 @@ function timer(){
 function edit_requested_time_slot(){
     document.getElementById('update_button').disabled = false;
     document.getElementById('edit_button').disabled = true;
-    document.getElementById('confirm_button').disabled = true;
+    if (document.getElementById('confirm_button') !== null){
+        document.getElementById('confirm_button').disabled = true;
+    }
     evc.disabled = false;
     kam1.disabled = false;
     kam2.disabled = false;
     cargo.disabled = false;
     destination.disabled = false;
     cargo.disabled = false;
-    company_email.disabled = false;
+    if (document.getElementById('confirm_button') !== null){
+        company_email.disabled = false;
+    }
 
     let for_internal_dispatcher_company_name = document.getElementById('change_select_company');
     if (for_internal_dispatcher_company_name !== null){
@@ -457,7 +467,7 @@ function update_requested_time_slot(){
             cargo:cargo.value,
             ramp:ramp_value[1],
             company_name:company.value,
-            company_email:company_email.value
+            company_email:((company_email === null) ? 'null' : company_email.value )
         },function(data){
             if (data){
                 if (data === '1' ){
