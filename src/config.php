@@ -173,7 +173,7 @@ include('exception_handler.php');
             <button class="btn btn-lg btn-success btn-block text-uppercase"  onclick="set_new_times()">SET</button>
         </div>
         <div class="col-sm">
-            <h6 class="text-center">The changes will take effect immediately and all time-slots will be regenerated! <b>This information will be updated once it's clear how that actually works.</b></h6>
+            <h6 class="text-center">The changes will take effect immediately and all time-slots will be regenerated!</h6>
             <button class="btn btn-lg btn-danger btn-block text-uppercase"  onclick="regenerate_new_time_slots()">REGENERATE</button>
         </div>
 

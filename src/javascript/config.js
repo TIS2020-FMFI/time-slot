@@ -224,7 +224,7 @@ function set_ramps(){
                 create_exception(data,33,'danger');
             }
         }else{
-            create_exception("nepodarilo sa spojit so serverom",23,'danger');
+            create_exception("Could not connect to the server.",23,'danger');
         }
     });
 }
