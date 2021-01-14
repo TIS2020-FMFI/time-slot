@@ -307,7 +307,7 @@ function restart_inputs_company_name_email(){
         elem_selector_for_email[index].style.display = 'revert';
     }
     let elem_selector_company_name = document.getElementsByClassName('option');
-    for (let index = 0 ; index < elem_selector_for_email.length; index++) {
+    for (let index = 0 ; index < elem_selector_company_name.length; index++) {
         elem_selector_company_name[index].style.display = 'revert';
     }
 }
