@@ -184,7 +184,7 @@ include('exception_handler.php');
 
     <div class="row">
         <div class="col-sm">
-            <h6><b>Holidays:</b> <br>Use format MM-DD (e.g. 12-04)</h6>
+            <h6><b>Holidays:</b> <br>Use format MM-DD (e.g. 12-04,01-11)</h6>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1"></label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>

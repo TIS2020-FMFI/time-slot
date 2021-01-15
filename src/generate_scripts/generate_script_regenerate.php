@@ -116,7 +116,6 @@ if (!$mysqli->connect_errno) {
     $sql = "SELECT holidays  FROM holidays where id=2 ";
     if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
         $row = $result->fetch_assoc();
-        //echo $row['holidays'].'';
         $parsed = explode(' ', $row['holidays']);
         for ($index = 0; $index < count($parsed); $index++) {
             $parsed2 = explode('-', $parsed[$index]);
