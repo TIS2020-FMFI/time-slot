@@ -696,6 +696,14 @@ include('exception_handler.php');
 
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <p id="full_review_regenerate"></p>
+        </div>
+    </div>
+</div>
+
 </body>
 
 </html>
