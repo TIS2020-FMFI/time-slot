@@ -139,9 +139,11 @@ function regenerate_new_time_slots(){
         regenerate:"1"
     },function(data){
         if (data.includes('*') || data.includes('SQL') || data.includes('Notice') || data.includes('error') ){
-            create_exception(data,120,'danger');
+            create_exception(data.substring(0,223)+'<br><a href="#full_review_regenerate">...</a>',120,'danger');
+            document.getElementById('full_review_regenerate').innerHTML = data;
         }else if (data.includes('Rampa')){
-            create_exception(data,120,'success');
+            create_exception(data.substring(0,223)+'<br><a href="#full_review_regenerate">...</a>',120,'success');
+            document.getElementById('full_review_regenerate').innerHTML = data;
         }else{
             create_exception(data,120,'success');
         }
