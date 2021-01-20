@@ -92,8 +92,10 @@ function first_load(){
  * @how_many 1/-1 :integer
  */
 function make_date_arrows_mini_calendar(how_many){
+    console.log("INPUT  how_many : ",how_many);
     let new_date = new Date((document.getElementById('input_date').value));
     new_date.setDate(new_date.getDate() + how_many);
+    console.log(new_date);
     if (new_date.toISOString().substr(0,10) < document.getElementById('input_date').min  ||
         new_date.toISOString().substr(0,10) > document.getElementById('input_date').max){
 
@@ -123,12 +125,8 @@ function make_date_arrows_mini_calendar(how_many){
 function display_time_slot_for_this_date(elem){
     if (document.getElementById('input_text').value !== "" ){
         find_by(document.getElementById('input_text'));
-    }
-    else if (document.getElementById('calendar_dates').style.display !== 'none' ){
-        show_full_gate(document.getElementById("ramp_title").innerHTML.split(" ")[1]);
     }else{
         if ( elem.min > elem.value || elem.value > elem.max) {
-            console.log('invalid date')
             create_exception("Selected date is not in a valid range. The valid range is from <strong>"+elem.min+"</strong> to <strong>"+elem.max+"</strong>.", 10, "warning")
         }
         else{
@@ -606,8 +604,9 @@ let array_of_options = ['prepared','requested','booked','finished'];
  */
 function select_only_text_with(elem){
     let text = elem.value;
+    let text_split = elem.value.split(' ')[0];
 
-    if (text === 'prepared'|| text ==='requested'||text ==='booked'||text ==='finished'){
+    if (text_split === 'prepared'|| text_split ==='requested'||text_split ==='booked'||text_split ==='finished'){
         document.getElementById('prepared_h3').style.display = 'none';
         document.getElementById('requested_h3').style.display = 'none';
         document.getElementById('booked_h3').style.display = 'none';
@@ -618,8 +617,9 @@ function select_only_text_with(elem){
         document.getElementById('booked').style.display = 'none';
         document.getElementById('finished').style.display = 'none';
         // jedine tieto zobraz ak je text urciteho typu
-        document.getElementById(text).style.display = 'revert';
-        document.getElementById(text+'_h3').style.display = 'revert';
+        document.getElementById(text_split).style.display = 'revert';
+        document.getElementById(text_split+'_h3').style.display = 'revert';
+        console.log('Hladam podla typu');
         select(text,':');
     }else{
         document.getElementById('prepared_h3').style.display = 'revert';
@@ -639,12 +639,17 @@ function select_only_text_with(elem){
 
 }
 function select(lock_for,option){
-    // console.log('som tu s : ',lock_for)
-    if (array_of_options.includes(lock_for)){
-        let table_rows_with_class_name = document.getElementsByClassName(lock_for+"_tr");
+    let text = lock_for.split(' ');
+    if (array_of_options.includes(text[0])){
+        let table_rows_with_class_name = document.getElementsByClassName(text[0]+"_tr");
+        console.log(table_rows_with_class_name.length);
         for (let row = 0 ; row < table_rows_with_class_name.length; row++) {
             for (let column = 0; column < table_rows_with_class_name[row].childNodes.length - 1; column++) {
-                table_rows_with_class_name[row].style.display = 'revert';
+                if (table_rows_with_class_name[row].innerHTML.toLowerCase().includes((text[1] === undefined) ? ':'  :text[1].toLowerCase() )){
+                    table_rows_with_class_name[row].style.display = 'revert';
+                }else{
+                    table_rows_with_class_name[row].style.display = 'none';
+                }
             }
         }
     }else{
@@ -653,7 +658,7 @@ function select(lock_for,option){
         for (let row = 0 ; row < table_rows_with_class_name.length; row++){
             founded = false;
             for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
-                if (table_rows_with_class_name[row].childNodes[column].innerHTML.includes(lock_for)) {
+                if (table_rows_with_class_name[row].childNodes[column].innerHTML.toLowerCase().includes(lock_for.toLowerCase())) {
                     founded = true;
                 }
             }
