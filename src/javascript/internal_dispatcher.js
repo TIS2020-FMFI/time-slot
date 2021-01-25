@@ -1,3 +1,4 @@
+
 let gates = undefined;
 /**
  * spracovanie ajax vystupu
@@ -421,6 +422,9 @@ let base_selected_index = 0;
  * @param elem
  */
 function generate_gate_selector(elem){
+    // create_exception('loading data' , 500,'primary').then( data => {
+    //     console.log(document.getElementById("select_gate").selectedIndex);
+    // })
     console.log(document.getElementById("select_gate").selectedIndex);
     if (elem===1) {
         if (base_selected_index+1 > 5) {
@@ -455,6 +459,7 @@ function generate_gate_selector(elem){
         find_by(document.getElementById('input_text'));
         ///print("dsadasdsa22222222");
     }
+    // create_exception('data has been obtained' , 3,'success');
 }
 /**
  * obstaranie pola find by
@@ -496,7 +501,9 @@ function find_by(elem){
 
 
         document.getElementById('ramp_title').innerHTML = "Ramps "+document.getElementById('select_gate').value;
+
         generate_gate_selector(document.getElementById('select_gate'));
+
 
     }
 

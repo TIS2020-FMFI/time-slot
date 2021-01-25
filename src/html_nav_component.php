@@ -54,7 +54,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link " href="internal_dispatcher.php">Calendar <span class="sr-only">(current)</span></a> <!-- active -->
                 <?php if ($_SESSION['role'] == 'AD'){ ?>
-                    <a class="nav-item nav-link " href="employee.php">Employee</a>
+                    <a class="nav-item nav-link " href="employee.php">Users</a>
                 <?php }?>
                 <a class="nav-item nav-link " href="config.php">Config</a>
                 <a class="nav-item nav-link " href="gate_man.php">Gate man</a>

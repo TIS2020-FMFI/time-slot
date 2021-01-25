@@ -170,7 +170,7 @@ function find_by(elem){
     for (let row = 0 ; row < table_rows_with_class_name.length; row++){
         founded = false;
         for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
-            if (table_rows_with_class_name[row].childNodes[column].innerHTML.includes(text)) {
+            if (table_rows_with_class_name[row].childNodes[column].innerHTML.toLowerCase().includes(text.toLowerCase())) {
                 founded = true;
             }
         }

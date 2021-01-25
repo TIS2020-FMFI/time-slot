@@ -172,10 +172,6 @@ include('exception_handler.php');
             <h6 class="text-center">The changes will take effect with the next automatic generation (following Wednesday, 24:00)</h6>
             <button class="btn btn-lg btn-success btn-block text-uppercase"  onclick="set_new_times()">SET</button>
         </div>
-        <div class="col-sm">
-            <h6 class="text-center">Make sure you <span class="text-success">Set</span> all your changes before pressing <span class="text-danger">Regenerate</span>. The changes will take effect immediately and all time-slots will be regenerated!</h6>
-            <button class="btn btn-lg btn-danger btn-block text-uppercase"  onclick="regenerate_new_time_slots()">REGENERATE</button>
-        </div>
 
     </div>
 </div>
@@ -687,13 +683,20 @@ include('exception_handler.php');
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container" style="margin-bottom: 20px">
     <div class="row">
         <div class="col-sm">
             <h6><center>The ramp changes will take effect immediately.</center></h6>
             <button class="btn btn-lg btn-success btn-block text-uppercase" type="submit" onclick="set_ramps()">SET</button>
         </div>
-
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <h6 class="text-center">Make sure you <span class="text-success">Set</span> all your changes before pressing <span class="text-danger">Regenerate</span>. The changes will take effect immediately and all time-slots will be regenerated!</h6>
+            <button class="btn btn-lg btn-danger btn-block text-uppercase"  onclick="regenerate_new_time_slots()">REGENERATE</button>
+        </div>
     </div>
 </div>
 <div class="container">
