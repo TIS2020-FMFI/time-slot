@@ -123,6 +123,14 @@ th{
 #calendar_dates{
     display: none;
 }
+#find_by_th{
+    vertical-align: top;
+    border: 0px;
+}
+#close_find_by{
+    position: relative;
+    right: 23px;
+}
 .find_by_divs_and_titles{
     display: none;
     padding-top: 5px;

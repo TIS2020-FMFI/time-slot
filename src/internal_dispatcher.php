@@ -34,9 +34,17 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 
       </th>
 
-      <th id="find_by_th" class="top_bar" scope="col" >
-          <label for="input_text"></label><input id="input_text" type="text" class="form-control" placeholder="Find by"   oninput="find_by(this)"  >
-
+      <th id="find_by_th" class="top_bar d-flex" scope="col" >
+          <label for="input_text"></label>
+          <input id="input_text" type="text" class="form-control" placeholder="Find by"   oninput="find_by(this)"  >
+          <button type="button" class="close" id="close_find_by" onclick="clear_find_by()" >
+              <span class="text-danger">&times;</span>
+          </button>
+          <label for="change_select_time"></label>
+          <select class="form-control" id="change_select_time" onchange="select_by(this.value)">
+            <option>Newest</option>
+            <option>Oldest</option>
+        </select>
       </th>
         <th id="find_by_img_info" class="top_bar" scope="col" >
             <img class="d-flex" src="request_sign_info.png" width="32" onmouseenter="show_info()" onmouseleave="hide_info()" alt="info">
