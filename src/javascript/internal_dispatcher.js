@@ -94,9 +94,12 @@ function first_load(){
 //
 // }
 function clear_find_by(){
-    let elem = document.getElementById('input_text');
-    elem.value = '';
-    find_by(elem);
+    if (elem.value !== ''){
+        let elem = document.getElementById('input_text');
+        elem.value = '';
+        find_by(elem);
+    }
+
 }
 function select_by(elem_val){
     console.log('SORTING : ',elem_val);
