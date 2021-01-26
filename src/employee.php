@@ -62,7 +62,7 @@ include('exception_handler.php');
   <tr>
     <th scope="col">First</th>
     <th scope="col">Last</th>
-    <th scope="col">Firm</th>
+    <th scope="col">Company</th>
     <th scope="col">Email</th>
     <th scope="col">role</th>
     <th scope="col">working</th>
@@ -100,7 +100,7 @@ include('exception_handler.php');
             </div>
             <div class="form-label-group" >
                 <label for="inputFirm"></label>
-                <input type="text" id="inputFirm" class="form-control" placeholder="* Firm name" required autofocus>
+                <input type="text" id="inputFirm" class="form-control" placeholder="* Company name" required autofocus>
             </div>
 
             <div class="form-label-group">

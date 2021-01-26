@@ -24,6 +24,10 @@ function checked_if_user_exist(old_password , new_password){
                 let split = data.split("$")
                 if (split[0] === '1'){
                     create_exception(split[1],13,'success');
+                    document.getElementById('inputEmail').value = '';
+                    document.getElementById('inputOldPassword').value = '';
+                    document.getElementById('inputNewPassword').value = '';
+
                 }else{
                     create_exception(split[1],13,'warning');
                 }

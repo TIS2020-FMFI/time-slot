@@ -1,3 +1,4 @@
+
 let gates = undefined;
 /**
  * spracovanie ajax vystupu
@@ -41,6 +42,11 @@ function parse_data(data){
         }
     }
     document.getElementById('only_requested_count').innerHTML = counter+"";
+    make_table_for_external_dispatcher('prepared','prepared_tr','prepared');
+    make_table_for_external_dispatcher('requested','requested_tr','requested');
+    make_table_for_external_dispatcher('booked','booked_tr','booked');
+    make_table_for_external_dispatcher('finished','finished_tr','finished');
+    select_by('Newest');
 }
 /**
  * ajax request na ziskanie dat pre externeho dispecera
@@ -56,6 +62,7 @@ function load_all_time_slots() {
             create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
+
     generate_gate_selector(document.getElementById('select_gate'));
 
 }
@@ -86,6 +93,44 @@ function first_load(){
 //
 //
 // }
+function clear_find_by(){
+    if (elem.value !== ''){
+        let elem = document.getElementById('input_text');
+        elem.value = '';
+        find_by(elem);
+    }
+
+}
+function select_by(elem_val){
+    console.log('SORTING : ',elem_val);
+    let multiplayer = 1;
+    if (elem_val === 'Newest'){
+        multiplayer *= -multiplayer
+    }
+    for (let i = 0 ;i < array_of_options.length;i++) {
+        let all = document.getElementsByClassName(array_of_options[i] + "_tr");
+        let table_rows_with_class_name = Array.prototype.slice.call(all)
+        table_rows_with_class_name.sort(function (a, b) {
+            if (a.childNodes[0].innerHTML < b.childNodes[0].innerHTML) {
+                return -1 * multiplayer;
+            }
+            if (a.childNodes[0].innerHTML > b.childNodes[0].innerHTML) {
+                return 1 * multiplayer;
+            }
+
+            return 0;
+
+        });
+        let table_rows_with_class_name_copy = document.getElementsByClassName(array_of_options[i] + "_tr");
+        let parent = table_rows_with_class_name_copy[0].parentElement;
+        while (table_rows_with_class_name_copy.length) {
+            table_rows_with_class_name_copy[0].remove();
+        }
+        for (let elem = 0; elem < table_rows_with_class_name.length; elem++) {
+            parent.append(table_rows_with_class_name[elem]);
+        }
+    }
+}
 
 /**
  * mini calendar arrows onclick event
@@ -403,10 +448,6 @@ function global_calendar(start_index, end_index){
                 row_gates_titles[i].innerHTML = "None";
             }
         }
-        make_table_for_external_dispatcher('prepared','prepared_tr','prepared');
-        make_table_for_external_dispatcher('requested','requested_tr','requested');
-        make_table_for_external_dispatcher('booked','booked_tr','booked');
-        make_table_for_external_dispatcher('finished','finished_tr','finished');
     }catch (err){
         console.log('time to load');
         setTimeout(global_calendar,100,start_index, end_index);
@@ -421,6 +462,9 @@ let base_selected_index = 0;
  * @param elem
  */
 function generate_gate_selector(elem){
+    // create_exception('loading data' , 500,'primary').then( data => {
+    //     console.log(document.getElementById("select_gate").selectedIndex);
+    // })
     console.log(document.getElementById("select_gate").selectedIndex);
     if (elem===1) {
         if (base_selected_index+1 > 5) {
@@ -455,6 +499,7 @@ function generate_gate_selector(elem){
         find_by(document.getElementById('input_text'));
         ///print("dsadasdsa22222222");
     }
+    // create_exception('data has been obtained' , 3,'success');
 }
 /**
  * obstaranie pola find by
@@ -496,7 +541,9 @@ function find_by(elem){
 
 
         document.getElementById('ramp_title').innerHTML = "Ramps "+document.getElementById('select_gate').value;
+
         generate_gate_selector(document.getElementById('select_gate'));
+
 
     }
 

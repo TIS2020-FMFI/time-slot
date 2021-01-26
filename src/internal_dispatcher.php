@@ -34,9 +34,17 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 
       </th>
 
-      <th id="find_by_th" class="top_bar" scope="col" >
-          <label for="input_text"></label><input id="input_text" type="text" class="form-control" placeholder="Find by"   oninput="find_by(this)"  >
-
+      <th id="find_by_th" class="top_bar d-flex" scope="col" >
+          <label for="input_text"></label>
+          <input id="input_text" type="text" class="form-control" placeholder="Find by"   oninput="find_by(this)"  >
+          <button type="button" class="close" id="close_find_by" onclick="clear_find_by()" >
+              <span class="text-danger">&times;</span>
+          </button>
+          <label for="change_select_time"></label>
+          <select class="form-control" id="change_select_time" onchange="select_by(this.value)">
+            <option>Newest</option>
+            <option>Oldest</option>
+        </select>
       </th>
         <th id="find_by_img_info" class="top_bar" scope="col" >
             <img class="d-flex" src="request_sign_info.png" width="32" onmouseenter="show_info()" onmouseleave="hide_info()" alt="info">
@@ -75,55 +83,55 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
                 </div>
                 <button class="btn btn-default bg-primary last_btn" onclick="generate_gate_selector(1)">></button>
             </th>
-            <th class="days_in_calendar" scope="col">1 gate</th>
-            <th class="days_in_calendar" scope="col">2 gate</th>
-            <th class="days_in_calendar" scope="col">3 gate</th>
-            <th class="days_in_calendar" scope="col">4 gate</th>
-            <th class="days_in_calendar" scope="col">5 gate</th>
-            <th class="days_in_calendar" scope="col">6 gate</th>
-            <th class="days_in_calendar last" scope="col">7 gate</th>
+            <th class="days_in_calendar" scope="col">1 ramp</th>
+            <th class="days_in_calendar" scope="col">2 ramp</th>
+            <th class="days_in_calendar" scope="col">3 ramp</th>
+            <th class="days_in_calendar" scope="col">4 ramp</th>
+            <th class="days_in_calendar" scope="col">5 ramp</th>
+            <th class="days_in_calendar" scope="col">6 ramp</th>
+            <th class="days_in_calendar last" scope="col">7 ramp</th>
         </tr>
         </thead>
         <tbody>
         <tr >
             <th class="right_border_state text-success" scope="row">Prepared</th>
-            <th class="right_border calendar_item 1 prepared_occupied "  >None</th>
-            <th class="right_border calendar_item 2 prepared_occupied"  >None</th>
-            <th class="right_border calendar_item 3 prepared_occupied"  >None</th>
-            <th class="right_border calendar_item 4 prepared_occupied"  >None</th>
-            <th class="right_border calendar_item 5 prepared_occupied"  >None</th>
-            <th class="right_border calendar_item 6 prepared_occupied"  >None</th>
-            <th class="right_border_last calendar_item 7 prepared_occupied"  >None</th>
+            <th class="right_border calendar_item 1 prepared_occupied "  >loading</th>
+            <th class="right_border calendar_item 2 prepared_occupied"  >loading</th>
+            <th class="right_border calendar_item 3 prepared_occupied"  >loading</th>
+            <th class="right_border calendar_item 4 prepared_occupied"  >loading</th>
+            <th class="right_border calendar_item 5 prepared_occupied"  >loading</th>
+            <th class="right_border calendar_item 6 prepared_occupied"  >loading</th>
+            <th class="right_border_last calendar_item 7 prepared_occupied"  >loading</th>
         </tr>
         <tr >
             <th class="right_border_state text-warning" scope="row">Requested</th>
-            <th class="right_border calendar_item 1 requested "  >None</th>
-            <th class="right_border calendar_item 2 requested"  >None</th>
-            <th class="right_border calendar_item 3 requested"  >None</th>
-            <th class="right_border calendar_item 4 requested"  >None</th>
-            <th class="right_border calendar_item 5 requested"  >None</th>
-            <th class="right_border calendar_item 6 requested"  >None</th>
-            <th class="right_border_last calendar_item 7 requested"  >None</th>
+            <th class="right_border calendar_item 1 requested "  >loading</th>
+            <th class="right_border calendar_item 2 requested"  >loading</th>
+            <th class="right_border calendar_item 3 requested"  >loading</th>
+            <th class="right_border calendar_item 4 requested"  >loading</th>
+            <th class="right_border calendar_item 5 requested"  >loading</th>
+            <th class="right_border calendar_item 6 requested"  >loading</th>
+            <th class="right_border_last calendar_item 7 requested"  >loading</th>
         </tr>
         <tr >
             <th class="right_border_state text-danger" scope="row">Booked</th>
-            <th class="right_border calendar_item 1 booked "  >None</th>
-            <th class="right_border calendar_item 2 booked"  >None</th>
-            <th class="right_border calendar_item 3 booked"  >None</th>
-            <th class="right_border calendar_item 4 booked"  >None</th>
-            <th class="right_border calendar_item 5 booked"  >None</th>
-            <th class="right_border calendar_item 6 booked"  >None</th>
-            <th class="right_border_last calendar_item 7 booked"  >None</th>
+            <th class="right_border calendar_item 1 booked "  >loading</th>
+            <th class="right_border calendar_item 2 booked"  >loading</th>
+            <th class="right_border calendar_item 3 booked"  >loading</th>
+            <th class="right_border calendar_item 4 booked"  >loading</th>
+            <th class="right_border calendar_item 5 booked"  >loading</th>
+            <th class="right_border calendar_item 6 booked"  >loading</th>
+            <th class="right_border_last calendar_item 7 booked"  >loading</th>
         </tr>
         <tr >
             <th class="right_border_state text-finished" scope="row">Finished</th>
-            <th class="right_border calendar_item 1 finished "  >None</th>
-            <th class="right_border calendar_item 2 finished"  >None</th>
-            <th class="right_border calendar_item 3 finished"  >None</th>
-            <th class="right_border calendar_item 4 finished"  >None</th>
-            <th class="right_border calendar_item 5 finished"  >None</th>
-            <th class="right_border calendar_item 6 finished"  >None</th>
-            <th class="right_border_last calendar_item 7 finished"  >None</th>
+            <th class="right_border calendar_item 1 finished "  >loading</th>
+            <th class="right_border calendar_item 2 finished"  >loading</th>
+            <th class="right_border calendar_item 3 finished"  >loading</th>
+            <th class="right_border calendar_item 4 finished"  >loading</th>
+            <th class="right_border calendar_item 5 finished"  >loading</th>
+            <th class="right_border calendar_item 6 finished"  >loading</th>
+            <th class="right_border_last calendar_item 7 finished"  >loading</th>
         </tr>
         <tr >
             <th class="right_border_state text-finished" scope="row"></th>

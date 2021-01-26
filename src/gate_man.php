@@ -40,16 +40,6 @@ include('exception_handler.php');
     </tr>
   </thead>
   <tbody>
-  <tr class="finished_tr">
-      <td >Ondrej Richnak</td>
-      <td>BA-345-DS</td>
-      <td>10:00 - 12:30</td>
-      <td>9x BMW</td>
-      <td>5</td>
-      <td>
-          <button class="btn btn-default bg-success" onclick="confirm_time_slot()" >Confirm</button>
-      </td>
-  </tr>
   </tbody>
 </table>
 
