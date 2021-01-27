@@ -20,16 +20,16 @@ function parse_data(data){
         if (index >= 0){
             let index_real_time = gates.array_of_calendars[index].get_index_by_real_time(data[i][2]);
             if (index_real_time >= 0){
-                gates.array_of_calendars[index].time_slots[index_real_time].add_next_time_slot_for_gate_man(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8]);
+                gates.array_of_calendars[index].time_slots[index_real_time].add_next_time_slot_for_gate_man(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9]);
             }else{
                 let time_slot = new Time_slot();
-                time_slot.add_next_time_slot_for_gate_man(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8]);
+                time_slot.add_next_time_slot_for_gate_man(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9]);
                 gates.array_of_calendars[index].push_real_time_and_time_slot(data[i][2],time_slot);
             }
         }else{
             let calendar = new Calendar();
             let time_slot = new Time_slot();
-            time_slot.add_next_time_slot_for_gate_man(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8]);
+            time_slot.add_next_time_slot_for_gate_man(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9]);
             calendar.push_real_time_and_time_slot(data[i][2],time_slot);
             gates.push_calendar_and_id(data[i][1],calendar);
         }
@@ -112,6 +112,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
     while (table_rows_with_class_name.length){ // delete all row of certain table
         table_rows_with_class_name[0].remove();
     }
+    console.log(gates);
     // generator html pre dani table
     for (let calendar = 0 ; calendar < gates.array_of_calendars.length; calendar++){
         //console.log(gates.array_of_calendars[calendar].time_slots);
@@ -124,33 +125,42 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                 let row = table_witch_contains_id.insertRow();
                 row.className = row_class_name;
                 let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                let cell4 = row.insertCell(3);
+                let cell5 = row.insertCell(4);
+                let cell6 = row.insertCell(5);
+                let cell7 = row.insertCell(6);
+                let cell8 = row.insertCell(7);
+
                 if (gates.array_of_calendars[calendar].time_slots[real_time].kamionists_2[certain_time_slot] !== null) {
                     //console.log(gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot], gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_2[certain_time_slot]);
-                    cell1.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot]
+                    cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot]
                         + "<br>" + gates.array_of_calendars[calendar].time_slots[real_time].kamionists_2[certain_time_slot];
                 } else {
-                    cell1.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot];
+                    cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot];
                 }
 
                 //cell1.innerHTML = gates.array_of_calendars[calendar].time_slots[index_for_this_date].start_times[certain_time_slot].split(" ")[1];
                 // tuna bude podmienka na nieje prepared tak wiplni innner html cell2 a cell3 s menami jazdcov a EVC
-                let cell2 = row.insertCell(1);
-                cell2.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].evcs[certain_time_slot];
-                let cell3 = row.insertCell(2);
-                cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].start_times[certain_time_slot].split(' ')[1];
-                let cell4 = row.insertCell(3);
+
+                cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].evcs[certain_time_slot];
+
+                cell1.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].start_times[certain_time_slot].split(' ')[1];
+                cell2.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].destinations[certain_time_slot];
+                cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].external_dispatchers[certain_time_slot];
+
 
                 //cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot];
                 if (gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot].length > 40){
-                    create_html_linked_text(gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot],cell4)
+                    create_html_linked_text(gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot],cell6)
 
                 }else{
-                    cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot];
+                    cell6.innerHTML = gates.array_of_calendars[calendar].time_slots[real_time].commoditys[certain_time_slot];
                 }
-                let cell5 = row.insertCell(4);
-                cell5.innerHTML = gates.ids[calendar];
 
-                let cell6 = row.insertCell(5);
+                cell7.innerHTML = gates.ids[calendar];
+
                 // treba pridat funkcionalitu buttonom
 
                 let apply_button = document.createElement("BUTTON")
@@ -160,8 +170,8 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                     ajax_post_confirm(row,index);
                 }
                 apply_button.innerHTML = "Confirm arrival";
-                cell6.className = "td_flex_buttons";
-                cell6.appendChild(apply_button);
+                cell8.className = "td_flex_buttons";
+                cell8.appendChild(apply_button);
 
 
             }

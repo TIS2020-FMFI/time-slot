@@ -149,8 +149,9 @@ class Time_slot {
      * @param driver2 :string/null
      * @param destination :string/null
      * @param commodity :string/null
+     * @param user : company name
      */
-    add_next_time_slot_for_gate_man(id, s_time,evc,driver1,driver2,destination,commodity){
+    add_next_time_slot_for_gate_man(id, s_time,evc,driver1,driver2,destination,commodity,user){
         this.ids.push(id)
         this.start_times.push(s_time)
         this.evcs.push(evc)
@@ -158,6 +159,7 @@ class Time_slot {
         this.kamionists_2.push(driver2)
         this.destinations.push(destination)
         this.commoditys.push(commodity)
+        this.external_dispatchers.push(user)
     }
 
 

@@ -68,6 +68,7 @@ function first_load(){
 function make_date(how_many_or_elem){
     let only_one_day = document.getElementById('select_only_day').value;
     if (only_one_day === 'One day'){
+        document.getElementById('select_only_day').style.border = '1px solid #ced4da';
         if (how_many_or_elem !== 1 && how_many_or_elem !== -1 ){ // pkial sa klika na sipky pri minicalendari
             let new_date = how_many_or_elem.value;
             if (new_date <  document.getElementById('input_date').min || new_date >  document.getElementById('input_date').max ){
@@ -107,6 +108,9 @@ function make_date(how_many_or_elem){
                 find_by(document.getElementById('input_text'))
             }
         }
+    }else{
+        create_exception('Please select <strong> One day </strong> in last select box in top bar .' , 6 , 'warning');
+        document.getElementById('select_only_day').style.border = '1px solid #ff0000';
     }
 
 }
