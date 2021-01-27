@@ -411,7 +411,7 @@ function timer(){
     }
     // odrataj po kazdej sekunde s
 }
-function edit_requested_time_slot(){
+function edit_requested_or_booked_time_slot(){
     document.getElementById('update_button').disabled = false;
     document.getElementById('edit_button').disabled = true;
     if (document.getElementById('confirm_button') !== null){
@@ -462,6 +462,52 @@ function update_requested_time_slot(){
         }
         let ramp_value = ramp.value.split(' ');
         $.post('order_AJAX/update_request_time_slot.php',{
+            evc:evc.value,
+            kam1:kam1.value,
+            kam2:kam2.value,
+            destination:destination.value,
+            cargo:cargo.value,
+            ramp:ramp_value[1],
+            company_name:company.value,
+            company_email:((company_email === null) ? 'null' : company_email.value )
+        },function(data){
+            if (data){
+                if (data === '1' ){
+                    window.open('internal_dispatcher.php',"_self");
+                }else if (data === '2'){
+                    window.open('external_dispatcher.php',"_self");
+                }else if (data.includes( '*')){
+                    create_exception(data.slice(1,data.length),8,'warning');
+                    restart_inputs_company_name_email();
+                }else{
+                    create_exception(data,65,'danger');
+                }
+
+            }else{
+                create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
+            }
+        });
+    }else{
+        create_exception("prosim vypln chybajuce kolonky z <strong>*</strong>",13,'warning');
+    }
+}
+function update_booked_time_slot(){
+    if (evc.value !== '' && kam1.value !== '' && destination.value !== '' && cargo.value !== '' && time !== 0){
+        if (is_correct_name_for_driver(kam1.value) || is_correct_name_for_driver(kam2.value)){ // sem treba pridat kontroli na evc destinaciu a cargo
+            return ;
+        }
+        if (company_names.length > 0){
+            if (company_names.includes(company.value) === false){
+                create_exception("The <strong>company name</strong> you entered was not found.",13,'warning');
+                return ;
+            }
+            if (company_employee_email_address.includes(company_email.value) === false){
+                create_exception("The <strong>company name</strong> you entered was not found.",13,'warning');
+                return ;
+            }
+        }
+        let ramp_value = ramp.value.split(' ');
+        $.post('order_AJAX/update_booked_time_slot.php',{
             evc:evc.value,
             kam1:kam1.value,
             kam2:kam2.value,
