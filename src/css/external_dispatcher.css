@@ -22,9 +22,21 @@ input[type=date] ,#back_date, #next_date{
     border-bottom: 0px;
     vertical-align: top;
 }
-#input_text,#select_only{
-    display: inherit;
+
+.form-control{
+    /*vertical-align: top;*/
+    /*display: inherit;*/
+    min-width: 60px;
+    max-width: 120px;
+}
+#input_text{
+    /*vertical-align: top;*/
+    /*display: inherit;*/
+    max-width: 1200px;
     min-width: 80px;
+}
+label{
+    display: none;
 }
 
 

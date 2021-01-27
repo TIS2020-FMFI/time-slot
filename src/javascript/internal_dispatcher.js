@@ -161,7 +161,7 @@ function make_date_arrows_mini_calendar(how_many){
         }
         document.getElementById('input_date').value=new_date.toISOString().substr(0,10);
     }
-    console.log(document.getElementById("ramp_title").innerHTML);
+    // console.log(document.getElementById("ramp_title").innerHTML);
     display_time_slot_for_this_date(document.getElementById('input_date'));
 }
 /**
@@ -188,7 +188,7 @@ let row_columns_in_half_hours = document.getElementsByClassName('item_in_hours')
  *  button show pod kazdou rampou
  * @param elem :HTML
  */
-function show_full_gate(elem){
+function    show_full_gate(elem){
     //console.log('SJOWWWW');
     //if (document.getElementById("ramp_title").innerHTML === 'invalid date' &&  selected_date < document.getElementById('input_date').min) {
     //         console.log("zli datum  show_full_gate")
@@ -714,18 +714,8 @@ function select(lock_for,option){
                 }else{
                     table_rows_with_class_name[row].style.display = 'none';
                 }
-
-                // if (table_rows_with_class_name[row].innerHTML.toLowerCase().includes((text[1] === undefined) ? ':'  :text[1].toLowerCase() )){// && table_rows_with_class_name[row].style.display !== 'none'){//&& table_rows_with_class_name[row].style.display === 'revert'
-                //     table_rows_with_class_name[row].style.display = 'revert';
-                // }else{
-                //     table_rows_with_class_name[row].style.display = 'none';
-                // }
             }
         }
-        // for (let index_text = 1 ;index_text < text.length;index_text++){
-        //     console.log("SOM TU HLADAM TEXT : ",text[index_text]);
-        //
-        // }
 
     }else{
         let founded = false;

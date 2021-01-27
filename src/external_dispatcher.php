@@ -16,7 +16,7 @@ include('html_nav_component.php');
 ?>
 
 
-<div class="table-responsive bg-light fixed-top" id="role_down">
+<div class=" bg-light fixed-top" id="role_down">
   <table class="table"  >
     <thead>
     <tr>
@@ -28,8 +28,10 @@ include('html_nav_component.php');
       <th class="top_bar">
         <h3 id="date_number"  class="text-primary" >21.12.2020</h3>
       </th>
-      <th class="top_bar th_top_float_bar" scope="col">
-        <div class="form-group m-0" >
+      <th class="top_bar th_top_float_bar d-flex w-auto" scope="col">
+          <label for="input_text"></label><input type="text" id="input_text" class="form-control " placeholder="Find by" oninput="find_by(this)"  >
+
+          <label for="select_only"></label>
           <select class="form-control" id="select_only" onchange="select_only(this)">
             <option>all</option>
               <option>Only prepared</option>
@@ -37,13 +39,15 @@ include('html_nav_component.php');
             <option>Only booked</option>
             <option>Only finished</option>
           </select>
-        </div>
+          <label for="select_only_new_old"></label><select class="form-control" id="select_only_new_old" onchange="select_only_new_old(this.value)">
+              <option>Newest</option>
+              <option>Oldest</option>
+          </select>
+          <label for="select_only_day"></label><select class="form-control" id="select_only_day" onchange="select_only_day(this.value)">
+              <option>One day</option>
+              <option>All days</option>
+          </select>
       </th>
-      <th class="top_bar" scope="col" >
-        <input type="text" id="input_text" class="form-control" placeholder="Find by" oninput="find_by(this)"  >
-      </th>
-
-
     </tr>
     </thead>
   </table>
@@ -51,7 +55,7 @@ include('html_nav_component.php');
 
 <p id="offset_element"></p>
 <h3  id="prepared_title"  class="text-success"  >Prepared</h3 >
-<table id="prepared" class="table table-striped  table-responsive bg-light table_of_customers" >
+<table id="prepared" class="table table-striped   bg-light table_of_customers" >
   <thead>
   <tr>
     <th  scope="col">Time</th>
@@ -77,7 +81,7 @@ include('html_nav_component.php');
 </table>
 
 <h3 id="requested_title" class="text-warning">Requested</h3>
-<table id="requested" class="table table-striped  table-responsive bg-light table_of_customers">
+<table id="requested" class="table table-striped  bg-light table_of_customers">
   <thead>
     <tr>
         <th scope="col">Time</th>
@@ -103,7 +107,7 @@ include('html_nav_component.php');
 </table>
 
 <h3 id="booked_title"  class="text-danger">Booked</h3>
-<table id="booked" class="table table-striped  table-responsive bg-light table_of_customers">
+<table id="booked" class="table table-striped bg-light table_of_customers">
     <thead>
     <tr>
         <th scope="col">Time</th>
@@ -129,7 +133,7 @@ include('html_nav_component.php');
 </table>
 
 <h3 id="finished_title" class="text-finished">Finished</h3>
-<table id="finished" class="table table-striped  table-responsive bg-light table_of_customers">
+<table id="finished" class="table table-striped bg-light table_of_customers">
     <thead>
     <tr>
         <th scope="col">Time</th>
