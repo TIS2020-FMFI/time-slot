@@ -87,15 +87,17 @@ function first_load(){
     selected_date = (new Date()).toISOString().substr(0,10);
     loop();
     setTimeout(update_handler , 60*5*1000);
+
     //console.log(selected_date);
 }
+
 // window.onload= function() {
 //
 //
 // }
 function clear_find_by(){
+    let elem = document.getElementById('input_text');
     if (elem.value !== ''){
-        let elem = document.getElementById('input_text');
         elem.value = '';
         find_by(elem);
     }
@@ -261,9 +263,12 @@ function show_full_gate(elem){
                     let html_row_count = 0;
                     if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'occupied'){
                         for (let make_html = final_st_index ;make_html < final_ed_index;make_html++){
-                        row_columns_in_half_hours[make_html*7+day].style.backgroundColor = "#717983";
-                        html_row_count ++
+                            row_columns_in_half_hours[make_html*7+day].style.backgroundColor = "#717983";
+                            html_row_count ++
                             row_columns_in_half_hours[make_html*7+day].innerHTML = "occupied";
+                            if (html_row_count === 5){
+                                row_columns_in_half_hours[make_html*7+day].style.borderBottom = '3px solid #f8f9fa';
+                            }
                         }
                     }
                     if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'prepared' ){
@@ -280,7 +285,7 @@ function show_full_gate(elem){
                                 }
                                 show_button.innerHTML = "SHOW";
 
-
+                                row_columns_in_half_hours[make_html*7+day].style.borderBottom = '3px solid #f8f9fa';
                                 row_columns_in_half_hours[make_html*7+day].appendChild(show_button);
                             }else{
                                 row_columns_in_half_hours[make_html*7+day].innerHTML = "Free";
@@ -383,12 +388,10 @@ function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,
         show_button.className = "btn btn-default bg-primary only_one";
         show_button.onclick = function (){
             Time_slot.open_time_slot(time_slot.ids[time_slot_index],state);
-            //let index = time_slot.ids[time_slot_index];
-                 //console.log(index);
              }
         show_button.innerHTML = "SHOW";
 
-
+        row_columns_in_half_hours[index_of_column].style.borderBottom = '3px solid #f8f9fa';
         row_columns_in_half_hours[index_of_column].appendChild(show_button);
     }
 }
@@ -574,12 +577,15 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                     let cell3 = row.insertCell(2);
                     let cell4 = row.insertCell(3);
                     let cell5 = row.insertCell(4);
+                    if (state === 'prepared'){
+                        cell2.innerHTML = 'ramp-'+gates.ids[calendar];
+                    }
 
                     if (state !== 'prepared'){
 
-                        cell2.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].external_dispatchers[certain_time_slot]
-                        cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].evcs[certain_time_slot];
-                        cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].destinations[certain_time_slot];
+                        cell2.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].destinations[certain_time_slot];
+                        cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].external_dispatchers[certain_time_slot];
+                        cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].evcs[certain_time_slot];
                         if (gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot].length > 40){
                             create_html_linked_text(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot],cell5)
 
@@ -623,6 +629,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             console.log('BOOKED  ',index);
                         }
                         cell6.className="td_flex_buttons";
+
                         cell6.appendChild(show_button);
                     }else if(state === 'finished'){
                         let show_button = document.createElement("BUTTON")
@@ -634,8 +641,10 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             console.log('BOOKED  ',index);
                         }
                         cell6.className="td_flex_buttons";
+
                         cell6.appendChild(show_button);
                     }
+
 
                 }
 
@@ -692,13 +701,34 @@ function select(lock_for,option){
         console.log(table_rows_with_class_name.length);
         for (let row = 0 ; row < table_rows_with_class_name.length; row++) {
             for (let column = 0; column < table_rows_with_class_name[row].childNodes.length - 1; column++) {
-                if (table_rows_with_class_name[row].innerHTML.toLowerCase().includes((text[1] === undefined) ? ':'  :text[1].toLowerCase() )){
+                let found_match = false;
+                for (let index_text = 1 ;index_text < text.length;index_text++){
+                    // console.log('hladam text ',text[index_text] )
+                    if (table_rows_with_class_name[row].innerHTML.toLowerCase().includes((text[index_text] === undefined) ? ':'  :text[index_text].toLowerCase() )){// && table_rows_with_class_name[row].style.display !== 'none'){//&& table_rows_with_class_name[row].style.display === 'revert'
+                        found_match = true;
+                    }else{
+                        found_match = false;
+                        break;
+                    }
+                }
+                if (found_match || text[1] === undefined ){
                     table_rows_with_class_name[row].style.display = 'revert';
                 }else{
                     table_rows_with_class_name[row].style.display = 'none';
                 }
+
+                // if (table_rows_with_class_name[row].innerHTML.toLowerCase().includes((text[1] === undefined) ? ':'  :text[1].toLowerCase() )){// && table_rows_with_class_name[row].style.display !== 'none'){//&& table_rows_with_class_name[row].style.display === 'revert'
+                //     table_rows_with_class_name[row].style.display = 'revert';
+                // }else{
+                //     table_rows_with_class_name[row].style.display = 'none';
+                // }
             }
         }
+        // for (let index_text = 1 ;index_text < text.length;index_text++){
+        //     console.log("SOM TU HLADAM TEXT : ",text[index_text]);
+        //
+        // }
+
     }else{
         let founded = false;
         let table_rows_with_class_name = document.getElementsByClassName(option+"_tr");

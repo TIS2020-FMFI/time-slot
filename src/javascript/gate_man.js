@@ -130,7 +130,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                     let index = gates.array_of_calendars[calendar].time_slots[real_time].ids[certain_time_slot];
                     ajax_post_confirm(row,index);
                 }
-                apply_button.innerHTML = "Confirm";
+                apply_button.innerHTML = "Confirm arrival";
                 cell6.className = "td_flex_buttons";
                 cell6.appendChild(apply_button);
 

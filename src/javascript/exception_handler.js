@@ -79,12 +79,7 @@ function is_correct_name(text_string){
     }
 }
 function is_correct_password(text_string){
-    if( format_for_password.test(text_string)  ){
-        create_exception( 'Your <strong>password</strong> has the wrong format. Do not use any of the following symbols: '+format_for_password,13,'warning');
-        return true;
-    }else{
-        return is_good_length(text_string.length,7,30,'password');
-    }
+    return is_good_length(text_string.length,7,30,'password');
 }
 function is_correct_email(email_string){
     if( format_for_email.test(email_string) ){
