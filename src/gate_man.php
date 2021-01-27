@@ -22,6 +22,14 @@ include('exception_handler.php');
       <th class="top_bar" scope="col" >
         <input type="text" class="form-control" placeholder="Find by" aria-label="Username" aria-describedby="basic-addon1" oninput="find_by(this)" >
       </th>
+        <th class="top_bar" scope="col" >
+            <label for="change_select_time"></label>
+            <select class="form-control" id="change_select_time" onchange="select_by(this.value)">
+                <option>Oldest</option>
+                <option>Newest</option>
+            </select>
+        </th>
+
 
     </tr>
     </thead>

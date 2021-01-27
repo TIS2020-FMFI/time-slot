@@ -66,9 +66,38 @@ function first_load() {
 function generate_gate_selector(){
     //console.log(gates);
     make_table_for_external_dispatcher('finished','finished_tr','finished');
+    select_by('Oldest');
 }
 
+function select_by(elem_val){
+    let multiplayer = 1;
+    if (elem_val === 'Newest'){
+        multiplayer *= -multiplayer
+    }
 
+    let all = document.getElementsByClassName( "finished_tr");
+    let table_rows_with_class_name = Array.prototype.slice.call(all)
+    table_rows_with_class_name.sort(function (a, b) {
+        if (a.childNodes[0].innerHTML < b.childNodes[0].innerHTML) {
+            return -1 * multiplayer;
+        }
+        if (a.childNodes[0].innerHTML > b.childNodes[0].innerHTML) {
+            return 1 * multiplayer;
+        }
+
+        return 0;
+
+    });
+    let table_rows_with_class_name_copy =  document.getElementsByClassName( "finished_tr");
+    let parent = table_rows_with_class_name_copy[0].parentElement;
+    while (table_rows_with_class_name_copy.length) {
+        table_rows_with_class_name_copy[0].remove();
+    }
+    for (let elem = 0; elem < table_rows_with_class_name.length; elem++) {
+        parent.append(table_rows_with_class_name[elem]);
+    }
+
+}
 /**
  * funkcia na vitvorenie tables 'prepared'/'requested'/'booked'/'finished'
  * @param id_of_table HTML.id table ktori sa ide spracovat :string

@@ -104,7 +104,6 @@ function clear_find_by(){
 
 }
 function select_by(elem_val){
-    console.log('SORTING : ',elem_val);
     let multiplayer = 1;
     if (elem_val === 'Newest'){
         multiplayer *= -multiplayer
@@ -703,7 +702,6 @@ function select(lock_for,option){
             for (let column = 0; column < table_rows_with_class_name[row].childNodes.length - 1; column++) {
                 let found_match = false;
                 for (let index_text = 1 ;index_text < text.length;index_text++){
-                    // console.log('hladam text ',text[index_text] )
                     if (table_rows_with_class_name[row].innerHTML.toLowerCase().includes((text[index_text] === undefined) ? ':'  :text[index_text].toLowerCase() )){// && table_rows_with_class_name[row].style.display !== 'none'){//&& table_rows_with_class_name[row].style.display === 'revert'
                         found_match = true;
                     }else{

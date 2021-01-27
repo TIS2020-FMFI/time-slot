@@ -53,6 +53,9 @@ table thead th{
 .table{
     margin-bottom: 0px;
 }
+label{
+    display: none;
+}
 @media (min-width: 0px) {
     .table_of_customers{
         font-size: 12px;
