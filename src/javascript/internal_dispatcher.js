@@ -18,7 +18,9 @@ function parse_data(data){
         // [6] == evc_truck |
         // [7] == firm_name |
         // [8] == commodity |
-        // [9] == order
+        // [9] == order |
+        // [10] == driver 1
+        // [11] == driver 2
         if (data[i][5] === "requested"){
             counter++;
         }
@@ -27,16 +29,16 @@ function parse_data(data){
         if (index >= 0){
             let index_real_time = gates.array_of_calendars[index].get_index_by_real_time(data[i][2]);
             if (index_real_time >= 0){
-                gates.array_of_calendars[index].time_slots[index_real_time].add_next_time_slot_for_internal_dispatcher(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9]);
+                gates.array_of_calendars[index].time_slots[index_real_time].add_next_time_slot_for_internal_dispatcher(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9],data[i][10],data[i][11]);
             }else{
                 let time_slot = new Time_slot();
-                time_slot.add_next_time_slot_for_internal_dispatcher(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9]);
+                time_slot.add_next_time_slot_for_internal_dispatcher(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9],data[i][10],data[i][11]);
                 gates.array_of_calendars[index].push_real_time_and_time_slot(data[i][2],time_slot);
             }
         }else{
             let calendar = new Calendar();
             let time_slot = new Time_slot();
-            time_slot.add_next_time_slot_for_internal_dispatcher(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9]);
+            time_slot.add_next_time_slot_for_internal_dispatcher(data[i][0],data[i][3],data[i][4],data[i][5],data[i][6],data[i][7],data[i][8],data[i][9],data[i][10],data[i][11]);
             calendar.push_real_time_and_time_slot(data[i][2],time_slot);
             gates.push_calendar_and_id(data[i][1],calendar);
         }
@@ -576,6 +578,8 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                     let cell3 = row.insertCell(2);
                     let cell4 = row.insertCell(3);
                     let cell5 = row.insertCell(4);
+                    let cell6 = row.insertCell(5);
+                    let cell7 = row.insertCell(6);
                     if (state === 'prepared'){
                         cell2.innerHTML = 'ramp-'+gates.ids[calendar];
                     }
@@ -585,15 +589,22 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         cell2.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].destinations[certain_time_slot];
                         cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].external_dispatchers[certain_time_slot];
                         cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].evcs[certain_time_slot];
+                        if (gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].kamionists_2[certain_time_slot] !== null) {
+                            //console.log(gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot], gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_2[certain_time_slot]);
+                            cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].kamionists_1[certain_time_slot]
+                                + "<br>" + gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].kamionists_2[certain_time_slot];
+                        } else {
+                            cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].kamionists_1[certain_time_slot];
+                        }
                         if (gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot].length > 40){
-                            create_html_linked_text(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot],cell5)
+                            create_html_linked_text(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot],cell6)
 
                         }else{
-                            cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot];
+                            cell6.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot];
                         }
                     }
 
-                    let cell6 = row.insertCell(5);
+
 
                     // treba pridat funkcionalitu buutonom
                     if (state === 'prepared'){
@@ -605,8 +616,8 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
                             console.log('PREPARED  ',index);
                         }
-                        cell6.className="td_flex_buttons";
-                        cell6.appendChild(apply_button);
+                        cell7.className="td_flex_buttons";
+                        cell7.appendChild(apply_button);
                     }else if(state === 'requested'){
                         let show_button = document.createElement("BUTTON")
                         show_button.className="btn btn-default bg-primary only_one";
@@ -616,8 +627,8 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot],'requested');
                             console.log('REQUEST  ',index);
                         }
-                        cell6.className="td_flex_buttons";
-                        cell6.appendChild(show_button);
+                        cell7.className="td_flex_buttons";
+                        cell7.appendChild(show_button);
                     }else if(state === 'booked' ){
                         let show_button = document.createElement("BUTTON")
                         show_button.className="btn btn-default bg-primary only_one";
@@ -627,9 +638,9 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
                             console.log('BOOKED  ',index);
                         }
-                        cell6.className="td_flex_buttons";
+                        cell7.className="td_flex_buttons";
 
-                        cell6.appendChild(show_button);
+                        cell7.appendChild(show_button);
                     }else if(state === 'finished'){
                         let show_button = document.createElement("BUTTON")
                         show_button.className="btn btn-default bg-primary only_one";
@@ -639,9 +650,9 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                             //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
                             console.log('BOOKED  ',index);
                         }
-                        cell6.className="td_flex_buttons";
+                        cell7.className="td_flex_buttons";
 
-                        cell6.appendChild(show_button);
+                        cell7.appendChild(show_button);
                     }
 
 

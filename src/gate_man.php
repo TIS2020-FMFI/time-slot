@@ -39,14 +39,8 @@ include('exception_handler.php');
 <table id='finished' class="table table-striped  table-responsive bg-light table_of_customers " >
   <thead>
      <tr>
-<!--         <th scope="col">Time</th>-->
-<!--         <th  scope="col">Destination</th>-->
-<!--         <th  scope="col">Company</th>-->
-<!--         <th scope="col">Plate number</th>-->
-<!--         <th scope="col">Cargo</th>-->
-<!--         <th scope="col"></th>-->
          <th scope="col">Time</th>
-         <th  scope="col">Destination</th>-->
+         <th  scope="col">Destination</th>
          <th  scope="col">Company</th>
          <th scope="col">Plate number</th>
          <th scope="col">Truck Drivers</th>

@@ -658,6 +658,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -682,6 +683,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         <th  scope="col">Destination</th>
         <th  scope="col">Company</th>
         <th scope="col">Plate number</th>
+        <th scope="col">Truck Drivers</th>
         <th scope="col">Cargo</th>
         <th scope="col"></th>
     </tr>
@@ -708,6 +710,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
             <th  scope="col">Destination</th>
             <th  scope="col">Company</th>
             <th scope="col">Plate number</th>
+            <th scope="col">Truck Drivers</th>
             <th scope="col">Cargo</th>
             <th scope="col"></th>
         </tr>
@@ -734,6 +737,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         <th  scope="col">Destination</th>
         <th  scope="col">Company</th>
         <th scope="col">Plate number</th>
+        <th scope="col">Truck Drivers</th>
         <th scope="col">Cargo</th>
         <th scope="col"></th>
     </tr>
