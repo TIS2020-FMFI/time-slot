@@ -228,7 +228,8 @@ function checkTime(i) {
     return i;
 }
 
-function loop(){
+function loop_remove(){
+    // console.log('LOOP REMOVE');
     let duration_of_admins_constant = 20; // magic konstant from admin
     let time = new Date();
     time.setMinutes(time.getMinutes() - duration_of_admins_constant);
@@ -244,14 +245,14 @@ function loop(){
     let valid_time_string = h+":"+m+":"+s;
     //console.log(valid_time, "    ",valid_time_string);
     for (let row = 0 ; row < table_rows_with_class_name.length; row++){
-            if (table_rows_with_class_name[row].childNodes[2].innerHTML <= valid_time_string) {
+            if (table_rows_with_class_name[row].childNodes[0].innerHTML <= valid_time_string) {
                 list_of_deleted.push(table_rows_with_class_name[row]);
             }
     }
     for (let i = 0 ;i < list_of_deleted.length;i++){
-        //console.log(list_of_deleted[i]);
+        // console.log(list_of_deleted[i]);
         list_of_deleted[i].remove();
     }
-    setTimeout(loop,100);
+    setTimeout(loop_remove,100);
 }
-loop();
+loop_remove();
