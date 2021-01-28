@@ -18,7 +18,8 @@ if (isset($_SESSION['role'])){
                     truck_driver_1 as driver1,
                     truck_driver_2 as driver2,
                     destination ,
-                    cargo
+                    cargo,
+                    (select meno_splocnosti from employee where id=id_external_dispatcher)
                     FROM time_slot
                     where state = 'booked' and (start_date_time  BETWEEN '{$date_start}' AND '{$date_end}')
                     ORDER BY id_gate ASC , start_date_time ASC ";

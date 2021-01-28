@@ -100,17 +100,24 @@ if (($_SESSION['role'] == "EXD" || $_SESSION['role'] == "IND" || $_SESSION['role
             ?>
             <button class="btn btn-lg btn-success  text-uppercase internal_dispatcher edit_button buttons" type="button" onclick="request_time_slot()">Create</button>
             <?php
-        }else if (($_SESSION['role'] == "AD" || $_SESSION['role'] == "IND") &&  $_SESSION['active_time_slot_state'] == 'requested'){
+        }else if (($_SESSION['role'] == "AD" || $_SESSION['role'] == "IND") &&  $_SESSION['active_time_slot_state'] == 'requested' ){
             ?>
 
-            <button class="btn btn-lg btn-success  text-uppercase internal_dispatcher edit_button buttons" type="button" id="confirm_button"onclick="confirm_requested_time_slot()">confirm</button>
-            <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="edit_button" onclick="edit_requested_time_slot()">edit</button>
+            <button class="btn btn-lg btn-success  text-uppercase internal_dispatcher edit_button buttons" type="button" id="confirm_button" onclick="confirm_requested_time_slot()">confirm</button>
+            <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="edit_button" onclick="edit_requested_or_booked_time_slot()">edit</button>
             <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="update_button" onclick="update_requested_time_slot()" disabled>update</button>
             <button class="btn btn-lg btn-danger  text-uppercase internal_dispatcher edit_button buttons" type="button" onclick="delete_requested_time_slot()">Delete</button>
             <?php
+        }else if (($_SESSION['role'] == "AD" || $_SESSION['role'] == "IND") &&  $_SESSION['active_time_slot_state'] == 'booked'){
+            ?>
+
+            <button class="btn btn-lg btn-success  text-uppercase internal_dispatcher edit_button buttons" type="button" id="confirm_button" onclick="confirm_requested_time_slot()">confirm</button>
+            <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="edit_button" onclick="edit_requested_or_booked_time_slot()">edit</button>
+            <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="update_button" onclick="update_booked_time_slot()" disabled>update</button>
+            <?php
         }else if ($_SESSION['role'] == "EXD" &&  $_SESSION['active_time_slot_state'] == 'requested'){
             ?>
-            <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="edit_button" onclick="edit_requested_time_slot()">edit</button>
+            <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="edit_button" onclick="edit_requested_or_booked_time_slot()">edit</button>
             <button class="btn btn-lg btn-primary  text-uppercase internal_dispatcher edit_button buttons" type="button" id="update_button" onclick="update_requested_time_slot()" disabled>update</button>
             <button class="btn btn-lg btn-danger  text-uppercase internal_dispatcher edit_button buttons" type="button" onclick="delete_requested_time_slot()">Delete</button>
             <?php

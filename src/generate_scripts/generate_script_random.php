@@ -6,20 +6,20 @@ date_default_timezone_set("Europe/Bratislava");
 
 $array_of_state = Array("prepared","requested","finished","booked");
 // kazdy vnutorni array in $array_of_times predstavuje den monday [7:00 , 22:00] vo formate intigerov [7 , 22]
-$array_of_times = [[7 , 19.5],
-    [6 , 19.5],
-    [6 , 19.5],
-    [7 , 19.5],
-    [7 , 19.5],
-    [7 , 19.5],
-    [7 , 19.5],
-    [7 , 19.5],
-    [6 , 19.5],
-    [6 , 19.5],
-    [7 , 19.5],
-    [7 , 19.5],
-    [7 , 19.5],
-    [7 , 19.5]];
+$array_of_times = [[6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5],
+    [6 , 21.5]];
 
 $next_start_point_of_generation =  strtotime('1 week ago'); //  treba specifikovat format generovania napr. UTC 00:00
 $date = date("Y-m-d", $next_start_point_of_generation);

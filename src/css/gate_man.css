@@ -48,10 +48,13 @@
     margin-bottom: 0px;
 }
 table thead th{
-    width: 25%;
+    width: 15%;
 }
 .table{
     margin-bottom: 0px;
+}
+label{
+    display: none;
 }
 @media (min-width: 0px) {
     .table_of_customers{

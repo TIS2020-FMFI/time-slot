@@ -95,43 +95,43 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         <tbody>
         <tr >
             <th class="right_border_state text-success" scope="row">Prepared</th>
-            <th class="right_border calendar_item 1 prepared_occupied "  >loading</th>
-            <th class="right_border calendar_item 2 prepared_occupied"  >loading</th>
-            <th class="right_border calendar_item 3 prepared_occupied"  >loading</th>
-            <th class="right_border calendar_item 4 prepared_occupied"  >loading</th>
-            <th class="right_border calendar_item 5 prepared_occupied"  >loading</th>
-            <th class="right_border calendar_item 6 prepared_occupied"  >loading</th>
-            <th class="right_border_last calendar_item 7 prepared_occupied"  >loading</th>
+            <th class="right_border calendar_item 1 prepared_occupied "  >loading...</th>
+            <th class="right_border calendar_item 2 prepared_occupied"  >loading...</th>
+            <th class="right_border calendar_item 3 prepared_occupied"  >loading...</th>
+            <th class="right_border calendar_item 4 prepared_occupied"  >loading...</th>
+            <th class="right_border calendar_item 5 prepared_occupied"  >loading...</th>
+            <th class="right_border calendar_item 6 prepared_occupied"  >loading...</th>
+            <th class="right_border_last calendar_item 7 prepared_occupied"  >loading...</th>
         </tr>
         <tr >
             <th class="right_border_state text-warning" scope="row">Requested</th>
-            <th class="right_border calendar_item 1 requested "  >loading</th>
-            <th class="right_border calendar_item 2 requested"  >loading</th>
-            <th class="right_border calendar_item 3 requested"  >loading</th>
-            <th class="right_border calendar_item 4 requested"  >loading</th>
-            <th class="right_border calendar_item 5 requested"  >loading</th>
-            <th class="right_border calendar_item 6 requested"  >loading</th>
-            <th class="right_border_last calendar_item 7 requested"  >loading</th>
+            <th class="right_border calendar_item 1 requested "  >loading...</th>
+            <th class="right_border calendar_item 2 requested"  >loading...</th>
+            <th class="right_border calendar_item 3 requested"  >loading...</th>
+            <th class="right_border calendar_item 4 requested"  >loading...</th>
+            <th class="right_border calendar_item 5 requested"  >loading...</th>
+            <th class="right_border calendar_item 6 requested"  >loading...</th>
+            <th class="right_border_last calendar_item 7 requested"  >loading...</th>
         </tr>
         <tr >
             <th class="right_border_state text-danger" scope="row">Booked</th>
-            <th class="right_border calendar_item 1 booked "  >loading</th>
-            <th class="right_border calendar_item 2 booked"  >loading</th>
-            <th class="right_border calendar_item 3 booked"  >loading</th>
-            <th class="right_border calendar_item 4 booked"  >loading</th>
-            <th class="right_border calendar_item 5 booked"  >loading</th>
-            <th class="right_border calendar_item 6 booked"  >loading</th>
-            <th class="right_border_last calendar_item 7 booked"  >loading</th>
+            <th class="right_border calendar_item 1 booked "  >loading...</th>
+            <th class="right_border calendar_item 2 booked"  >loading...</th>
+            <th class="right_border calendar_item 3 booked"  >loading...</th>
+            <th class="right_border calendar_item 4 booked"  >loading...</th>
+            <th class="right_border calendar_item 5 booked"  >loading...</th>
+            <th class="right_border calendar_item 6 booked"  >loading...</th>
+            <th class="right_border_last calendar_item 7 booked"  >loading...</th>
         </tr>
         <tr >
             <th class="right_border_state text-finished" scope="row">Finished</th>
-            <th class="right_border calendar_item 1 finished "  >loading</th>
-            <th class="right_border calendar_item 2 finished"  >loading</th>
-            <th class="right_border calendar_item 3 finished"  >loading</th>
-            <th class="right_border calendar_item 4 finished"  >loading</th>
-            <th class="right_border calendar_item 5 finished"  >loading</th>
-            <th class="right_border calendar_item 6 finished"  >loading</th>
-            <th class="right_border_last calendar_item 7 finished"  >loading</th>
+            <th class="right_border calendar_item 1 finished "  >loading...</th>
+            <th class="right_border calendar_item 2 finished"  >loading...</th>
+            <th class="right_border calendar_item 3 finished"  >loading...</th>
+            <th class="right_border calendar_item 4 finished"  >loading...</th>
+            <th class="right_border calendar_item 5 finished"  >loading...</th>
+            <th class="right_border calendar_item 6 finished"  >loading...</th>
+            <th class="right_border_last calendar_item 7 finished"  >loading...</th>
         </tr>
         <tr >
             <th class="right_border_state text-finished" scope="row"></th>
@@ -653,8 +653,9 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     <thead>
         <tr>
             <th scope="col">Time</th>
+            <th  scope="col">Ramp number</th>
             <th  scope="col"></th>
-            <th  scope="col"></th>
+            <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -679,9 +680,10 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     <thead>
     <tr>
         <th scope="col">Time</th>
+        <th  scope="col">Destination</th>
         <th  scope="col">Company</th>
-        <th  scope="col">Plate number</th>
-        <th scope="col">Destination</th>
+        <th scope="col">Plate number</th>
+        <th scope="col">Truck Drivers</th>
         <th scope="col">Cargo</th>
         <th scope="col"></th>
     </tr>
@@ -705,9 +707,10 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     <thead>
         <tr>
             <th scope="col">Time</th>
+            <th  scope="col">Destination</th>
             <th  scope="col">Company</th>
-            <th  scope="col">Plate number</th>
-            <th scope="col">Destination</th>
+            <th scope="col">Plate number</th>
+            <th scope="col">Truck Drivers</th>
             <th scope="col">Cargo</th>
             <th scope="col"></th>
         </tr>
@@ -731,9 +734,10 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     <thead>
     <tr>
         <th scope="col">Time</th>
+        <th  scope="col">Destination</th>
         <th  scope="col">Company</th>
-        <th  scope="col">Plate number</th>
-        <th scope="col">Destination</th>
+        <th scope="col">Plate number</th>
+        <th scope="col">Truck Drivers</th>
         <th scope="col">Cargo</th>
         <th scope="col"></th>
     </tr>
