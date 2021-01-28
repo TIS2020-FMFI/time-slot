@@ -269,7 +269,9 @@ function    show_full_gate(elem){
                             row_columns_in_half_hours[make_html*7+day].innerHTML = "occupied";
                             if (html_row_count === 5){
                                 row_columns_in_half_hours[make_html*7+day].style.borderBottom = '3px solid #f8f9fa';
-                            }
+                            }else{
+		row_columns_in_half_hours[make_html*7+day].style.borderBottom = '0px';
+		}
                         }
                     }
                     if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'prepared' ){
@@ -290,6 +292,7 @@ function    show_full_gate(elem){
                                 row_columns_in_half_hours[make_html*7+day].appendChild(show_button);
                             }else{
                                 row_columns_in_half_hours[make_html*7+day].innerHTML = "Free";
+		row_columns_in_half_hours[make_html*7+day].style.borderBottom = '0px';
                             }
                             // treba pridat event click
                         }
@@ -367,6 +370,7 @@ function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,
     //console.log('\n');
 
     row_columns_in_half_hours[index_of_column].style.backgroundColor = color;
+    row_columns_in_half_hours[index_of_column].style.borderBottom = '0px';
     if (html_row_count === 0){
         row_columns_in_half_hours[index_of_column].innerHTML = time_slot.external_dispatchers[time_slot_index];
     }
