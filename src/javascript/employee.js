@@ -89,8 +89,6 @@ function add_new_customer(){
     document.getElementById('inputNewLastName').value = "";
     document.getElementById('inputEmail').value = "";
     document.getElementById('inputFirm').value = "";
-    document.getElementById('inputPassword').value = "";
-    document.getElementById('inputConfirmPassword').value = "";
     document.getElementsByClassName('table-responsive')[0].style.display="none";
     document.getElementsByClassName('table_of_customers')[0].style.display="none";
     document.getElementsByClassName('add_customer')[0].style.display="block";
@@ -444,24 +442,18 @@ function submit_form_new_employee(){
     let L_name = document.getElementById('inputNewLastName').value;
     let email = document.getElementById('inputEmail').value;
     let Firm = document.getElementById('inputFirm').value;
-    let Password = document.getElementById('inputPassword').value;
-    let Confirm_password = document.getElementById('inputConfirmPassword').value;
     let Role = document.getElementById('role_of_new_employee').value;
     // toto je prvi stupen kontoli neprazdnosti vstupov
     // #3 treba mrknut uz s vigenerovaneho pola zamestnancou ci maju rovnake meno a prezvisko ps bude nato niaki jason
-    if ( Role && Password !== "" && Confirm_password !== "" && email !== "" && Firm !== "" ){
-        if ( Password === Confirm_password ){
-            add_employee(F_name,L_name,email,Firm,Password,Role);
-        }else{
-            create_exception("Passwords <strong>do not</strong> match.",13,'warning');
-        }
+    if ( Role && email !== "" && Firm !== "" ){
+        add_employee(F_name,L_name,email,Firm,Role);
     }else{
         create_exception("All fields marked with <strong>*</strong> are required.",13,'warning');
     }
 }
 
-function add_employee(F_name,L_name,email,Firm,Password,Role){
-    if (is_correct_name(F_name)||is_correct_name(L_name)||is_correct_email(email)||is_correct_company(Firm)||is_correct_password(Password)){
+function add_employee(F_name,L_name,email,Firm,Role){
+    if (is_correct_name(F_name)||is_correct_name(L_name)||is_correct_email(email)||is_correct_company(Firm)){
         return
     }
     $.post('employee_AJAX/register_user.php',{
@@ -469,10 +461,10 @@ function add_employee(F_name,L_name,email,Firm,Password,Role){
         L_name:L_name,
         firm: Firm,
         email: email,
-        password : Password,
         role : Role
     },function(data){
         if (data){
+            console.log(data);
             if (data.includes("$")){
                 let split = data.split("$")
                 if (split[0] === '1'){

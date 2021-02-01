@@ -104,16 +104,6 @@ include('exception_handler.php');
             </div>
 
             <div class="form-label-group">
-              <label for="inputPassword"></label>
-              <input type="password" id="inputPassword" class="form-control" placeholder="* Password" required>
-
-            </div>
-            <div class="form-label-group">
-              <label for="inputConfirmPassword"></label>
-              <input type="password" id="inputConfirmPassword" class="form-control" placeholder="* Repeat password" required>
-
-            </div>
-            <div class="form-label-group">
               <div class="form-group">
                 <label for="role_of_new_employee">Select type of employee</label>
                 <select class="form-control" id="role_of_new_employee" required>

@@ -1,5 +1,5 @@
 /* TOP FIXED orange requasted sign */
-#only_requested{
+.curs{
     z-index: 300;
     min-width: 100px;
     max-width: 100px;
@@ -7,11 +7,14 @@
     display: flex;
     cursor: pointer;
 }
-#only_requested img{
+.curs img{
     position: relative;right: 10px;
 }
-#only_requested #only_requested_count{
+.curs .only_requested_count{
     margin: 5px 0px 0px;
+}
+.bg-finished{
+    background-color: #6f42c1;
 }
 
 /* SEKCIA POD NAVIGACIOU HLAVNI Ovladaci panel s moznostami*/
@@ -59,6 +62,7 @@ input[type=date] ,#back_date, #next_date{
 .text-finished{
     color: #6f42c1;
 }
+
 #main_row{
     padding-top: 5px;
     padding-bottom: 5px;
