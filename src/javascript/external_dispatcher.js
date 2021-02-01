@@ -401,7 +401,11 @@ function remove_all_tables(){
 
 }
 function make_table_for_external_dispatcher_all(){
-    console.log('all',gates);
+    // console.log('all',gates);
+    if (gates.array_of_calendars.length === 0 ){
+        setTimeout(make_table_for_external_dispatcher_all,100);
+        return
+    }
     // let table_witch_contains_id = document.getElementById(id_of_table);
     remove_all_tables()
 
