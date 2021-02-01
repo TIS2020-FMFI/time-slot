@@ -14,7 +14,22 @@ if ($_SESSION['role'] == 'EXD' ) {
 <?php
 include('html_nav_component.php');
 ?>
-
+<div id="only_prepared" class="fixed-top bg-success justify-content-center curs" onclick="select_only_by_state_top('prepared')">
+    <img src="request_sign.png" width="32" alt="info_sign">
+    <p id="only_prepared_count" class="text-light only_requested_count" >count</p>
+</div>
+<div id="only_requested" class="fixed-top bg-warning justify-content-center curs" onclick="select_only_by_state_top('requested')">
+    <img src="request_sign.png" width="32" alt="info_sign">
+    <p id="only_requested_count" class="text-light only_requested_count" >count</p>
+</div>
+<div id="only_booked" class="fixed-top bg-danger justify-content-center curs" onclick="select_only_by_state_top('booked')">
+    <img src="request_sign.png" width="32" alt="info_sign">
+    <p id="only_booked_count" class="text-light only_requested_count" >count</p>
+</div>
+<div id="only_finished" class="fixed-top bg-finished justify-content-center curs" onclick="select_only_by_state_top('finished')">
+    <img src="request_sign.png" width="32" alt="info_sign">
+    <p id="only_finished_count" class="text-light only_requested_count" >count</p>
+</div>
 
 <div class=" bg-light fixed-top" id="role_down">
   <table class="table"  >
@@ -40,12 +55,13 @@ include('html_nav_component.php');
             <option>Only finished</option>
           </select>
           <label for="select_only_new_old"></label><select class="form-control" id="select_only_new_old" onchange="select_only_new_old(this.value)">
-              <option>Newest</option>
               <option>Oldest</option>
+              <option>Newest</option>
           </select>
           <label for="select_only_day"></label><select class="form-control" id="select_only_day" onchange="select_only_day(this.value)">
-              <option>One day</option>
               <option>All days</option>
+              <option>One day</option>
+
           </select>
       </th>
     </tr>
@@ -68,7 +84,7 @@ include('html_nav_component.php');
   </thead>
   <tbody>
   <tr class="prepared_tr">
-    <td >10:00 - 12:30</td>
+    <td >loading ...</td>
     <td></td>
     <td></td>
     <td></td>
@@ -94,11 +110,11 @@ include('html_nav_component.php');
   </thead>
   <tbody>
   <tr class="requested_tr">
-      <td >10:00  (11.12.2020)</td>
-      <td>Ondrej Richnak2</td>
-      <td>BA-345-DS</td>
-      <td>BA-345-DS</td>
-      <td>BA-345-DS</td>
+      <td >loading ...</td>
+      <td>loading ...</td>
+      <td>loading ...</td>
+      <td>loading ...</td>
+      <td>loading ...</td>
       <td class="td_flex_buttons">
         <button class="btn btn-default bg-primary only_one"  onclick="" >Show</button>
       </td>
@@ -120,11 +136,11 @@ include('html_nav_component.php');
     </thead>
   <tbody>
   <tr class="booked_tr">
-      <td >10:00  (11.12.2020)</td>
-      <td>Ondrej Richnak2</td>
-      <td>BA-345-DS</td>
-      <td>BA-345-DS</td>
-      <td>BA-345-DS</td>
+      <td >loading ...</td>
+      <td>loading ...</td>
+      <td>loading ...</td>
+      <td>loading ...</td>
+      <td>loading ...</td>
       <td>
           <button class="btn btn-default bg-danger" onclick="" >Cancel</button>
       </td>
@@ -146,11 +162,11 @@ include('html_nav_component.php');
     </thead>
     <tbody>
     <tr class="finished_tr">
-        <td >10:00  (11.12.2020)</td>
-        <td>Ondrej Richnak2</td>
-        <td>BA-345-DS</td>
-        <td>BA-345-DS</td>
-        <td>BA-345-DS</td>
+        <td >loading ...</td>
+        <td>loading ...</td>
+        <td>loading ...</td>
+        <td>loading ...</td>
+        <td>loading ...</td>
         <td>
             <button class="btn btn-default bg-danger" onclick="" >Cancel</button>
 

@@ -14,9 +14,21 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
     <?php
     include('html_nav_component.php');
     ?>
-    <div id="only_requested" class="fixed-top bg-warning justify-content-center curs" onclick="show_requested()">
+    <div id="only_prepared" class="fixed-top bg-success justify-content-center curs" onclick="select_only_by_state_top('prepared')">
         <img src="request_sign.png" width="32" alt="info_sign">
-        <p id="only_requested_count" class="text-danger" >count</p>
+        <p id="only_prepared_count" class="text-light only_requested_count" >count</p>
+    </div>
+    <div id="only_requested" class="fixed-top bg-warning justify-content-center curs" onclick="select_only_by_state_top('requested')">
+        <img src="request_sign.png" width="32" alt="info_sign">
+        <p id="only_requested_count" class="text-light only_requested_count" >count</p>
+    </div>
+    <div id="only_booked" class="fixed-top bg-danger justify-content-center curs" onclick="select_only_by_state_top('booked')">
+        <img src="request_sign.png" width="32" alt="info_sign">
+        <p id="only_booked_count" class="text-light only_requested_count" >count</p>
+    </div>
+    <div id="only_finished" class="fixed-top bg-finished justify-content-center curs" onclick="select_only_by_state_top('finished')">
+        <img src="request_sign.png" width="32" alt="info_sign">
+        <p id="only_finished_count" class="text-light only_requested_count" >count</p>
     </div>
 
 <div class="table-responsive bg-light fixed-top " id="role_down" >

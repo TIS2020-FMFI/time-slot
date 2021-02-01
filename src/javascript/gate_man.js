@@ -53,7 +53,7 @@ function load_all_time_slots() {
 
 }
 function update_handler(){
-    //console.log('loooop');
+    console.log('loooop');
     // chyba zobraziea koli tomu ze nepremazavame data tabuliek
     load_all_time_slots();
     setTimeout(update_handler,1000*60*5); ///*60*5 -->1000 je jedna sekunda  teda update bude prebiehat kazdich 5 minut
@@ -89,12 +89,16 @@ function select_by(elem_val){
 
     });
     let table_rows_with_class_name_copy =  document.getElementsByClassName( "finished_tr");
-    let parent = table_rows_with_class_name_copy[0].parentElement;
-    while (table_rows_with_class_name_copy.length) {
-        table_rows_with_class_name_copy[0].remove();
-    }
-    for (let elem = 0; elem < table_rows_with_class_name.length; elem++) {
-        parent.append(table_rows_with_class_name[elem]);
+    try{
+        let parent = table_rows_with_class_name_copy[0].parentElement;
+        while (table_rows_with_class_name_copy.length) {
+            table_rows_with_class_name_copy[0].remove();
+        }
+        for (let elem = 0; elem < table_rows_with_class_name.length; elem++) {
+            parent.append(table_rows_with_class_name[elem]);
+        }
+    }catch (e) {
+        console.log('NO TIME SLOTS AVALABLE RIGHT NOW');
     }
 
 }
@@ -190,6 +194,7 @@ function ajax_post_confirm(html_row,id){
                     delete_html_time_slot(html_row);
                 }else{
                     create_exception(split[1],23,'warning');
+                    delete_html_time_slot(html_row);
                 }
             }else{
                 create_exception(data,23,'danger');

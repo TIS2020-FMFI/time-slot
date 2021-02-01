@@ -6,7 +6,10 @@ let gates = undefined;
 function parse_data(data){
     gates = new Gate();
     linked_id = 0;
-    let counter = 0 ;
+    let counter_requested = 0 ;
+    let counter_prepared = 0 ;
+    let counter_booked = 0 ;
+    let counter_finished = 0 ;
     for(let i = 0 ; i < data.length;i ++){
         // data format vystup SQL
         // [0] == id |
@@ -22,7 +25,13 @@ function parse_data(data){
         // [10] == driver 1
         // [11] == driver 2
         if (data[i][5] === "requested"){
-            counter++;
+            counter_requested++;
+        }else if (data[i][5] === "prepared"){
+            counter_prepared++;
+        }else if (data[i][5] === "booked"){
+            counter_booked++;
+        }else {
+            counter_finished++;
         }
 
         let index = gates.get_index_by_id(data[i][1])
@@ -43,7 +52,10 @@ function parse_data(data){
             gates.push_calendar_and_id(data[i][1],calendar);
         }
     }
-    document.getElementById('only_requested_count').innerHTML = counter+"";
+    document.getElementById('only_prepared_count').innerHTML = counter_prepared+"";
+    document.getElementById('only_requested_count').innerHTML = counter_requested+"";
+    document.getElementById('only_booked_count').innerHTML = counter_booked+"";
+    document.getElementById('only_finished_count').innerHTML = counter_finished+"";
     make_table_for_external_dispatcher('prepared','prepared_tr','prepared');
     make_table_for_external_dispatcher('requested','requested_tr','requested');
     make_table_for_external_dispatcher('booked','booked_tr','booked');
@@ -266,18 +278,23 @@ function    show_full_gate(elem){
                         for (let make_html = final_st_index ;make_html < final_ed_index;make_html++){
                             row_columns_in_half_hours[make_html*7+day].style.backgroundColor = "#717983";
                             html_row_count ++
-                            row_columns_in_half_hours[make_html*7+day].innerHTML = "occupied";
+                            if (html_row_count === 3) {
+                                row_columns_in_half_hours[make_html * 7 + day].innerHTML = "occupied";
+                            }
                             if (html_row_count === 5){
                                 row_columns_in_half_hours[make_html*7+day].style.borderBottom = '3px solid #f8f9fa';
                             }else{
-		row_columns_in_half_hours[make_html*7+day].style.borderBottom = '0px';
-		}
+                                row_columns_in_half_hours[make_html*7+day].style.borderBottom = '0px';
+                                }
                         }
                     }
                     if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'prepared' ){
                         for (let make_html = final_st_index ;make_html < final_ed_index;make_html++){
                             row_columns_in_half_hours[make_html*7+day].style.backgroundColor = "#2eff00";
                             html_row_count ++
+                            if (html_row_count === 3) {
+                                row_columns_in_half_hours[make_html * 7 + day].innerHTML = "Free";
+                            }
                             if (html_row_count === 5){
                                 let show_button = document.createElement("BUTTON")
                                 show_button.className = "btn btn-default bg-primary only_one";
@@ -291,8 +308,8 @@ function    show_full_gate(elem){
                                 row_columns_in_half_hours[make_html*7+day].style.borderBottom = '3px solid #f8f9fa';
                                 row_columns_in_half_hours[make_html*7+day].appendChild(show_button);
                             }else{
-                                row_columns_in_half_hours[make_html*7+day].innerHTML = "Free";
-		row_columns_in_half_hours[make_html*7+day].style.borderBottom = '0px';
+                                // row_columns_in_half_hours[make_html*7+day].innerHTML = "Free";
+                                row_columns_in_half_hours[make_html*7+day].style.borderBottom = '0px';
                             }
                             // treba pridat event click
                         }
@@ -760,17 +777,23 @@ function update_handler(){
 function loop(){
 
     //console.log(document.documentElement.clientWidth);
-    document.getElementById('only_requested').style.left = (document.documentElement.clientWidth/2)-50+'px';
+
+    document.getElementById('only_prepared').style.left = (document.documentElement.clientWidth/2)-200+'px';
+    document.getElementById('only_requested').style.left = (document.documentElement.clientWidth/2)-100+'px';
+    document.getElementById('only_booked').style.left = (document.documentElement.clientWidth/2)+'px';
+    document.getElementById('only_finished').style.left = (document.documentElement.clientWidth/2)+100+'px';
+
     //document.getElementById('only_requested_count').innerHTML = "";
     setTimeout(loop,100);
 
 
 }
-function show_requested(){
-    document.getElementById('input_text').value = 'requested';
+function select_only_by_state_top(text){
+    document.getElementById('input_text').value = text;
     find_by(document.getElementById('input_text'));
     console.log('dsadsadsad');
 }
+
 function show_info(){
     console.log('INFOOOOO START');
     document.getElementById('info').style.display = 'revert';

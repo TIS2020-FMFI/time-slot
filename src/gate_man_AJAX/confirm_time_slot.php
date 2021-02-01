@@ -11,7 +11,7 @@ if (isset($_SESSION['role'])){
                 if (mysqli_affected_rows($mysqli) > 0){
                     echo '1$Time-slot has been successfully confirmed.';
                 }else{
-                    echo '2$An error occured.';
+                    echo '2$this time has been <strong>Confirmed</strong> by someone else.';
                 }
             }else{
                 echo 'Wrong SQL <strong>gate_man_AJAX/confirm_time_slots.php</strong> '.$sql;

@@ -2,7 +2,7 @@
 include('../db.php');
 session_start();
 
-if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) && isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["role"]) ) {
+if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) && isset($_POST["email"]) && isset($_POST["role"]) ) {
     if (isset($_SESSION['role'])) {
         if ($_SESSION['role'] == 'AD') {
 
@@ -10,7 +10,7 @@ if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) 
             $l_name = mysqli_real_escape_string($mysqli, $_POST["L_name"]);
             $company_name = mysqli_real_escape_string($mysqli, $_POST["firm"]);
             $email = mysqli_real_escape_string($mysqli, $_POST["email"]);
-            $password = mysqli_real_escape_string($mysqli, $_POST["password"]);
+            $password = 'gefcotrnava';
             $role = mysqli_real_escape_string($mysqli, $_POST["role"]);
             if (!$mysqli->connect_errno) {
                 $sql = "INSERT INTO employee SET 
@@ -27,7 +27,7 @@ if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) 
                         '<br>- surname: ' . '<strong>' . $_POST["L_name"] . '</strong>' .
                         '<br>- company name: ' . '<strong>' . $_POST["firm"] . '</strong>' .
                         '<br>- email: ' . '<strong>' . $_POST["email"] . '</strong>' .
-                        '<br>- password: ' . '<strong>' . $_POST["password"] . '</strong>' .
+                        '<br>- password: ' . '<strong>' . $password . '</strong>' .
                         '<br>- role: ' . '<strong>' . $_POST["role"] . '</strong>';
                 }else {
                     echo 'Chyba sql <strong>employee_AJAX/register_user.php</strong> '.$sql;

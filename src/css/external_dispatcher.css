@@ -2,7 +2,23 @@
     color: #6f42c1;
 }
 
-
+.curs{
+    z-index: 300;
+    min-width: 100px;
+    max-width: 100px;
+    left: 100px;
+    display: flex;
+    cursor: pointer;
+}
+.curs img{
+    position: relative;right: 10px;
+}
+.curs .only_requested_count{
+    margin: 5px 0px 0px;
+}
+.bg-finished{
+    background-color: #6f42c1;
+}
 
 /* SEKCIA POD NAVIGACIOU HLAVNI Ovladaci panel s moznostami*/
 
