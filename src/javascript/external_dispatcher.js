@@ -184,53 +184,6 @@ function select_only_day(elem_val){
  * @param elem :HTML
  */
 function find_by(elem){
-    // console.log('FIND BY ',elem);
-    // let text = lock_for.split(' ');
-    // if (array_of_options.includes(text[0])){
-    //     let table_rows_with_class_name = document.getElementsByClassName(text[0]+"_tr");
-    //     console.log(table_rows_with_class_name.length);
-    //     for (let row = 0 ; row < table_rows_with_class_name.length; row++) {
-    //         for (let column = 0; column < table_rows_with_class_name[row].childNodes.length - 1; column++) {
-    //             let found_match = false;
-    //             for (let index_text = 1 ;index_text < text.length;index_text++){
-    //                 if (table_rows_with_class_name[row].innerHTML.toLowerCase().includes((text[index_text] === undefined) ? ':'  :text[index_text].toLowerCase() )){// && table_rows_with_class_name[row].style.display !== 'none'){//&& table_rows_with_class_name[row].style.display === 'revert'
-    //                     found_match = true;
-    //                 }else{
-    //                     found_match = false;
-    //                     break;
-    //                 }
-    //             }
-    //             if (found_match || text[1] === undefined ){
-    //                 table_rows_with_class_name[row].style.display = 'revert';
-    //             }else{
-    //                 table_rows_with_class_name[row].style.display = 'none';
-    //             }
-    //         }
-    //     }
-    //
-    // }else{
-    //     let founded = false;
-    //     let table_rows_with_class_name = document.getElementsByClassName(option+"_tr");
-    //     for (let row = 0 ; row < table_rows_with_class_name.length; row++){
-    //         founded = false;
-    //         for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
-    //             if (table_rows_with_class_name[row].childNodes[column].innerHTML.toLowerCase().includes(lock_for.toLowerCase())) {
-    //                 founded = true;
-    //             }
-    //         }
-    //         if (founded === false){
-    //             // console.log('nieee');
-    //             table_rows_with_class_name[row].style.display = 'none';
-    //         }else{
-    //             // console.log('JEEEJ');
-    //             table_rows_with_class_name[row].style.display = 'revert';
-    //         }
-    //     }
-    // }
-
-
-
-
     let text = elem.value.split(' ');
     console.log(text)
     let founded = false;
