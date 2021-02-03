@@ -184,49 +184,48 @@ function select_only_day(elem_val){
  * @param elem :HTML
  */
 function find_by(elem){
-    // console.log('FIND BY ',elem);
-    let text = elem.value;
+    let text = elem.value.split(' ');
+    console.log(text)
     let founded = false;
     let display_only = document.getElementById('select_only').value.split(" ");
     // funkcia spracovava data aj podala selectoru ktori sa nachadza vedla find by
     if (display_only[0] === 'all'){
         for (let i = 0 ;i < array_of_options.length;i++){
-            let founded = false;
+            founded = false;
             let table_rows_with_class_name = document.getElementsByClassName(array_of_options[i]+"_tr");
             for (let row = 0 ; row < table_rows_with_class_name.length; row++){
                 founded = false;
-                for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
-                    if (table_rows_with_class_name[row].childNodes[column].innerHTML.toLowerCase().includes(text.toLowerCase())) {
+                for (let index_text = 0 ;index_text < text.length;index_text++){
+                    if (table_rows_with_class_name[row].innerHTML.toLowerCase().includes((text[index_text] === undefined) ? ':'  :text[index_text].toLowerCase() )){// && table_rows_with_class_name[row].style.display !== 'none'){//&& table_rows_with_class_name[row].style.display === 'revert'
                         founded = true;
+                    }else{
+                        founded = false;
+                        break;
                     }
                 }
-                if (founded === false){
-                    // console.log('nieee');
-                    table_rows_with_class_name[row].style.display = 'none';
-                }else{
-                    // console.log('JEEEJ');
+                if (founded || text[0] === undefined ){
                     table_rows_with_class_name[row].style.display = 'revert';
+                }else{
+                    table_rows_with_class_name[row].style.display = 'none';
                 }
             }
-
         }
-
     }else{
-        let founded = false;
         let table_rows_with_class_name = document.getElementsByClassName(display_only[1]+"_tr");
         for (let row = 0 ; row < table_rows_with_class_name.length; row++){
             founded = false;
-            for (let column = 0;column < table_rows_with_class_name[row].childNodes.length-1; column++){
-                if (table_rows_with_class_name[row].childNodes[column].innerHTML.toLowerCase().includes(text.toLowerCase())) {
+            for (let index_text = 0 ;index_text < text.length;index_text++){
+                if (table_rows_with_class_name[row].innerHTML.toLowerCase().includes((text[index_text] === undefined) ? ':'  :text[index_text].toLowerCase() )){// && table_rows_with_class_name[row].style.display !== 'none'){//&& table_rows_with_class_name[row].style.display === 'revert'
                     founded = true;
+                }else{
+                    founded = false;
+                    break;
                 }
             }
-            if (founded === false){
-                // console.log('nieee');
-                table_rows_with_class_name[row].style.display = 'none';
-            }else{
-                // console.log('JEEEJ');
+            if (founded || text[0] === undefined ){
                 table_rows_with_class_name[row].style.display = 'revert';
+            }else{
+                table_rows_with_class_name[row].style.display = 'none';
             }
         }
     }
@@ -401,7 +400,11 @@ function remove_all_tables(){
 
 }
 function make_table_for_external_dispatcher_all(){
-    console.log('all',gates);
+    // console.log('all',gates);
+    if (gates.array_of_calendars.length === 0 ){
+        setTimeout(make_table_for_external_dispatcher_all,100);
+        return
+    }
     // let table_witch_contains_id = document.getElementById(id_of_table);
     remove_all_tables()
 

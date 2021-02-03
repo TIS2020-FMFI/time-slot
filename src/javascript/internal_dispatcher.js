@@ -418,7 +418,31 @@ function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,
     }
 }
 
-
+function do_global_count_in_day(){
+    let elem_prepared_row = document.getElementById('prepared_row_day');
+    let elem_requested_row = document.getElementById('requested_row_day');
+    let elem_booked_row = document.getElementById('booked_row_day');
+    let elem_finished_row = document.getElementById('finished_row_day');
+    let prepared = 0;
+    let occupied = 0;
+    let requested = 0;
+    let booked = 0;
+    let finished = 0;
+    for(let i = 0 ; i < gates.array_of_calendars.length; i++) {
+        if (gates.ids[i] >= 0 && gates.ids[i] <= 37) {
+            let index = gates.array_of_calendars[i].get_index_by_real_time(selected_date);
+            prepared += gates.array_of_calendars[i].time_slots[index].count_of_states("prepared");
+            occupied += gates.array_of_calendars[i].time_slots[index].count_of_states("occupied");
+            requested +=gates.array_of_calendars[i].time_slots[index].count_of_states("requested");
+            booked += gates.array_of_calendars[i].time_slots[index].count_of_states("booked");
+            finished += gates.array_of_calendars[i].time_slots[index].count_of_states("finished");
+        }
+    }
+    elem_prepared_row.innerHTML = 'Prepared ('+(prepared+occupied)+')';
+    elem_requested_row.innerHTML = 'Requested ('+requested+')';
+    elem_booked_row.innerHTML = 'Booked ('+booked+')';
+    elem_finished_row.innerHTML = 'Finished ('+finished+')';
+}
 /**
  *  prvotni nahlad kalendaru, indexes su ziskane z a prsnuteho 'select_gate' format pre pc '1 - 7'  pre tablet '1 - 5' a mobil '1 - 3'
  * @param start_index :integer
@@ -431,6 +455,8 @@ function global_calendar(start_index, end_index){
         let row_booked = document.getElementsByClassName('booked');
         let row_finished = document.getElementsByClassName('finished');
         let row_gates_titles = document.getElementsByClassName('days_in_calendar');
+        // global
+        do_global_count_in_day();
 
         let enumerate = 0;
         for(let i = 0 ; i < gates.array_of_calendars.length; i++){
