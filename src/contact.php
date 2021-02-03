@@ -25,14 +25,10 @@ include('html_nav_component.php');
                             hesitate to contact us directly. Our team will help you.</p>
                     </div>
 
-                    <div class="form-group text-center">
-                        e-mail : expedition.trnava@gefco.net
-                        <br>
-                        Tél. +421 33 590 85 77, +421 33 590 85 76
-                        <br>
-                        Mob. +421 918 742 125, +421 905 206 200
-<!--                        <p class="text-center w-responsive mx-auto mb-5">e-mail: simona.dubekova@gmail.com-->
-<!--                            <br> telephone: +421900 000 000</p>-->
+                    <div class="form-group">
+                        <p class="text-center w-responsive mx-auto mb-5">E-mail: expedition.trnava@gefco.net
+                            <br>Tel. +421 33 590 85 77, +421 33 590 85 76
+			    <br>Mob. +421 918 742 125, +421 905 206 200</p>
                     </div>
                 </div>
             </div>

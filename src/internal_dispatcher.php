@@ -67,7 +67,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
 </div>
 
 <div id="info" class="container w-50 fixed-top bg-dark" >
-    <p class="text-center text-light" >You can search by time-slot states (prepared, requested, booked, finished),<br>starting time of time-slot, company name, truck registration number (EVC), cargo and destination.<br>Any time-slot data can be used for searching.</p>
+    <p class="text-center text-light" >You can search by time-slot states (prepared, requested, booked, finished),<br>starting time of time-slot, company name, truck registration number (plate number), cargo and destination.<br>Any time-slot data can be used for searching.</p>
     <p class="text-center text-light" ><b>Time-slot states description:</b></p>
     <p class="text-center text-success"><b>Prepared</b> - free time-slot, that is not occupied by any dispatcher yet</p>
     <p class="text-center text-warning"><b>Requested</b> - waiting for the confirmation by an internal dispatcher</p>
@@ -106,7 +106,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         </thead>
         <tbody>
         <tr >
-            <th class="right_border_state text-success" id="prepared_row_day" scope="row">Prepared 1</th>
+            <th class="right_border_state text-success" id="prepared_row_day" scope="row">Prepared</th>
             <th class="right_border calendar_item 1 prepared_occupied "  >loading...</th>
             <th class="right_border calendar_item 2 prepared_occupied"  >loading...</th>
             <th class="right_border calendar_item 3 prepared_occupied"  >loading...</th>
