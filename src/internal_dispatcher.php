@@ -106,7 +106,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
         </thead>
         <tbody>
         <tr >
-            <th class="right_border_state text-success" scope="row">Prepared</th>
+            <th class="right_border_state text-success" id="prepared_row_day" scope="row">Prepared 1</th>
             <th class="right_border calendar_item 1 prepared_occupied "  >loading...</th>
             <th class="right_border calendar_item 2 prepared_occupied"  >loading...</th>
             <th class="right_border calendar_item 3 prepared_occupied"  >loading...</th>
@@ -116,7 +116,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
             <th class="right_border_last calendar_item 7 prepared_occupied"  >loading...</th>
         </tr>
         <tr >
-            <th class="right_border_state text-warning" scope="row">Requested</th>
+            <th class="right_border_state text-warning" id="requested_row_day" scope="row">Requested</th>
             <th class="right_border calendar_item 1 requested "  >loading...</th>
             <th class="right_border calendar_item 2 requested"  >loading...</th>
             <th class="right_border calendar_item 3 requested"  >loading...</th>
@@ -126,7 +126,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
             <th class="right_border_last calendar_item 7 requested"  >loading...</th>
         </tr>
         <tr >
-            <th class="right_border_state text-danger" scope="row">Booked</th>
+            <th class="right_border_state text-danger" id="booked_row_day" scope="row">Booked</th>
             <th class="right_border calendar_item 1 booked "  >loading...</th>
             <th class="right_border calendar_item 2 booked"  >loading...</th>
             <th class="right_border calendar_item 3 booked"  >loading...</th>
@@ -136,7 +136,7 @@ if ($_SESSION['role'] == 'AD' || $_SESSION['role'] == 'IND') {
             <th class="right_border_last calendar_item 7 booked"  >loading...</th>
         </tr>
         <tr >
-            <th class="right_border_state text-finished" scope="row">Finished</th>
+            <th class="right_border_state text-finished" id="finished_row_day" scope="row">Finished</th>
             <th class="right_border calendar_item 1 finished "  >loading...</th>
             <th class="right_border calendar_item 2 finished"  >loading...</th>
             <th class="right_border calendar_item 3 finished"  >loading...</th>
