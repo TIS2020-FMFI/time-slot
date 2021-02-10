@@ -12,7 +12,6 @@ let company_email;
 
 
 function make_html_order(data){
-    console.log(data);
     evc =document.getElementById('EVC');
     kam1 =document.getElementById('inputNameKamionist1');
     kam2 =document.getElementById('inputNameKamionist2');
@@ -32,7 +31,7 @@ function make_html_order(data){
         timer();
         setInterval(timer,1000);
     }
-    //console.log(data['state']);
+
     if (data['state'] !== 'prepared' && data['state'] !== 'occupied'){
         evc.disabled = true;
         kam1.disabled = true;
@@ -129,10 +128,8 @@ let company_names = [];
 let company_employee_email_address = [];
 let jason_object_of_email_and_employee_company = undefined
 function load_all_company(){
-    // console.log('dsadsdas');
     $.post('order_AJAX/load_all_company_names.php',{
     },function(data){
-        console.log(data);
         if (typeof data === 'object'){
             let set_of_employee_company = new Set();
             for (let i = 0 ;i  < data.length; i++){
@@ -148,7 +145,6 @@ function load_all_company(){
                 option.text = company_names[i];
                 elem_selector.appendChild(option);
             }
-            console.log(company_employee_email_address);
             let elem_selector_email = document.getElementById('change_select_company_email');
             for (let i = 0 ; i  < company_employee_email_address.length; i++){
                 let option = document.createElement("option");
@@ -157,7 +153,6 @@ function load_all_company(){
                 option.text = company_employee_email_address[i];
                 elem_selector_email.appendChild(option);
             }
-            console.log(company_names);
             jason_object_of_email_and_employee_company = data;
 
         }else if(data.includes('*')){
@@ -184,7 +179,6 @@ function reset_selected_value(){
     document.getElementsByClassName('option_email')[0].selected = true;
 }
 function select_company(elem){
-    console.log('SELECTED BY COMPANY NAME  ',elem.value);
     let input_company = document.getElementById('inputNameDopravca');
     input_company.value = elem.value;
     is_valid_company_name(input_company);
@@ -192,7 +186,6 @@ function select_company(elem){
 
 }
 function select_email(elem){
-    console.log('SELECTED BY COMPANY NAME EMAIL ');
     let input_email = document.getElementById('inputNameDopravca_email');
     input_email.value = elem.value;
     is_valid_company_email(input_email);
@@ -200,7 +193,6 @@ function select_email(elem){
 
 }
 function is_valid_company_name(elem){
-    console.log("CHCEK VALIDITI NAME COMPANY");
     let elem_selector = document.getElementsByClassName('option');
     for (let index = 0 ; index < elem_selector.length; index++){
         if (elem_selector[index].innerHTML.toLowerCase().includes(elem.value.toLowerCase())){
@@ -222,7 +214,6 @@ function is_valid_company_name(elem){
 
 }
 function is_valid_company_email(elem){
-    console.log("CHCEK VALIDITI EMAIL");
     let elem_selector = document.getElementsByClassName('option_email');
     for (let index = 0 ; index < elem_selector.length; index++){
         if (elem_selector[index].innerHTML.toLowerCase().includes(elem.value.toLowerCase())){
@@ -244,7 +235,6 @@ function is_valid_company_email(elem){
 }
 function set_company_name(email){
     if (company_names.includes(document.getElementById('inputNameDopravca').value) ){ // && email === ''
-        console.log('NASTAV MENO EMPTY EMAIL AND INCLUDES');
         let elem_selector_for_email = document.getElementsByClassName('option_email');
         for (let index = 0; index < jason_object_of_email_and_employee_company.length; index++) {
             if (jason_object_of_email_and_employee_company[index][0] === document.getElementById('inputNameDopravca').value &&
@@ -255,18 +245,15 @@ function set_company_name(email){
             }
         }
     }else if (email === ''){
-        console.log('NASTAV MENO EMPTY EMAIL');
         let elem_selector_for_company_name = document.getElementsByClassName('option');
         for (let index = 0 ; index < elem_selector_for_company_name.length; index++) {
             elem_selector_for_company_name[index].style.display = 'revert';
         }
     }else{
-        console.log('NASTAV MENO ',email,jason_object_of_email_and_employee_company);
         let elem_selector_for_email = document.getElementsByClassName('option');
         for (let index = 0 ; index < jason_object_of_email_and_employee_company.length; index++) {
             if (jason_object_of_email_and_employee_company[index][1] === email ) {
                 elem_selector_for_email[index].style.display = 'revert';
-                console.log('SELECTED BY EMAIL   ',elem_selector_for_email[index].innerHTML , company_names.indexOf(jason_object_of_email_and_employee_company[index][0]) , elem_selector_for_email[company_names.indexOf(jason_object_of_email_and_employee_company[index][0])]);
 
                 let selector_of_company_name = document.getElementById('change_select_company');
                 selector_of_company_name.selectedIndex  = company_names.indexOf(jason_object_of_email_and_employee_company[index][0]) +1;
@@ -281,7 +268,6 @@ function set_company_name(email){
 }
 function select_company_email_only(company_name){
     if (company_names.includes(company_name) ) {
-        console.log("VIBER LEN EMAIL S DANIMI FIRMAMI");
         let elem_selector_for_email = document.getElementsByClassName('option_email');
         for (let index = 0; index < jason_object_of_email_and_employee_company.length; index++) {
             if (jason_object_of_email_and_employee_company[index][0] === company_name) {
@@ -291,14 +277,12 @@ function select_company_email_only(company_name){
             }
         }
     }else if (company_name === ''){
-        console.log("NASTAV MENO EMPTY EMAIL SELECTOR");
         let elem_selector_for_email = document.getElementsByClassName('option_email');
         for (let index = 0 ; index < elem_selector_for_email.length; index++) {
             elem_selector_for_email[index].style.display = 'revert';
         }
     }
     else{
-        console.log("NASTAV MENO ELSE  EMAIL SELECTOR");
         let elem_selector_for_email = document.getElementsByClassName('option_email');
         for (let index = 0 ; index < elem_selector_for_email.length; index++) {
             elem_selector_for_email[index].style.display = 'revert';
@@ -349,7 +333,6 @@ function request_time_slot(){
             }
         }
         let ramp_value = ramp.value.split(' ');
-        console.log(((company_email === null) ? 'null' : company_email.value ) );
         $.post('order_AJAX/request_time_slot.php',{
             evc:evc.value,
             kam1:kam1.value,
@@ -383,15 +366,9 @@ function request_time_slot(){
 }
 function timer(){
     if (time === 0){
-        // spusti funkciu na zrusenie time slotu
-        console.log('spusti funkciu na zrusenie time slotu');
-        // prame otvorenie prislusnej strnky ak je cas uplinie neviem ci je to spravne
-        // condition  v close_time_slot == false teda nezmeni stranku ale odstrani time slot s active time slotu
-        // cize po refresfi uz buede prazdna stranka
         close_time_slot_in_order(false);
         time -= 1000;
     }else if (time > 1){
-        console.log('timer ')
         time -= 1000;
         let sekundy = time/1000%60+""
         let minuti = Math.floor(time/1000/60)+"";
@@ -409,8 +386,8 @@ function timer(){
     }else{
         console.log('somthing went wrong');
     }
-    // odrataj po kazdej sekunde s
 }
+
 function edit_requested_or_booked_time_slot(){
     document.getElementById('update_button').disabled = false;
     document.getElementById('edit_button').disabled = true;
@@ -429,19 +406,14 @@ function edit_requested_or_booked_time_slot(){
 
     let for_internal_dispatcher_company_name = document.getElementById('change_select_company');
     if (for_internal_dispatcher_company_name !== null){
-        console.log('Zmena pre interneho');
         for_internal_dispatcher_company_name.disabled = false;
         company.disabled = false;
-    }else{
-        console.log('nexistuje');
     }
+
     let for_internal_dispatcher_email = document.getElementById('change_select_company_email');
     if (for_internal_dispatcher_email !== null){
-        console.log('Zmena pre interneho');
         for_internal_dispatcher_email.disabled = false;
         company.disabled = false;
-    }else{
-        console.log('nexistuje');
     }
 }
 

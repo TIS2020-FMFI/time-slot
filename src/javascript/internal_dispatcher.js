@@ -1,4 +1,3 @@
-
 let gates = undefined;
 /**
  * spracovanie ajax vystupu
@@ -62,6 +61,7 @@ function parse_data(data){
     make_table_for_external_dispatcher('finished','finished_tr','finished');
     select_by('Newest');
 }
+
 /**
  * ajax request na ziskanie dat pre externeho dispecera
  */
@@ -76,23 +76,18 @@ function load_all_time_slots() {
             create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }
     });
-
     generate_gate_selector(document.getElementById('select_gate'));
-
 }
 
-//let display_resolution = 7; // toto je premenna na faktor nasobenia pre ziskanie spravnich time slotov po kliknuti na show
 let selected_date ;
 /**
  * funkica ktora nacita akutalni datum dnesneho dna a prradi ho do mini calendaru
  */
 setTimeout(first_load,250);
-//first_load();
+
 function first_load(){
     load_all_time_slots();
-
     let currentTime = new Date();
-
     document.getElementById('input_date').value = currentTime.toISOString().substr(0,10);
     currentTime.setDate(currentTime.getDate()-7);
     document.getElementById('input_date').min= currentTime.toISOString().substr(0,10);
@@ -101,22 +96,16 @@ function first_load(){
     selected_date = (new Date()).toISOString().substr(0,10);
     loop();
     setTimeout(update_handler , 60*5*1000);
-
-    //console.log(selected_date);
 }
 
-// window.onload= function() {
-//
-//
-// }
 function clear_find_by(){
     let elem = document.getElementById('input_text');
     if (elem.value !== ''){
         elem.value = '';
         find_by(elem);
     }
-
 }
+
 function select_by(elem_val){
     let multiplayer = 1;
     if (elem_val === 'Newest'){
@@ -132,10 +121,9 @@ function select_by(elem_val){
             if (a.childNodes[0].innerHTML > b.childNodes[0].innerHTML) {
                 return 1 * multiplayer;
             }
-
             return 0;
-
         });
+
         let table_rows_with_class_name_copy = document.getElementsByClassName(array_of_options[i] + "_tr");
         let parent = table_rows_with_class_name_copy[0].parentElement;
         while (table_rows_with_class_name_copy.length) {
@@ -152,32 +140,26 @@ function select_by(elem_val){
  * @how_many 1/-1 :integer
  */
 function make_date_arrows_mini_calendar(how_many){
-    console.log("INPUT  how_many : ",how_many);
     let new_date = new Date((document.getElementById('input_date').value));
     new_date.setDate(new_date.getDate() + how_many);
-    console.log(new_date);
     if (new_date.toISOString().substr(0,10) < document.getElementById('input_date').min  ||
         new_date.toISOString().substr(0,10) > document.getElementById('input_date').max){
-
-        console.log('neposun');
     }else{
         if (new_date.toISOString().substr(0,10) === document.getElementById('input_date').min){
             document.getElementById('back_date').disabled = true;
         }else{
             document.getElementById('back_date').disabled = false;
-
         }
         if(new_date.toISOString().substr(0,10) === document.getElementById('input_date').max){
             document.getElementById('next_date').disabled = true;
         }else{
             document.getElementById('next_date').disabled = false;
-
         }
         document.getElementById('input_date').value=new_date.toISOString().substr(0,10);
     }
-    // console.log(document.getElementById("ramp_title").innerHTML);
     display_time_slot_for_this_date(document.getElementById('input_date'));
 }
+
 /**
  * mini calendar onchange event
  * @elem  :HTML
@@ -202,12 +184,7 @@ let row_columns_in_half_hours = document.getElementsByClassName('item_in_hours')
  *  button show pod kazdou rampou
  * @param elem :HTML
  */
-function    show_full_gate(elem){
-    //console.log('SJOWWWW');
-    //if (document.getElementById("ramp_title").innerHTML === 'invalid date' &&  selected_date < document.getElementById('input_date').min) {
-    //         console.log("zli datum  show_full_gate")
-    //         return
-    //     }
+function show_full_gate(elem){
     if (elem === 'close'){
         document.getElementById('calendar_dates').style.display = 'none';
         document.getElementById('calendar').style.display = 'revert';
@@ -222,17 +199,13 @@ function    show_full_gate(elem){
         if (typeof elem === 'string'){
             index = elem
             int_index = parseInt(elem,10)
-            //console.log('CHYBA 2   ',index , "   alebo  int index ",int_index);
             gate_index = int_index;
         }else{
-            //console.log(typeof elem , elem);
             index = elem.className.split(" ");
             int_index = parseInt(index[index.length-1],10);
             gate_index = parseInt(values[0],10)+ ((int_index%8) -1);
-            //console.log('CHYBA 2   ',index , "   alebo  int index ",int_index);
 
         }
-        //console.log("gate index   ",gate_index);
         document.getElementById('calendar_dates').style.display = 'revert';
         document.getElementById('calendar').style.display = 'none';
         document.getElementById('ramp_title').innerHTML = "Ramp "+gate_index;
@@ -263,15 +236,11 @@ function    show_full_gate(elem){
                     let st_time_strings = st_time.split(":");
                     let st_time_index = parseInt(st_time_strings[0],10)*60 + parseInt(st_time_strings[1],10);
                     let final_st_index = Math.trunc(st_time_index/30);
-                    //console.log("START : ",st_time,'    ',st_time_index,'     ',final_st_index);
 
                     let ed_time = gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].end_times[count_time_slots].split(" ")[1];
                     let ed_time_strings = ed_time.split(":");
                     let ed_time_index = parseInt(ed_time_strings[0],10)*60 + parseInt(ed_time_strings[1],10);
                     let final_ed_index = Math.trunc(ed_time_index/30);
-                    //console.log("END : ",ed_time,'    ',ed_time_index,'     ',final_ed_index);
-                    //console.log('\\n');
-
 
                     let html_row_count = 0;
                     if (gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time].states[count_time_slots] === 'occupied'){
@@ -292,7 +261,7 @@ function    show_full_gate(elem){
                         for (let make_html = final_st_index ;make_html < final_ed_index;make_html++){
                             row_columns_in_half_hours[make_html*7+day].style.backgroundColor = "#2eff00";
                             html_row_count ++
-                            if (html_row_count === 3) {
+                            if (html_row_count === 1) {
                                 row_columns_in_half_hours[make_html * 7 + day].innerHTML = "Free";
                             }
                             if (html_row_count === 5){
@@ -308,10 +277,8 @@ function    show_full_gate(elem){
                                 row_columns_in_half_hours[make_html*7+day].style.borderBottom = '3px solid #f8f9fa';
                                 row_columns_in_half_hours[make_html*7+day].appendChild(show_button);
                             }else{
-                                // row_columns_in_half_hours[make_html*7+day].innerHTML = "Free";
                                 row_columns_in_half_hours[make_html*7+day].style.borderBottom = '0px';
                             }
-                            // treba pridat event click
                         }
                     }
 
@@ -333,14 +300,10 @@ function    show_full_gate(elem){
                         for (let make_html = final_st_index ;make_html <= final_ed_index;make_html++){
                             generate_html_column_for_show_full_ramp(html_row_count,make_html*7+day,'#9d00ff',gates.array_of_calendars[refactor_index_because_array].time_slots[index_real_time],count_time_slots,'finished');
                             html_row_count ++
-                            // treba pridat event click
                         }
 
                     }
                 }
-                //console.log('NEXT DAY');
-            }else{
-                //console.log("time slots for this gate ",gates.ids[day]," and this real time ",selected_date," is not existing");
             }
         }
         remove_unused_rows(row_columns_in_half_hours);
@@ -379,13 +342,6 @@ function remove_unused_rows(rows_columns){
  * @param state :state of time slot
  */
 function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,color,time_slot,time_slot_index,state){
-    //console.log([time_slot.external_dispatchers[html_row_count],
-    // time_slot.evcs[html_row_count],
-    // time_slot.destinations[html_row_count],
-    // time_slot.commoditys[html_row_count] , ]);
-
-    //console.log('\n');
-
     row_columns_in_half_hours[index_of_column].style.backgroundColor = color;
     row_columns_in_half_hours[index_of_column].style.borderBottom = '0px';
     if (html_row_count === 0){
@@ -410,7 +366,7 @@ function generate_html_column_for_show_full_ramp(html_row_count,index_of_column,
         show_button.className = "btn btn-default bg-primary only_one";
         show_button.onclick = function (){
             Time_slot.open_time_slot(time_slot.ids[time_slot_index],state);
-             }
+        }
         show_button.innerHTML = "SHOW";
 
         row_columns_in_half_hours[index_of_column].style.borderBottom = '3px solid #f8f9fa';
@@ -433,11 +389,12 @@ function do_global_count_in_day(){
             let index = gates.array_of_calendars[i].get_index_by_real_time(selected_date);
             prepared += gates.array_of_calendars[i].time_slots[index].count_of_states("prepared");
             occupied += gates.array_of_calendars[i].time_slots[index].count_of_states("occupied");
-            requested +=gates.array_of_calendars[i].time_slots[index].count_of_states("requested");
+            requested += gates.array_of_calendars[i].time_slots[index].count_of_states("requested");
             booked += gates.array_of_calendars[i].time_slots[index].count_of_states("booked");
             finished += gates.array_of_calendars[i].time_slots[index].count_of_states("finished");
         }
     }
+
     elem_prepared_row.innerHTML = 'Prepared ('+(prepared+occupied)+')';
     elem_requested_row.innerHTML = 'Requested ('+requested+')';
     elem_booked_row.innerHTML = 'Booked ('+booked+')';
@@ -456,6 +413,7 @@ function global_calendar(start_index, end_index){
         let row_finished = document.getElementsByClassName('finished');
         let row_gates_titles = document.getElementsByClassName('days_in_calendar');
         // global
+
         do_global_count_in_day();
 
         let enumerate = 0;
@@ -500,9 +458,7 @@ function global_calendar(start_index, end_index){
             }
         }
     }catch (err){
-        console.log('time to load');
         setTimeout(global_calendar,100,start_index, end_index);
-
     }
 }
 
@@ -513,18 +469,14 @@ let base_selected_index = 0;
  * @param elem
  */
 function generate_gate_selector(elem){
-    // create_exception('loading data' , 500,'primary').then( data => {
-    //     console.log(document.getElementById("select_gate").selectedIndex);
-    // })
-    console.log(document.getElementById("select_gate").selectedIndex);
     if (elem===1) {
         if (base_selected_index+1 > 5) {
             base_selected_index = 0;
         } else {
             base_selected_index += 1;
-
         }
     }
+
     if (elem===-1) {
         if (base_selected_index-1 < 0) {
             base_selected_index = 5;
@@ -532,6 +484,7 @@ function generate_gate_selector(elem){
             base_selected_index -= 1;
         }
     }
+
     if (elem===-1 || elem===1) {
         document.getElementsByClassName("option_ramp")[base_selected_index].checked = true;
         document.getElementById("select_gate").selectedIndex = base_selected_index;
@@ -548,10 +501,9 @@ function generate_gate_selector(elem){
         show_full_gate(document.getElementById('ramp_title').innerHTML.split(" ")[1])
     }else{
         find_by(document.getElementById('input_text'));
-        ///print("dsadasdsa22222222");
     }
-    // create_exception('data has been obtained' , 3,'success');
 }
+
 /**
  * obstaranie pola find by
  * @param elem :HTML
@@ -637,7 +589,6 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         cell3.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].external_dispatchers[certain_time_slot];
                         cell4.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].evcs[certain_time_slot];
                         if (gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].kamionists_2[certain_time_slot] !== null) {
-                            //console.log(gates.array_of_calendars[calendar].time_slots[real_time].kamionists_1[certain_time_slot], gates.array_of_calendars[calendar].time_slots[index_for_this_date].kamionists_2[certain_time_slot]);
                             cell5.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].kamionists_1[certain_time_slot]
                                 + "<br>" + gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].kamionists_2[certain_time_slot];
                         } else {
@@ -645,7 +596,6 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         }
                         if (gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot].length > 40){
                             create_html_linked_text(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot],cell6)
-
                         }else{
                             cell6.innerHTML = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].commoditys[certain_time_slot];
                         }
@@ -660,8 +610,6 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         apply_button.innerHTML="SHOW";
                         apply_button.onclick = function (){
                             Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot],'prepared');
-                            //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
-                            console.log('PREPARED  ',index);
                         }
                         cell7.className="td_flex_buttons";
                         cell7.appendChild(apply_button);
@@ -670,9 +618,7 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         show_button.className="btn btn-default bg-primary only_one";
                         show_button.innerHTML="SHOW";
                         show_button.onclick = function (){
-                            //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
                             Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot],'requested');
-                            console.log('REQUEST  ',index);
                         }
                         cell7.className="td_flex_buttons";
                         cell7.appendChild(show_button);
@@ -682,8 +628,6 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         show_button.innerHTML="SHOW";
                         show_button.onclick = function (){
                             Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot],'booked');
-                            //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
-                            console.log('BOOKED  ',index);
                         }
                         cell7.className="td_flex_buttons";
 
@@ -694,7 +638,6 @@ function make_table_for_external_dispatcher(id_of_table , row_class_name , state
                         show_button.innerHTML="SHOW";
                         show_button.onclick = function (){
                             Time_slot.open_time_slot(gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot],'finished');
-                            //let index = gates.array_of_calendars[calendar].time_slots[index_of_certain_time_slots_in_calendar].ids[certain_time_slot];
                             console.log('BOOKED  ',index);
                         }
                         cell7.className="td_flex_buttons";
@@ -732,7 +675,6 @@ function select_only_text_with(elem){
         // jedine tieto zobraz ak je text urciteho typu
         document.getElementById(text_split).style.display = 'revert';
         document.getElementById(text_split+'_h3').style.display = 'revert';
-        console.log('Hladam podla typu');
         select(text,':');
     }else{
         document.getElementById('prepared_h3').style.display = 'revert';
@@ -774,7 +716,6 @@ function select(lock_for,option){
                 }
             }
         }
-
     }else{
         let founded = false;
         let table_rows_with_class_name = document.getElementsByClassName(option+"_tr");
@@ -786,10 +727,8 @@ function select(lock_for,option){
                 }
             }
             if (founded === false){
-                // console.log('nieee');
                 table_rows_with_class_name[row].style.display = 'none';
             }else{
-                // console.log('JEEEJ');
                 table_rows_with_class_name[row].style.display = 'revert';
             }
         }
@@ -801,30 +740,21 @@ function update_handler(){
     setTimeout(update_handler,1000*60*5); ///*60*5 -->1000 je jedna sekunda  teda update bude prebiehat kazdich 5 minut
 }
 function loop(){
-
-    //console.log(document.documentElement.clientWidth);
-
     document.getElementById('only_prepared').style.left = (document.documentElement.clientWidth/2)-200+'px';
     document.getElementById('only_requested').style.left = (document.documentElement.clientWidth/2)-100+'px';
     document.getElementById('only_booked').style.left = (document.documentElement.clientWidth/2)+'px';
     document.getElementById('only_finished').style.left = (document.documentElement.clientWidth/2)+100+'px';
 
-    //document.getElementById('only_requested_count').innerHTML = "";
     setTimeout(loop,100);
-
-
 }
 function select_only_by_state_top(text){
     document.getElementById('input_text').value = text;
     find_by(document.getElementById('input_text'));
-    console.log('dsadsadsad');
 }
 
 function show_info(){
-    console.log('INFOOOOO START');
     document.getElementById('info').style.display = 'revert';
 }
 function hide_info(){
-    console.log('INFOOOOO END');
     document.getElementById('info').style.display = 'none';
 }

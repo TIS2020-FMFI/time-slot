@@ -28,7 +28,7 @@ if (isset($_SESSION['role'])){
                 header("Content-Type:application/json");
                 echo json_encode($vysl);
             } else{
-                echo 'Wrong SQL <strong>gate_man_AJAX/load_all_time_slots.php</strong> '.$sql;
+                echo 'Wrong SQL server <strong>gate_man_AJAX/load_all_time_slots.php</strong> .';
             }
         }else{
             echo 'Could not access the server.';

@@ -40,14 +40,12 @@ function close_time_slot(){
     },function(data){
         console.log(data);
         if (data ){
-            //alert("dsadasdsa");
             if (data === '1' || data === '2'){
                 create_exception('Time-slot has been successfully closed.',5,'success');
                 load_all_time_slots();
             }else{
                 create_exception(data,5,'danger');
             }
-
         }else{
             create_exception("Could not connect to the server. Please check your <strong>internet connection</strong>.",23,'danger');
         }

@@ -16,7 +16,7 @@ if (isset($_POST['ramps'])){
                         echo '2$Error occured with saving new ramp settings.';
                     }
                 }else{
-                    echo 'Chyba sql <strong>config_AJAX/set_new_holidays.php</strong> '.$sql;
+                    echo 'Wrong SQL server <strong>config_AJAX/set_new_holidays.php</strong> .';
                 }
             }else{
                 echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';

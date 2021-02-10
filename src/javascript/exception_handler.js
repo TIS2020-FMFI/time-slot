@@ -9,20 +9,10 @@ let format_for_driver_part_one = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 let format_for_driver_part_two = /[0-9]/;
 let format_for_date_config = new RegExp('[0-9]{2}-[0-9]{2}');
 
-function test(){
-    //let test_S = is_correct_name_for_driver('234567fgadfhsgf');
-    //console.log(test_S);
-    // console.log('test : ',format_for_date_config.test(test_S),test_S);
-    //console.log('test',is_correct_company("S I M & ,+ - spol. s r.o. Bardejov"));
-
-}
-
-
 window.onload = function() {
     html_alert = document.getElementById('alert');
     html_close = document.getElementById('close');
     html_text = document.getElementById('text');
-    test();
 }
 function is_good_length(text_length,min_count_of_characters,max_count_of_characters,what){
     if( text_length < min_count_of_characters || text_length > max_count_of_characters){

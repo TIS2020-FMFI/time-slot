@@ -15,7 +15,7 @@ if (!$mysqli->connect_errno) {
                 $_SESSION['active_time_slot_state'] = '';
                 echo '1';
             }else{
-                echo 'Chybne sql na stranke <strong>order_AJAX/confirm_requested_time_slot.php</strong> '.$sql;
+                echo 'Wrong SQL server <strong>order_AJAX/confirm_requested_time_slot.php</strong>.';
             }
         }else{
             echo 'Not valid user or this operation.';

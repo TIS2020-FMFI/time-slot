@@ -14,7 +14,7 @@ if (isset($_SESSION['role'])){
                     echo '2$this time has been <strong>Confirmed</strong> by someone else.';
                 }
             }else{
-                echo 'Wrong SQL <strong>gate_man_AJAX/confirm_time_slots.php</strong> '.$sql;
+                echo 'Wrong SQL server <strong>gate_man_AJAX/confirm_time_slots.php</strong> .';
             }
         }else{
             echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';

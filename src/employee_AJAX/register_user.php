@@ -30,7 +30,7 @@ if (isset($_POST["F_name"]) && isset($_POST["L_name"]) && isset($_POST["firm"]) 
                         '<br>- password: ' . '<strong>' . $password . '</strong>' .
                         '<br>- role: ' . '<strong>' . $_POST["role"] . '</strong>';
                 }else {
-                    echo 'Chyba sql <strong>employee_AJAX/register_user.php</strong> '.$sql;
+                    echo 'Wrong SQL server <strong>employee_AJAX/register_user.php</strong> .';
                 }
             } else {
                 echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';

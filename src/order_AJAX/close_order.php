@@ -27,7 +27,7 @@ if (!$mysqli->connect_errno) {
                     echo '1';
                 }
             }else{
-                echo 'Chybne sql na stranke <strong>order_AJAX/close_order.php</strong> '.$sql;
+                echo 'Wrong SQL serve <strong>order_AJAX/close_order.php</strong>. ';
             }
         }else{
             if ($_SESSION['role'] == 'EXD'){

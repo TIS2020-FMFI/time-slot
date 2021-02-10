@@ -38,7 +38,7 @@ if (!$mysqli->connect_errno) {
             header("Content-Type:application/json");
             echo json_encode($return);
         }else{
-            echo 'Chybne sql <strong>order_AJAX/load_order.php</strong> '.$sql;
+            echo 'Wrong SQL server  <strong>order_AJAX/load_order.php</strong> .';
         }
     }else{
         echo 'Please log <a href="../index.php">in</a>';

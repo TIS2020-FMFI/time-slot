@@ -26,7 +26,7 @@ if (!$mysqli->connect_errno) {
                     echo '1';
                 }
             }else{
-                echo 'Chybne sql na stranke <strong>order_AJAX/delete_requested_time_slot.php</strong> '.$sql;
+                echo 'Wrong SQL server <strong>order_AJAX/delete_requested_time_slot.php</strong> .';
             }
         }else{
             echo 'Not valid user or this operation';

@@ -30,7 +30,7 @@ if (isset($_POST['send_array_start']) && isset($_POST['send_array_end']) && isse
                             $founded = true;
                         }
                     }else{
-                        echo 'Chyba sql <strong>config_AJAX/set_new_times.php</strong> '.$sql;
+                        echo 'Wrong SQL server <strong>config_AJAX/set_new_times.php</strong>.';
                     }
                 }
                 if ($founded){

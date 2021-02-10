@@ -72,7 +72,6 @@ function parse_data(data){
         if (min_date > real_time && min_date > max_date){
             min_date = real_time;
         }
-        //console.log(min_date,max_date);
         let index = gates.get_index_by_id(data[i][1])
         if (index >= 0){
             let index_real_time = gates.array_of_calendars[index].get_index_by_real_time(real_time);
@@ -249,13 +248,11 @@ function get_all_real_times_between(from,to){
 }
 let my_chard_data;
 function pre_make_chard(elem) {
-    console.log(min_date,max_date); // v tomto je chyba
     let lock_for = document.getElementById('input_text').value;
 
     if (elem !== undefined){
         document.getElementById('input_text').value = elem.value;
         lock_for = elem.value;
-        //console.log()
     }else{
         let elem_selector = document.getElementsByClassName('option');
         for (let index = 0 ; index < elem_selector.length; index++){
@@ -268,22 +265,14 @@ function pre_make_chard(elem) {
     }
     let start_date = document.getElementById('input_date1').value;
     let end_date = document.getElementById('input_date2').value;
-    // if (start_date > end_date ){
-    //     create_exception()
-    //     return ;
-    // }
-
-
 
     let type_of_chard = document.getElementById('exampleFormControlSelect2').value;
     let display_only_values = document.getElementById('exampleFormControlSelect1').value;
     let intensity_level = list_of_intensity.indexOf(document.getElementById('intensityFormControlSelect').value);
 
-
     let title_of_chard = '';
     let dates_between = [];
 
-    console.log(start_date, end_date, lock_for, type_of_chard, display_only_values);
     if (start_date > end_date  ){//|| end_date  < start_date
         create_exception('Date has the wrong format.',5,'warning');
         return ;
@@ -298,10 +287,32 @@ function pre_make_chard(elem) {
     } else if (lock_for === 'all'){
         create_exception('Creating charts..', 3, 'success');
 
-    }else{
-        create_exception('Selected <strong>text</strong> in <strong>Find by</strong> has wrong format.', 5, 'warning');
-        return;
+    }else if (list_of_all_ramps.includes(lock_for) === false){
+        let fonded = true;
+        let elem = document.getElementsByClassName('option');
+        for (let i = 0; i < elem.length; i++){
+            if (elem[i].style.display === 'revert'){
+                fonded = false
+            }
+        }
+        if (fonded){
+            create_exception('Selected <strong>text</strong> in <strong>Find by</strong> has wrong format.', 5, 'warning');
+            return;
+        }
+        fonded = true;
+        for (let i = 0; i < list_of_company_names.length; i++){
+            if (list_of_all_ramps[i] === lock_for){
+                fonded = false
+            }
+        }
+        if (fonded){
+            return;
+        }
     }
+
+
+
+
     my_chard_data = {};
     if (lock_for === 'all' && display_only_values === 'all'){
         title_of_chard = 'all time-slots between '+start_date+' '+end_date;
@@ -320,7 +331,6 @@ function pre_make_chard(elem) {
             })
         }
 
-        //console.log(my_chard_data);
 
         let prepared = 0;
         let requested = 0;
@@ -329,7 +339,6 @@ function pre_make_chard(elem) {
         for (let date_in = 0 ;date_in < dates_between.length; date_in++){
             for (let cal_index = 0 ;cal_index < gates.array_of_calendars.length; cal_index++){
                 let index_of_real_time = gates.array_of_calendars[cal_index].get_index_by_real_time(dates_between[date_in]);
-                // console.log(index_of_real_time);
                 if (index_of_real_time >= 0 ){
                     prepared += gates.array_of_calendars[cal_index].time_slots[index_of_real_time].count_of_states(list_of_options[0]);
                     requested += gates.array_of_calendars[cal_index].time_slots[index_of_real_time].count_of_states(list_of_options[1]);
@@ -380,15 +389,11 @@ function pre_make_chard(elem) {
                 }
 
             }
-
             my_chard_data.datasets[0].data.push(prepared);
             my_chard_data.datasets[1].data.push(requested);
             my_chard_data.datasets[2].data.push(booked);
             my_chard_data.datasets[3].data.push(finished);
-
         }
-
-
 
 
         //labels bude obsahovat vsetky datumi *from *to a bude obsahovat --> hotovo
@@ -419,10 +424,8 @@ function pre_make_chard(elem) {
             requested = 0;
             booked = 0;
             finished = 0;
-            // console.log(dates_between[date_in]);
             for (let cal_index = 0 ;cal_index < gates.array_of_calendars.length; cal_index++){
                 let index_of_real_time = gates.array_of_calendars[cal_index].get_index_by_real_time(dates_between[date_in]);
-                // console.log(index_of_real_time);
                 if (index_of_real_time >= 0 ){
                     prepared += gates.array_of_calendars[cal_index].time_slots[index_of_real_time].count_of_states(list_of_options[0]);
                     requested += gates.array_of_calendars[cal_index].time_slots[index_of_real_time].count_of_states(list_of_options[1]);
@@ -441,8 +444,8 @@ function pre_make_chard(elem) {
             }else{
                 my_chard_data.datasets[0].data.push(finished);
             }
-
         }
+
         //labels bude obsahovat vsetky datumi *from *to a bude obsahovat
         //datasets s 1 lablami a prislusnou farbov z list_of_options
         //stack 0
@@ -661,7 +664,6 @@ function pre_make_chard(elem) {
 }
 
 function make_chard(data,type,title, length_of_dates){
-    console.log(length_of_dates);
     //removeData(massPopChart);
     massPopChart.destroy();
     //myChart.restore();

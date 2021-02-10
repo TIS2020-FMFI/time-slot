@@ -37,7 +37,7 @@ if (isset($_POST['regenerate']) && isset($_SESSION['role']) ) {
                 if ($result = $mysqli->query($sql)) {  // vykonaj dopyt
                     echo "<strong>Databaza bola uspesne premazana</strong><br> ";
                 } else{
-                    echo '*Wrong SQL <strong>config_AJAX/generate_script_regenerate.php</strong> '.$sql;
+                    echo '*Wrong SQL server  <strong>config_AJAX/generate_script_regenerate.php</strong> .';
                 }
 
             }else{
