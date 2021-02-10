@@ -1,5 +1,3 @@
 # time-slot
-Tieto foledr sluzi na upravu time slotov mimo produkcie vo fiaze development
-, tento pricinok neobsahuje scripty typu .VBS a .BAT files ktore su iba na serveri 
-ulozene localne .
-
+Tento priečinok slúži na úpravu time-slotov mimo produkcie, v tzv. fáze development,
+neobsahuje skripty typu `.VBS` a `.BAT`, tie sú iba na serveri.
