@@ -97,8 +97,6 @@ function set_new_times(){
     let send_array_start = []
     let send_array_end = []
     let send_array_special = []
-    if (send_array_start.length !== send_array_start.length && send_array_start.length !== send_array_special.length){
-    }
     for (let day = 0 ;day < array_of_days.length;day++){
         try{
             send_array_start.push(document.getElementById(prefix_start_time+array_of_days[day]).value);

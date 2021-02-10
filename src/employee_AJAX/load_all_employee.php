@@ -11,7 +11,7 @@ if (isset($_SESSION['role'])){
                 header("Content-Type:application/json");
                 echo json_encode($vysl);
             } else{
-                echo 'Wrong SQL <strong>employee_AJAX/load_all_employee.php</strong> '.$sql;
+                echo 'Wrong SQL server <strong>employee_AJAX/load_all_employee.php</strong>.';
             }
         }else{
             echo 'Could not access the server.';

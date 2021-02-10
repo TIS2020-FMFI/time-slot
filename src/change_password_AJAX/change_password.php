@@ -14,7 +14,7 @@ if (isset($_POST['new_password']) && isset($_POST['old_password']) && isset($_SE
                     echo '2$An error occured while selecting new password.';
                 }
             }else{
-                echo 'Chyba sql <strong>change_password_AJAX/change_password.php</strong> '.$sql;
+                echo 'Wrong SQL server <strong>change_password_AJAX/change_password.php</strong>.';
             }
         } else {
             echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';

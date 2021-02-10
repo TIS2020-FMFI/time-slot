@@ -37,7 +37,7 @@ if (!$mysqli->connect_errno) {
                                 'working : '.'<strong>'.$_POST["data"][$employee_index][6] .'</strong><br>' ;
                         }
                     } else {
-                        echo 'Nepodarilo sa wikonat dopyt <strong>'.$sql.'</strong>';
+                        echo 'Wrong SQL server <strong>employee_AJAX/update_all_employees.php</strong> .';
                     }
                 }
                 if ($founded_employee_with_no_success){

@@ -24,7 +24,7 @@ if (!$mysqli->connect_errno) {
                         //echo 'Time-slot is currently <strong>occupied<strong>';
                     }
                 }else{
-                    echo 'something went wrong with sql <strong>order_AJAX/open_time_slot.php<strong '.$sql;
+                    echo 'Wrong SQL server <strong>order_AJAX/open_time_slot.php<strong.';
                 }
             }else{
                 $id = mysqli_real_escape_string($mysqli,$_POST['id']);
@@ -44,7 +44,7 @@ if (!$mysqli->connect_errno) {
                         //echo 'Time-slot is currently <strong>occupied<strong>';
                     }
                 }else{
-                    echo 'something went wrong with sql <strong>order_AJAX/open_time_slot.php</strong> '.$sql;
+                    echo 'Wrong SQL server <strong>order_AJAX/open_time_slot.php</strong>.';
                 }
             }
 

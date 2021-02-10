@@ -13,7 +13,7 @@ if (!$mysqli->connect_errno) {
                 $vysl = $result->fetch_assoc();
                 $id_of_external_dispatcher = $vysl['id'];
             }else{
-                echo 'something went wrong with sql internal_dispatcher part 1 <strong>order_AJAX/request_time_slot.php<strong '.$sql_select_employee;
+                echo 'Wrong SQL server part 1 <strong>order_AJAX/request_time_slot.php</strong> .';
                 return;
             }
             if ($id_of_external_dispatcher == null){
@@ -43,7 +43,7 @@ if (!$mysqli->connect_errno) {
                 $_SESSION['active_time_slot_state'] = '';
                 echo '1';
             }else{
-                echo 'something went wrong with sql internal_dispatcher part 2 <strong>order_AJAX/request_time_slot.php<strong '.$sql;
+                echo 'Wrong SQL server part 2 <strong>order_AJAX/request_time_slot.php</strong>.';
             }
         }else{
             if ($_SESSION['role'] == 'EXD'){

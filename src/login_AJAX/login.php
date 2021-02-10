@@ -26,7 +26,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             }
 
         } else {
-            echo 'Chybne sql <strong>login_AJAX/change_password.php</strong> '.$sql;
+            echo 'Wrong SQL server <strong>login_AJAX/change_password.php</strong> .';
         }
     } else {
         echo 'Could not connect to the server. Please check your internet connection.';

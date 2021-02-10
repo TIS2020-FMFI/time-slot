@@ -12,7 +12,7 @@ if (isset($_SESSION['role'])){
                 echo json_encode($vysl);
             }
             else{
-                echo 'Wrong SQL <strong>config_AJAX/load_disabled.php</strong> '.$sql;
+                echo 'Wrong SQL server <strong>config_AJAX/load_disabled.php</strong>.';
             }
         }else{
             echo 'Could not connect to the server. Please check your <strong>internet connection</strong>.';
