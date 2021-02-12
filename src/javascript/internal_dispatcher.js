@@ -406,60 +406,92 @@ function do_global_count_in_day(){
  * @param end_index :integer
  */
 function global_calendar(start_index, end_index){
-    try{
-        let row_prepared_occupied =  document.getElementsByClassName('prepared_occupied');
-        let row_requested = document.getElementsByClassName('requested');
-        let row_booked = document.getElementsByClassName('booked');
-        let row_finished = document.getElementsByClassName('finished');
-        let row_gates_titles = document.getElementsByClassName('days_in_calendar');
-        // global
+    function global_calendar(start_index, end_index){
+        try{
+            let row_prepared_occupied =  document.getElementsByClassName('prepared_occupied');
+            let row_requested = document.getElementsByClassName('requested');
+            let row_booked = document.getElementsByClassName('booked');
+            let row_finished = document.getElementsByClassName('finished');
+            let row_gates_titles = document.getElementsByClassName('days_in_calendar');
+            // global
 
-        do_global_count_in_day();
+            do_global_count_in_day();
 
-        let enumerate = 0;
-        for(let i = 0 ; i < gates.array_of_calendars.length; i++){
-            if (gates.ids[i]  >= start_index &&  gates.ids[i] <= end_index  ){
-                let index = gates.array_of_calendars[i].get_index_by_real_time(selected_date);
-                if (index  !== -1){
-                    let all =  gates.array_of_calendars[i].time_slots[index].states.length ;
-                    let prepared = gates.array_of_calendars[i].time_slots[index].count_of_states("prepared");
+            let enumerate = 0;
+            for(let i = 0 ; i < gates.array_of_calendars.length; i++){
+                if (gates.ids[i]  >= start_index &&  gates.ids[i] <= end_index  ){
+                    let index = gates.array_of_calendars[i].get_index_by_real_time(selected_date);
+                    if (index  !== -1){
+                        let all =  gates.array_of_calendars[i].time_slots[index].states.length ;
+                        let prepared = gates.array_of_calendars[i].time_slots[index].count_of_states("prepared");
 
-                    let occupied = gates.array_of_calendars[i].time_slots[index].count_of_states("occupied");
+                        let occupied = gates.array_of_calendars[i].time_slots[index].count_of_states("occupied");
 
-                    let requested =gates.array_of_calendars[i].time_slots[index].count_of_states("requested");
-                    let booked = gates.array_of_calendars[i].time_slots[index].count_of_states("booked");
+                        let requested =gates.array_of_calendars[i].time_slots[index].count_of_states("requested");
+                        let booked = gates.array_of_calendars[i].time_slots[index].count_of_states("booked");
 
-                    let finished = gates.array_of_calendars[i].time_slots[index].count_of_states("finished");
-                    row_prepared_occupied[enumerate].innerHTML = ""+(prepared+occupied)+"/"+all;
-                    row_requested[enumerate].innerHTML = ""+requested+"/"+all;
-                    row_booked[enumerate].innerHTML = ""+booked+"/"+all;
-                    row_finished[enumerate].innerHTML = ""+finished+"/"+all;
+                        let finished = gates.array_of_calendars[i].time_slots[index].count_of_states("finished");
+                        row_prepared_occupied[enumerate].innerHTML = ""+(prepared+occupied)+"/"+all;
+                        row_requested[enumerate].innerHTML = ""+requested+"/"+all;
+                        row_booked[enumerate].innerHTML = ""+booked+"/"+all;
+                        row_finished[enumerate].innerHTML = ""+finished+"/"+all;
 
 
-                }else{
-                    row_prepared_occupied[enumerate].innerHTML = "None";
-                    row_requested[enumerate].innerHTML = "None";
-                    row_booked[enumerate].innerHTML = "None";
-                    row_finished[enumerate].innerHTML = "None";
+                    }else{
+                        row_prepared_occupied[enumerate].innerHTML = "None";
+                        row_requested[enumerate].innerHTML = "None";
+                        row_booked[enumerate].innerHTML = "None";
+                        row_finished[enumerate].innerHTML = "None";
+                    }
+                    row_gates_titles[enumerate].innerHTML = gates.ids[i]+" ramp";
+                    enumerate ++;
                 }
-                row_gates_titles[enumerate].innerHTML = gates.ids[i]+" ramp";
-                enumerate ++;
-            }
 
-        }
-        if (enumerate+start_index < end_index ){
-            console.log(enumerate+start_index , end_index )
-            for (let i = enumerate;i < end_index-start_index+1;i++){
+            }
+            if (enumerate+start_index < end_index ){
+                //console.log(enumerate+start_index , end_index )
+                for (let i = enumerate;i < end_index-start_index+1;i++){
+                    row_prepared_occupied[i].innerHTML = "None";
+                    row_requested[i].innerHTML = "None";
+                    row_booked[i].innerHTML = "None";
+                    row_finished[i].innerHTML = "None";
+                    row_gates_titles[i].innerHTML = "None";
+                }
+            }
+        }catch (err){
+            console.log('err')
+            let row_prepared_occupied =  document.getElementsByClassName('prepared_occupied');
+            let row_requested = document.getElementsByClassName('requested');
+            let row_booked = document.getElementsByClassName('booked');
+            let row_finished = document.getElementsByClassName('finished');
+            let row_gates_titles = document.getElementsByClassName('days_in_calendar');
+
+            let elem_prepared_row = document.getElementById('prepared_row_day');
+            let elem_requested_row = document.getElementById('requested_row_day');
+            let elem_booked_row = document.getElementById('booked_row_day');
+            let elem_finished_row = document.getElementById('finished_row_day');
+            let prepared = 0;
+            let occupied = 0;
+            let requested = 0;
+            let booked = 0;
+            let finished = 0;
+
+            elem_prepared_row.innerHTML = 'Prepared ('+(prepared+occupied)+')';
+            elem_requested_row.innerHTML = 'Requested ('+requested+')';
+            elem_booked_row.innerHTML = 'Booked ('+booked+')';
+            elem_finished_row.innerHTML = 'Finished ('+finished+')';
+
+
+            for (let i = 0;i < row_gates_titles.length ;i++){
+
                 row_prepared_occupied[i].innerHTML = "None";
                 row_requested[i].innerHTML = "None";
                 row_booked[i].innerHTML = "None";
                 row_finished[i].innerHTML = "None";
                 row_gates_titles[i].innerHTML = "None";
             }
+            setTimeout(global_calendar,100,start_index, end_index);
         }
-    }catch (err){
-        setTimeout(global_calendar,100,start_index, end_index);
-    }
 }
 
 let base_selected_index = 0;
